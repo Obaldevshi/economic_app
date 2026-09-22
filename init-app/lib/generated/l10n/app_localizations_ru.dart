@@ -9,10 +9,10 @@ class AppLocalizationsRu extends AppLocalizations {
   AppLocalizationsRu([String locale = 'ru']) : super(locale);
 
   @override
-  String get appName => 'Template App';
+  String get appName => 'Не потратил';
 
   @override
-  String get appTagline => 'Стартовый проект с чистой архитектурой';
+  String get appTagline => 'Маленькие решения. Большие накопления.';
 
   @override
   String get welcomeBack => 'С возвращением';
@@ -84,7 +84,7 @@ class AppLocalizationsRu extends AppLocalizations {
   String get accountCreatedSuccessfully => 'Аккаунт создан';
 
   @override
-  String get home => 'Главная';
+  String get home => 'Экономия';
 
   @override
   String get homeWelcome => 'Design System';
@@ -512,4 +512,144 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get errorResourceExists => 'Ресурс уже существует';
+
+  @override
+  String get savingsTagline =>
+      'Превращайте каждый отказ от импульса в будущий капитал';
+
+  @override
+  String get recordSaving => 'Я не потратил';
+
+  @override
+  String get savedToday => 'Сэкономлено сегодня';
+
+  @override
+  String get savedThisMonth => 'За этот месяц';
+
+  @override
+  String get savedTotal => 'Всего сэкономлено';
+
+  @override
+  String get investedTotal => 'Реально отложено';
+
+  @override
+  String get monthlyPace => 'Темп за месяц';
+
+  @override
+  String get futureProjection => 'Будущие накопления';
+
+  @override
+  String get yearsAtCurrentPace => 'лет при текущем темпе';
+
+  @override
+  String get interestIncome => 'Доход по процентам';
+
+  @override
+  String get contributions => 'Ваши пополнения';
+
+  @override
+  String get savingsDynamics => 'Экономия по месяцам';
+
+  @override
+  String get recentSavings => 'Последние решения';
+
+  @override
+  String get noSavingsYet => 'Экономии пока нет';
+
+  @override
+  String get habits => 'Импульсы';
+
+  @override
+  String get habitsDescription =>
+      'Настройте цены и быстрые действия для покупок, от которых хотите отказаться';
+
+  @override
+  String get history => 'История';
+
+  @override
+  String get historyDescription =>
+      'Все небольшие решения в пользу вашего будущего';
+
+  @override
+  String get goals => 'Цели';
+
+  @override
+  String get addGoal => 'Добавить цель';
+
+  @override
+  String get goalName => 'Название цели';
+
+  @override
+  String get targetAmount => 'Целевая сумма';
+
+  @override
+  String get noGoalsYet => 'Добавьте цель, чтобы видеть прогресс';
+
+  @override
+  String get impulseItem => 'От чего отказались?';
+
+  @override
+  String get amount => 'Сумма';
+
+  @override
+  String get actuallySetAside => 'Я действительно отложил эти деньги';
+
+  @override
+  String get actuallySetAsideDescription =>
+      'Отделяет потенциальную экономию от реального капитала';
+
+  @override
+  String get noteOptional => 'Комментарий (необязательно)';
+
+  @override
+  String get record => 'Записать';
+
+  @override
+  String get editHabit => 'Изменить импульс';
+
+  @override
+  String get addHabit => 'Добавить импульс';
+
+  @override
+  String get habitName => 'Название импульса';
+
+  @override
+  String get defaultPrice => 'Обычная цена';
+
+  @override
+  String get timesPerWeek => 'Раз в неделю';
+
+  @override
+  String get chooseIcon => 'Иконка';
+
+  @override
+  String get deleteHabitConfirmation =>
+      'Удалить это быстрое действие? Существующая история сохранится.';
+
+  @override
+  String get deleteSavingConfirmation => 'Удалить эту запись об экономии?';
+
+  @override
+  String get noHabits => 'Импульсивных трат пока нет';
+
+  @override
+  String get noHistory => 'Здесь появится история вашей экономии';
+
+  @override
+  String get weekShort => 'нед.';
+
+  @override
+  String get rateAndHorizon => 'Ставка и горизонт';
+
+  @override
+  String get annualRate => 'Годовая ставка по вкладу';
+
+  @override
+  String get projectionYears => 'Горизонт прогноза, лет';
+
+  @override
+  String get apply => 'Применить';
+
+  @override
+  String get noData => 'Пока недостаточно данных';
 }

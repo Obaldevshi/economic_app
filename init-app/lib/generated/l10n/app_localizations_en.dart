@@ -9,10 +9,10 @@ class AppLocalizationsEn extends AppLocalizations {
   AppLocalizationsEn([String locale = 'en']) : super(locale);
 
   @override
-  String get appName => 'Template App';
+  String get appName => 'Not Spent';
 
   @override
-  String get appTagline => 'Clean architecture starter';
+  String get appTagline => 'Small choices. Bigger savings.';
 
   @override
   String get welcomeBack => 'Welcome back';
@@ -84,7 +84,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get accountCreatedSuccessfully => 'Account created successfully';
 
   @override
-  String get home => 'Home';
+  String get home => 'Savings';
 
   @override
   String get homeWelcome => 'Design System';
@@ -514,4 +514,144 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get errorResourceExists => 'Resource already exists';
+
+  @override
+  String get savingsTagline =>
+      'Turn every skipped impulse into your future capital';
+
+  @override
+  String get recordSaving => 'I didn\'t spend';
+
+  @override
+  String get savedToday => 'Saved today';
+
+  @override
+  String get savedThisMonth => 'This month';
+
+  @override
+  String get savedTotal => 'Total saved';
+
+  @override
+  String get investedTotal => 'Actually set aside';
+
+  @override
+  String get monthlyPace => 'Monthly pace';
+
+  @override
+  String get futureProjection => 'Future savings';
+
+  @override
+  String get yearsAtCurrentPace => 'years at your current pace';
+
+  @override
+  String get interestIncome => 'Interest income';
+
+  @override
+  String get contributions => 'Your contributions';
+
+  @override
+  String get savingsDynamics => 'Savings by month';
+
+  @override
+  String get recentSavings => 'Recent choices';
+
+  @override
+  String get noSavingsYet => 'No savings recorded yet';
+
+  @override
+  String get habits => 'Impulses';
+
+  @override
+  String get habitsDescription =>
+      'Edit prices and shortcuts for purchases you want to skip';
+
+  @override
+  String get history => 'History';
+
+  @override
+  String get historyDescription =>
+      'Every small choice that worked for your future';
+
+  @override
+  String get goals => 'Goals';
+
+  @override
+  String get addGoal => 'Add goal';
+
+  @override
+  String get goalName => 'Goal name';
+
+  @override
+  String get targetAmount => 'Target amount';
+
+  @override
+  String get noGoalsYet => 'Add a goal to see your progress';
+
+  @override
+  String get impulseItem => 'What did you skip?';
+
+  @override
+  String get amount => 'Amount';
+
+  @override
+  String get actuallySetAside => 'I actually set this money aside';
+
+  @override
+  String get actuallySetAsideDescription =>
+      'Separates potential savings from real capital';
+
+  @override
+  String get noteOptional => 'Note (optional)';
+
+  @override
+  String get record => 'Record';
+
+  @override
+  String get editHabit => 'Edit impulse';
+
+  @override
+  String get addHabit => 'Add impulse';
+
+  @override
+  String get habitName => 'Impulse name';
+
+  @override
+  String get defaultPrice => 'Typical price';
+
+  @override
+  String get timesPerWeek => 'Times per week';
+
+  @override
+  String get chooseIcon => 'Icon';
+
+  @override
+  String get deleteHabitConfirmation =>
+      'Delete this impulse shortcut? Existing history will stay.';
+
+  @override
+  String get deleteSavingConfirmation => 'Delete this savings record?';
+
+  @override
+  String get noHabits => 'No impulse shortcuts yet';
+
+  @override
+  String get noHistory => 'Your savings history will appear here';
+
+  @override
+  String get weekShort => 'week';
+
+  @override
+  String get rateAndHorizon => 'Rate and horizon';
+
+  @override
+  String get annualRate => 'Annual deposit rate';
+
+  @override
+  String get projectionYears => 'Projection years';
+
+  @override
+  String get apply => 'Apply';
+
+  @override
+  String get noData => 'Not enough data yet';
 }

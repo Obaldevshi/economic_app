@@ -18,6 +18,7 @@ class AppTheme {
       useMaterial3: true,
       brightness: Brightness.light,
       fontFamily: AppTextStyles.fontFamily,
+      scaffoldBackgroundColor: AppColors.background,
 
       // Color Scheme
       colorScheme: const ColorScheme.light(
@@ -252,6 +253,7 @@ class AppTheme {
       useMaterial3: true,
       brightness: Brightness.dark,
       fontFamily: AppTextStyles.fontFamily,
+      scaffoldBackgroundColor: AppColors.backgroundDark,
 
       // Color Scheme
       colorScheme: const ColorScheme.dark(

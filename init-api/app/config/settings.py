@@ -8,7 +8,7 @@ class Settings(BaseSettings):
     algorithm: str
     access_token_expire_minutes: int = 30
 
-    app_name: str = "Backend Template API"
+    app_name: str = "Not Spent API"
     app_version: str = "1.0.0"
     debug: bool = False
 

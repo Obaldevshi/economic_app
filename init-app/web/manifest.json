@@ -1,11 +1,11 @@
 {
-    "name": "Mobile Template",
-    "short_name": "Template",
+    "name": "Не потратил",
+    "short_name": "Экономия",
     "start_url": ".",
     "display": "standalone",
-    "background_color": "#FAFAFA",
-    "theme_color": "#2563EB",
-    "description": "Adaptive Flutter mobile and web template.",
+    "background_color": "#F4F8F7",
+    "theme_color": "#0F766E",
+    "description": "Учёт импульсивной экономии и прогноз будущих накоплений.",
     "orientation": "any",
     "prefer_related_applications": false,
     "icons": [

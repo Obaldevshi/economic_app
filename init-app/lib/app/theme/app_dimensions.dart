@@ -11,8 +11,8 @@ class AppDimensions {
   static const double paddingXL = 32.0;
   static const double paddingXXL = 48.0;
 
-  // Border Radius (36px app-wide; nav bar uses its own radius)
-  static const double radius = 36.0;
+  // Friendly but compact radius for finance cards and forms.
+  static const double radius = 24.0;
   static const double radiusXS = radius;
   static const double radiusS = radius;
   static const double radiusM = radius;

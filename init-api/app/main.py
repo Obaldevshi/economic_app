@@ -53,7 +53,7 @@ def read_root():
         data={
             "name": settings.app_name,
             "version": settings.app_version,
-            "description": "Lightweight API template with auth and category CRUD",
+            "description": "Personal impulse-saving and long-term projection API",
         },
     )
 

@@ -12,3 +12,7 @@ class User(Base):
     hashed_password = Column(String)
 
     categories = relationship("Category", back_populates="user", cascade="all, delete-orphan")
+    impulse_items = relationship("ImpulseItem", back_populates="user", cascade="all, delete-orphan")
+    saving_events = relationship("SavingEvent", back_populates="user", cascade="all, delete-orphan")
+    savings_goals = relationship("SavingsGoal", back_populates="user", cascade="all, delete-orphan")
+    savings_settings = relationship("SavingsSettings", back_populates="user", cascade="all, delete-orphan", uselist=False)

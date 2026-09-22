@@ -101,13 +101,13 @@ abstract class AppLocalizations {
   /// No description provided for @appName.
   ///
   /// In en, this message translates to:
-  /// **'Template App'**
+  /// **'Not Spent'**
   String get appName;
 
   /// No description provided for @appTagline.
   ///
   /// In en, this message translates to:
-  /// **'Clean architecture starter'**
+  /// **'Small choices. Bigger savings.'**
   String get appTagline;
 
   /// No description provided for @welcomeBack.
@@ -251,7 +251,7 @@ abstract class AppLocalizations {
   /// No description provided for @home.
   ///
   /// In en, this message translates to:
-  /// **'Home'**
+  /// **'Savings'**
   String get home;
 
   /// No description provided for @homeWelcome.
@@ -1063,6 +1063,276 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Resource already exists'**
   String get errorResourceExists;
+
+  /// No description provided for @savingsTagline.
+  ///
+  /// In en, this message translates to:
+  /// **'Turn every skipped impulse into your future capital'**
+  String get savingsTagline;
+
+  /// No description provided for @recordSaving.
+  ///
+  /// In en, this message translates to:
+  /// **'I didn\'t spend'**
+  String get recordSaving;
+
+  /// No description provided for @savedToday.
+  ///
+  /// In en, this message translates to:
+  /// **'Saved today'**
+  String get savedToday;
+
+  /// No description provided for @savedThisMonth.
+  ///
+  /// In en, this message translates to:
+  /// **'This month'**
+  String get savedThisMonth;
+
+  /// No description provided for @savedTotal.
+  ///
+  /// In en, this message translates to:
+  /// **'Total saved'**
+  String get savedTotal;
+
+  /// No description provided for @investedTotal.
+  ///
+  /// In en, this message translates to:
+  /// **'Actually set aside'**
+  String get investedTotal;
+
+  /// No description provided for @monthlyPace.
+  ///
+  /// In en, this message translates to:
+  /// **'Monthly pace'**
+  String get monthlyPace;
+
+  /// No description provided for @futureProjection.
+  ///
+  /// In en, this message translates to:
+  /// **'Future savings'**
+  String get futureProjection;
+
+  /// No description provided for @yearsAtCurrentPace.
+  ///
+  /// In en, this message translates to:
+  /// **'years at your current pace'**
+  String get yearsAtCurrentPace;
+
+  /// No description provided for @interestIncome.
+  ///
+  /// In en, this message translates to:
+  /// **'Interest income'**
+  String get interestIncome;
+
+  /// No description provided for @contributions.
+  ///
+  /// In en, this message translates to:
+  /// **'Your contributions'**
+  String get contributions;
+
+  /// No description provided for @savingsDynamics.
+  ///
+  /// In en, this message translates to:
+  /// **'Savings by month'**
+  String get savingsDynamics;
+
+  /// No description provided for @recentSavings.
+  ///
+  /// In en, this message translates to:
+  /// **'Recent choices'**
+  String get recentSavings;
+
+  /// No description provided for @noSavingsYet.
+  ///
+  /// In en, this message translates to:
+  /// **'No savings recorded yet'**
+  String get noSavingsYet;
+
+  /// No description provided for @habits.
+  ///
+  /// In en, this message translates to:
+  /// **'Impulses'**
+  String get habits;
+
+  /// No description provided for @habitsDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'Edit prices and shortcuts for purchases you want to skip'**
+  String get habitsDescription;
+
+  /// No description provided for @history.
+  ///
+  /// In en, this message translates to:
+  /// **'History'**
+  String get history;
+
+  /// No description provided for @historyDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'Every small choice that worked for your future'**
+  String get historyDescription;
+
+  /// No description provided for @goals.
+  ///
+  /// In en, this message translates to:
+  /// **'Goals'**
+  String get goals;
+
+  /// No description provided for @addGoal.
+  ///
+  /// In en, this message translates to:
+  /// **'Add goal'**
+  String get addGoal;
+
+  /// No description provided for @goalName.
+  ///
+  /// In en, this message translates to:
+  /// **'Goal name'**
+  String get goalName;
+
+  /// No description provided for @targetAmount.
+  ///
+  /// In en, this message translates to:
+  /// **'Target amount'**
+  String get targetAmount;
+
+  /// No description provided for @noGoalsYet.
+  ///
+  /// In en, this message translates to:
+  /// **'Add a goal to see your progress'**
+  String get noGoalsYet;
+
+  /// No description provided for @impulseItem.
+  ///
+  /// In en, this message translates to:
+  /// **'What did you skip?'**
+  String get impulseItem;
+
+  /// No description provided for @amount.
+  ///
+  /// In en, this message translates to:
+  /// **'Amount'**
+  String get amount;
+
+  /// No description provided for @actuallySetAside.
+  ///
+  /// In en, this message translates to:
+  /// **'I actually set this money aside'**
+  String get actuallySetAside;
+
+  /// No description provided for @actuallySetAsideDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'Separates potential savings from real capital'**
+  String get actuallySetAsideDescription;
+
+  /// No description provided for @noteOptional.
+  ///
+  /// In en, this message translates to:
+  /// **'Note (optional)'**
+  String get noteOptional;
+
+  /// No description provided for @record.
+  ///
+  /// In en, this message translates to:
+  /// **'Record'**
+  String get record;
+
+  /// No description provided for @editHabit.
+  ///
+  /// In en, this message translates to:
+  /// **'Edit impulse'**
+  String get editHabit;
+
+  /// No description provided for @addHabit.
+  ///
+  /// In en, this message translates to:
+  /// **'Add impulse'**
+  String get addHabit;
+
+  /// No description provided for @habitName.
+  ///
+  /// In en, this message translates to:
+  /// **'Impulse name'**
+  String get habitName;
+
+  /// No description provided for @defaultPrice.
+  ///
+  /// In en, this message translates to:
+  /// **'Typical price'**
+  String get defaultPrice;
+
+  /// No description provided for @timesPerWeek.
+  ///
+  /// In en, this message translates to:
+  /// **'Times per week'**
+  String get timesPerWeek;
+
+  /// No description provided for @chooseIcon.
+  ///
+  /// In en, this message translates to:
+  /// **'Icon'**
+  String get chooseIcon;
+
+  /// No description provided for @deleteHabitConfirmation.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete this impulse shortcut? Existing history will stay.'**
+  String get deleteHabitConfirmation;
+
+  /// No description provided for @deleteSavingConfirmation.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete this savings record?'**
+  String get deleteSavingConfirmation;
+
+  /// No description provided for @noHabits.
+  ///
+  /// In en, this message translates to:
+  /// **'No impulse shortcuts yet'**
+  String get noHabits;
+
+  /// No description provided for @noHistory.
+  ///
+  /// In en, this message translates to:
+  /// **'Your savings history will appear here'**
+  String get noHistory;
+
+  /// No description provided for @weekShort.
+  ///
+  /// In en, this message translates to:
+  /// **'week'**
+  String get weekShort;
+
+  /// No description provided for @rateAndHorizon.
+  ///
+  /// In en, this message translates to:
+  /// **'Rate and horizon'**
+  String get rateAndHorizon;
+
+  /// No description provided for @annualRate.
+  ///
+  /// In en, this message translates to:
+  /// **'Annual deposit rate'**
+  String get annualRate;
+
+  /// No description provided for @projectionYears.
+  ///
+  /// In en, this message translates to:
+  /// **'Projection years'**
+  String get projectionYears;
+
+  /// No description provided for @apply.
+  ///
+  /// In en, this message translates to:
+  /// **'Apply'**
+  String get apply;
+
+  /// No description provided for @noData.
+  ///
+  /// In en, this message translates to:
+  /// **'Not enough data yet'**
+  String get noData;
 }
 
 class _AppLocalizationsDelegate

@@ -8,9 +8,10 @@ import 'package:mobile_template/features/auth/presentation/pages/login/login_pag
 import 'package:mobile_template/features/auth/presentation/pages/register/bloc/register_bloc.dart';
 import 'package:mobile_template/features/auth/presentation/pages/register/register_page.dart';
 import 'package:mobile_template/features/auth/presentation/pages/splash_page.dart';
-import 'package:mobile_template/features/category/presentation/pages/bloc/category_bloc.dart';
-import 'package:mobile_template/features/category/presentation/pages/categories_page.dart';
-import 'package:mobile_template/features/home/presentation/pages/home_page.dart';
+import 'package:mobile_template/features/savings/presentation/pages/bloc/savings_bloc.dart';
+import 'package:mobile_template/features/savings/presentation/pages/impulse_items_page.dart';
+import 'package:mobile_template/features/savings/presentation/pages/saving_history_page.dart';
+import 'package:mobile_template/features/savings/presentation/pages/savings_dashboard_page.dart';
 import 'package:mobile_template/features/profile/domain/dto/profile_dto.dart';
 import 'package:mobile_template/features/profile/presentation/pages/bloc/profile_bloc.dart';
 import 'package:mobile_template/features/profile/presentation/pages/edit_profile_page.dart';
@@ -22,7 +23,8 @@ class AppRoutes {
   static const login = '/login';
   static const register = '/register';
   static const home = '/home';
-  static const categories = '/categories';
+  static const history = '/history';
+  static const habits = '/habits';
   static const profile = '/profile';
   static const editProfile = '/profile/edit';
 }
@@ -84,17 +86,35 @@ GoRouter createAppRouter() {
             routes: [
               GoRoute(
                 path: AppRoutes.home,
-                builder: (context, state) => const HomePage(),
+                builder: (context, state) => BlocProvider(
+                  create: (_) => getIt<SavingsBloc>()
+                    ..add(const LoadSavingsDashboard())
+                    ..add(const LoadImpulseItems()),
+                  child: const SavingsDashboardPage(),
+                ),
               ),
             ],
           ),
           StatefulShellBranch(
             routes: [
               GoRoute(
-                path: AppRoutes.categories,
+                path: AppRoutes.history,
                 builder: (context, state) => BlocProvider(
-                  create: (_) => getIt<CategoryBloc>()..add(GetCategoryEvent()),
-                  child: const CategoriesPage(),
+                  create: (_) =>
+                      getIt<SavingsBloc>()..add(const LoadSavingHistory()),
+                  child: const SavingHistoryPage(),
+                ),
+              ),
+            ],
+          ),
+          StatefulShellBranch(
+            routes: [
+              GoRoute(
+                path: AppRoutes.habits,
+                builder: (context, state) => BlocProvider(
+                  create: (_) =>
+                      getIt<SavingsBloc>()..add(const LoadImpulseItems()),
+                  child: const ImpulseItemsPage(),
                 ),
               ),
             ],

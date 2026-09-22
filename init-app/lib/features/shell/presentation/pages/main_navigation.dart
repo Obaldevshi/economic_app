@@ -3,8 +3,6 @@ import 'package:mobile_template/app/theme/app_colors.dart';
 import 'package:mobile_template/app/theme/app_dimensions.dart';
 import 'package:mobile_template/core/extensions/build_context_extensions.dart';
 import 'package:mobile_template/core/utils/keyboard_inset.dart';
-import 'package:mobile_template/generated/assets.gen.dart';
-import 'package:mobile_template/presentation/widgets/common/app_svg_icon.dart';
 import 'package:mobile_template/presentation/widgets/common/glass_bottom_nav_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
@@ -34,15 +32,19 @@ class _MainNavigationState extends State<MainNavigation> {
     final items = [
       _AdaptiveNavigationItem(
         label: context.l10n.home,
-        icon: Assets.icons.home,
+        icon: Icons.savings_outlined,
       ),
       _AdaptiveNavigationItem(
-        label: context.l10n.categories,
-        icon: Assets.icons.category,
+        label: context.l10n.history,
+        icon: Icons.receipt_long_outlined,
+      ),
+      _AdaptiveNavigationItem(
+        label: context.l10n.habits,
+        icon: Icons.coffee_outlined,
       ),
       _AdaptiveNavigationItem(
         label: context.l10n.profile,
-        icon: Assets.icons.user,
+        icon: Icons.person_outline_rounded,
       ),
     ];
 
@@ -77,14 +79,8 @@ class _MainNavigationState extends State<MainNavigation> {
                   items: items
                       .map(
                         (item) => GlassNavBarItem(
-                          icon: AppSvgIcon(
-                            icon: item.icon,
-                            color: inactiveColor,
-                          ),
-                          activeIcon: AppSvgIcon(
-                            icon: item.icon,
-                            color: AppColors.primary,
-                          ),
+                          icon: Icon(item.icon, color: inactiveColor),
+                          activeIcon: Icon(item.icon, color: AppColors.primary),
                         ),
                       )
                       .toList(),
@@ -207,7 +203,7 @@ class _WebNavigationButton extends StatelessWidget {
             child: Row(
               mainAxisSize: MainAxisSize.min,
               children: [
-                AppSvgIcon(icon: item.icon, color: foreground, size: 20),
+                Icon(item.icon, color: foreground, size: 20),
                 if (showLabel) ...[
                   const SizedBox(width: AppDimensions.spaceS),
                   Text(
@@ -231,5 +227,5 @@ class _AdaptiveNavigationItem {
   const _AdaptiveNavigationItem({required this.label, required this.icon});
 
   final String label;
-  final SvgGenImage icon;
+  final IconData icon;
 }

@@ -13,12 +13,14 @@ import 'package:mobile_template/core/services/theme_service.dart';
 import 'package:mobile_template/data/datasources/remote/api_service.dart';
 import 'package:mobile_template/data/repositories/auth_repository_impl.dart';
 import 'package:mobile_template/data/repositories/category_repository.dart';
+import 'package:mobile_template/data/repositories/savings_repository.dart';
 import 'package:mobile_template/domain/repositories/auth_repository.dart';
 import 'package:mobile_template/features/auth/domain/usecases/login_usecase.dart';
 import 'package:mobile_template/features/auth/domain/usecases/register_usecase.dart';
 import 'package:mobile_template/features/auth/presentation/pages/login/bloc/login_bloc.dart';
 import 'package:mobile_template/features/auth/presentation/pages/register/bloc/register_bloc.dart';
 import 'package:mobile_template/features/category/presentation/pages/bloc/category_bloc.dart';
+import 'package:mobile_template/features/savings/presentation/pages/bloc/savings_bloc.dart';
 import 'package:mobile_template/features/profile/domain/usecases/change_password_usecase.dart';
 import 'package:mobile_template/features/profile/domain/usecases/delete_account_usecase.dart';
 import 'package:mobile_template/features/profile/domain/usecases/get_profile_usecase.dart';
@@ -129,5 +131,11 @@ Future<void> configureDependencies() async {
   );
   getIt.registerFactory<CategoryBloc>(
     () => CategoryBloc(getIt<CategoryRepository>()),
+  );
+  getIt.registerLazySingleton<SavingsRepository>(
+    () => SavingsRepository(getIt<ApiService>()),
+  );
+  getIt.registerFactory<SavingsBloc>(
+    () => SavingsBloc(getIt<SavingsRepository>()),
   );
 }
