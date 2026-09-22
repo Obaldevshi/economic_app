@@ -1,0 +1,96 @@
+part of 'category_bloc.dart';
+
+class CategoryState extends Equatable {
+  const CategoryState();
+
+  @override
+  List<Object?> get props => [];
+}
+
+class CategoryInitial extends CategoryState {}
+
+class CategoryLoading extends CategoryState {}
+
+class CategoryLoaded extends CategoryState {
+  final List<CategoryResponse> categories;
+  final int total;
+  final int page;
+  final bool hasMore;
+
+  const CategoryLoaded({
+    required this.categories,
+    required this.total,
+    required this.page,
+    required this.hasMore,
+  });
+
+  @override
+  List<Object?> get props => [categories, total, page, hasMore];
+}
+
+class CategoryError extends CategoryState {
+  final Failure failure;
+
+  const CategoryError({required this.failure});
+
+  @override
+  List<Object?> get props => [failure];
+}
+
+/// create category state
+
+class CreateCategoryLoading extends CategoryState {}
+
+class CreateCategorySuccess extends CategoryState {
+  final String message;
+
+  const CreateCategorySuccess({required this.message});
+
+  @override
+  List<Object?> get props => [message];
+}
+
+class CreateCategoryError extends CategoryState {
+  final Failure failure;
+
+  const CreateCategoryError({required this.failure});
+
+  @override
+  List<Object?> get props => [failure];
+}
+
+/// update category state
+
+class UpdateCategoryLoading extends CategoryState {}
+
+class UpdateCategorySuccess extends CategoryState {
+  final String message;
+
+  const UpdateCategorySuccess({required this.message});
+}
+
+class UpdateCategoryError extends CategoryState {
+  final Failure failure;
+
+  const UpdateCategoryError({required this.failure});
+
+  @override
+  List<Object?> get props => [failure];
+}
+
+/// delete category state
+
+class DeleteCategoryLoading extends CategoryState {}
+
+class DeleteCategorySuccess extends CategoryState {
+  const DeleteCategorySuccess();
+}
+
+class DeleteCategoryError extends CategoryState {
+  final Failure failure;
+
+  const DeleteCategoryError({required this.failure});
+
+  @override
+  List<Object?> get props => [failure];
+}
