@@ -29,7 +29,7 @@ class _MobileTemplateAppState extends State<MobileTemplateApp> {
       listenable: Listenable.merge([_themeService, _localeService]),
       builder: (context, _) {
         return MaterialApp.router(
-          title: 'Template App',
+          title: 'Не потратил',
           debugShowCheckedModeBanner: false,
           routerConfig: _router,
           locale: _localeService.locale,

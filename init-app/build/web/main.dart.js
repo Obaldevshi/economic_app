@@ -102707,7 +102707,7 @@ e=A.a_S(d,d,d,d,d,d,d,d,d,B.df,d,B.IX,d,d,new A.ck(B.V,B.t),d,d,d,B.eh.tX(B.df,!
 f=A.aUa(new A.dd(4,B.V,B.q_),d,B.bt,d,new A.dd(4,B.V,B.q_),new A.dd(4,B.V,B.lO),B.Jv,B.qU,!0,new A.dd(4,B.V,B.L_),new A.dd(4,B.V,B.q0),B.JD.aW(B.fY))
 g=B.l2.aW(B.au)
 g=A.aUj(B.eJ,d,d,d,d,B.fY,d,d,d,d,d,d,d,d,d,d,B.cy.aW(B.au),d,d,d,g,d)
-return new A.pB(a,new A.aK_(b),"Template App",o,A.v4(B.Ky,new A.rp(B.fZ,2,d,d,B.df,B.fY,B.fo.aW(B.au),B.fo.aW(B.au),d,d,B.q2,d,d,d),B.ao,new A.ru(d,B.fZ,d,d,2,B.h7,new A.ck(B.V,B.t)),d,B.Nw,new A.n_(B.fZ,2,d,d,new A.ck(B.V,B.t),d,B.l4.aW(B.au),B.cy.aW(B.au),B.mA,d,d,d,d,d),d,new A.t0(i),d,c,f,g,new A.u1(j),B.qs,A.aUX(d,d,d,B.au,B.kS,d,B.cy.aW(B.qs),d,d,d,d,d,new A.ck(B.V,B.t),d),d,new A.uY(e),h,!0),b.e.b,r,B.WA,B.Vj,!1,d)},
+return new A.pB(a,new A.aK_(b),"\u041d\u0435 \u043f\u043e\u0442\u0440\u0430\u0442\u0438\u043b",o,A.v4(B.Ky,new A.rp(B.fZ,2,d,d,B.df,B.fY,B.fo.aW(B.au),B.fo.aW(B.au),d,d,B.q2,d,d,d),B.ao,new A.ru(d,B.fZ,d,d,2,B.h7,new A.ck(B.V,B.t)),d,B.Nw,new A.n_(B.fZ,2,d,d,new A.ck(B.V,B.t),d,B.l4.aW(B.au),B.cy.aW(B.au),B.mA,d,d,d,d,d),d,new A.t0(i),d,c,f,g,new A.u1(j),B.qs,A.aUX(d,d,d,B.au,B.kS,d,B.cy.aW(B.qs),d,d,d,d,d,new A.ck(B.V,B.t),d),d,new A.uY(e),h,!0),b.e.b,r,B.WA,B.Vj,!1,d)},
 $S:625}
 A.aK_.prototype={
 $2(a,b){var s=this.a.r,r=s.b
