@@ -22,7 +22,10 @@ class Settings(BaseSettings):
     @classmethod
     def normalize_database_url(cls, value: str) -> str:
         # Accept passwords entered as plain text as well as URL-encoded passwords.
-        return make_url(value).render_as_string(hide_password=False)
+        url = make_url(value)
+        if url.drivername == "postgresql":
+            url = url.set(drivername="postgresql+psycopg2")
+        return url.render_as_string(hide_password=False)
 
     @property
     def cors_origins_list(self) -> list[str]:

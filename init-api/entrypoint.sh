@@ -18,13 +18,15 @@ echo "Testing DB connection (10s timeout)..."
 python - <<'PY'
 import sys
 
-import psycopg2
+from sqlalchemy import create_engine
 from app.config.settings import settings
 
 url = settings.database_url
 try:
-    conn = psycopg2.connect(url, connect_timeout=10)
-    conn.close()
+    engine = create_engine(url, connect_args={"connect_timeout": 10})
+    with engine.connect():
+        pass
+    engine.dispose()
     print("DB connection: OK")
 except Exception as exc:
     print(f"DB connection: FAIL — {exc}")
