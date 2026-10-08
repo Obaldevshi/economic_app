@@ -654,4 +654,60 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get noData => 'Not enough data yet';
+
+  @override
+  String get quickChoices => 'Quick choice';
+
+  @override
+  String get quickChoicesDescription =>
+      'Pick the purchase you skipped just now';
+
+  @override
+  String get recordThisSaving => 'Didn\'t spend';
+
+  @override
+  String get annualPotential => 'Yearly potential';
+
+  @override
+  String get weeklyPotential => 'Typical week';
+
+  @override
+  String get savingsBreakdown => 'How your capital is built';
+
+  @override
+  String get topSavingsSources => 'Your strongest saving sources';
+
+  @override
+  String get currentPace => 'Current pace';
+
+  @override
+  String get decisionCount => 'Choices for your future';
+
+  @override
+  String get allSavings => 'All choices';
+
+  @override
+  String get realSavings => 'Actually set aside';
+
+  @override
+  String get potentialSavings => 'Not set aside yet';
+
+  @override
+  String get compoundEffect => 'Compound interest effect';
+
+  @override
+  String get projectionExplanation =>
+      'The projection uses your current pace and monthly reinvestment';
+
+  @override
+  String get impulseAnnualHint => 'At your selected skip frequency';
+
+  @override
+  String get editImpulse => 'Customize';
+
+  @override
+  String get historyOverview => 'Your choices at a glance';
+
+  @override
+  String get noFilteredHistory => 'No entries in this group yet';
 }

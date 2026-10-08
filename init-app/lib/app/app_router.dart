@@ -100,8 +100,9 @@ GoRouter createAppRouter() {
               GoRoute(
                 path: AppRoutes.history,
                 builder: (context, state) => BlocProvider(
-                  create: (_) =>
-                      getIt<SavingsBloc>()..add(const LoadSavingHistory()),
+                  create: (_) => getIt<SavingsBloc>()
+                    ..add(const LoadSavingHistory())
+                    ..add(const LoadSavingsDashboard()),
                   child: const SavingHistoryPage(),
                 ),
               ),

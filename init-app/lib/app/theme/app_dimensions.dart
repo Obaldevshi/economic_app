@@ -11,14 +11,14 @@ class AppDimensions {
   static const double paddingXL = 32.0;
   static const double paddingXXL = 48.0;
 
-  // Friendly but compact radius for finance cards and forms.
-  static const double radius = 24.0;
-  static const double radiusXS = radius;
-  static const double radiusS = radius;
-  static const double radiusM = radius;
-  static const double radiusL = radius;
-  static const double radiusXL = radius;
-  static const double radiusCircular = radius;
+  // Soft geometry with enough hierarchy between controls and content cards.
+  static const double radius = 22.0;
+  static const double radiusXS = 8.0;
+  static const double radiusS = 12.0;
+  static const double radiusM = 16.0;
+  static const double radiusL = 22.0;
+  static const double radiusXL = 28.0;
+  static const double radiusCircular = 999.0;
 
   // Icon Sizes
   static const double iconXS = 16.0;
@@ -108,11 +108,24 @@ class AppDimensions {
   static const BorderRadius borderRadius = BorderRadius.all(
     Radius.circular(radius),
   );
-  static const BorderRadius borderRadiusXS = borderRadius;
-  static const BorderRadius borderRadiusS = borderRadius;
-  static const BorderRadius borderRadiusM = borderRadius;
-  static const BorderRadius borderRadiusL = borderRadius;
-  static const BorderRadius borderRadiusXL = borderRadius;
+  static const BorderRadius borderRadiusXS = BorderRadius.all(
+    Radius.circular(radiusXS),
+  );
+  static const BorderRadius borderRadiusS = BorderRadius.all(
+    Radius.circular(radiusS),
+  );
+  static const BorderRadius borderRadiusM = BorderRadius.all(
+    Radius.circular(radiusM),
+  );
+  static const BorderRadius borderRadiusL = BorderRadius.all(
+    Radius.circular(radiusL),
+  );
+  static const BorderRadius borderRadiusXL = BorderRadius.all(
+    Radius.circular(radiusXL),
+  );
+  static const BorderRadius borderRadiusCircular = BorderRadius.all(
+    Radius.circular(radiusCircular),
+  );
 
   // Responsive helper methods
   static bool isMobile(BuildContext context) {

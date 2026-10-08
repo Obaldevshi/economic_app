@@ -38,6 +38,17 @@ class GlassSurface extends StatelessWidget {
       decoration: BoxDecoration(
         color: color,
         borderRadius: borderRadius,
+        boxShadow: variant == GlassSurfaceVariant.onLight
+            ? [
+                BoxShadow(
+                  color: Colors.black.withValues(
+                    alpha: AppGlass.isDark(context) ? 0.16 : 0.045,
+                  ),
+                  blurRadius: 18,
+                  offset: const Offset(0, 8),
+                ),
+              ]
+            : null,
         border: showBorder
             ? Border.all(
                 color: variant == GlassSurfaceVariant.onGradient

@@ -1333,6 +1333,114 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Not enough data yet'**
   String get noData;
+
+  /// No description provided for @quickChoices.
+  ///
+  /// In en, this message translates to:
+  /// **'Quick choice'**
+  String get quickChoices;
+
+  /// No description provided for @quickChoicesDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'Pick the purchase you skipped just now'**
+  String get quickChoicesDescription;
+
+  /// No description provided for @recordThisSaving.
+  ///
+  /// In en, this message translates to:
+  /// **'Didn\'t spend'**
+  String get recordThisSaving;
+
+  /// No description provided for @annualPotential.
+  ///
+  /// In en, this message translates to:
+  /// **'Yearly potential'**
+  String get annualPotential;
+
+  /// No description provided for @weeklyPotential.
+  ///
+  /// In en, this message translates to:
+  /// **'Typical week'**
+  String get weeklyPotential;
+
+  /// No description provided for @savingsBreakdown.
+  ///
+  /// In en, this message translates to:
+  /// **'How your capital is built'**
+  String get savingsBreakdown;
+
+  /// No description provided for @topSavingsSources.
+  ///
+  /// In en, this message translates to:
+  /// **'Your strongest saving sources'**
+  String get topSavingsSources;
+
+  /// No description provided for @currentPace.
+  ///
+  /// In en, this message translates to:
+  /// **'Current pace'**
+  String get currentPace;
+
+  /// No description provided for @decisionCount.
+  ///
+  /// In en, this message translates to:
+  /// **'Choices for your future'**
+  String get decisionCount;
+
+  /// No description provided for @allSavings.
+  ///
+  /// In en, this message translates to:
+  /// **'All choices'**
+  String get allSavings;
+
+  /// No description provided for @realSavings.
+  ///
+  /// In en, this message translates to:
+  /// **'Actually set aside'**
+  String get realSavings;
+
+  /// No description provided for @potentialSavings.
+  ///
+  /// In en, this message translates to:
+  /// **'Not set aside yet'**
+  String get potentialSavings;
+
+  /// No description provided for @compoundEffect.
+  ///
+  /// In en, this message translates to:
+  /// **'Compound interest effect'**
+  String get compoundEffect;
+
+  /// No description provided for @projectionExplanation.
+  ///
+  /// In en, this message translates to:
+  /// **'The projection uses your current pace and monthly reinvestment'**
+  String get projectionExplanation;
+
+  /// No description provided for @impulseAnnualHint.
+  ///
+  /// In en, this message translates to:
+  /// **'At your selected skip frequency'**
+  String get impulseAnnualHint;
+
+  /// No description provided for @editImpulse.
+  ///
+  /// In en, this message translates to:
+  /// **'Customize'**
+  String get editImpulse;
+
+  /// No description provided for @historyOverview.
+  ///
+  /// In en, this message translates to:
+  /// **'Your choices at a glance'**
+  String get historyOverview;
+
+  /// No description provided for @noFilteredHistory.
+  ///
+  /// In en, this message translates to:
+  /// **'No entries in this group yet'**
+  String get noFilteredHistory;
 }
 
 class _AppLocalizationsDelegate

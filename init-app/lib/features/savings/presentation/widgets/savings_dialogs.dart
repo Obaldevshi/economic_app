@@ -11,20 +11,23 @@ import 'package:mobile_template/presentation/widgets/common/global_text_form_fie
 
 Future<void> showAddSavingDialog(
   BuildContext context,
-  List<ImpulseItemResponse> impulses,
-) => showDialog<void>(
+  List<ImpulseItemResponse> impulses, {
+  ImpulseItemResponse? initialImpulse,
+}) => showDialog<void>(
   context: context,
   builder: (_) => BlocProvider.value(
     value: context.read<SavingsBloc>(),
     child: _AddSavingDialog(
       impulses: impulses.where((item) => item.isActive).toList(),
+      initialImpulse: initialImpulse,
     ),
   ),
 );
 
 class _AddSavingDialog extends StatefulWidget {
-  const _AddSavingDialog({required this.impulses});
+  const _AddSavingDialog({required this.impulses, this.initialImpulse});
   final List<ImpulseItemResponse> impulses;
+  final ImpulseItemResponse? initialImpulse;
 
   @override
   State<_AddSavingDialog> createState() => _AddSavingDialogState();
@@ -32,12 +35,21 @@ class _AddSavingDialog extends StatefulWidget {
 
 class _AddSavingDialogState extends State<_AddSavingDialog> {
   final _formKey = GlobalKey<FormState>();
-  late ImpulseItemResponse? _selected = widget.impulses.firstOrNull;
+  late ImpulseItemResponse? _selected = _initialSelection();
   late final _amount = TextEditingController(
     text: _selected?.defaultAmount.toStringAsFixed(0) ?? '',
   );
   final _note = TextEditingController();
   bool _invested = false;
+
+  ImpulseItemResponse? _initialSelection() {
+    final initial = widget.initialImpulse;
+    if (initial == null) return widget.impulses.firstOrNull;
+    for (final item in widget.impulses) {
+      if (item.id == initial.id) return item;
+    }
+    return widget.impulses.firstOrNull;
+  }
 
   @override
   void dispose() {
@@ -57,25 +69,29 @@ class _AddSavingDialogState extends State<_AddSavingDialog> {
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              DropdownButtonFormField<ImpulseItemResponse>(
-                initialValue: _selected,
-                decoration: InputDecoration(
-                  labelText: context.l10n.impulseItem,
+              Align(
+                alignment: Alignment.centerLeft,
+                child: Text(
+                  context.l10n.impulseItem,
+                  style: Theme.of(context).textTheme.labelLarge,
                 ),
-                items: widget.impulses
-                    .map(
-                      (item) => DropdownMenuItem(
-                        value: item,
-                        child: Text(item.name, overflow: TextOverflow.ellipsis),
-                      ),
-                    )
-                    .toList(),
-                onChanged: (item) => setState(() {
-                  _selected = item;
-                  if (item != null) {
-                    _amount.text = item.defaultAmount.toStringAsFixed(0);
-                  }
-                }),
+              ),
+              const SizedBox(height: AppDimensions.spaceS),
+              Wrap(
+                spacing: AppDimensions.spaceS,
+                runSpacing: AppDimensions.spaceS,
+                children: [
+                  for (final item in widget.impulses)
+                    ChoiceChip(
+                      avatar: Icon(impulseIcon(item.iconKey), size: 18),
+                      label: Text(item.name),
+                      selected: _selected?.id == item.id,
+                      onSelected: (_) => setState(() {
+                        _selected = item;
+                        _amount.text = item.defaultAmount.toStringAsFixed(0);
+                      }),
+                    ),
+                ],
               ),
               const SizedBox(height: AppDimensions.spaceM),
               GlobalTextFormField(

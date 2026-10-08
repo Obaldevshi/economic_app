@@ -21,9 +21,17 @@ class SavingsDashboardPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<SavingsBloc, SavingsState>(
-      listenWhen: (previous, current) => previous.failure != current.failure,
+      listenWhen: (previous, current) =>
+          previous.failure != current.failure ||
+          previous.actionMessage != current.actionMessage,
       listener: (context, state) {
-        if (state.failure != null) ErrorDialog.show(context, state.failure!);
+        if (state.failure != null) {
+          ErrorDialog.show(context, state.failure!);
+        } else if (state.actionMessage != null) {
+          ScaffoldMessenger.of(
+            context,
+          ).showSnackBar(SnackBar(content: Text(state.actionMessage!)));
+        }
       },
       builder: (context, state) {
         final dashboard = state.dashboard;
@@ -32,7 +40,9 @@ class SavingsDashboardPage extends StatelessWidget {
           expandedHeaderHeight: 58,
           isLoading: state.isLoading && dashboard == null,
           onRefresh: () async {
-            context.read<SavingsBloc>().add(const LoadSavingsDashboard());
+            context.read<SavingsBloc>()
+              ..add(const LoadSavingsDashboard())
+              ..add(const LoadImpulseItems());
             await context.read<SavingsBloc>().stream.firstWhere(
               (value) => !value.isLoading,
             );
@@ -49,7 +59,7 @@ class SavingsDashboardPage extends StatelessWidget {
           headerContent: Text(
             context.l10n.savingsTagline,
             style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-              color: Colors.white.withValues(alpha: 0.9),
+              color: Colors.white.withValues(alpha: 0.92),
               fontWeight: FontWeight.w600,
             ),
           ),
@@ -76,65 +86,320 @@ class _DashboardBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final summary = _SummarySection(dashboard: dashboard);
-    final projection = _ProjectionCard(dashboard: dashboard);
-    final dynamics = _DynamicsCard(points: dashboard.monthlySeries);
-    final goals = _GoalsCard(dashboard: dashboard);
-    final recent = _RecentSavings(events: dashboard.recentEvents);
+    return Center(
+      child: ConstrainedBox(
+        constraints: const BoxConstraints(maxWidth: 1280),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            _SavingsHero(dashboard: dashboard, impulses: impulses),
+            if (impulses.isNotEmpty) ...[
+              const SizedBox(height: AppDimensions.spaceL),
+              _QuickChoices(impulses: impulses),
+            ],
+            const SizedBox(height: AppDimensions.spaceL),
+            _SummarySection(dashboard: dashboard),
+            const SizedBox(height: AppDimensions.spaceL),
+            AppLayoutItemBuilder<Widget>(
+              narrow: () => Column(
+                children: [
+                  _ProjectionCard(dashboard: dashboard),
+                  const SizedBox(height: AppDimensions.spaceM),
+                  _DynamicsCard(points: dashboard.monthlySeries),
+                  const SizedBox(height: AppDimensions.spaceM),
+                  _TopSourcesCard(items: dashboard.impulseTotals),
+                  const SizedBox(height: AppDimensions.spaceM),
+                  _GoalsCard(dashboard: dashboard),
+                  const SizedBox(height: AppDimensions.spaceM),
+                  _RecentSavings(events: dashboard.recentEvents),
+                ],
+              ),
+              wide: () => Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Expanded(
+                    flex: 3,
+                    child: Column(
+                      children: [
+                        _ProjectionCard(dashboard: dashboard),
+                        const SizedBox(height: AppDimensions.spaceM),
+                        _DynamicsCard(points: dashboard.monthlySeries),
+                        const SizedBox(height: AppDimensions.spaceM),
+                        _TopSourcesCard(items: dashboard.impulseTotals),
+                      ],
+                    ),
+                  ),
+                  const SizedBox(width: AppDimensions.spaceM),
+                  Expanded(
+                    flex: 2,
+                    child: Column(
+                      children: [
+                        _GoalsCard(dashboard: dashboard),
+                        const SizedBox(height: AppDimensions.spaceM),
+                        _RecentSavings(events: dashboard.recentEvents),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+            )(context, width: 900),
+          ],
+        ),
+      ),
+    );
+  }
+}
 
-    return Column(
+class _SavingsHero extends StatelessWidget {
+  const _SavingsHero({required this.dashboard, required this.impulses});
+
+  final SavingsDashboardResponse dashboard;
+  final List<ImpulseItemResponse> impulses;
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    final details = Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Container(
+          padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 7),
+          decoration: BoxDecoration(
+            color: Colors.white.withValues(alpha: 0.12),
+            borderRadius: AppDimensions.borderRadiusCircular,
+          ),
+          child: Text(
+            '${dashboard.annualRate.toStringAsFixed(1)}% · ${dashboard.projectionYears} ${context.l10n.yearsAtCurrentPace}',
+            style: theme.textTheme.labelMedium?.copyWith(
+              color: Colors.white,
+              fontWeight: FontWeight.w700,
+            ),
+          ),
+        ),
+        const SizedBox(height: AppDimensions.spaceM),
+        Text(
+          context.l10n.futureProjection,
+          style: theme.textTheme.titleMedium?.copyWith(
+            color: Colors.white.withValues(alpha: 0.78),
+          ),
+        ),
+        const SizedBox(height: 4),
+        Text(
+          formatRubles(context, dashboard.projectedTotal),
+          style: theme.textTheme.displaySmall?.copyWith(
+            color: Colors.white,
+            fontWeight: FontWeight.w800,
+            letterSpacing: -1,
+          ),
+        ),
+        const SizedBox(height: AppDimensions.spaceS),
+        Text(
+          context.l10n.projectionExplanation,
+          style: theme.textTheme.bodyMedium?.copyWith(
+            color: Colors.white.withValues(alpha: 0.78),
+          ),
+        ),
+      ],
+    );
+
+    final action = Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
+        _HeroMetric(
+          icon: Icons.trending_up_rounded,
+          label: context.l10n.currentPace,
+          value: formatRubles(context, dashboard.monthlyPace),
+        ),
+        const SizedBox(height: AppDimensions.spaceS),
+        _HeroMetric(
+          icon: Icons.auto_graph_rounded,
+          label: context.l10n.compoundEffect,
+          value: '+${formatRubles(context, dashboard.projectedInterest)}',
+        ),
+        const SizedBox(height: AppDimensions.spaceM),
         FilledButton.icon(
           onPressed: impulses.isEmpty
               ? null
               : () => showAddSavingDialog(context, impulses),
           icon: const Icon(Icons.add_rounded),
           label: Text(context.l10n.recordSaving),
-          style: FilledButton.styleFrom(minimumSize: const Size.fromHeight(56)),
+          style: FilledButton.styleFrom(
+            backgroundColor: Colors.white,
+            foregroundColor: AppColors.primaryDark,
+            disabledBackgroundColor: Colors.white.withValues(alpha: 0.28),
+            disabledForegroundColor: Colors.white.withValues(alpha: 0.6),
+            minimumSize: const Size.fromHeight(54),
+          ),
         ),
-        const SizedBox(height: AppDimensions.spaceL),
-        summary,
-        const SizedBox(height: AppDimensions.spaceL),
-        AppLayoutItemBuilder<Widget>(
+      ],
+    );
+
+    return DecoratedBox(
+      decoration: BoxDecoration(
+        color: AppColors.primaryDark,
+        borderRadius: AppDimensions.borderRadiusXL,
+        boxShadow: [
+          BoxShadow(
+            color: AppColors.primaryDark.withValues(alpha: 0.22),
+            blurRadius: 28,
+            offset: const Offset(0, 14),
+          ),
+        ],
+      ),
+      child: Padding(
+        padding: const EdgeInsets.all(AppDimensions.paddingL),
+        child: AppLayoutItemBuilder<Widget>(
           narrow: () => Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              projection,
-              const SizedBox(height: AppDimensions.spaceM),
-              dynamics,
-              const SizedBox(height: AppDimensions.spaceM),
-              goals,
-              const SizedBox(height: AppDimensions.spaceM),
-              recent,
+              details,
+              const SizedBox(height: AppDimensions.spaceL),
+              action,
             ],
           ),
           wide: () => Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.end,
             children: [
-              Expanded(
-                flex: 3,
-                child: Column(
-                  children: [
-                    projection,
-                    const SizedBox(height: AppDimensions.spaceM),
-                    dynamics,
-                  ],
-                ),
-              ),
-              const SizedBox(width: AppDimensions.spaceM),
-              Expanded(
-                flex: 2,
-                child: Column(
-                  children: [
-                    goals,
-                    const SizedBox(height: AppDimensions.spaceM),
-                    recent,
-                  ],
-                ),
-              ),
+              Expanded(flex: 3, child: details),
+              const SizedBox(width: AppDimensions.spaceXL),
+              Expanded(flex: 2, child: action),
             ],
           ),
-        )(context, width: 820),
+        )(context, width: 760),
+      ),
+    );
+  }
+}
+
+class _HeroMetric extends StatelessWidget {
+  const _HeroMetric({
+    required this.icon,
+    required this.label,
+    required this.value,
+  });
+
+  final IconData icon;
+  final String label;
+  final String value;
+
+  @override
+  Widget build(BuildContext context) => Container(
+    padding: const EdgeInsets.all(AppDimensions.paddingM),
+    decoration: BoxDecoration(
+      color: Colors.white.withValues(alpha: 0.09),
+      borderRadius: AppDimensions.borderRadiusM,
+      border: Border.all(color: Colors.white.withValues(alpha: 0.12)),
+    ),
+    child: Row(
+      children: [
+        Icon(icon, color: AppColors.primaryLight, size: 22),
+        const SizedBox(width: AppDimensions.spaceS),
+        Expanded(
+          child: Text(
+            label,
+            style: Theme.of(context).textTheme.bodySmall?.copyWith(
+              color: Colors.white.withValues(alpha: 0.72),
+            ),
+          ),
+        ),
+        Text(
+          value,
+          style: Theme.of(context).textTheme.titleMedium?.copyWith(
+            color: Colors.white,
+            fontWeight: FontWeight.w800,
+          ),
+        ),
+      ],
+    ),
+  );
+}
+
+class _QuickChoices extends StatelessWidget {
+  const _QuickChoices({required this.impulses});
+
+  final List<ImpulseItemResponse> impulses;
+
+  @override
+  Widget build(BuildContext context) {
+    final visible = impulses.take(6).toList();
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          context.l10n.quickChoices,
+          style: Theme.of(context).textTheme.titleLarge,
+        ),
+        const SizedBox(height: 4),
+        Text(
+          context.l10n.quickChoicesDescription,
+          style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+            color: Theme.of(context).colorScheme.onSurfaceVariant,
+          ),
+        ),
+        const SizedBox(height: AppDimensions.spaceM),
+        SizedBox(
+          height: 132,
+          child: ListView.separated(
+            scrollDirection: Axis.horizontal,
+            itemCount: visible.length,
+            separatorBuilder: (_, _) =>
+                const SizedBox(width: AppDimensions.spaceS),
+            itemBuilder: (context, index) {
+              final item = visible[index];
+              return SizedBox(
+                width: 190,
+                child: GlassSurfaceCard(
+                  onTap: () => showAddSavingDialog(
+                    context,
+                    impulses,
+                    initialImpulse: item,
+                  ),
+                  padding: const EdgeInsets.all(AppDimensions.paddingM),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Row(
+                        children: [
+                          GlassIconBadge(
+                            size: 38,
+                            color: AppColors.primary,
+                            child: Icon(
+                              impulseIcon(item.iconKey),
+                              size: 20,
+                              color: AppColors.primary,
+                            ),
+                          ),
+                          const Spacer(),
+                          const Icon(
+                            Icons.add_circle_rounded,
+                            color: AppColors.primary,
+                            size: 24,
+                          ),
+                        ],
+                      ),
+                      const Spacer(),
+                      Text(
+                        item.name,
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                        style: Theme.of(context).textTheme.titleSmall,
+                      ),
+                      const SizedBox(height: 2),
+                      Text(
+                        formatRubles(context, item.defaultAmount),
+                        style: Theme.of(context).textTheme.titleMedium
+                            ?.copyWith(
+                              color: AppColors.primary,
+                              fontWeight: FontWeight.w800,
+                            ),
+                      ),
+                    ],
+                  ),
+                ),
+              );
+            },
+          ),
+        ),
       ],
     );
   }
@@ -147,17 +412,29 @@ class _SummarySection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final cards = [
-      (context.l10n.savedToday, dashboard.todayTotal, Icons.today_outlined),
+      (
+        context.l10n.savedToday,
+        dashboard.todayTotal,
+        Icons.today_outlined,
+        AppColors.secondary,
+      ),
       (
         context.l10n.savedThisMonth,
         dashboard.monthTotal,
         Icons.calendar_month_outlined,
+        AppColors.primary,
       ),
-      (context.l10n.savedTotal, dashboard.totalSaved, Icons.savings_outlined),
+      (
+        context.l10n.savedTotal,
+        dashboard.totalSaved,
+        Icons.savings_outlined,
+        AppColors.success,
+      ),
       (
         context.l10n.investedTotal,
         dashboard.investedTotal,
         Icons.account_balance_outlined,
+        AppColors.accent,
       ),
     ];
     return LayoutBuilder(
@@ -181,8 +458,8 @@ class _SummarySection extends StatelessWidget {
                   child: Row(
                     children: [
                       GlassIconBadge(
-                        color: AppColors.primary,
-                        child: Icon(card.$3, color: AppColors.primary),
+                        color: card.$4,
+                        child: Icon(card.$3, color: card.$4),
                       ),
                       const SizedBox(width: AppDimensions.spaceM),
                       Expanded(
@@ -197,10 +474,7 @@ class _SummarySection extends StatelessWidget {
                             Text(
                               formatRubles(context, card.$2),
                               style: Theme.of(context).textTheme.titleLarge
-                                  ?.copyWith(
-                                    color: AppColors.primary,
-                                    fontWeight: FontWeight.w800,
-                                  ),
+                                  ?.copyWith(fontWeight: FontWeight.w800),
                             ),
                           ],
                         ),
@@ -221,52 +495,118 @@ class _ProjectionCard extends StatelessWidget {
   final SavingsDashboardResponse dashboard;
 
   @override
-  Widget build(BuildContext context) => GlassSurfaceCard(
-    child: Column(
-      crossAxisAlignment: CrossAxisAlignment.stretch,
-      children: [
-        Row(
-          children: [
-            Expanded(
-              child: Text(
-                context.l10n.futureProjection,
-                style: Theme.of(context).textTheme.titleLarge,
+  Widget build(BuildContext context) {
+    final finalPoint = dashboard.projectionSeries.lastOrNull;
+    final contributions =
+        finalPoint?.contributions ??
+        (dashboard.projectedTotal - dashboard.projectedInterest);
+    final contributionShare = dashboard.projectedTotal <= 0
+        ? 0.0
+        : (contributions / dashboard.projectedTotal).clamp(0.0, 1.0);
+
+    return GlassSurfaceCard(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          Row(
+            children: [
+              Expanded(
+                child: Text(
+                  context.l10n.futureProjection,
+                  style: Theme.of(context).textTheme.titleLarge,
+                ),
+              ),
+              TextButton.icon(
+                onPressed: () =>
+                    showProjectionSettingsDialog(context, dashboard),
+                icon: const Icon(Icons.tune_rounded, size: 18),
+                label: Text('${dashboard.annualRate.toStringAsFixed(1)}%'),
+              ),
+            ],
+          ),
+          Text(
+            '${dashboard.projectionYears} ${context.l10n.yearsAtCurrentPace}',
+            style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+              color: Theme.of(context).colorScheme.onSurfaceVariant,
+            ),
+          ),
+          const SizedBox(height: AppDimensions.spaceL),
+          SizedBox(
+            height: 190,
+            child: _ProjectionChart(points: dashboard.projectionSeries),
+          ),
+          const SizedBox(height: AppDimensions.spaceL),
+          Text(
+            context.l10n.savingsBreakdown,
+            style: Theme.of(context).textTheme.titleSmall,
+          ),
+          const SizedBox(height: AppDimensions.spaceS),
+          ClipRRect(
+            borderRadius: AppDimensions.borderRadiusCircular,
+            child: LayoutBuilder(
+              builder: (context, constraints) => Row(
+                children: [
+                  Container(
+                    width: constraints.maxWidth * contributionShare,
+                    height: 10,
+                    color: AppColors.primary,
+                  ),
+                  Expanded(
+                    child: Container(height: 10, color: AppColors.accent),
+                  ),
+                ],
               ),
             ),
-            Text(
-              '${dashboard.annualRate.toStringAsFixed(1)}%',
-              style: Theme.of(
-                context,
-              ).textTheme.labelLarge?.copyWith(color: AppColors.primary),
-            ),
-          ],
-        ),
-        const SizedBox(height: AppDimensions.spaceS),
-        Text(
-          '${dashboard.projectionYears} ${context.l10n.yearsAtCurrentPace}',
-          style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-            color: Theme.of(context).colorScheme.onSurfaceVariant,
           ),
-        ),
-        const SizedBox(height: AppDimensions.spaceL),
-        Text(
-          formatRubles(context, dashboard.projectedTotal),
-          style: Theme.of(context).textTheme.headlineLarge?.copyWith(
-            color: AppColors.primary,
-            fontWeight: FontWeight.w800,
+          const SizedBox(height: AppDimensions.spaceS),
+          Wrap(
+            spacing: AppDimensions.spaceL,
+            runSpacing: AppDimensions.spaceS,
+            children: [
+              _LegendItem(
+                color: AppColors.primary,
+                label: context.l10n.contributions,
+                value: formatCompactRubles(context, contributions),
+              ),
+              _LegendItem(
+                color: AppColors.accent,
+                label: context.l10n.interestIncome,
+                value: formatCompactRubles(
+                  context,
+                  dashboard.projectedInterest,
+                ),
+              ),
+            ],
           ),
-        ),
-        Text(
-          '${context.l10n.interestIncome}: ${formatRubles(context, dashboard.projectedInterest)}',
-          style: Theme.of(context).textTheme.bodyMedium,
-        ),
-        const SizedBox(height: AppDimensions.spaceL),
-        SizedBox(
-          height: 180,
-          child: _ProjectionChart(points: dashboard.projectionSeries),
-        ),
-      ],
-    ),
+        ],
+      ),
+    );
+  }
+}
+
+class _LegendItem extends StatelessWidget {
+  const _LegendItem({
+    required this.color,
+    required this.label,
+    required this.value,
+  });
+
+  final Color color;
+  final String label;
+  final String value;
+
+  @override
+  Widget build(BuildContext context) => Row(
+    mainAxisSize: MainAxisSize.min,
+    children: [
+      Container(
+        width: 10,
+        height: 10,
+        decoration: BoxDecoration(color: color, shape: BoxShape.circle),
+      ),
+      const SizedBox(width: 6),
+      Text('$label · $value', style: Theme.of(context).textTheme.bodySmall),
+    ],
   );
 }
 
@@ -279,41 +619,56 @@ class _ProjectionChart extends StatelessWidget {
     if (points.isEmpty || points.every((point) => point.total == 0)) {
       return Center(child: Text(context.l10n.noData));
     }
-    final maxValue = points.map((point) => point.total).reduce(math.max);
+    final visiblePoints = points.length <= 8
+        ? points
+        : points
+              .where(
+                (point) =>
+                    point.year == 1 ||
+                    point.year % 5 == 0 ||
+                    point.year == points.last.year,
+              )
+              .toList();
+    final maxValue = visiblePoints.map((point) => point.total).reduce(math.max);
     return Row(
       crossAxisAlignment: CrossAxisAlignment.end,
       children: [
-        for (final point in points) ...[
+        for (final point in visiblePoints) ...[
           Expanded(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: [
-                Expanded(
-                  child: Align(
-                    alignment: Alignment.bottomCenter,
-                    child: FractionallySizedBox(
-                      heightFactor: maxValue == 0 ? 0 : point.total / maxValue,
-                      widthFactor: 0.55,
-                      child: DecoratedBox(
-                        decoration: BoxDecoration(
-                          color: AppColors.primary.withValues(alpha: 0.82),
-                          borderRadius: const BorderRadius.vertical(
-                            top: Radius.circular(10),
+            child: Tooltip(
+              message: formatRubles(context, point.total),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  Expanded(
+                    child: Align(
+                      alignment: Alignment.bottomCenter,
+                      child: FractionallySizedBox(
+                        heightFactor: maxValue == 0
+                            ? 0
+                            : point.total / maxValue,
+                        widthFactor: 0.55,
+                        child: DecoratedBox(
+                          decoration: BoxDecoration(
+                            color: AppColors.primary.withValues(alpha: 0.84),
+                            borderRadius: const BorderRadius.vertical(
+                              top: Radius.circular(10),
+                            ),
                           ),
                         ),
                       ),
                     ),
                   ),
-                ),
-                const SizedBox(height: 6),
-                Text(
-                  '${point.year}',
-                  style: Theme.of(context).textTheme.labelSmall,
-                ),
-              ],
+                  const SizedBox(height: 6),
+                  Text(
+                    '${point.year}',
+                    style: Theme.of(context).textTheme.labelSmall,
+                  ),
+                ],
+              ),
             ),
           ),
-          if (point != points.last) const SizedBox(width: 4),
+          if (point != visiblePoints.last) const SizedBox(width: 4),
         ],
       ],
     );
@@ -339,50 +694,122 @@ class _DynamicsCard extends StatelessWidget {
           ),
           const SizedBox(height: AppDimensions.spaceL),
           SizedBox(
-            height: 150,
-            child: Row(
-              crossAxisAlignment: CrossAxisAlignment.end,
-              children: [
-                for (final point in points)
-                  Expanded(
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 4),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.end,
-                        children: [
-                          Expanded(
-                            child: Align(
-                              alignment: Alignment.bottomCenter,
-                              child: FractionallySizedBox(
-                                heightFactor: maxValue == 0
-                                    ? 0.02
-                                    : math.max(0.04, point.amount / maxValue),
-                                widthFactor: 0.65,
-                                child: DecoratedBox(
-                                  decoration: BoxDecoration(
-                                    color: AppColors.secondary.withValues(
-                                      alpha: 0.72,
-                                    ),
-                                    borderRadius: const BorderRadius.vertical(
-                                      top: Radius.circular(8),
+            height: 160,
+            child: points.isEmpty
+                ? Center(child: Text(context.l10n.noData))
+                : Row(
+                    crossAxisAlignment: CrossAxisAlignment.end,
+                    children: [
+                      for (final point in points)
+                        Expanded(
+                          child: Tooltip(
+                            message: formatRubles(context, point.amount),
+                            child: Padding(
+                              padding: const EdgeInsets.symmetric(
+                                horizontal: 4,
+                              ),
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.end,
+                                children: [
+                                  Expanded(
+                                    child: Align(
+                                      alignment: Alignment.bottomCenter,
+                                      child: FractionallySizedBox(
+                                        heightFactor: maxValue == 0
+                                            ? 0.02
+                                            : math.max(
+                                                0.04,
+                                                point.amount / maxValue,
+                                              ),
+                                        widthFactor: 0.65,
+                                        child: DecoratedBox(
+                                          decoration: BoxDecoration(
+                                            color: AppColors.secondary
+                                                .withValues(alpha: 0.72),
+                                            borderRadius:
+                                                const BorderRadius.vertical(
+                                                  top: Radius.circular(8),
+                                                ),
+                                          ),
+                                        ),
+                                      ),
                                     ),
                                   ),
-                                ),
+                                  const SizedBox(height: 6),
+                                  Text(
+                                    point.month.substring(5),
+                                    style: Theme.of(
+                                      context,
+                                    ).textTheme.labelSmall,
+                                  ),
+                                ],
                               ),
                             ),
                           ),
-                          const SizedBox(height: 6),
-                          Text(
-                            point.month.substring(5),
-                            style: Theme.of(context).textTheme.labelSmall,
-                          ),
-                        ],
-                      ),
+                        ),
+                    ],
+                  ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class _TopSourcesCard extends StatelessWidget {
+  const _TopSourcesCard({required this.items});
+  final List<ImpulseTotal> items;
+
+  @override
+  Widget build(BuildContext context) {
+    final maxValue = items.isEmpty
+        ? 0.0
+        : items.map((item) => item.amount).reduce(math.max);
+    return GlassSurfaceCard(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          Text(
+            context.l10n.topSavingsSources,
+            style: Theme.of(context).textTheme.titleLarge,
+          ),
+          const SizedBox(height: AppDimensions.spaceM),
+          if (items.isEmpty)
+            Padding(
+              padding: const EdgeInsets.symmetric(
+                vertical: AppDimensions.paddingM,
+              ),
+              child: Text(context.l10n.noData),
+            )
+          else
+            for (final item in items) ...[
+              Row(
+                children: [
+                  Expanded(
+                    child: Text(
+                      item.name,
+                      style: Theme.of(context).textTheme.bodyMedium,
                     ),
                   ),
-              ],
-            ),
-          ),
+                  Text(
+                    formatRubles(context, item.amount),
+                    style: Theme.of(context).textTheme.labelLarge?.copyWith(
+                      fontWeight: FontWeight.w800,
+                    ),
+                  ),
+                ],
+              ),
+              const SizedBox(height: 7),
+              LinearProgressIndicator(
+                value: maxValue == 0 ? 0 : item.amount / maxValue,
+                minHeight: 8,
+                borderRadius: AppDimensions.borderRadiusCircular,
+                backgroundColor: Theme.of(
+                  context,
+                ).colorScheme.surfaceContainerHighest,
+              ),
+              const SizedBox(height: AppDimensions.spaceM),
+            ],
         ],
       ),
     );
@@ -407,6 +834,7 @@ class _GoalsCard extends StatelessWidget {
               ),
             ),
             IconButton(
+              tooltip: context.l10n.addGoal,
               onPressed: () => showGoalDialog(context),
               icon: const Icon(Icons.add_rounded),
             ),
@@ -422,14 +850,29 @@ class _GoalsCard extends StatelessWidget {
         else
           for (final goal in dashboard.goals) ...[
             const SizedBox(height: AppDimensions.spaceM),
-            Text(goal.name, style: Theme.of(context).textTheme.titleMedium),
-            const SizedBox(height: 6),
+            Row(
+              children: [
+                Expanded(
+                  child: Text(
+                    goal.name,
+                    style: Theme.of(context).textTheme.titleMedium,
+                  ),
+                ),
+                Text(
+                  '${((dashboard.investedTotal / goal.targetAmount).clamp(0, 1) * 100).round()}%',
+                  style: Theme.of(
+                    context,
+                  ).textTheme.labelLarge?.copyWith(color: AppColors.primary),
+                ),
+              ],
+            ),
+            const SizedBox(height: 8),
             LinearProgressIndicator(
               value: (dashboard.investedTotal / goal.targetAmount).clamp(0, 1),
-              minHeight: 9,
-              borderRadius: BorderRadius.circular(8),
+              minHeight: 10,
+              borderRadius: AppDimensions.borderRadiusCircular,
             ),
-            const SizedBox(height: 6),
+            const SizedBox(height: 7),
             Text(
               '${formatRubles(context, dashboard.investedTotal)} / ${formatRubles(context, goal.targetAmount)}',
               style: Theme.of(context).textTheme.bodySmall,
@@ -466,10 +909,23 @@ class _RecentSavings extends StatelessWidget {
             ListTile(
               contentPadding: EdgeInsets.zero,
               leading: CircleAvatar(
-                backgroundColor: AppColors.primaryContainer,
-                child: Icon(Icons.check_rounded, color: AppColors.primary),
+                backgroundColor: event.isInvested
+                    ? AppColors.success.withValues(alpha: 0.13)
+                    : AppColors.primaryContainer,
+                child: Icon(
+                  event.isInvested
+                      ? Icons.account_balance_outlined
+                      : Icons.check_rounded,
+                  color: event.isInvested
+                      ? AppColors.success
+                      : AppColors.primary,
+                ),
               ),
-              title: Text(event.impulseName),
+              title: Text(
+                event.impulseName,
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
+              ),
               subtitle: Text(
                 DateFormat.MMMd(
                   Localizations.localeOf(context).toLanguageTag(),
@@ -477,9 +933,10 @@ class _RecentSavings extends StatelessWidget {
               ),
               trailing: Text(
                 '+${formatRubles(context, event.amount)}',
-                style: Theme.of(
-                  context,
-                ).textTheme.titleMedium?.copyWith(color: AppColors.success),
+                style: Theme.of(context).textTheme.titleSmall?.copyWith(
+                  color: AppColors.success,
+                  fontWeight: FontWeight.w800,
+                ),
               ),
             ),
       ],

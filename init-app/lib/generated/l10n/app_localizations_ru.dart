@@ -652,4 +652,60 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get noData => 'Пока недостаточно данных';
+
+  @override
+  String get quickChoices => 'Быстрый выбор';
+
+  @override
+  String get quickChoicesDescription =>
+      'Отметьте покупку, от которой отказались прямо сейчас';
+
+  @override
+  String get recordThisSaving => 'Не потратил';
+
+  @override
+  String get annualPotential => 'Потенциал за год';
+
+  @override
+  String get weeklyPotential => 'Обычно за неделю';
+
+  @override
+  String get savingsBreakdown => 'Из чего складывается капитал';
+
+  @override
+  String get topSavingsSources => 'Что приносит больше экономии';
+
+  @override
+  String get currentPace => 'Текущий темп';
+
+  @override
+  String get decisionCount => 'Решений в пользу себя';
+
+  @override
+  String get allSavings => 'Все решения';
+
+  @override
+  String get realSavings => 'Реально отложено';
+
+  @override
+  String get potentialSavings => 'Пока не отложено';
+
+  @override
+  String get compoundEffect => 'Эффект сложного процента';
+
+  @override
+  String get projectionExplanation =>
+      'Прогноз учитывает текущий темп и ежемесячное реинвестирование';
+
+  @override
+  String get impulseAnnualHint => 'Если отказываться с выбранной частотой';
+
+  @override
+  String get editImpulse => 'Настроить';
+
+  @override
+  String get historyOverview => 'Итог ваших решений';
+
+  @override
+  String get noFilteredHistory => 'В этой группе пока нет записей';
 }
