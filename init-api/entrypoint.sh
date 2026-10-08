@@ -16,12 +16,12 @@ echo "DATABASE_URL is set"
 echo "Testing DB connection (10s timeout)..."
 
 python - <<'PY'
-import os
 import sys
 
 import psycopg2
+from app.config.settings import settings
 
-url = os.environ["DATABASE_URL"]
+url = settings.database_url
 try:
     conn = psycopg2.connect(url, connect_timeout=10)
     conn.close()
