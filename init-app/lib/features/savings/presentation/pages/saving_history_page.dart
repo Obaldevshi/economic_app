@@ -451,7 +451,7 @@ class _HistoryItem extends StatelessWidget {
     fit: BoxFit.scaleDown,
     alignment: alignment,
     child: Text(
-      '+${formatRubles(context, event.amount)}',
+      '+${formatRubles(context, event.amount, currencyCode: event.currencyCode)}',
       style: Theme.of(context).textTheme.titleMedium?.copyWith(
         color: AppColors.success,
         fontWeight: FontWeight.w800,

@@ -63,12 +63,23 @@ class $AssetsImagesGen {
   List<AssetGenImage> get values => [appIcon];
 }
 
+class $AssetsLegalGen {
+  const $AssetsLegalGen();
+
+  /// File path: assets/legal/privacy.json
+  String get privacy => 'assets/legal/privacy.json';
+
+  /// List of all assets
+  List<String> get values => [privacy];
+}
+
 class Assets {
   const Assets._();
 
   static const $AssetsEnvGen env = $AssetsEnvGen();
   static const $AssetsIconsGen icons = $AssetsIconsGen();
   static const $AssetsImagesGen images = $AssetsImagesGen();
+  static const $AssetsLegalGen legal = $AssetsLegalGen();
 }
 
 class AssetGenImage {

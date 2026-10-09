@@ -2,6 +2,10 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <application
         android:label="Не потратил"
+        android:allowBackup="false"
+        android:fullBackupContent="false"
+        android:dataExtractionRules="@xml/data_extraction_rules"
+        android:usesCleartextTraffic="false"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <receiver android:name=".SavingsWidgetProvider" android:exported="false"

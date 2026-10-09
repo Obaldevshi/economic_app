@@ -1,0 +1,448 @@
+{
+  "@@locale": "hi",
+  "privacyPolicy": "गोपनीयता नीति",
+  "financialSettings": "वित्तीय सेटिंग",
+  "financialRegion": "वित्तीय क्षेत्र",
+  "recordCurrency": "रिकॉर्ड की मुद्रा",
+  "displayCurrency": "दिखाने की मुद्रा",
+  "currencyLedgerHint": "रिकॉर्ड की मुद्रा बदलने पर अलग बही खुलती है। पुराने रिकॉर्ड और लक्ष्य अपनी मुद्रा में रहते हैं। समान मूल्य देखने के लिए दिखाने की मुद्रा बदलें।",
+  "regionalDefaultsHint": "क्षेत्र मुद्रा, शुरुआती कीमतें और संदर्भ दर सुझाता है। कीमतें केवल खाली बही में जुड़ती हैं; आपके बदलाव सुरक्षित रहते हैं।",
+  "applyRegionDefaults": "क्षेत्रीय सेटिंग लागू करें",
+  "conversionHint": "रूस के केंद्रीय बैंक की नवीनतम आधिकारिक दर से रूपांतरण। रिकॉर्ड नहीं बदलते। यह बैंक की खरीद दर या भविष्यवाणी नहीं है; जमा ब्याज, कर और शुल्क नहीं बदलते।",
+  "rateReferenceHint": "ब्याज दर बदलने योग्य अनुमान है, लाभ का वादा नहीं। स्रोत और अवधि नीचे दिए हैं।",
+  "rateNeedsInput": "इस क्षेत्र के लिए सत्यापित संदर्भ नहीं: शुरुआती दर 0%। अपनी जमा की शर्तें दर्ज करें।",
+  "exchangeRateDate": "रूसी केंद्रीय बैंक दर · {date}",
+  "currencyChanged": "रिकॉर्ड की मुद्रा बदल गई। रीफ़्रेश करके फिर प्रयास करें।",
+  "starterPricesHint": "मूल कीमतें बदलने योग्य शुरुआती अनुमान हैं, सांख्यिकीय औसत नहीं। इन्हें अपनी खरीद के अनुसार बदलें।",
+  "@exchangeRateDate": {"placeholders": {"date": {"type": "String"}}},
+  "widgetEmptyHint": "आवेगपूर्ण खरीद में अधिकतम तीन पसंदीदा चुनें। बचत की पुष्टि के लिए टैप करें।",
+  "appName": "खर्च नहीं किया",
+  "appTagline": "छोटे फैसले। बड़ी बचत।",
+  "welcomeBack": "फिर से स्वागत है",
+  "loginSubtitle": "जारी रखने के लिए लॉग इन करें",
+  "createAccount": "खाता बनाएं",
+  "registerSubtitle": "शुरू करने के लिए जानकारी भरें",
+  "login": "लॉग इन",
+  "register": "पंजीकरण",
+  "email": "ईमेल",
+  "emailHint": "अपना ईमेल दर्ज करें",
+  "password": "पासवर्ड",
+  "passwordHint": "अपना पासवर्ड दर्ज करें",
+  "createPasswordHint": "पासवर्ड बनाएं",
+  "firstName": "नाम",
+  "firstNameHint": "अपना नाम दर्ज करें",
+  "lastName": "उपनाम",
+  "lastNameHint": "अपना उपनाम दर्ज करें",
+  "confirmPassword": "पासवर्ड की पुष्टि करें",
+  "dontHaveAccount": "खाता नहीं है?",
+  "alreadyHaveAccount": "पहले से खाता है?",
+  "signUp": "साइन अप करें",
+  "signIn": "लॉग इन करें",
+  "or": "या",
+  "createAccountButton": "खाता बनाएं",
+  "accountCreatedSuccessfully": "खाता बन गया",
+  "home": "बचत",
+  "homeWelcome": "डिज़ाइन सिस्टम",
+  "homeDescription": "रंग, टाइपोग्राफी और घटक देखें। थीम और भाषा तुरंत बदलें।",
+  "homeFeatureCategories": "श्रेणियां और पृष्ठ प्रबंधित करें",
+  "homeFeatureProfile": "प्रोफ़ाइल, थीम और भाषा",
+  "homeUiKitTitle": "यूआई किट",
+  "homeUiKitSubtitle": "डिज़ाइन सिस्टम",
+  "homeUiKitDescription": "सुगम उपयोग के लिए हल्की सतहें, शैलियां और घटक।",
+  "homeSectionAppearance": "दिखावट",
+  "homeSectionColors": "रंग",
+  "homeSectionTypography": "टाइपोग्राफी",
+  "homeSectionComponents": "घटक",
+  "homeSectionTokens": "डिज़ाइन मान",
+  "colorPrimary": "मुख्य",
+  "colorPrimaryLight": "हल्का मुख्य रंग",
+  "colorPrimaryDark": "गहरा मुख्य रंग",
+  "colorSecondary": "द्वितीयक",
+  "colorSuccess": "सफलता",
+  "colorWarning": "चेतावनी",
+  "colorError": "त्रुटि",
+  "colorSurface": "सतह",
+  "colorBackground": "पृष्ठभूमि",
+  "homeShowDialog": "संवाद दिखाएं",
+  "homeDialogDemoTitle": "संवाद उदाहरण",
+  "homeDialogDemoContent": "यूआई किट का पुष्टि संवाद।",
+  "homeFontFamily": "फ़ॉन्ट परिवार",
+  "homeFontRegular": "सामान्य",
+  "homeFontMedium": "मध्यम",
+  "homeFontBold": "मोटा",
+  "homeSpacing": "अंतर",
+  "homeRadius": "किनारे की त्रिज्या",
+  "homeGlassTokens": "सतहें",
+  "homeDemoInputLabel": "उदाहरण फ़ील्ड",
+  "homeDemoInputHint": "कुछ लिखें…",
+  "homeToggleLoading": "लोडिंग बदलें",
+  "homeGlassOnLight": "डिफ़ॉल्ट",
+  "homeGlassPanel": "पैनल",
+  "homeGlassOnGradient": "विशेष रंग",
+  "homeTypographySample": "छोटे फैसले, बड़े बदलाव",
+  "categories": "श्रेणियां",
+  "profile": "प्रोफ़ाइल",
+  "profileSectionAccount": "खाता",
+  "addCategory": "श्रेणी जोड़ें",
+  "editCategory": "श्रेणी संपादित करें",
+  "deleteCategory": "श्रेणी हटाएं",
+  "categoryName": "श्रेणी का नाम",
+  "categoryNameRequired": "श्रेणी का नाम आवश्यक है",
+  "categoryNameTooShort": "नाम बहुत छोटा है",
+  "updateCategory": "श्रेणी अपडेट करें",
+  "deleteCategoryConfirmation": "यह श्रेणी हटाएं?",
+  "categoryDeletedSuccessfully": "श्रेणी हटा दी गई",
+  "categoryUpdatedSuccessfully": "श्रेणी अपडेट हो गई",
+  "noCategoriesYet": "अभी कोई श्रेणी नहीं",
+  "noCategoriesFound": "कोई श्रेणी नहीं मिली",
+  "addFirstCategory": "पहली श्रेणी जोड़ें",
+  "tryDifferentSearch": "दूसरी खोज आज़माएं",
+  "searchCategories": "श्रेणियां खोजें",
+  "addNewCategoryTooltip": "श्रेणी जोड़ें",
+  "editProfile": "प्रोफ़ाइल संपादित करें",
+  "updatePersonalInfo": "व्यक्तिगत जानकारी अपडेट करें",
+  "personalInformation": "व्यक्तिगत जानकारी",
+  "saveChanges": "बदलाव सहेजें",
+  "changePassword": "पासवर्ड बदलें",
+  "changePasswordTitle": "पासवर्ड बदलें",
+  "changePasswordButton": "पासवर्ड अपडेट करें",
+  "security": "सुरक्षा",
+  "logout": "लॉग आउट",
+  "logoutConfirmation": "लॉग आउट करें?",
+  "delete": "हटाएं",
+  "edit": "संपादित करें",
+  "cancel": "रद्द करें",
+  "save": "सहेजें",
+  "error": "त्रुटि",
+  "loading": "लोड हो रहा है",
+  "retry": "फिर कोशिश करें",
+  "version": "संस्करण",
+  "currentPassword": "वर्तमान पासवर्ड",
+  "newPassword": "नया पासवर्ड",
+  "confirmNewPassword": "नए पासवर्ड की पुष्टि करें",
+  "enterCurrentPassword": "वर्तमान पासवर्ड दर्ज करें",
+  "enterNewPassword": "नया पासवर्ड दर्ज करें",
+  "confirmYourNewPassword": "नए पासवर्ड की पुष्टि करें",
+  "currentPasswordRequired": "वर्तमान पासवर्ड आवश्यक है",
+  "newPasswordRequired": "नया पासवर्ड आवश्यक है",
+  "passwordChangedSuccessfully": "पासवर्ड बदल गया",
+  "profileUpdatedSuccessfully": "प्रोफ़ाइल अपडेट हो गई",
+  "accountDeletedSuccessfully": "खाता हटा दिया गया",
+  "deleteAccount": "खाता हटाएं",
+  "deleteAccountConfirmation": "अपना खाता हटाएं?",
+  "deleteAccountDescription": "खाता और सभी डेटा स्थायी रूप से हटाएं",
+  "deleteAccountWarning": "यह कार्रवाई वापस नहीं की जा सकती। आपका सभी डेटा स्थायी रूप से हटा दिया जाएगा।",
+  "dangerZone": "सावधानी क्षेत्र",
+  "manageAccount": "खाता प्रबंधित करें",
+  "emailRequired": "ईमेल आवश्यक है",
+  "emailInvalid": "मान्य ईमेल दर्ज करें",
+  "passwordRequired": "पासवर्ड आवश्यक है",
+  "passwordTooShort": "पासवर्ड में कम से कम {minLength} अक्षर होने चाहिए",
+  "@passwordTooShort": {
+    "placeholders": {
+      "minLength": {
+        "type": "int"
+      }
+    }
+  },
+  "newPasswordTooShort": "नए पासवर्ड में कम से कम {minLength} अक्षर होने चाहिए",
+  "@newPasswordTooShort": {
+    "placeholders": {
+      "minLength": {
+        "type": "int"
+      }
+    }
+  },
+  "fieldRequired": "{fieldName} आवश्यक है",
+  "@fieldRequired": {
+    "placeholders": {
+      "fieldName": {
+        "type": "String"
+      }
+    }
+  },
+  "fieldTooShort": "{fieldName} में कम से कम {minLength} अक्षर होने चाहिए",
+  "@fieldTooShort": {
+    "placeholders": {
+      "fieldName": {
+        "type": "String"
+      },
+      "minLength": {
+        "type": "int"
+      }
+    }
+  },
+  "nameLettersOnly": "{fieldName} में केवल अक्षर होने चाहिए",
+  "@nameLettersOnly": {
+    "placeholders": {
+      "fieldName": {
+        "type": "String"
+      }
+    }
+  },
+  "numberRequired": "{fieldName} आवश्यक है",
+  "numberInvalid": "{fieldName} में मान्य संख्या दर्ज करें",
+  "numberMustBePositive": "{fieldName} शून्य से बड़ा होना चाहिए",
+  "passwordsDontMatch": "पासवर्ड मेल नहीं खाते",
+  "last7Days": "पिछले 7 दिन",
+  "last30Days": "पिछले 30 दिन",
+  "today": "आज",
+  "yesterday": "कल",
+  "past": "पहले",
+  "ok": "ठीक है",
+  "offlineBanner": "इंटरनेट कनेक्शन नहीं है",
+  "loadMore": "और लोड करें",
+  "appearance": "दिखावट",
+  "appearanceDescription": "हल्की, गहरी या सिस्टम थीम",
+  "language": "भाषा",
+  "languageDescription": "इंटरफ़ेस की भाषा",
+  "languageSystem": "सिस्टम (बिना चिह्न)",
+  "themeSystem": "सिस्टम",
+  "themeLight": "हल्की",
+  "themeDark": "गहरी",
+  "errorBadRequest": "अमान्य अनुरोध",
+  "errorUnauthorized": "लॉग इन आवश्यक है",
+  "errorAccessDenied": "प्रवेश अस्वीकृत",
+  "errorNotFound": "नहीं मिला",
+  "errorTimeout": "अनुरोध का समय समाप्त",
+  "errorValidation": "सत्यापन त्रुटि",
+  "errorTooManyRequests": "बहुत अधिक अनुरोध",
+  "errorServer": "सर्वर त्रुटि",
+  "errorBadGateway": "गेटवे त्रुटि",
+  "errorServiceUnavailable": "सेवा उपलब्ध नहीं है",
+  "errorGatewayTimeout": "गेटवे का समय समाप्त",
+  "errorClient": "क्लाइंट त्रुटि",
+  "errorRequestCancelled": "अनुरोध रद्द",
+  "errorInvalidCredentials": "लॉग इन जानकारी गलत है",
+  "errorResourceExists": "यह संसाधन पहले से मौजूद है",
+  "savingsTagline": "हर टाली गई आवेगपूर्ण खरीद से अपना भविष्य बनाएं",
+  "recordSaving": "मैंने खर्च नहीं किया",
+  "savedToday": "आज की बचत",
+  "savedThisMonth": "इस महीने",
+  "savedTotal": "कुल दर्ज बचत",
+  "investedTotal": "वास्तव में अलग रखी रकम",
+  "monthlyPace": "मासिक गति",
+  "futureProjection": "भविष्य की बचत",
+  "yearsAtCurrentPace": "वर्ष, वर्तमान गति पर",
+  "interestIncome": "ब्याज आय",
+  "contributions": "आपके योगदान",
+  "savingsDynamics": "महीने के अनुसार बचत",
+  "recentSavings": "हाल के फैसले",
+  "noSavingsYet": "अभी कोई बचत दर्ज नहीं",
+  "habits": "आवेगपूर्ण खरीद",
+  "habitsDescription": "उन खरीदों की कीमतें और शॉर्टकट बदलें जिन्हें टालना चाहते हैं",
+  "history": "इतिहास",
+  "historyDescription": "आपके भविष्य के लिए लिया हर छोटा फैसला",
+  "goals": "लक्ष्य",
+  "addGoal": "लक्ष्य जोड़ें",
+  "goalName": "लक्ष्य का नाम",
+  "targetAmount": "लक्ष्य राशि",
+  "noGoalsYet": "प्रगति देखने के लिए लक्ष्य जोड़ें",
+  "impulseItem": "कौन सी खरीद टाली?",
+  "amount": "राशि",
+  "actuallySetAside": "मैंने यह पैसा वास्तव में अलग रखा",
+  "actuallySetAsideDescription": "संभावित बचत को वास्तविक पूंजी से अलग करता है",
+  "noteOptional": "नोट (वैकल्पिक)",
+  "record": "दर्ज करें",
+  "editHabit": "आवेगपूर्ण खरीद संपादित करें",
+  "addHabit": "आवेगपूर्ण खरीद जोड़ें",
+  "habitName": "खरीद का नाम",
+  "defaultPrice": "सामान्य कीमत",
+  "timesPerWeek": "प्रति सप्ताह बार",
+  "frequencyZeroHint": "0 का अर्थ महीने में एक बार है",
+  "oncePerMonth": "महीने में एक बार",
+  "chooseIcon": "आइकन",
+  "deleteHabitConfirmation": "यह शॉर्टकट हटाएं? पुराना इतिहास बना रहेगा।",
+  "deleteSavingConfirmation": "यह बचत रिकॉर्ड हटाएं?",
+  "noHabits": "अभी कोई खरीद शॉर्टकट नहीं",
+  "noHistory": "आपकी बचत का इतिहास यहां दिखेगा",
+  "weekShort": "सप्ताह",
+  "rateAndHorizon": "दर और अवधि",
+  "annualRate": "जमा की वार्षिक ब्याज दर",
+  "projectionYears": "अनुमान के वर्ष",
+  "apply": "लागू करें",
+  "noData": "अभी पर्याप्त डेटा नहीं है",
+  "quickChoices": "त्वरित चुनाव",
+  "quickChoicesDescription": "अभी टाली गई खरीद चुनें",
+  "recordThisSaving": "खर्च नहीं किया",
+  "annualPotential": "वार्षिक संभावना",
+  "weeklyPotential": "सामान्य सप्ताह",
+  "savingsBreakdown": "आपकी पूंजी कैसे बनती है",
+  "topSavingsSources": "बचत के प्रमुख स्रोत",
+  "currentPace": "वर्तमान गति",
+  "decisionCount": "भविष्य के लिए फैसले",
+  "allSavings": "सभी फैसले",
+  "realSavings": "वास्तव में अलग रखी रकम",
+  "potentialSavings": "अभी अलग नहीं रखी",
+  "compoundEffect": "चक्रवृद्धि ब्याज का प्रभाव",
+  "projectionExplanation": "यह एक अनुमान है, खाते का शेष नहीं: हर दर्ज बचत अलग रखी जाती है, पिछले 90 दिनों की गति जारी रहती है और ब्याज मासिक चक्रवृद्धि होता है। दर काल्पनिक है; रिटर्न की गारंटी नहीं है।",
+  "impulseAnnualHint": "चुनी गई टालने की आवृत्ति पर",
+  "projectionScenario": "मासिक जमा के साथ {rate}% वार्षिक दर पर {years} वर्ष बाद। माना गया है कि सारी बचत अलग रखी जाती है; रिटर्न की गारंटी नहीं है।",
+  "@projectionScenario": {
+    "placeholders": {
+      "years": {
+        "type": "int"
+      },
+      "rate": {
+        "type": "String"
+      }
+    }
+  },
+  "projectionAfterYears": "ब्याज सहित {years} वर्ष बाद",
+  "@projectionAfterYears": {
+    "placeholders": {
+      "years": {
+        "type": "int"
+      }
+    }
+  },
+  "oneSkippedPurchase": "एक टाली गई खरीद",
+  "regularlySkippedPurchases": "नियमित रूप से टाली गई खरीद",
+  "editImpulse": "बदलें",
+  "historyOverview": "आपके फैसलों का सार",
+  "noFilteredHistory": "लोड किए गए रिकॉर्ड में इस समूह का कोई फैसला नहीं",
+  "loadMoreHistory": "और दिखाएं",
+  "historyLoadedCount": "{total} में से {count} फैसले लोड हुए",
+  "@historyLoadedCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
+    }
+  },
+  "projectionTableTitle": "वर्ष के अनुसार राशि",
+  "projectionTableYear": "वर्ष",
+  "projectionTableTotal": "कुल",
+  "habitPaused": "रुकी हुई · कुल संभावना में शामिल नहीं",
+  "showPassword": "पासवर्ड दिखाएं",
+  "hidePassword": "पासवर्ड छिपाएं",
+  "editSaving": "रिकॉर्ड संपादित करें",
+  "moneyFormatError": "अधिकतम 10 अंकों और 2 दशमलव स्थानों वाली राशि दर्ज करें",
+  "frequencyRangeError": "0 से 50 तक पूर्णांक दर्ज करें",
+  "habitActive": "यह आदत शामिल करें",
+  "habitActiveDescription": "रोकने पर त्वरित चुनाव और कुल संभावना से हटता है; इतिहास रहता है",
+  "editGoal": "लक्ष्य संपादित करें",
+  "goalReached": "लक्ष्य राशि अलग रखी गई है",
+  "goalRemaining": "अभी अलग रखनी है: {amount}",
+  "@goalRemaining": {
+    "placeholders": {
+      "amount": {
+        "type": "String"
+      }
+    }
+  },
+  "goalProgressExplanation": "प्रगति केवल इस लक्ष्य को आवंटित पैसे से गिनी जाती है। एक ही राशि कई लक्ष्यों में नहीं गिनी जाती।",
+  "rateFormatError": "अधिकतम दो दशमलव स्थानों के साथ 0 से 100% तक दर दर्ज करें",
+  "savingRecordedMessage": "फैसला दर्ज हुआ",
+  "savingUpdatedMessage": "रिकॉर्ड अपडेट हुआ",
+  "habitSavedMessage": "आदत सहेजी गई",
+  "goalSavedMessage": "लक्ष्य सहेजा गया",
+  "settingsSavedMessage": "अनुमान अपडेट हुआ",
+  "entryDeletedMessage": "रिकॉर्ड हटाया गया",
+  "changesSavedMessage": "बदलाव सहेजे गए",
+  "savingsSummaryUnavailable": "कुल रकम उपलब्ध नहीं; आपका इतिहास मौजूद है",
+  "savingsDataLoadFailed": "डेटा लोड नहीं हुआ। कनेक्शन जांचकर फिर कोशिश करें।",
+  "refresh": "ताज़ा करें",
+  "monthlyAmounts": "मासिक रकम",
+  "customSaving": "दूसरा फैसला",
+  "customSavingHint": "एक बार का रिकॉर्ड: नई आदत नहीं बनेगी।",
+  "oneDecisionProjection": "एक टाली गई खरीद: {years} वर्ष में {amount}।",
+  "@oneDecisionProjection": {
+    "placeholders": {
+      "years": {
+        "type": "int"
+      },
+      "amount": {
+        "type": "String"
+      }
+    }
+  },
+  "oneDecisionProjectionHint": "यदि यह राशि अभी {rate}% वार्षिक दर पर मासिक चक्रवृद्धि के साथ अलग रखी जाए, बिना आगे योगदान के। यह काल्पनिक अनुमान है, रिटर्न का वादा नहीं।",
+  "@oneDecisionProjectionHint": {
+    "placeholders": {
+      "rate": {
+        "type": "String"
+      }
+    }
+  },
+  "impulseIconCoffee": "कॉफ़ी",
+  "impulseIconRestaurant": "कैफ़े और रेस्टोरेंट",
+  "impulseIconDelivery": "खाने की डिलीवरी",
+  "impulseIconSmoking": "सिगरेट",
+  "impulseIconTaxi": "टैक्सी",
+  "impulseIconShopping": "खरीदारी",
+  "impulseIconSubscription": "सदस्यताएं",
+  "impulseIconOther": "अन्य",
+  "scenarioComparison": "अगर मैं कम बार खरीदूं तो?",
+  "scenarioPrice": "कीमत: {amount} · काल्पनिक दर: {rate}%",
+  "@scenarioPrice": {
+    "placeholders": {
+      "amount": {
+        "type": "String"
+      },
+      "rate": {
+        "type": "String"
+      }
+    }
+  },
+  "scenarioBaseline": "अभी",
+  "scenarioModerate": "मध्यम विकल्प",
+  "scenarioMinimal": "न्यूनतम विकल्प",
+  "scenarioFrequency": "{name}: प्रति सप्ताह {count} खरीद",
+  "@scenarioFrequency": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      },
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "scenarioOwnMoney": "योगदान",
+  "scenarioAssumptions": "वर्तमान आवृत्ति से अंतर। साल में 52 सप्ताह; सारी बचत हर महीने के अंत में जमा होती है और ब्याज मासिक चक्रवृद्धि है। शुरुआती पूंजी, कर या महंगाई शामिल नहीं; रिटर्न की गारंटी नहीं। यह गणना इतिहास में रिकॉर्ड नहीं बनाती।",
+  "allocateGoal": "पैसा आवंटित करें",
+  "allocatedAmount": "इस लक्ष्य को कुल आवंटित राशि",
+  "unallocatedMoney": "लक्ष्यों के लिए उपलब्ध: {amount}",
+  "@unallocatedMoney": {
+    "placeholders": {
+      "amount": {
+        "type": "String"
+      }
+    }
+  },
+  "allocationCapacity": "इस लक्ष्य को अधिकतम {amount} आवंटित कर सकते हैं",
+  "@allocationCapacity": {
+    "placeholders": {
+      "amount": {
+        "type": "String"
+      }
+    }
+  },
+  "allocationInvalid": "अधिकतम दो दशमलव स्थानों वाली 0 या अधिक राशि दर्ज करें",
+  "allocationTooLarge": "उपलब्ध रकम कम है या लक्ष्य राशि पार हो गई",
+  "goalBelowAllocation": "पहले अतिरिक्त आवंटन वापस करें",
+  "releaseAllocationsFirst": "यह पैसा लक्ष्यों को आवंटित है। पहले आवंटन घटाएं।",
+  "releaseGoalMoney": "इस लक्ष्य का पैसा वापस करें",
+  "allocationHint": "कुल आवंटन तय करें, अतिरिक्त जमा नहीं। 0 से पैसा उपलब्ध शेष में लौटता है। कोई बैंक ट्रांसफ़र नहीं होता।",
+  "allocationSaved": "पैसा आवंटित हुआ",
+  "savingReceipt": "टाली गई खरीद की रसीद",
+  "weeklyReceipt": "7 दिनों के मेरे फैसले",
+  "receiptPurchaseNotMade": "खरीद नहीं की गई",
+  "receiptPrivateDecision": "खुद के लिए एक फैसला",
+  "receiptFooter": "टाली गई खरीद का निजी रिकॉर्ड। यह बैंक विवरण या कर रसीद नहीं है।",
+  "receiptHideName": "खरीद का नाम छिपाएं",
+  "receiptExport": "PNG सहेजें / साझा करें",
+  "receiptExportFailed": "रसीद एक्सपोर्ट नहीं हुई। फिर कोशिश करें।",
+  "favoriteActions": "मेरे तीन त्वरित फैसले",
+  "favoriteActionsHint": "आदत के मेन्यू में पसंदीदा में जोड़ें चुनें। अधिकतम तीन क्रियाएं यहां और फ़ोन विजेट में दिखेंगी। जोड़ने के लिए होम स्क्रीन दबाकर रखें → विजेट → खर्च नहीं किया।",
+  "addFavorite": "पसंदीदा / विजेट में जोड़ें",
+  "removeFavorite": "पसंदीदा से हटाएं",
+  "favoriteLimit": "तीन पसंदीदा पहले से हैं। पहले एक हटाएं।",
+  "widgetItemUnavailable": "यह आइटम हटाया गया, रोका गया या इस खाते के लिए उपलब्ध नहीं है",
+  "chooseLanguage": "भाषा चुनें",
+  "coinLanguageHint": "लोगो का मुद्रा चिह्न एक क्षेत्रीय संकेत है। भाषा बदलने से रकम का रूपांतरण या रिकॉर्ड की मुद्रा नहीं बदलती।"
+}

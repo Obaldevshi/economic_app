@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
+import 'package:mobile_template/features/savings/presentation/widgets/financial_display_scope.dart';
 import 'package:mobile_template/app/theme/app_dimensions.dart';
 import 'package:mobile_template/core/extensions/build_context_extensions.dart';
 import 'package:mobile_template/core/utils/receipt_export.dart';
@@ -16,7 +17,10 @@ Future<void> showSavingReceipt(
   SavingEventResponse event,
 ) => showDialog<void>(
   context: context,
-  builder: (_) => _ReceiptDialog(event: event),
+  builder: (_) => FinancialDisplayScope(
+    data: FinancialDisplayScope.of(context),
+    child: _ReceiptDialog(event: event),
+  ),
 );
 
 Future<void> showWeeklyReceiptDialog(BuildContext context) {
@@ -47,7 +51,10 @@ Future<void> showWeeklyReceiptDialog(BuildContext context) {
                 ),
               ],
             );
-          return _ReceiptDialog(week: receipt);
+          return FinancialDisplayScope(
+            data: FinancialDisplayScope.of(context),
+            child: _ReceiptDialog(week: receipt),
+          );
         },
       ),
     ),
@@ -180,6 +187,8 @@ class _ReceiptDialogState extends State<_ReceiptDialog> {
                             formatRubles(
                               context,
                               week?.totalSaved ?? event!.amount,
+                              currencyCode:
+                                  week?.currencyCode ?? event!.currencyCode,
                             ),
                             style: const TextStyle(
                               fontFamily: 'serif',
@@ -189,7 +198,7 @@ class _ReceiptDialogState extends State<_ReceiptDialog> {
                           ),
                           const SizedBox(height: AppDimensions.spaceM),
                           Text(
-                            '${context.l10n.realSavings}: ${formatRubles(context, week?.investedTotal ?? (event!.isInvested ? event.amount : 0))}',
+                            '${context.l10n.realSavings}: ${formatRubles(context, week?.investedTotal ?? (event!.isInvested ? event.amount : 0), currencyCode: week?.currencyCode ?? event!.currencyCode)}',
                             style: const TextStyle(color: Color(0xFF272D34)),
                           ),
                           if (week != null)
@@ -198,6 +207,25 @@ class _ReceiptDialogState extends State<_ReceiptDialog> {
                               style: const TextStyle(color: Color(0xFF272D34)),
                             ),
                           const Divider(height: 32, color: Color(0xFFAAAD9C)),
+                          if (FinancialDisplayScope.of(context).rates?.asOf !=
+                              null)
+                            Text(
+                              context.l10n.exchangeRateDate(
+                                DateFormat.yMd(
+                                  Localizations.localeOf(
+                                    context,
+                                  ).toLanguageTag(),
+                                ).format(
+                                  FinancialDisplayScope.of(
+                                    context,
+                                  ).rates!.asOf!,
+                                ),
+                              ),
+                              style: const TextStyle(
+                                fontSize: 12,
+                                color: Color(0xFF666A70),
+                              ),
+                            ),
                           Text(
                             context.l10n.receiptFooter,
                             style: const TextStyle(

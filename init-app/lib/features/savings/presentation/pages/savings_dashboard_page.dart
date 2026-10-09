@@ -1,4 +1,5 @@
 import 'dart:math' as math;
+import 'package:mobile_template/features/savings/presentation/widgets/financial_currency_bar.dart';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -127,6 +128,8 @@ class _DashboardBody extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
+            FinancialCurrencyBar(dashboard: dashboard),
+            const SizedBox(height: AppDimensions.spaceM),
             _SavingsHero(dashboard: dashboard, impulses: impulses),
             const SizedBox(height: AppDimensions.spaceL),
             const QuickSavingActions(),
@@ -425,7 +428,11 @@ class _QuickChoices extends StatelessWidget {
                       ),
                       const SizedBox(height: 2),
                       Text(
-                        formatRubles(context, item.defaultAmount),
+                        formatRubles(
+                          context,
+                          item.defaultAmount,
+                          currencyCode: item.currencyCode,
+                        ),
                         style: Theme.of(context).textTheme.titleMedium
                             ?.copyWith(
                               color: Theme.of(context).colorScheme.primary,
@@ -1139,7 +1146,7 @@ class _RecentSavings extends StatelessWidget {
                 ).format(event.occurredAt),
               ),
               trailing: Text(
-                '+${formatRubles(context, event.amount)}',
+                '+${formatRubles(context, event.amount, currencyCode: event.currencyCode)}',
                 style: Theme.of(context).textTheme.titleSmall?.copyWith(
                   color: AppColors.success,
                   fontWeight: FontWeight.w800,

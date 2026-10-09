@@ -15,6 +15,11 @@ $canvas.FillRectangle($background, 0, 0, $size, $size)
 
 $coin = [System.Drawing.SolidBrush]::new([System.Drawing.ColorTranslator]::FromHtml('#E58B60'))
 $canvas.FillEllipse($coin, 432, 176, 288, 288)
+$coinDetail = [System.Drawing.Pen]::new([System.Drawing.ColorTranslator]::FromHtml('#965238'), 16)
+$coinDetail.StartCap = [System.Drawing.Drawing2D.LineCap]::Round
+$coinDetail.EndCap = [System.Drawing.Drawing2D.LineCap]::Round
+$coinDetail.LineJoin = [System.Drawing.Drawing2D.LineJoin]::Round
+$canvas.DrawEllipse($coinDetail, 468.8, 212.8, 214.4, 214.4)
 $pocket = [System.Drawing.Pen]::new([System.Drawing.ColorTranslator]::FromHtml('#FFFCF6'), 76.8)
 $pocket.StartCap = [System.Drawing.Drawing2D.LineCap]::Round
 $pocket.EndCap = [System.Drawing.Drawing2D.LineCap]::Round
@@ -34,6 +39,7 @@ $canvas.DrawLines($pocket, $points)
 $canvas.Dispose()
 $pocket.Dispose()
 $outline.Dispose()
+$coinDetail.Dispose()
 $coin.Dispose()
 $background.Dispose()
 $bitmap.Save($sourcePath, [System.Drawing.Imaging.ImageFormat]::Png)

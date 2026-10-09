@@ -18,9 +18,28 @@ import WidgetKit
       channel.setMethodCallHandler { [weak self] call, result in
         guard let self = self else { result(nil); return }
         switch call.method {
+        case "clearPersonalData":
+          self.pendingImpulse = nil
+          let group = Bundle.main.object(forInfoDictionaryKey: "SavingsAppGroup") as? String ?? ""
+          if FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: group) != nil,
+              let defaults = UserDefaults(suiteName: group) {
+            defaults.set("[]", forKey: "saving_items")
+            if #available(iOS 14.0, *) { WidgetCenter.shared.reloadTimelines(ofKind: "SavingsWidget") }
+          }
+          result(nil)
         case "consumeTap":
           result(self.pendingImpulse)
           self.pendingImpulse = nil
+        case "setWidgetLanguage":
+          let group = Bundle.main.object(forInfoDictionaryKey: "SavingsAppGroup") as? String ?? ""
+          guard FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: group) != nil,
+                let defaults = UserDefaults(suiteName: group),
+                let labels = call.arguments as? [String: String] else {
+            result(FlutterError(code: "widget_group", message: "Shared App Group unavailable", details: nil)); return
+          }
+          for (key, value) in labels { defaults.set(value, forKey: "saving_" + key) }
+          if #available(iOS 14.0, *) { WidgetCenter.shared.reloadTimelines(ofKind: "SavingsWidget") }
+          result(nil)
         case "syncWidget":
           let group = Bundle.main.object(forInfoDictionaryKey: "SavingsAppGroup") as? String ?? ""
           guard FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: group) != nil,

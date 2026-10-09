@@ -5,11 +5,15 @@ private struct SavingItem: Codable, Identifiable {
     let id: Int
     let name: String
     let amount: Double
+    let currency: String?
 }
 
 private struct SavingEntry: TimelineEntry {
     let date: Date
     let items: [SavingItem]
+    var title = "Not spent"
+    var empty = "Choose up to three favorites in the Impulses menu."
+    var locale = "en"
 }
 
 private struct SavingProvider: TimelineProvider {
@@ -20,9 +24,13 @@ private struct SavingProvider: TimelineProvider {
     }
     private func read() -> SavingEntry {
         let group = Bundle.main.object(forInfoDictionaryKey: "SavingsAppGroup") as? String ?? ""
-        let raw = UserDefaults(suiteName: group)?.string(forKey: "saving_items") ?? "[]"
+        let defaults = UserDefaults(suiteName: group)
+        let raw = defaults?.string(forKey: "saving_items") ?? "[]"
         let items = (try? JSONDecoder().decode([SavingItem].self, from: Data(raw.utf8))) ?? []
-        return SavingEntry(date: Date(), items: Array(items.prefix(3)))
+        return SavingEntry(date: Date(), items: Array(items.prefix(3)),
+            title: defaults?.string(forKey: "saving_title") ?? "Not spent",
+            empty: defaults?.string(forKey: "saving_empty") ?? "Choose up to three favorites in the Impulses menu.",
+            locale: defaults?.string(forKey: "saving_locale") ?? "en")
     }
 }
 
@@ -30,7 +38,6 @@ private struct SavingWidgetView: View {
     let entry: SavingEntry
     private let paper = Color(red: 0.957, green: 0.941, blue: 0.898)
     private let ink = Color(red: 0.153, green: 0.176, blue: 0.204)
-    private var russian: Bool { Locale.current.languageCode == "ru" }
     var body: some View {
         if #available(iOSApplicationExtension 17.0, *) {
             content.containerBackground(paper, for: .widget)
@@ -40,9 +47,9 @@ private struct SavingWidgetView: View {
     }
     private var content: some View {
         VStack(alignment: .leading, spacing: 10) {
-            Text(russian ? "Не потратил" : "Not spent").font(.system(.title2, design: .serif)).bold()
+            Text(entry.title).font(.system(.title2, design: .serif)).bold()
             if entry.items.isEmpty {
-                Text(russian ? "Выберите до 3 избранных импульсов в меню привычек." : "Choose up to 3 favorites in the Habits menu.")
+                Text(entry.empty)
                     .font(.footnote)
             }
             ForEach(entry.items) { item in
@@ -50,7 +57,7 @@ private struct SavingWidgetView: View {
                     HStack {
                         Text(item.name).lineLimit(1)
                         Spacer()
-                        Text(String(format: "%.2f ₽", item.amount)).font(.caption)
+                        Text(item.amount, format: .currency(code: item.currency ?? "RUB")).font(.caption)
                     }
                     .padding(.vertical, 6)
                 }
@@ -58,6 +65,8 @@ private struct SavingWidgetView: View {
             }
         }
         .foregroundColor(ink)
+        .environment(\.locale, Locale(identifier: entry.locale))
+        .environment(\.layoutDirection, entry.locale == "ar" ? .rightToLeft : .leftToRight)
     }
 }
 

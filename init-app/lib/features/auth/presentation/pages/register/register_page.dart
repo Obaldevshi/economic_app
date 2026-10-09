@@ -72,7 +72,7 @@ class _RegisterPageState extends State<RegisterPage> {
       autofillHints: const [AutofillHints.givenName],
       enabled: !_isLoading,
       validator: (value) =>
-          ValidationUtils.validateName(value, context.l10n.firstName),
+          ValidationUtils.validateName(value, context.l10n.firstName, context),
     );
 
     Widget lastNameField() => GlobalTextFormField(
@@ -83,7 +83,7 @@ class _RegisterPageState extends State<RegisterPage> {
       autofillHints: const [AutofillHints.familyName],
       enabled: !_isLoading,
       validator: (value) =>
-          ValidationUtils.validateName(value, context.l10n.lastName),
+          ValidationUtils.validateName(value, context.l10n.lastName, context),
     );
 
     return BlocConsumer<RegisterBloc, RegisterState>(
@@ -131,7 +131,8 @@ class _RegisterPageState extends State<RegisterPage> {
                     autofillHints: const [AutofillHints.email],
                     autocorrect: false,
                     enabled: !_isLoading,
-                    validator: ValidationUtils.validateEmail,
+                    validator: (value) =>
+                        ValidationUtils.validateEmail(value, context),
                   ),
                   const SizedBox(height: AppDimensions.spaceL),
                   GlobalTextFormField(
@@ -158,9 +159,14 @@ class _RegisterPageState extends State<RegisterPage> {
                         () => _isPasswordVisible = !_isPasswordVisible,
                       ),
                     ),
-                    validator: ValidationUtils.validatePassword,
+                    validator: (value) =>
+                        ValidationUtils.validatePassword(value, context),
                   ),
                   const SizedBox(height: AppDimensions.spaceXL),
+                  TextButton(
+                    onPressed: () => context.push(AppRoutes.privacy),
+                    child: Text(context.l10n.privacyPolicy),
+                  ),
                   GlobalButton(
                     text: context.l10n.createAccountButton,
                     onPressed: _handleRegister,

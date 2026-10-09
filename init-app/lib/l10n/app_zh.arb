@@ -1,0 +1,448 @@
+{
+  "@@locale": "zh",
+  "privacyPolicy": "隐私政策",
+  "financialSettings": "财务设置",
+  "financialRegion": "财务地区",
+  "recordCurrency": "记账货币",
+  "displayCurrency": "显示货币",
+  "currencyLedgerHint": "切换记账货币会打开独立账本。原有记录和目标保留原币种。查看等值金额请使用显示货币。",
+  "regionalDefaultsHint": "地区提供货币、初始参考价格和利率参考值。价格仅添加到空账本，您的修改会被保留。",
+  "applyRegionDefaults": "应用地区设置",
+  "conversionHint": "按俄罗斯央行最近公布的官方汇率换算，不修改原始记录。这不是银行买卖价或汇率预测；存款利率、税费和手续费不会换算。",
+  "rateReferenceHint": "利率是可编辑的情景假设，不是收益承诺。参考来源和时期列在下方。",
+  "rateNeedsInput": "该地区暂无已核实参考值：初始利率为0%。请填写您的存款条件。",
+  "exchangeRateDate": "俄罗斯央行汇率 · {date}",
+  "currencyChanged": "记账货币已改变。请刷新后重试。",
+  "starterPricesHint": "默认价格是可编辑的初始估值，并非统计平均价格。请按自己的消费修改。",
+  "@exchangeRateDate": {"placeholders": {"date": {"type": "String"}}},
+  "widgetEmptyHint": "在消费冲动中选择最多三个收藏，点击后确认节省。",
+  "appName": "没花掉",
+  "appTagline": "小小选择，更多积蓄。",
+  "welcomeBack": "欢迎回来",
+  "loginSubtitle": "登录以继续",
+  "createAccount": "创建账户",
+  "registerSubtitle": "填写信息以开始使用",
+  "login": "登录",
+  "register": "注册",
+  "email": "电子邮箱",
+  "emailHint": "输入电子邮箱",
+  "password": "密码",
+  "passwordHint": "输入密码",
+  "createPasswordHint": "设置密码",
+  "firstName": "名字",
+  "firstNameHint": "输入名字",
+  "lastName": "姓氏",
+  "lastNameHint": "输入姓氏",
+  "confirmPassword": "确认密码",
+  "dontHaveAccount": "还没有账户？",
+  "alreadyHaveAccount": "已有账户？",
+  "signUp": "注册",
+  "signIn": "登录",
+  "or": "或",
+  "createAccountButton": "创建账户",
+  "accountCreatedSuccessfully": "账户已创建",
+  "home": "节省",
+  "homeWelcome": "设计系统",
+  "homeDescription": "浏览颜色、排版和组件，实时切换主题和语言。",
+  "homeFeatureCategories": "管理分类和分页",
+  "homeFeatureProfile": "个人资料、主题和语言",
+  "homeUiKitTitle": "界面组件库",
+  "homeUiKitSubtitle": "设计系统",
+  "homeUiKitDescription": "轻量界面、样式和组件，运行流畅。",
+  "homeSectionAppearance": "外观",
+  "homeSectionColors": "颜色",
+  "homeSectionTypography": "排版",
+  "homeSectionComponents": "组件",
+  "homeSectionTokens": "设计变量",
+  "colorPrimary": "主色",
+  "colorPrimaryLight": "浅主色",
+  "colorPrimaryDark": "深主色",
+  "colorSecondary": "辅助色",
+  "colorSuccess": "成功",
+  "colorWarning": "警告",
+  "colorError": "错误",
+  "colorSurface": "界面底色",
+  "colorBackground": "背景",
+  "homeShowDialog": "显示对话框",
+  "homeDialogDemoTitle": "对话框示例",
+  "homeDialogDemoContent": "界面组件库的确认对话框。",
+  "homeFontFamily": "字体系列",
+  "homeFontRegular": "常规",
+  "homeFontMedium": "中等",
+  "homeFontBold": "粗体",
+  "homeSpacing": "间距",
+  "homeRadius": "圆角半径",
+  "homeGlassTokens": "界面层",
+  "homeDemoInputLabel": "示例输入框",
+  "homeDemoInputHint": "输入内容…",
+  "homeToggleLoading": "切换加载状态",
+  "homeGlassOnLight": "默认",
+  "homeGlassPanel": "面板",
+  "homeGlassOnGradient": "强调色",
+  "homeTypographySample": "小小选择，大大改变",
+  "categories": "分类",
+  "profile": "个人资料",
+  "profileSectionAccount": "账户",
+  "addCategory": "添加分类",
+  "editCategory": "编辑分类",
+  "deleteCategory": "删除分类",
+  "categoryName": "分类名称",
+  "categoryNameRequired": "请输入分类名称",
+  "categoryNameTooShort": "名称太短",
+  "updateCategory": "更新分类",
+  "deleteCategoryConfirmation": "确定删除此分类？",
+  "categoryDeletedSuccessfully": "分类已删除",
+  "categoryUpdatedSuccessfully": "分类已更新",
+  "noCategoriesYet": "暂无分类",
+  "noCategoriesFound": "未找到分类",
+  "addFirstCategory": "添加第一个分类",
+  "tryDifferentSearch": "尝试其他搜索词",
+  "searchCategories": "搜索分类",
+  "addNewCategoryTooltip": "添加分类",
+  "editProfile": "编辑资料",
+  "updatePersonalInfo": "更新个人信息",
+  "personalInformation": "个人信息",
+  "saveChanges": "保存更改",
+  "changePassword": "修改密码",
+  "changePasswordTitle": "修改密码",
+  "changePasswordButton": "更新密码",
+  "security": "安全",
+  "logout": "退出登录",
+  "logoutConfirmation": "确定退出登录？",
+  "delete": "删除",
+  "edit": "编辑",
+  "cancel": "取消",
+  "save": "保存",
+  "error": "错误",
+  "loading": "加载中",
+  "retry": "重试",
+  "version": "版本",
+  "currentPassword": "当前密码",
+  "newPassword": "新密码",
+  "confirmNewPassword": "确认新密码",
+  "enterCurrentPassword": "输入当前密码",
+  "enterNewPassword": "输入新密码",
+  "confirmYourNewPassword": "再次输入新密码",
+  "currentPasswordRequired": "请输入当前密码",
+  "newPasswordRequired": "请输入新密码",
+  "passwordChangedSuccessfully": "密码已修改",
+  "profileUpdatedSuccessfully": "资料已更新",
+  "accountDeletedSuccessfully": "账户已删除",
+  "deleteAccount": "删除账户",
+  "deleteAccountConfirmation": "确定删除账户？",
+  "deleteAccountDescription": "永久删除账户及全部数据",
+  "deleteAccountWarning": "此操作不可撤销，全部数据将永久删除。",
+  "dangerZone": "危险操作",
+  "manageAccount": "管理账户",
+  "emailRequired": "请输入电子邮箱",
+  "emailInvalid": "请输入有效邮箱",
+  "passwordRequired": "请输入密码",
+  "passwordTooShort": "密码至少需要 {minLength} 个字符",
+  "@passwordTooShort": {
+    "placeholders": {
+      "minLength": {
+        "type": "int"
+      }
+    }
+  },
+  "newPasswordTooShort": "新密码至少需要 {minLength} 个字符",
+  "@newPasswordTooShort": {
+    "placeholders": {
+      "minLength": {
+        "type": "int"
+      }
+    }
+  },
+  "fieldRequired": "请填写{fieldName}",
+  "@fieldRequired": {
+    "placeholders": {
+      "fieldName": {
+        "type": "String"
+      }
+    }
+  },
+  "fieldTooShort": "{fieldName}至少需要 {minLength} 个字符",
+  "@fieldTooShort": {
+    "placeholders": {
+      "fieldName": {
+        "type": "String"
+      },
+      "minLength": {
+        "type": "int"
+      }
+    }
+  },
+  "nameLettersOnly": "{fieldName}只能包含文字",
+  "@nameLettersOnly": {
+    "placeholders": {
+      "fieldName": {
+        "type": "String"
+      }
+    }
+  },
+  "numberRequired": "请填写{fieldName}",
+  "numberInvalid": "{fieldName}必须为有效数字",
+  "numberMustBePositive": "{fieldName}必须大于零",
+  "passwordsDontMatch": "两次密码不一致",
+  "last7Days": "近7天",
+  "last30Days": "近30天",
+  "today": "今天",
+  "yesterday": "昨天",
+  "past": "过去",
+  "ok": "确定",
+  "offlineBanner": "无网络连接",
+  "loadMore": "加载更多",
+  "appearance": "外观",
+  "appearanceDescription": "浅色、深色或跟随系统",
+  "language": "语言",
+  "languageDescription": "界面语言",
+  "languageSystem": "跟随系统（无符号）",
+  "themeSystem": "跟随系统",
+  "themeLight": "浅色",
+  "themeDark": "深色",
+  "errorBadRequest": "请求无效",
+  "errorUnauthorized": "请登录",
+  "errorAccessDenied": "访问被拒绝",
+  "errorNotFound": "未找到",
+  "errorTimeout": "请求超时",
+  "errorValidation": "输入验证错误",
+  "errorTooManyRequests": "请求过于频繁",
+  "errorServer": "服务器错误",
+  "errorBadGateway": "网关错误",
+  "errorServiceUnavailable": "服务不可用",
+  "errorGatewayTimeout": "网关超时",
+  "errorClient": "客户端错误",
+  "errorRequestCancelled": "请求已取消",
+  "errorInvalidCredentials": "登录信息错误",
+  "errorResourceExists": "该资源已存在",
+  "savingsTagline": "每一次克制冲动消费，都在积累未来",
+  "recordSaving": "我没花这笔钱",
+  "savedToday": "今日节省",
+  "savedThisMonth": "本月",
+  "savedTotal": "累计记录的节省",
+  "investedTotal": "实际存下",
+  "monthlyPace": "每月节省速度",
+  "futureProjection": "未来积蓄",
+  "yearsAtCurrentPace": "年，按当前速度",
+  "interestIncome": "利息收益",
+  "contributions": "你的投入",
+  "savingsDynamics": "每月节省",
+  "recentSavings": "最近的选择",
+  "noSavingsYet": "尚未记录节省",
+  "habits": "消费冲动",
+  "habitsDescription": "编辑你想避免的消费价格和快捷入口",
+  "history": "历史记录",
+  "historyDescription": "每个为未来积累的小选择",
+  "goals": "目标",
+  "addGoal": "添加目标",
+  "goalName": "目标名称",
+  "targetAmount": "目标金额",
+  "noGoalsYet": "添加目标以查看进度",
+  "impulseItem": "你放弃了哪笔消费？",
+  "amount": "金额",
+  "actuallySetAside": "我确实存下了这笔钱",
+  "actuallySetAsideDescription": "区分潜在节省与实际资金",
+  "noteOptional": "备注（可选）",
+  "record": "记录",
+  "editHabit": "编辑消费冲动",
+  "addHabit": "添加消费冲动",
+  "habitName": "消费名称",
+  "defaultPrice": "通常价格",
+  "timesPerWeek": "每周次数",
+  "frequencyZeroHint": "0 表示每月一次",
+  "oncePerMonth": "每月一次",
+  "chooseIcon": "图标",
+  "deleteHabitConfirmation": "删除此消费快捷入口？历史记录会保留。",
+  "deleteSavingConfirmation": "删除此节省记录？",
+  "noHabits": "暂无消费快捷入口",
+  "noHistory": "你的节省记录将显示在这里",
+  "weekShort": "周",
+  "rateAndHorizon": "利率和期限",
+  "annualRate": "存款年利率",
+  "projectionYears": "预测年数",
+  "apply": "应用",
+  "noData": "数据还不够",
+  "quickChoices": "快捷选择",
+  "quickChoicesDescription": "选择你刚刚放弃的消费",
+  "recordThisSaving": "没花掉",
+  "annualPotential": "年度潜力",
+  "weeklyPotential": "典型一周",
+  "savingsBreakdown": "你的资金如何积累",
+  "topSavingsSources": "主要节省来源",
+  "currentPace": "当前速度",
+  "decisionCount": "为未来作出的选择",
+  "allSavings": "全部选择",
+  "realSavings": "实际存下",
+  "potentialSavings": "尚未存下",
+  "compoundEffect": "复利效应",
+  "projectionExplanation": "这是情景预测，不是账户余额：假设每笔记录的节省都被存下，延续过去90天的速度，并按月复利。利率是假设值，收益不保证。",
+  "impulseAnnualHint": "按所选放弃频率",
+  "projectionScenario": "按年利率 {rate}%、每月存入，{years} 年后的情景。假设所有节省都被存下，收益不保证。",
+  "@projectionScenario": {
+    "placeholders": {
+      "years": {
+        "type": "int"
+      },
+      "rate": {
+        "type": "String"
+      }
+    }
+  },
+  "projectionAfterYears": "{years} 年后（含利息）",
+  "@projectionAfterYears": {
+    "placeholders": {
+      "years": {
+        "type": "int"
+      }
+    }
+  },
+  "oneSkippedPurchase": "一次放弃消费",
+  "regularlySkippedPurchases": "定期放弃消费",
+  "editImpulse": "自定义",
+  "historyOverview": "选择一览",
+  "noFilteredHistory": "已加载记录中没有此类选择",
+  "loadMoreHistory": "显示更多",
+  "historyLoadedCount": "已加载 {count} 条，共 {total} 条选择",
+  "@historyLoadedCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
+    }
+  },
+  "projectionTableTitle": "逐年金额",
+  "projectionTableYear": "年份",
+  "projectionTableTotal": "总额",
+  "habitPaused": "已暂停 · 不计入总潜力",
+  "showPassword": "显示密码",
+  "hidePassword": "隐藏密码",
+  "editSaving": "编辑记录",
+  "moneyFormatError": "请输入最多10位整数、2位小数的金额",
+  "frequencyRangeError": "请输入0到50之间的整数",
+  "habitActive": "计入此习惯",
+  "habitActiveDescription": "暂停后不计入快捷选择和总潜力，历史保留",
+  "editGoal": "编辑目标",
+  "goalReached": "目标金额已存下",
+  "goalRemaining": "还需存下：{amount}",
+  "@goalRemaining": {
+    "placeholders": {
+      "amount": {
+        "type": "String"
+      }
+    }
+  },
+  "goalProgressExplanation": "进度只计算分配给此目标的资金。同一笔钱不会重复计入多个目标。",
+  "rateFormatError": "请输入0到100%的利率，最多两位小数",
+  "savingRecordedMessage": "选择已记录",
+  "savingUpdatedMessage": "记录已更新",
+  "habitSavedMessage": "习惯已保存",
+  "goalSavedMessage": "目标已保存",
+  "settingsSavedMessage": "预测已更新",
+  "entryDeletedMessage": "记录已删除",
+  "changesSavedMessage": "更改已保存",
+  "savingsSummaryUnavailable": "总计暂不可用，历史记录仍保留",
+  "savingsDataLoadFailed": "无法加载数据，请检查网络后重试。",
+  "refresh": "刷新",
+  "monthlyAmounts": "每月金额",
+  "customSaving": "其他选择",
+  "customSavingHint": "单次记录，不会创建新习惯。",
+  "oneDecisionProjection": "放弃一次消费：{years} 年后为 {amount}。",
+  "@oneDecisionProjection": {
+    "placeholders": {
+      "years": {
+        "type": "int"
+      },
+      "amount": {
+        "type": "String"
+      }
+    }
+  },
+  "oneDecisionProjectionHint": "假设现在存下这笔钱，年利率 {rate}%，按月复利且不再追加。这是假设情景，不是收益承诺。",
+  "@oneDecisionProjectionHint": {
+    "placeholders": {
+      "rate": {
+        "type": "String"
+      }
+    }
+  },
+  "impulseIconCoffee": "咖啡",
+  "impulseIconRestaurant": "咖啡馆和餐馆",
+  "impulseIconDelivery": "外卖",
+  "impulseIconSmoking": "香烟",
+  "impulseIconTaxi": "出租车",
+  "impulseIconShopping": "购物",
+  "impulseIconSubscription": "订阅",
+  "impulseIconOther": "其他",
+  "scenarioComparison": "如果我减少购买次数呢？",
+  "scenarioPrice": "价格：{amount} · 假设利率：{rate}%",
+  "@scenarioPrice": {
+    "placeholders": {
+      "amount": {
+        "type": "String"
+      },
+      "rate": {
+        "type": "String"
+      }
+    }
+  },
+  "scenarioBaseline": "现在",
+  "scenarioModerate": "适度方案",
+  "scenarioMinimal": "最少方案",
+  "scenarioFrequency": "{name}：每周购买 {count} 次",
+  "@scenarioFrequency": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      },
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "scenarioOwnMoney": "投入金额",
+  "scenarioAssumptions": "与当前频率相比的差额。每年按52周，节省的钱在每月月底存入，按月复利。不计初始资金、税费或通胀，收益不保证。此计算不会创建历史记录。",
+  "allocateGoal": "分配资金",
+  "allocatedAmount": "已分配给此目标的总额",
+  "unallocatedMoney": "可用于目标的资金：{amount}",
+  "@unallocatedMoney": {
+    "placeholders": {
+      "amount": {
+        "type": "String"
+      }
+    }
+  },
+  "allocationCapacity": "此目标最多可分配 {amount}",
+  "@allocationCapacity": {
+    "placeholders": {
+      "amount": {
+        "type": "String"
+      }
+    }
+  },
+  "allocationInvalid": "请输入不小于0的金额，最多两位小数",
+  "allocationTooLarge": "可用资金不足，或超过目标金额",
+  "goalBelowAllocation": "请先释放超出的分配金额",
+  "releaseAllocationsFirst": "这笔资金已分配给目标，请先减少分配额。",
+  "releaseGoalMoney": "释放此目标的资金",
+  "allocationHint": "设置分配总额，而非追加存款。设为0会将资金退回可用余额。不会执行银行转账。",
+  "allocationSaved": "资金已分配",
+  "savingReceipt": "放弃消费凭条",
+  "weeklyReceipt": "我近7天的选择",
+  "receiptPurchaseNotMade": "未进行的消费",
+  "receiptPrivateDecision": "为自己作出的选择",
+  "receiptFooter": "放弃消费的个人记录，不是银行账单或税务票据。",
+  "receiptHideName": "隐藏消费名称",
+  "receiptExport": "保存／分享PNG",
+  "receiptExportFailed": "导出凭条失败，请重试。",
+  "favoriteActions": "我的三个快捷选择",
+  "favoriteActionsHint": "在习惯菜单中选择添加到收藏。最多三个操作将显示在此处和手机小组件中。添加方式：长按主屏幕 → 小组件 → 没花掉。",
+  "addFavorite": "添加到收藏／小组件",
+  "removeFavorite": "从收藏移除",
+  "favoriteLimit": "已有三个收藏，请先移除一个。",
+  "widgetItemUnavailable": "此项目已删除、已暂停，或不属于当前账户",
+  "chooseLanguage": "选择语言",
+  "coinLanguageHint": "标志中的货币符号仅为地区联想。更改语言不会换算金额，也不会改变记录的货币。"
+}

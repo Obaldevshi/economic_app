@@ -1,10 +1,12 @@
 from datetime import datetime, timedelta, timezone
-from typing import Optional
 
 import bcrypt
 from jose import JWTError, jwt
 from fastapi import Depends
 from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
+from sqlalchemy.orm import Session
+from app.config.database import get_db
+from app.repositories.user_repository import UserRepository
 
 from app.config.settings import settings
 from app.core.exceptions import UnauthorizedError
@@ -55,13 +57,24 @@ def verify_token(token: str) -> dict:
         return None
 
 
-def get_current_user(credentials: HTTPAuthorizationCredentials = Depends(bearer_scheme)) -> Optional[dict]:
+def get_current_user(
+    credentials: HTTPAuthorizationCredentials = Depends(bearer_scheme),
+    db: Session = Depends(get_db),
+) -> dict:
     token = credentials.credentials if credentials else None
     if not token:
         raise UnauthorizedError(AuthMessages.UNAUTHORIZED.value)
 
     payload = verify_token(token)
     if payload is None:
+        raise UnauthorizedError(AuthMessages.UNAUTHORIZED.value)
+
+    # Deleting an account also invalidates its previously issued tokens.
+    try:
+        user_id = int(payload["user_id"])
+    except (TypeError, ValueError):
+        raise UnauthorizedError(AuthMessages.UNAUTHORIZED.value)
+    if user_id <= 0 or UserRepository(db).get_by_id(user_id) is None:
         raise UnauthorizedError(AuthMessages.UNAUTHORIZED.value)
 
     return payload

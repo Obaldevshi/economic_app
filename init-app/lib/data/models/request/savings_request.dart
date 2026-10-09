@@ -12,6 +12,8 @@ class GoalAllocationRequest {
 
 @JsonSerializable()
 class SavingEventRequest {
+  @JsonKey(name: 'currency_code', includeIfNull: false)
+  final String? currencyCode;
   @JsonKey(name: 'impulse_item_id')
   final int? impulseItemId;
   @JsonKey(name: 'impulse_name')
@@ -22,6 +24,7 @@ class SavingEventRequest {
   final String? note;
 
   SavingEventRequest({
+    this.currencyCode,
     this.impulseItemId,
     required this.impulseName,
     required this.amount,
@@ -34,6 +37,8 @@ class SavingEventRequest {
 
 @JsonSerializable()
 class ImpulseItemRequest {
+  @JsonKey(name: 'currency_code', includeIfNull: false)
+  final String? currencyCode;
   final String name;
   @JsonKey(name: 'default_amount')
   final double defaultAmount;
@@ -45,6 +50,7 @@ class ImpulseItemRequest {
   final bool? isActive;
 
   ImpulseItemRequest({
+    this.currencyCode,
     required this.name,
     required this.defaultAmount,
     required this.iconKey,
@@ -57,23 +63,38 @@ class ImpulseItemRequest {
 
 @JsonSerializable()
 class SavingsGoalRequest {
+  @JsonKey(name: 'currency_code', includeIfNull: false)
+  final String? currencyCode;
   final String name;
   @JsonKey(name: 'target_amount')
   final double targetAmount;
 
-  SavingsGoalRequest({required this.name, required this.targetAmount});
+  SavingsGoalRequest({
+    required this.name,
+    required this.targetAmount,
+    this.currencyCode,
+  });
 
   Map<String, dynamic> toJson() => _$SavingsGoalRequestToJson(this);
 }
 
 @JsonSerializable()
 class SavingsSettingsRequest {
+  @JsonKey(name: 'currency_code', includeIfNull: false)
+  final String? currencyCode;
+  @JsonKey(name: 'display_currency', includeIfNull: false)
+  final String? displayCurrency;
+  @JsonKey(name: 'financial_region', includeIfNull: false)
+  final String? financialRegion;
   @JsonKey(name: 'annual_rate')
   final double annualRate;
   @JsonKey(name: 'projection_years')
   final int projectionYears;
 
   SavingsSettingsRequest({
+    this.currencyCode,
+    this.displayCurrency,
+    this.financialRegion,
     required this.annualRate,
     required this.projectionYears,
   });

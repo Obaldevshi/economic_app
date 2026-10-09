@@ -24,16 +24,22 @@ class AuthLinkText extends StatelessWidget {
         ? Colors.white
         : Theme.of(context).colorScheme.primary;
 
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
+    return Wrap(
+      alignment: WrapAlignment.center,
+      crossAxisAlignment: WrapCrossAlignment.center,
+      spacing: 5,
+      runSpacing: 4,
       children: [
         Text(
           normalText,
           style: AppTextStyles.bodyMedium.copyWith(color: normalColor),
         ),
-        SizedBox(width: 5),
-        GestureDetector(
-          onTap: onTap,
+        TextButton(
+          onPressed: onTap,
+          style: TextButton.styleFrom(
+            foregroundColor: linkColor,
+            minimumSize: const Size(48, 48),
+          ),
           child: Text(
             linkText,
             style: AppTextStyles.bodyMedium.copyWith(

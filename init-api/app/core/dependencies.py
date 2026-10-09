@@ -1,5 +1,5 @@
 from typing import Annotated
-from fastapi import Depends
+from fastapi import Depends, Request
 from sqlalchemy.orm import Session
 
 from app.config.database import get_db
@@ -26,8 +26,8 @@ def get_category_service(db: DatabaseDep) -> CategoryService:
     return CategoryService(db)
 
 
-def get_savings_service(db: DatabaseDep) -> SavingsService:
-    return SavingsService(db)
+def get_savings_service(db: DatabaseDep, request: Request) -> SavingsService:
+    return SavingsService(db, request.headers.get("X-Financial-Region", "RU"))
 
 
 UserServiceDep = Annotated[UserService, Depends(get_user_service)]

@@ -1,5 +1,7 @@
 import 'package:flutter/widgets.dart';
+import 'dart:async';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:mobile_template/features/savings/presentation/widgets/financial_display_scope.dart';
 import 'package:mobile_template/features/savings/presentation/pages/bloc/savings_bloc.dart';
 import 'package:mobile_template/features/shell/presentation/widgets/navigation_branch_scope.dart';
 
@@ -22,6 +24,22 @@ class SavingsBranchContent extends StatefulWidget {
 
 class _SavingsBranchContentState extends State<SavingsBranchContent> {
   bool? _wasActive;
+  Timer? _refreshTimer;
+
+  @override
+  void initState() {
+    super.initState();
+    _refreshTimer = Timer.periodic(const Duration(hours: 1), (_) {
+      if (_wasActive == true && mounted)
+        context.read<SavingsBloc>().add(const LoadSavingsDashboard());
+    });
+  }
+
+  @override
+  void dispose() {
+    _refreshTimer?.cancel();
+    super.dispose();
+  }
 
   @override
   void didChangeDependencies() {
@@ -38,5 +56,10 @@ class _SavingsBranchContentState extends State<SavingsBranchContent> {
   }
 
   @override
-  Widget build(BuildContext context) => widget.child;
+  Widget build(BuildContext context) => BlocBuilder<SavingsBloc, SavingsState>(
+    builder: (context, state) => FinancialDisplayScope(
+      data: FinancialDisplayData.fromState(state),
+      child: widget.child,
+    ),
+  );
 }

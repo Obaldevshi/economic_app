@@ -1,4 +1,5 @@
 import 'dart:math' as math;
+import 'package:mobile_template/features/savings/presentation/widgets/financial_display_scope.dart';
 
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
@@ -15,6 +16,7 @@ Failure localizeSavingsFailure(BuildContext context, Failure failure) {
       context.l10n.releaseAllocationsFirst,
     'Allocation must not exceed the goal target' =>
       context.l10n.allocationTooLarge,
+    'Currency changed; refresh and try again' => context.l10n.currencyChanged,
     _ => null,
   };
   return message == null
@@ -93,19 +95,37 @@ String? validateMoneyInput(BuildContext context, String? value, String field) {
   return null;
 }
 
-String formatRubles(BuildContext context, double value) =>
-    NumberFormat.currency(
-      locale: Localizations.localeOf(context).toLanguageTag(),
-      symbol: '₽',
-      decimalDigits: value % 1 == 0 ? 0 : 2,
-    ).format(value);
+// Kept as a compatible name for existing widgets; amounts remain in their
+// original unit and are converted only for presentation.
+String formatRubles(
+  BuildContext context,
+  double value, {
+  String? currencyCode,
+  bool original = false,
+}) {
+  final data = FinancialDisplayScope.of(context);
+  final from = currencyCode ?? data.currency;
+  final factor = original ? 1.0 : data.factor(from, data.displayCurrency);
+  final code = original || factor == null ? from : data.displayCurrency;
+  final converted = value * (factor ?? 1);
+  return NumberFormat.currency(
+    locale: Localizations.localeOf(context).toLanguageTag(),
+    symbol: currencySymbol(code),
+    decimalDigits: converted % 1 == 0 ? 0 : 2,
+  ).format(converted);
+}
 
-String formatCompactRubles(BuildContext context, double value) =>
-    NumberFormat.compactCurrency(
-      locale: Localizations.localeOf(context).toLanguageTag(),
-      symbol: '₽',
-      decimalDigits: 0,
-    ).format(value);
+String formatCompactRubles(BuildContext context, double value) {
+  final data = FinancialDisplayScope.of(context);
+  final factor = data.factor(data.currency, data.displayCurrency);
+  return NumberFormat.compactCurrency(
+    locale: Localizations.localeOf(context).toLanguageTag(),
+    symbol: currencySymbol(
+      factor == null ? data.currency : data.displayCurrency,
+    ),
+    decimalDigits: 0,
+  ).format(value * (factor ?? 1));
+}
 
 String formatRate(BuildContext context, double value) =>
     NumberFormat.decimalPattern(

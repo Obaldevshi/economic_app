@@ -1,0 +1,37 @@
+{
+  "publisher": "Aleksey Roslyakov",
+  "supportEmail": "mnyvault@gmail.com",
+  "publicationApproved": false,
+  "retention": {
+    "backupDays": 30,
+    "technicalLogDays": 14,
+    "hostingVerified": false
+  },
+  "updated": "2026-10-09",
+  "ru": {
+    "title": "Политика конфиденциальности · Не потратил",
+    "draft": "Подготовительная версия. Выбраны предельные сроки: резервные копии — 30 дней, технические журналы — 14 дней. Перед публикацией необходимо применить и проверить эти ограничения на хостинге; фактические сроки Timeweb пока не подтверждены.",
+    "sections": [
+      {"title": "Назначение", "text": "«Не потратил» помогает записывать отказ от импульсивных покупок, цели и привычки. Прогноз — математический сценарий по введённым данным, а не обещание доходности или инвестиционная рекомендация. Приложение не принимает деньги, не открывает вклады, не подключается к банковским счетам и не осуществляет переводы. Отметка «отложено» означает вашу собственную запись, а не подтверждённое движение денег."},
+      {"title": "Какие данные используются", "text": "Для аккаунта используются имя, фамилия, email, идентификатор пользователя и хеш пароля. На сервере хранятся ваши категории, привычки, суммы отказов от покупок, даты, заметки, цели, распределение накоплений и финансовые настройки. Не указывайте в заметках номера карт, реквизиты и другие секреты. Данные используются для авторизации, синхронизации, отображения истории и расчёта сценариев."},
+      {"title": "Хранение на устройстве", "text": "Токен сессии хранится средствами защищённого хранилища приложения. Язык, тема и избранные привычки сохраняются локально. Android-виджет хранит названия, суммы и валюты выбранных привычек. При выходе или удалении аккаунта очищаются сессия, избранные привычки, данные виджета и временный Android-чек. Локальные настройки языка и оформления могут сохраняться. Резервное копирование данных Android-приложения отключено."},
+      {"title": "Получатели данных и сеть", "text": "Сервер приложения размещён в Timeweb Cloud. Обмен с API выполняется по HTTPS. Курсы валют запрашиваются сервером у Банка России; пользовательские финансовые записи для этого не передаются Банку России. В текущей версии нет рекламных и аналитических SDK. Приложение не запрашивает доступ к контактам, геолокации, SMS или банковским данным. Хостинг может обрабатывать технические журналы запросов, включая сетевые сведения, необходимые для работы и безопасности сервиса."},
+      {"title": "Передача чека", "text": "Экспорт чека выполняется только по вашему действию. При передаче файла выбранному приложению или получателю он может содержать ваши суммы и названия привычек. Сохранённые или отправленные вами копии находятся под вашим контролем; удаление аккаунта не удаляет такие копии у получателей."},
+      {"title": "Удаление аккаунта и данных", "text": "В приложении откройте Профиль → Удалить аккаунт и подтвердите действие. Без установки приложения воспользуйтесь страницей /account-deletion/ на сайте. Для защиты от чужого удаления потребуется вход с вашим email и паролем. Удаление безвозвратно удаляет аккаунт и связанные записи из рабочей базы: категории, привычки, историю, цели, распределения и настройки. Повторная регистрация не восстанавливает удалённые записи. Для резервных копий выбран предельный срок хранения 30 дней с момента создания копии. Для технических журналов — 14 дней с момента записи. Это выбранные оператором ограничения, а не подтверждённая текущая настройка Timeweb. Их применение и порядок удаления при восстановлении базы необходимо проверить перед публикацией."},
+      {"title": "Сроки и безопасность", "text": "Записи рабочей базы хранятся до удаления аккаунта. Пароль сохраняется как bcrypt-хеш, а не в открытом виде. Доступ к данным защищён авторизацией и проверкой владельца. Не передавайте пароль другим лицам. Технические меры не исключают все риски; о существенных изменениях обработки данных оператор должен сообщать обновлением этой политики."}
+    ]
+  },
+  "en": {
+    "title": "Privacy policy · Not Spent",
+    "draft": "Preparation version. Selected maximum retention: backups — 30 days; technical logs — 14 days. These limits must be applied and verified on the hosting service before publication; actual Timeweb retention has not been confirmed.",
+    "sections": [
+      {"title": "Purpose", "text": "Not Spent records skipped impulse purchases, habits and savings goals. Forecasts are mathematical scenarios based on your inputs, not promised returns or investment advice. The app does not receive money, open deposits, connect to bank accounts or transfer funds. Marking money as set aside is your manual record, not verification of a bank transfer."},
+      {"title": "Data we use", "text": "Accounts use first name, last name, email, user ID and a password hash. The server stores your categories, habits, skipped-purchase amounts, dates, notes, goals, allocations and financial settings. Do not enter card numbers or secrets in notes. Data is used for authentication, synchronization, history and scenario calculations."},
+      {"title": "On-device storage", "text": "Session tokens use the app's secure storage. Language, theme and favorite habits are stored locally. The Android widget stores selected habit names, amounts and currencies. Signing out or deleting an account clears the session, favorite habits, widget data and temporary Android receipt. Language and theme preferences may remain. Android application data backup is disabled."},
+      {"title": "Recipients and networking", "text": "The application server is hosted on Timeweb Cloud. API traffic uses HTTPS. The server requests exchange rates from the Bank of Russia without sending users' financial records to the bank. This version includes no advertising or analytics SDKs. The app does not request contacts, location, SMS or bank-account permissions. Hosting services may process technical request logs, including networking information needed to operate and secure the service."},
+      {"title": "Sharing receipts", "text": "Receipt export only occurs at your request. Files sent to another app or recipient may include your amounts and habit names. Copies you save or share remain under your control; deleting your account does not delete copies held by recipients."},
+      {"title": "Account and data deletion", "text": "In the app, open Profile → Delete account and confirm. Without installing the app, use /account-deletion/ on the website. Your email and password are required to prevent unauthorized deletion. Deletion permanently removes the account and its categories, habits, history, goals, allocations and settings from the active database. Registering again does not restore these records. The selected maximum backup retention is 30 days from backup creation; technical log retention is 14 days from the entry timestamp. These are operator-selected limits, not verified current Timeweb settings. Enforcement and deletion handling after database restoration must be verified before publication."},
+      {"title": "Retention and security", "text": "Active database records remain until you delete your account. Passwords are stored as bcrypt hashes, not plaintext. Authentication and ownership checks protect access. Never share your password. Technical safeguards cannot eliminate all risks; material processing changes should be disclosed through updates to this policy."}
+    ]
+  }
+}

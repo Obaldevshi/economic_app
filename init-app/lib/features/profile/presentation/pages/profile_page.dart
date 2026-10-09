@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:mobile_template/features/savings/presentation/pages/bloc/savings_bloc.dart';
+import 'package:mobile_template/features/savings/presentation/widgets/savings_dialogs.dart';
+import 'package:mobile_template/features/savings/presentation/widgets/savings_ui.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:mobile_template/app/app_router.dart';
@@ -37,6 +40,16 @@ class ProfilePage extends StatelessWidget {
       listener: (context, state) {
         if (state is GetProfileFailure) {
           ErrorDialog.show(context, state.failure);
+        }
+        if (ModalRoute.of(context)?.isCurrent == true) {
+          if (state is DeleteAccountSuccess) {
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(content: Text(context.l10n.accountDeletedSuccessfully)),
+            );
+            sessionService.clearSession();
+          } else if (state is DeleteAccountFailure) {
+            ErrorDialog.show(context, state.failure);
+          }
         }
       },
       builder: (context, state) {
@@ -97,6 +110,7 @@ class ProfilePage extends StatelessWidget {
         _buildAccount(context, profile),
         const SizedBox(height: AppDimensions.spaceS),
         _buildAppearance(context, themeService, localeService),
+        _buildFinance(context),
         const SizedBox(height: AppDimensions.spaceL),
         _buildVersion(context),
         const SizedBox(height: AppDimensions.spaceXL),
@@ -137,6 +151,7 @@ class ProfilePage extends StatelessWidget {
               _buildAccount(context, profile),
               const SizedBox(height: AppDimensions.spaceL),
               _buildAppearance(context, themeService, localeService),
+              _buildFinance(context),
             ],
           ),
         ),
@@ -169,9 +184,56 @@ class ProfilePage extends StatelessWidget {
           subtitle: context.l10n.security,
           onTap: () => ChangePasswordBottomSheet.show(context),
         ),
+        ProfileActionTile(
+          icon: Icons.privacy_tip_outlined,
+          title: context.l10n.privacyPolicy,
+          subtitle: context.l10n.appName,
+          onTap: () => context.push(AppRoutes.privacy),
+        ),
+        ProfileActionTile(
+          icon: Icons.person_remove_outlined,
+          title: context.l10n.deleteAccount,
+          subtitle: context.l10n.deleteAccountDescription,
+          onTap: () async {
+            if (context.read<ProfileBloc>().state is DeleteAccountLoading)
+              return;
+            final confirmed = await ConfirmationDialog.show(
+              context,
+              title: context.l10n.deleteAccount,
+              content: context.l10n.deleteAccountWarning,
+              confirmText: context.l10n.deleteAccount,
+            );
+            if (confirmed == true && context.mounted) {
+              context.read<ProfileBloc>().add(DeleteAccountEvent());
+            }
+          },
+        ),
       ],
     );
   }
+
+  Widget _buildFinance(
+    BuildContext context,
+  ) => BlocConsumer<SavingsBloc, SavingsState>(
+    listenWhen: (previous, current) => previous.failure != current.failure,
+    listener: (context, state) {
+      if (state.failure != null)
+        ErrorDialog.show(
+          context,
+          localizeSavingsFailure(context, state.failure!),
+        );
+    },
+    builder: (context, state) => ProfileActionTile(
+      icon: Icons.currency_exchange_rounded,
+      title: context.l10n.financialSettings,
+      subtitle: state.dashboard == null
+          ? context.l10n.loading
+          : '${state.dashboard!.currencyCode} → ${state.dashboard!.displayCurrency} · ${formatRate(context, state.dashboard!.annualRate)}%',
+      onTap: state.dashboard == null
+          ? () => context.read<SavingsBloc>().add(const LoadSavingsDashboard())
+          : () => showProjectionSettingsDialog(context, state.dashboard!),
+    ),
+  );
 
   Widget _buildAppearance(
     BuildContext context,

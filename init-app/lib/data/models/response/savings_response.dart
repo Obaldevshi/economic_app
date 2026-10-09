@@ -10,6 +10,8 @@ double _moneyFromJson(Object? value) => switch (value) {
 
 @JsonSerializable(createToJson: false)
 class ImpulseItemResponse {
+  @JsonKey(name: 'currency_code')
+  final String currencyCode;
   final int id;
   final String name;
   @JsonKey(name: 'default_amount', fromJson: _moneyFromJson)
@@ -22,6 +24,7 @@ class ImpulseItemResponse {
   final bool isActive;
 
   ImpulseItemResponse({
+    this.currencyCode = 'RUB',
     required this.id,
     required this.name,
     required this.defaultAmount,
@@ -36,6 +39,8 @@ class ImpulseItemResponse {
 
 @JsonSerializable(createToJson: false)
 class SavingEventResponse {
+  @JsonKey(name: 'currency_code')
+  final String currencyCode;
   final int id;
   @JsonKey(name: 'impulse_item_id')
   final int? impulseItemId;
@@ -50,6 +55,7 @@ class SavingEventResponse {
   final String? note;
 
   SavingEventResponse({
+    this.currencyCode = 'RUB',
     required this.id,
     this.impulseItemId,
     required this.impulseName,
@@ -65,6 +71,8 @@ class SavingEventResponse {
 
 @JsonSerializable(createToJson: false)
 class SavingsGoalResponse {
+  @JsonKey(name: 'currency_code')
+  final String currencyCode;
   final int id;
   final String name;
   @JsonKey(name: 'target_amount', fromJson: _moneyFromJson)
@@ -73,6 +81,7 @@ class SavingsGoalResponse {
   final double allocatedAmount;
 
   SavingsGoalResponse({
+    this.currencyCode = 'RUB',
     required this.id,
     required this.name,
     required this.targetAmount,
@@ -85,6 +94,8 @@ class SavingsGoalResponse {
 
 @JsonSerializable(createToJson: false)
 class WeeklyReceiptResponse {
+  @JsonKey(name: 'currency_code')
+  final String currencyCode;
   @JsonKey(name: 'start_date')
   final DateTime startDate;
   @JsonKey(name: 'end_date')
@@ -97,6 +108,7 @@ class WeeklyReceiptResponse {
   final int decisionCount;
 
   WeeklyReceiptResponse({
+    this.currencyCode = 'RUB',
     required this.startDate,
     required this.endDate,
     required this.totalSaved,
@@ -154,12 +166,21 @@ class ImpulseTotal {
 
 @JsonSerializable(createToJson: false)
 class SavingsSettingsResponse {
+  @JsonKey(name: 'display_currency')
+  final String displayCurrency;
+  @JsonKey(name: 'financial_region')
+  final String financialRegion;
+  @JsonKey(name: 'currency_code')
+  final String currencyCode;
   @JsonKey(name: 'annual_rate', fromJson: _moneyFromJson)
   final double annualRate;
   @JsonKey(name: 'projection_years')
   final int projectionYears;
 
   SavingsSettingsResponse({
+    this.displayCurrency = 'RUB',
+    this.financialRegion = 'RU',
+    this.currencyCode = 'RUB',
     required this.annualRate,
     required this.projectionYears,
   });
@@ -170,6 +191,16 @@ class SavingsSettingsResponse {
 
 @JsonSerializable(createToJson: false)
 class SavingsDashboardResponse {
+  @JsonKey(name: 'display_currency')
+  final String displayCurrency;
+  @JsonKey(name: 'financial_region')
+  final String financialRegion;
+  @JsonKey(name: 'exchange_rates')
+  final ExchangeRatesResponse? exchangeRates;
+  @JsonKey(name: 'regional_presets')
+  final List<FinancialPresetResponse> regionalPresets;
+  @JsonKey(name: 'currency_code')
+  final String currencyCode;
   @JsonKey(name: 'today_total', fromJson: _moneyFromJson)
   final double todayTotal;
   @JsonKey(name: 'month_total', fromJson: _moneyFromJson)
@@ -199,6 +230,11 @@ class SavingsDashboardResponse {
   final List<SavingsGoalResponse> goals;
 
   SavingsDashboardResponse({
+    this.displayCurrency = 'RUB',
+    this.financialRegion = 'RU',
+    this.exchangeRates,
+    this.regionalPresets = const [],
+    this.currencyCode = 'RUB',
     required this.todayTotal,
     required this.monthTotal,
     required this.totalSaved,
@@ -217,4 +253,50 @@ class SavingsDashboardResponse {
 
   factory SavingsDashboardResponse.fromJson(Map<String, dynamic> json) =>
       _$SavingsDashboardResponseFromJson(json);
+}
+
+Map<String, double> _ratesFromJson(Map<String, dynamic>? values) => {
+  for (final entry in (values ?? <String, dynamic>{}).entries)
+    entry.key: _moneyFromJson(entry.value),
+};
+
+@JsonSerializable(createToJson: false)
+class ExchangeRatesResponse {
+  @JsonKey(name: 'as_of')
+  final DateTime? asOf;
+  @JsonKey(name: 'is_stale')
+  final bool isStale;
+  final String source;
+  @JsonKey(name: 'rub_per_unit', fromJson: _ratesFromJson)
+  final Map<String, double> rubPerUnit;
+  ExchangeRatesResponse({
+    this.asOf,
+    this.isStale = true,
+    this.source = '',
+    this.rubPerUnit = const {},
+  });
+  factory ExchangeRatesResponse.fromJson(Map<String, dynamic> json) =>
+      _$ExchangeRatesResponseFromJson(json);
+}
+
+@JsonSerializable(createToJson: false)
+class FinancialPresetResponse {
+  final String region;
+  @JsonKey(name: 'currency_code')
+  final String currencyCode;
+  @JsonKey(name: 'annual_rate', fromJson: _moneyFromJson)
+  final double annualRate;
+  @JsonKey(name: 'rate_reference')
+  final String rateReference;
+  @JsonKey(name: 'rate_source')
+  final String rateSource;
+  FinancialPresetResponse({
+    required this.region,
+    required this.currencyCode,
+    required this.annualRate,
+    this.rateReference = '',
+    this.rateSource = '',
+  });
+  factory FinancialPresetResponse.fromJson(Map<String, dynamic> json) =>
+      _$FinancialPresetResponseFromJson(json);
 }

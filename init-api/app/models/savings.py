@@ -9,6 +9,7 @@ class ImpulseItem(Base):
 
     user_id = Column(Integer, ForeignKey("users.id", ondelete="CASCADE"), nullable=False, index=True)
     name = Column(String(120), nullable=False)
+    currency_code = Column(String(3), nullable=False, default="RUB", server_default="RUB")
     default_amount = Column(Numeric(12, 2), nullable=False)
     icon_key = Column(String(40), nullable=False, default="other")
     weekly_frequency = Column(Integer, nullable=False, default=1)
@@ -30,6 +31,7 @@ class SavingEvent(Base):
     )
     impulse_name = Column(String(120), nullable=False)
     amount = Column(Numeric(12, 2), nullable=False)
+    currency_code = Column(String(3), nullable=False, default="RUB", server_default="RUB")
     occurred_at = Column(DateTime, nullable=False)
     is_invested = Column(Boolean, nullable=False, default=False)
     note = Column(String(500), nullable=True)
@@ -46,6 +48,7 @@ class SavingsGoal(Base):
 
     user_id = Column(Integer, ForeignKey("users.id", ondelete="CASCADE"), nullable=False, index=True)
     name = Column(String(120), nullable=False)
+    currency_code = Column(String(3), nullable=False, default="RUB", server_default="RUB")
     target_amount = Column(Numeric(12, 2), nullable=False)
     target_date = Column(Date, nullable=True)
     allocated_amount = Column(Numeric(12, 2), nullable=False, default=0, server_default="0")
@@ -65,5 +68,8 @@ class SavingsSettings(Base):
     )
     annual_rate = Column(Numeric(5, 2), nullable=False, default=12)
     projection_years = Column(Integer, nullable=False, default=5)
+    currency_code = Column(String(3), nullable=False, default="RUB", server_default="RUB")
+    financial_region = Column(String(2), nullable=False, default="RU", server_default="RU")
+    display_currency = Column(String(3), nullable=False, default="RUB", server_default="RUB")
 
     user = relationship("User", back_populates="savings_settings")

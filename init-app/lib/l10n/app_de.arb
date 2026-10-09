@@ -1,0 +1,448 @@
+{
+  "@@locale": "de",
+  "privacyPolicy": "Datenschutzerklärung",
+  "financialSettings": "Finanzeinstellungen",
+  "financialRegion": "Finanzregion",
+  "recordCurrency": "Buchungswährung",
+  "displayCurrency": "Anzeigewährung",
+  "currencyLedgerHint": "Die Buchungswährung wechselt zu einem eigenen Journal. Bestehende Buchungen und Ziele behalten ihre Währung. Für Gegenwerte die Anzeigewährung nutzen.",
+  "regionalDefaultsHint": "Die Region schlägt Währung, Startpreise und einen Referenzzins vor. Preise werden nur in einem leeren Journal ergänzt; Änderungen bleiben erhalten.",
+  "applyRegionDefaults": "Regionale Einstellungen anwenden",
+  "conversionHint": "Umrechnung zum letzten offiziellen Kurs der Bank von Russland. Buchungen bleiben unverändert. Kein Handelskurs oder Kursausblick; Zinsen, Steuern und Gebühren werden nicht umgerechnet.",
+  "rateReferenceHint": "Der Zins ist ein anpassbares Szenario, keine Renditezusage. Quelle und Zeitraum stehen unten.",
+  "rateNeedsInput": "Keine geprüfte Referenz: Startzins 0 %. Trage die Konditionen deiner Einlage ein.",
+  "exchangeRateDate": "Kurs Bank von Russland · {date}",
+  "currencyChanged": "Die Buchungswährung hat sich geändert. Aktualisieren und erneut versuchen.",
+  "starterPricesHint": "Die Preise sind anpassbare Startschätzungen, keine statistischen Durchschnittswerte. Passe sie an deine Käufe an.",
+  "@exchangeRateDate": {"placeholders": {"date": {"type": "String"}}},
+  "widgetEmptyHint": "Wähle bis zu drei Favoriten unter Impulskäufe. Tippe, um eine Ersparnis zu bestätigen.",
+  "appName": "Nicht ausgegeben",
+  "appTagline": "Kleine Entscheidungen. Mehr Ersparnis.",
+  "welcomeBack": "Willkommen zurück",
+  "loginSubtitle": "Melde dich an, um fortzufahren",
+  "createAccount": "Konto erstellen",
+  "registerSubtitle": "Gib deine Daten ein, um zu starten",
+  "login": "Anmelden",
+  "register": "Registrieren",
+  "email": "E-Mail",
+  "emailHint": "E-Mail eingeben",
+  "password": "Passwort",
+  "passwordHint": "Passwort eingeben",
+  "createPasswordHint": "Passwort erstellen",
+  "firstName": "Vorname",
+  "firstNameHint": "Vornamen eingeben",
+  "lastName": "Nachname",
+  "lastNameHint": "Nachnamen eingeben",
+  "confirmPassword": "Passwort bestätigen",
+  "dontHaveAccount": "Noch kein Konto?",
+  "alreadyHaveAccount": "Schon ein Konto?",
+  "signUp": "Registrieren",
+  "signIn": "Anmelden",
+  "or": "oder",
+  "createAccountButton": "Konto erstellen",
+  "accountCreatedSuccessfully": "Konto erstellt",
+  "home": "Ersparnisse",
+  "homeWelcome": "Designsystem",
+  "homeDescription": "Entdecke Farben, Schrift und Komponenten. Ändere Design und Sprache direkt.",
+  "homeFeatureCategories": "Kategorien und Seiten verwalten",
+  "homeFeatureProfile": "Profil, Design und Sprache",
+  "homeUiKitTitle": "UI-Baukasten",
+  "homeUiKitSubtitle": "Designsystem",
+  "homeUiKitDescription": "Leichte Oberflächen, Stile und Komponenten für flüssige Bedienung.",
+  "homeSectionAppearance": "Darstellung",
+  "homeSectionColors": "Farben",
+  "homeSectionTypography": "Typografie",
+  "homeSectionComponents": "Komponenten",
+  "homeSectionTokens": "Designvariablen",
+  "colorPrimary": "Primär",
+  "colorPrimaryLight": "Primär hell",
+  "colorPrimaryDark": "Primär dunkel",
+  "colorSecondary": "Sekundär",
+  "colorSuccess": "Erfolg",
+  "colorWarning": "Warnung",
+  "colorError": "Fehler",
+  "colorSurface": "Oberfläche",
+  "colorBackground": "Hintergrund",
+  "homeShowDialog": "Dialog anzeigen",
+  "homeDialogDemoTitle": "Dialogbeispiel",
+  "homeDialogDemoContent": "Bestätigungsdialog aus dem UI-Baukasten.",
+  "homeFontFamily": "Schriftfamilie",
+  "homeFontRegular": "Normal",
+  "homeFontMedium": "Mittel",
+  "homeFontBold": "Fett",
+  "homeSpacing": "Abstände",
+  "homeRadius": "Eckenradius",
+  "homeGlassTokens": "Oberflächen",
+  "homeDemoInputLabel": "Beispieleingabe",
+  "homeDemoInputHint": "Schreib etwas…",
+  "homeToggleLoading": "Laden umschalten",
+  "homeGlassOnLight": "Standard",
+  "homeGlassPanel": "Bereich",
+  "homeGlassOnGradient": "Akzent",
+  "homeTypographySample": "Kleine Entscheidungen, große Veränderungen",
+  "categories": "Kategorien",
+  "profile": "Profil",
+  "profileSectionAccount": "Konto",
+  "addCategory": "Kategorie hinzufügen",
+  "editCategory": "Kategorie bearbeiten",
+  "deleteCategory": "Kategorie löschen",
+  "categoryName": "Kategoriename",
+  "categoryNameRequired": "Kategoriename erforderlich",
+  "categoryNameTooShort": "Name zu kurz",
+  "updateCategory": "Kategorie aktualisieren",
+  "deleteCategoryConfirmation": "Diese Kategorie löschen?",
+  "categoryDeletedSuccessfully": "Kategorie gelöscht",
+  "categoryUpdatedSuccessfully": "Kategorie aktualisiert",
+  "noCategoriesYet": "Noch keine Kategorien",
+  "noCategoriesFound": "Keine Kategorien gefunden",
+  "addFirstCategory": "Erste Kategorie hinzufügen",
+  "tryDifferentSearch": "Andere Suche versuchen",
+  "searchCategories": "Kategorien suchen",
+  "addNewCategoryTooltip": "Kategorie hinzufügen",
+  "editProfile": "Profil bearbeiten",
+  "updatePersonalInfo": "Persönliche Angaben aktualisieren",
+  "personalInformation": "Persönliche Angaben",
+  "saveChanges": "Änderungen speichern",
+  "changePassword": "Passwort ändern",
+  "changePasswordTitle": "Passwort ändern",
+  "changePasswordButton": "Passwort aktualisieren",
+  "security": "Sicherheit",
+  "logout": "Abmelden",
+  "logoutConfirmation": "Abmelden?",
+  "delete": "Löschen",
+  "edit": "Bearbeiten",
+  "cancel": "Abbrechen",
+  "save": "Speichern",
+  "error": "Fehler",
+  "loading": "Laden",
+  "retry": "Erneut versuchen",
+  "version": "Version",
+  "currentPassword": "Aktuelles Passwort",
+  "newPassword": "Neues Passwort",
+  "confirmNewPassword": "Neues Passwort bestätigen",
+  "enterCurrentPassword": "Aktuelles Passwort eingeben",
+  "enterNewPassword": "Neues Passwort eingeben",
+  "confirmYourNewPassword": "Neues Passwort bestätigen",
+  "currentPasswordRequired": "Aktuelles Passwort erforderlich",
+  "newPasswordRequired": "Neues Passwort erforderlich",
+  "passwordChangedSuccessfully": "Passwort geändert",
+  "profileUpdatedSuccessfully": "Profil aktualisiert",
+  "accountDeletedSuccessfully": "Konto gelöscht",
+  "deleteAccount": "Konto löschen",
+  "deleteAccountConfirmation": "Dein Konto löschen?",
+  "deleteAccountDescription": "Konto und alle Daten dauerhaft löschen",
+  "deleteAccountWarning": "Dies kann nicht rückgängig gemacht werden. Alle Daten werden dauerhaft gelöscht.",
+  "dangerZone": "Gefahrenbereich",
+  "manageAccount": "Konto verwalten",
+  "emailRequired": "E-Mail erforderlich",
+  "emailInvalid": "Gültige E-Mail eingeben",
+  "passwordRequired": "Passwort erforderlich",
+  "passwordTooShort": "Das Passwort muss mindestens {minLength} Zeichen haben",
+  "@passwordTooShort": {
+    "placeholders": {
+      "minLength": {
+        "type": "int"
+      }
+    }
+  },
+  "newPasswordTooShort": "Das neue Passwort muss mindestens {minLength} Zeichen haben",
+  "@newPasswordTooShort": {
+    "placeholders": {
+      "minLength": {
+        "type": "int"
+      }
+    }
+  },
+  "fieldRequired": "{fieldName} ist erforderlich",
+  "@fieldRequired": {
+    "placeholders": {
+      "fieldName": {
+        "type": "String"
+      }
+    }
+  },
+  "fieldTooShort": "{fieldName} muss mindestens {minLength} Zeichen haben",
+  "@fieldTooShort": {
+    "placeholders": {
+      "fieldName": {
+        "type": "String"
+      },
+      "minLength": {
+        "type": "int"
+      }
+    }
+  },
+  "nameLettersOnly": "{fieldName} darf nur Buchstaben enthalten",
+  "@nameLettersOnly": {
+    "placeholders": {
+      "fieldName": {
+        "type": "String"
+      }
+    }
+  },
+  "numberRequired": "{fieldName} ist erforderlich",
+  "numberInvalid": "{fieldName} muss eine gültige Zahl sein",
+  "numberMustBePositive": "{fieldName} muss größer als null sein",
+  "passwordsDontMatch": "Passwörter stimmen nicht überein",
+  "last7Days": "Letzte 7 Tage",
+  "last30Days": "Letzte 30 Tage",
+  "today": "Heute",
+  "yesterday": "Gestern",
+  "past": "Vergangenheit",
+  "ok": "OK",
+  "offlineBanner": "Keine Internetverbindung",
+  "loadMore": "Mehr laden",
+  "appearance": "Darstellung",
+  "appearanceDescription": "Hell, dunkel oder Systemeinstellung",
+  "language": "Sprache",
+  "languageDescription": "Sprache der Oberfläche",
+  "languageSystem": "System (ohne Symbol)",
+  "themeSystem": "System",
+  "themeLight": "Hell",
+  "themeDark": "Dunkel",
+  "errorBadRequest": "Ungültige Anfrage",
+  "errorUnauthorized": "Anmeldung erforderlich",
+  "errorAccessDenied": "Zugriff verweigert",
+  "errorNotFound": "Nicht gefunden",
+  "errorTimeout": "Zeitüberschreitung",
+  "errorValidation": "Validierungsfehler",
+  "errorTooManyRequests": "Zu viele Anfragen",
+  "errorServer": "Serverfehler",
+  "errorBadGateway": "Gatewayfehler",
+  "errorServiceUnavailable": "Dienst nicht verfügbar",
+  "errorGatewayTimeout": "Gateway-Zeitüberschreitung",
+  "errorClient": "Clientfehler",
+  "errorRequestCancelled": "Anfrage abgebrochen",
+  "errorInvalidCredentials": "Ungültige Anmeldedaten",
+  "errorResourceExists": "Ressource bereits vorhanden",
+  "savingsTagline": "Jeder vermiedene Impulskauf stärkt deine Zukunft",
+  "recordSaving": "Nicht ausgegeben",
+  "savedToday": "Heute gespart",
+  "savedThisMonth": "Diesen Monat",
+  "savedTotal": "Insgesamt erfasst gespart",
+  "investedTotal": "Tatsächlich zurückgelegt",
+  "monthlyPace": "Monatliches Tempo",
+  "futureProjection": "Künftige Ersparnisse",
+  "yearsAtCurrentPace": "Jahre bei aktuellem Tempo",
+  "interestIncome": "Zinsertrag",
+  "contributions": "Deine Einzahlungen",
+  "savingsDynamics": "Ersparnisse pro Monat",
+  "recentSavings": "Letzte Entscheidungen",
+  "noSavingsYet": "Noch keine Ersparnisse erfasst",
+  "habits": "Impulskäufe",
+  "habitsDescription": "Preise und Schnellaktionen für Käufe anpassen, die du vermeiden möchtest",
+  "history": "Verlauf",
+  "historyDescription": "Jede kleine Entscheidung für deine Zukunft",
+  "goals": "Ziele",
+  "addGoal": "Ziel hinzufügen",
+  "goalName": "Zielname",
+  "targetAmount": "Zielbetrag",
+  "noGoalsYet": "Füge ein Ziel hinzu, um deinen Fortschritt zu sehen",
+  "impulseItem": "Was hast du nicht gekauft?",
+  "amount": "Betrag",
+  "actuallySetAside": "Ich habe dieses Geld wirklich zurückgelegt",
+  "actuallySetAsideDescription": "Trennt mögliche Ersparnisse von echtem Kapital",
+  "noteOptional": "Notiz (optional)",
+  "record": "Erfassen",
+  "editHabit": "Impulskauf bearbeiten",
+  "addHabit": "Impulskauf hinzufügen",
+  "habitName": "Name des Impulskaufs",
+  "defaultPrice": "Üblicher Preis",
+  "timesPerWeek": "Mal pro Woche",
+  "frequencyZeroHint": "0 bedeutet einmal pro Monat",
+  "oncePerMonth": "einmal pro Monat",
+  "chooseIcon": "Symbol",
+  "deleteHabitConfirmation": "Diesen Schnellzugriff löschen? Der Verlauf bleibt erhalten.",
+  "deleteSavingConfirmation": "Diesen Spar-Eintrag löschen?",
+  "noHabits": "Noch keine Impuls-Schnellaktionen",
+  "noHistory": "Hier erscheint dein Sparverlauf",
+  "weekShort": "Woche",
+  "rateAndHorizon": "Zinssatz und Zeitraum",
+  "annualRate": "Jährlicher Einlagenzins",
+  "projectionYears": "Prognosejahre",
+  "apply": "Übernehmen",
+  "noData": "Noch nicht genügend Daten",
+  "quickChoices": "Schnelle Wahl",
+  "quickChoicesDescription": "Wähle den gerade vermiedenen Kauf",
+  "recordThisSaving": "Nicht ausgegeben",
+  "annualPotential": "Jährliches Potenzial",
+  "weeklyPotential": "Typische Woche",
+  "savingsBreakdown": "So entsteht dein Kapital",
+  "topSavingsSources": "Deine stärksten Sparquellen",
+  "currentPace": "Aktuelles Tempo",
+  "decisionCount": "Entscheidungen für deine Zukunft",
+  "allSavings": "Alle Entscheidungen",
+  "realSavings": "Tatsächlich zurückgelegt",
+  "potentialSavings": "Noch nicht zurückgelegt",
+  "compoundEffect": "Zinseszinseffekt",
+  "projectionExplanation": "Ein Szenario, kein Kontostand: Alle erfassten Ersparnisse werden zurückgelegt, das Tempo der letzten 90 Tage bleibt gleich und Zinsen werden monatlich gutgeschrieben. Der Zinssatz ist hypothetisch; Erträge sind nicht garantiert.",
+  "impulseAnnualHint": "Bei deiner gewählten Verzichtshäufigkeit",
+  "projectionScenario": "Nach {years} Jahren bei {rate}% pro Jahr mit monatlichen Einzahlungen. Alle Ersparnisse werden zurückgelegt; Erträge sind nicht garantiert.",
+  "@projectionScenario": {
+    "placeholders": {
+      "years": {
+        "type": "int"
+      },
+      "rate": {
+        "type": "String"
+      }
+    }
+  },
+  "projectionAfterYears": "Nach {years} Jahren mit Zinsen",
+  "@projectionAfterYears": {
+    "placeholders": {
+      "years": {
+        "type": "int"
+      }
+    }
+  },
+  "oneSkippedPurchase": "Ein vermiedener Kauf",
+  "regularlySkippedPurchases": "Regelmäßiger Verzicht",
+  "editImpulse": "Anpassen",
+  "historyOverview": "Deine Entscheidungen im Überblick",
+  "noFilteredHistory": "Keine Entscheidungen dieser Gruppe in den geladenen Einträgen",
+  "loadMoreHistory": "Mehr anzeigen",
+  "historyLoadedCount": "{count} von {total} Entscheidungen geladen",
+  "@historyLoadedCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
+    }
+  },
+  "projectionTableTitle": "Beträge nach Jahren",
+  "projectionTableYear": "Jahr",
+  "projectionTableTotal": "Gesamt",
+  "habitPaused": "Pausiert · nicht im Gesamtpotenzial",
+  "showPassword": "Passwort anzeigen",
+  "hidePassword": "Passwort verbergen",
+  "editSaving": "Eintrag bearbeiten",
+  "moneyFormatError": "Betrag mit bis zu 10 Ziffern und 2 Nachkommastellen eingeben",
+  "frequencyRangeError": "Ganze Zahl zwischen 0 und 50 eingeben",
+  "habitActive": "Diese Gewohnheit einbeziehen",
+  "habitActiveDescription": "Pausieren entfernt die Gewohnheit aus Schnellwahl und Gesamtpotenzial; der Verlauf bleibt",
+  "editGoal": "Ziel bearbeiten",
+  "goalReached": "Der Zielbetrag ist zurückgelegt",
+  "goalRemaining": "Noch zurückzulegen: {amount}",
+  "@goalRemaining": {
+    "placeholders": {
+      "amount": {
+        "type": "String"
+      }
+    }
+  },
+  "goalProgressExplanation": "Nur diesem Ziel zugewiesenes Geld zählt. Derselbe Betrag zählt nicht für mehrere Ziele.",
+  "rateFormatError": "Zinssatz von 0 bis 100% mit bis zu zwei Nachkommastellen eingeben",
+  "savingRecordedMessage": "Entscheidung erfasst",
+  "savingUpdatedMessage": "Eintrag aktualisiert",
+  "habitSavedMessage": "Gewohnheit gespeichert",
+  "goalSavedMessage": "Ziel gespeichert",
+  "settingsSavedMessage": "Prognose aktualisiert",
+  "entryDeletedMessage": "Eintrag gelöscht",
+  "changesSavedMessage": "Änderungen gespeichert",
+  "savingsSummaryUnavailable": "Gesamtsummen nicht verfügbar; dein Verlauf bleibt erhalten",
+  "savingsDataLoadFailed": "Daten konnten nicht geladen werden. Verbindung prüfen und erneut versuchen.",
+  "refresh": "Aktualisieren",
+  "monthlyAmounts": "Monatliche Beträge",
+  "customSaving": "Andere Entscheidung",
+  "customSavingHint": "Einmaliger Eintrag: Es wird keine neue Gewohnheit erstellt.",
+  "oneDecisionProjection": "Ein vermiedener Kauf: {amount} in {years} Jahren.",
+  "@oneDecisionProjection": {
+    "placeholders": {
+      "years": {
+        "type": "int"
+      },
+      "amount": {
+        "type": "String"
+      }
+    }
+  },
+  "oneDecisionProjectionHint": "Wenn du diesen Betrag jetzt bei {rate}% pro Jahr mit monatlichem Zinseszins und ohne weitere Einzahlungen zurücklegst. Ein hypothetisches Szenario, kein versprochener Ertrag.",
+  "@oneDecisionProjectionHint": {
+    "placeholders": {
+      "rate": {
+        "type": "String"
+      }
+    }
+  },
+  "impulseIconCoffee": "Kaffee",
+  "impulseIconRestaurant": "Cafés und Restaurants",
+  "impulseIconDelivery": "Essenslieferung",
+  "impulseIconSmoking": "Zigaretten",
+  "impulseIconTaxi": "Taxi",
+  "impulseIconShopping": "Shopping",
+  "impulseIconSubscription": "Abonnements",
+  "impulseIconOther": "Sonstiges",
+  "scenarioComparison": "Was wäre, wenn ich seltener kaufe?",
+  "scenarioPrice": "Preis: {amount} · hypothetischer Zinssatz: {rate}%",
+  "@scenarioPrice": {
+    "placeholders": {
+      "amount": {
+        "type": "String"
+      },
+      "rate": {
+        "type": "String"
+      }
+    }
+  },
+  "scenarioBaseline": "Jetzt",
+  "scenarioModerate": "Moderate Variante",
+  "scenarioMinimal": "Minimale Variante",
+  "scenarioFrequency": "{name}: {count} Käufe pro Woche",
+  "@scenarioFrequency": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      },
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "scenarioOwnMoney": "Einzahlungen",
+  "scenarioAssumptions": "Differenz zur aktuellen Häufigkeit. 52 Wochen pro Jahr; alle Ersparnisse werden am Monatsende mit monatlichem Zinseszins eingezahlt. Ohne Startkapital, Steuern oder Inflation; Erträge sind nicht garantiert. Die Berechnung erstellt keine Einträge.",
+  "allocateGoal": "Geld zuweisen",
+  "allocatedAmount": "Diesem Ziel insgesamt zugewiesen",
+  "unallocatedMoney": "Für Ziele verfügbar: {amount}",
+  "@unallocatedMoney": {
+    "placeholders": {
+      "amount": {
+        "type": "String"
+      }
+    }
+  },
+  "allocationCapacity": "Du kannst diesem Ziel bis zu {amount} zuweisen",
+  "@allocationCapacity": {
+    "placeholders": {
+      "amount": {
+        "type": "String"
+      }
+    }
+  },
+  "allocationInvalid": "Betrag ab 0 mit bis zu zwei Nachkommastellen eingeben",
+  "allocationTooLarge": "Nicht genügend verfügbares Geld oder Zielbetrag überschritten",
+  "goalBelowAllocation": "Zuerst überzählige Zuweisung freigeben",
+  "releaseAllocationsFirst": "Dieses Geld ist Zielen zugewiesen. Reduziere zuerst die Zuweisungen.",
+  "releaseGoalMoney": "Geld dieses Ziels freigeben",
+  "allocationHint": "Lege die gesamte Zuweisung fest, keine zusätzliche Einzahlung. 0 gibt das Geld wieder frei. Es erfolgt keine Banküberweisung.",
+  "allocationSaved": "Geld zugewiesen",
+  "savingReceipt": "Beleg für vermiedenen Kauf",
+  "weeklyReceipt": "Meine Entscheidungen in 7 Tagen",
+  "receiptPurchaseNotMade": "Kauf nicht getätigt",
+  "receiptPrivateDecision": "Eine Entscheidung für mich",
+  "receiptFooter": "Persönlicher Nachweis eines vermiedenen Kaufs. Kein Kontoauszug und kein steuerlicher Beleg.",
+  "receiptHideName": "Kaufnamen verbergen",
+  "receiptExport": "PNG speichern / teilen",
+  "receiptExportFailed": "Beleg konnte nicht exportiert werden. Erneut versuchen.",
+  "favoriteActions": "Meine drei Schnellentscheidungen",
+  "favoriteActionsHint": "Wähle Zu Favoriten hinzufügen im Menü einer Gewohnheit. Bis zu drei Aktionen erscheinen hier und im Handy-Widget. Zum Hinzufügen Startbildschirm gedrückt halten → Widgets → Nicht ausgegeben.",
+  "addFavorite": "Zu Favoriten / Widget hinzufügen",
+  "removeFavorite": "Aus Favoriten entfernen",
+  "favoriteLimit": "Du hast bereits drei Favoriten. Entferne zuerst einen.",
+  "widgetItemUnavailable": "Dieser Eintrag ist gelöscht, pausiert oder für dieses Konto nicht verfügbar",
+  "chooseLanguage": "Sprache wählen",
+  "coinLanguageHint": "Das Währungszeichen im Logo ist eine regionale Zuordnung. Die Sprache rechnet Beträge nicht um und ändert die Währung deiner Einträge nicht."
+}

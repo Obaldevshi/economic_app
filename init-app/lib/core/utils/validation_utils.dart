@@ -49,7 +49,7 @@ class ValidationUtils {
           : '$fieldName must be at least 2 characters';
     }
     // Letters from any script (Latin, Cyrillic, …), spaces, hyphen, apostrophe.
-    if (!RegExp(r"^[\p{L}\s\-']+$", unicode: true).hasMatch(value)) {
+    if (!RegExp(r"^[\p{L}\p{M}\s\-']+$", unicode: true).hasMatch(value)) {
       return context != null
           ? context.l10n.nameLettersOnly(fieldName)
           : '$fieldName can only contain letters';

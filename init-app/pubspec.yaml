@@ -1,7 +1,7 @@
 name: mobile_template
-description: "Adaptive Flutter mobile and web template with a reusable feature structure."
+description: "Not Spent — mindful impulse savings, goals and scenario projections."
 publish_to: "none"
-version: 1.0.0+1
+version: 1.0.0+3
 
 environment:
   sdk: ^3.9.2
@@ -52,6 +52,7 @@ flutter:
     - assets/icons/
     - assets/images/
     - assets/env/
+    - assets/legal/
 
 flutter_launcher_icons:
   android: true

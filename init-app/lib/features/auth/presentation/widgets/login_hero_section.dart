@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:mobile_template/app/theme/app_colors.dart';
 import 'package:mobile_template/presentation/widgets/common/brand_mark.dart';
+import 'package:mobile_template/presentation/widgets/common/language_selector.dart';
 
 class LoginHeroSection extends StatelessWidget {
   const LoginHeroSection({
@@ -42,27 +43,36 @@ class LoginHeroSection extends StatelessWidget {
             ? CrossAxisAlignment.start
             : CrossAxisAlignment.center,
         children: [
+          const Align(
+            alignment: AlignmentDirectional.centerEnd,
+            child: LanguageSelector(onDark: true),
+          ),
           if (showBackButton)
             Align(
-              alignment: Alignment.centerLeft,
+              alignment: AlignmentDirectional.centerStart,
               child: IconButton(
                 onPressed: onBackPressed ?? () => context.pop(),
-                icon: const Icon(Icons.arrow_back_rounded, color: Colors.white),
+                icon: const BackButtonIcon(),
+                color: Colors.white,
               ),
             ),
           Align(
-            alignment: isWide ? Alignment.centerLeft : Alignment.center,
+            alignment: isWide
+                ? AlignmentDirectional.centerStart
+                : Alignment.center,
             child: const BrandMark(size: 60, onDark: true),
           ),
           const SizedBox(height: AppDimensions.spaceL),
           Text(
             context.l10n.appName,
             style: theme.textTheme.displaySmall?.copyWith(color: Colors.white),
-            textAlign: isWide ? TextAlign.left : TextAlign.center,
+            textAlign: isWide ? TextAlign.start : TextAlign.center,
           ),
           const SizedBox(height: AppDimensions.spaceL),
           Align(
-            alignment: isWide ? Alignment.centerLeft : Alignment.center,
+            alignment: isWide
+                ? AlignmentDirectional.centerStart
+                : Alignment.center,
             child: Container(width: 44, height: 2, color: AppColors.accent),
           ),
           const SizedBox(height: AppDimensions.spaceL),
@@ -71,7 +81,7 @@ class LoginHeroSection extends StatelessWidget {
             style: theme.textTheme.headlineMedium?.copyWith(
               color: Colors.white,
             ),
-            textAlign: isWide ? TextAlign.left : TextAlign.center,
+            textAlign: isWide ? TextAlign.start : TextAlign.center,
           ),
           const SizedBox(height: AppDimensions.spaceS),
           Text(
@@ -79,7 +89,7 @@ class LoginHeroSection extends StatelessWidget {
             style: theme.textTheme.bodyLarge?.copyWith(
               color: Colors.white.withValues(alpha: 0.88),
             ),
-            textAlign: isWide ? TextAlign.left : TextAlign.center,
+            textAlign: isWide ? TextAlign.start : TextAlign.center,
           ),
         ],
       ),

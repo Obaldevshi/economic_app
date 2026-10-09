@@ -1,4 +1,4 @@
-package com.template.mobile_template
+package app.obaldevshi.notspent
 
 import io.flutter.embedding.android.FlutterActivity
 import io.flutter.embedding.engine.FlutterEngine
@@ -18,7 +18,26 @@ class MainActivity : FlutterActivity() {
         channel = MethodChannel(flutterEngine.dartExecutor.binaryMessenger, "not_spent/native")
         channel!!.setMethodCallHandler { call, result ->
             when (call.method) {
+                "clearPersonalData" -> {
+                    pendingId = null
+                    intent.removeExtra("saving_impulse")
+                    getSharedPreferences("savings_widget", MODE_PRIVATE).edit()
+                        .putString("items", "[]").commit()
+                    File(cacheDir, "receipts/not-spent.png").delete()
+                    SavingsWidgetProvider.refresh(this)
+                    result.success(null)
+                }
                 "consumeTap" -> { result.success(pendingId); pendingId = null }
+                "setWidgetLanguage" -> {
+                    val labels = call.arguments as? Map<*, *> ?: emptyMap<String, String>()
+                    val preferences = getSharedPreferences("savings_widget", MODE_PRIVATE).edit()
+                    for (key in listOf("locale", "title", "empty", "share")) {
+                        preferences.putString(key, labels[key] as? String)
+                    }
+                    preferences.apply()
+                    SavingsWidgetProvider.refresh(this)
+                    result.success(null)
+                }
                 "syncWidget" -> {
                     getSharedPreferences("savings_widget", MODE_PRIVATE).edit()
                         .putString("items", call.arguments as? String ?: "[]").apply()
@@ -38,7 +57,9 @@ class MainActivity : FlutterActivity() {
                             addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
                             clipData = android.content.ClipData.newRawUri("receipt", uri)
                         }
-                        startActivity(Intent.createChooser(share, getString(R.string.receipt_share)))
+                        val title = getSharedPreferences("savings_widget", MODE_PRIVATE)
+                            .getString("share", getString(R.string.receipt_share))
+                        startActivity(Intent.createChooser(share, title))
                         result.success(null)
                     } catch (error: Exception) { result.error("receipt_export", error.message, null) }
                 }

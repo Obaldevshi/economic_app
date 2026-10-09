@@ -10,9 +10,11 @@ plugins {
 val releaseKeyProperties = Properties()
 val releaseKeyFile = rootProject.file("key.properties")
 if (releaseKeyFile.exists()) releaseKeyFile.inputStream().use { releaseKeyProperties.load(it) }
+val previewSigning = System.getenv("NOT_SPENT_PREVIEW_SIGNING") == "1"
+val unsignedPreview = System.getenv("NOT_SPENT_UNSIGNED_PREVIEW") == "1"
 
 android {
-    namespace = "com.template.mobile_template"
+    namespace = "app.obaldevshi.notspent"
     compileSdk = 36
     ndkVersion = "28.2.13676358"
 
@@ -26,8 +28,7 @@ android {
     }
 
     defaultConfig {
-        // TODO: Specify your own unique Application ID (https://developer.android.com/studio/build/application-id.html).
-        applicationId = "com.template.mobile_template"
+        applicationId = "app.obaldevshi.notspent"
         // You can update the following values to match your application needs.
         // For more information, see: https://flutter.dev/to/review-gradle-config.
         minSdk = 24
@@ -53,16 +54,21 @@ android {
         if (releaseKeyFile.exists()) {
             create("release") {
                 keyAlias = releaseKeyProperties.getProperty("keyAlias")
-                keyPassword = releaseKeyProperties.getProperty("keyPassword")
+                keyPassword = System.getenv("NOT_SPENT_KEY_PASSWORD") ?: releaseKeyProperties.getProperty("keyPassword")
                 storeFile = rootProject.file(releaseKeyProperties.getProperty("storeFile"))
-                storePassword = releaseKeyProperties.getProperty("storePassword")
+                storePassword = System.getenv("NOT_SPENT_STORE_PASSWORD") ?: releaseKeyProperties.getProperty("storePassword")
             }
         }
     }
     buildTypes {
         getByName("release") {
-            // Installable local APK; store publication requires a private release key.
-            signingConfig = signingConfigs.getByName(if (releaseKeyFile.exists()) "release" else "debug")
+            // No implicit debug certificate in a publishing artifact.
+            signingConfig = when {
+                unsignedPreview -> null
+                previewSigning -> signingConfigs.getByName("debug")
+                releaseKeyFile.exists() -> signingConfigs.getByName("release")
+                else -> null
+            }
         }
     }
 }

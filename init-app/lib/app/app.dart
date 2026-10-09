@@ -28,6 +28,16 @@ class _MobileTemplateAppState extends State<MobileTemplateApp> {
     return ListenableBuilder(
       listenable: Listenable.merge([_themeService, _localeService]),
       builder: (context, _) {
+        final language =
+            (_localeService.locale ??
+                    WidgetsBinding.instance.platformDispatcher.locale)
+                .languageCode;
+        ThemeData readableTheme(ThemeData theme) =>
+            language == 'ar' || language == 'hi'
+            ? theme.copyWith(
+                textTheme: theme.textTheme.apply(letterSpacingFactor: 0),
+              )
+            : theme;
         return MaterialApp.router(
           title: 'Не потратил',
           debugShowCheckedModeBanner: false,
@@ -39,9 +49,20 @@ class _MobileTemplateAppState extends State<MobileTemplateApp> {
             GlobalWidgetsLocalizations.delegate,
             GlobalCupertinoLocalizations.delegate,
           ],
-          supportedLocales: const [Locale('en'), Locale('ru')],
-          theme: AppTheme.lightTheme,
-          darkTheme: AppTheme.darkTheme,
+          supportedLocales: AppLocalizations.supportedLocales,
+          localeListResolutionCallback: (locales, supported) {
+            for (final locale in locales ?? <Locale>[]) {
+              for (final candidate in supported) {
+                if (candidate.languageCode == locale.languageCode) {
+                  return candidate;
+                }
+              }
+            }
+            return const Locale('en');
+          },
+          onGenerateTitle: (context) => AppLocalizations.of(context)!.appName,
+          theme: readableTheme(AppTheme.lightTheme),
+          darkTheme: readableTheme(AppTheme.darkTheme),
           themeMode: _themeService.themeMode,
           builder: (context, child) {
             return StreamBuilder<bool>(

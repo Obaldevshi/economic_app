@@ -17,6 +17,7 @@ import 'package:mobile_template/features/profile/domain/dto/profile_dto.dart';
 import 'package:mobile_template/features/profile/presentation/pages/bloc/profile_bloc.dart';
 import 'package:mobile_template/features/profile/presentation/pages/edit_profile_page.dart';
 import 'package:mobile_template/features/profile/presentation/pages/profile_page.dart';
+import 'package:mobile_template/features/profile/presentation/pages/privacy_page.dart';
 import 'package:mobile_template/features/shell/presentation/pages/main_navigation.dart';
 import 'package:mobile_template/features/shell/presentation/widgets/navigation_branch_scope.dart';
 
@@ -29,6 +30,7 @@ class AppRoutes {
   static const habits = '/habits';
   static const profile = '/profile';
   static const editProfile = '/profile/edit';
+  static const privacy = '/privacy';
 }
 
 GoRouter createAppRouter() {
@@ -48,6 +50,7 @@ GoRouter createAppRouter() {
           location == AppRoutes.login || location == AppRoutes.register;
       final isSplash = location == AppRoutes.splash;
 
+      if (location == AppRoutes.privacy) return null;
       if (isSplash) return null;
 
       if (!isLoggedIn && !isAuthRoute) {
@@ -61,6 +64,10 @@ GoRouter createAppRouter() {
       return null;
     },
     routes: [
+      GoRoute(
+        path: AppRoutes.privacy,
+        builder: (context, state) => const PrivacyPage(),
+      ),
       GoRoute(
         path: AppRoutes.splash,
         builder: (context, state) => const SplashPage(),
@@ -126,12 +133,15 @@ GoRouter createAppRouter() {
               GoRoute(
                 path: AppRoutes.habits,
                 builder: (context, state) => BlocProvider(
-                  create: (_) =>
-                      getIt<SavingsBloc>()
-                        ..add(const LoadImpulseItems(withSettings: true)),
+                  create: (_) => getIt<SavingsBloc>()
+                    ..add(const LoadSavingsDashboard())
+                    ..add(const LoadImpulseItems(withSettings: true)),
                   child: const SavingsBranchContent(
                     branch: AppNavigationBranch.habits,
-                    refreshEvents: [LoadImpulseItems(withSettings: true)],
+                    refreshEvents: [
+                      LoadSavingsDashboard(),
+                      LoadImpulseItems(withSettings: true),
+                    ],
                     child: ImpulseItemsPage(),
                   ),
                 ),
@@ -141,9 +151,23 @@ GoRouter createAppRouter() {
           StatefulShellBranch(
             routes: [
               ShellRoute(
-                builder: (context, state, child) => BlocProvider(
-                  create: (_) => getIt<ProfileBloc>()..add(GetProfileEvent()),
-                  child: child,
+                builder: (context, state, child) => MultiBlocProvider(
+                  providers: [
+                    BlocProvider(
+                      create: (_) =>
+                          getIt<ProfileBloc>()..add(GetProfileEvent()),
+                    ),
+                    BlocProvider(
+                      create: (_) =>
+                          getIt<SavingsBloc>()
+                            ..add(const LoadSavingsDashboard()),
+                    ),
+                  ],
+                  child: SavingsBranchContent(
+                    branch: AppNavigationBranch.profile,
+                    refreshEvents: const [LoadSavingsDashboard()],
+                    child: child,
+                  ),
                 ),
                 routes: [
                   GoRoute(

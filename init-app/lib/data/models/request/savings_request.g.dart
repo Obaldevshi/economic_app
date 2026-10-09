@@ -18,6 +18,7 @@ Map<String, dynamic> _$GoalAllocationRequestToJson(
 
 SavingEventRequest _$SavingEventRequestFromJson(Map<String, dynamic> json) =>
     SavingEventRequest(
+      currencyCode: json['currency_code'] as String?,
       impulseItemId: (json['impulse_item_id'] as num?)?.toInt(),
       impulseName: json['impulse_name'] as String,
       amount: (json['amount'] as num).toDouble(),
@@ -27,6 +28,7 @@ SavingEventRequest _$SavingEventRequestFromJson(Map<String, dynamic> json) =>
 
 Map<String, dynamic> _$SavingEventRequestToJson(SavingEventRequest instance) =>
     <String, dynamic>{
+      'currency_code': ?instance.currencyCode,
       'impulse_item_id': instance.impulseItemId,
       'impulse_name': instance.impulseName,
       'amount': instance.amount,
@@ -36,6 +38,7 @@ Map<String, dynamic> _$SavingEventRequestToJson(SavingEventRequest instance) =>
 
 ImpulseItemRequest _$ImpulseItemRequestFromJson(Map<String, dynamic> json) =>
     ImpulseItemRequest(
+      currencyCode: json['currency_code'] as String?,
       name: json['name'] as String,
       defaultAmount: (json['default_amount'] as num).toDouble(),
       iconKey: json['icon_key'] as String,
@@ -45,6 +48,7 @@ ImpulseItemRequest _$ImpulseItemRequestFromJson(Map<String, dynamic> json) =>
 
 Map<String, dynamic> _$ImpulseItemRequestToJson(ImpulseItemRequest instance) =>
     <String, dynamic>{
+      'currency_code': ?instance.currencyCode,
       'name': instance.name,
       'default_amount': instance.defaultAmount,
       'icon_key': instance.iconKey,
@@ -56,10 +60,12 @@ SavingsGoalRequest _$SavingsGoalRequestFromJson(Map<String, dynamic> json) =>
     SavingsGoalRequest(
       name: json['name'] as String,
       targetAmount: (json['target_amount'] as num).toDouble(),
+      currencyCode: json['currency_code'] as String?,
     );
 
 Map<String, dynamic> _$SavingsGoalRequestToJson(SavingsGoalRequest instance) =>
     <String, dynamic>{
+      'currency_code': ?instance.currencyCode,
       'name': instance.name,
       'target_amount': instance.targetAmount,
     };
@@ -67,6 +73,9 @@ Map<String, dynamic> _$SavingsGoalRequestToJson(SavingsGoalRequest instance) =>
 SavingsSettingsRequest _$SavingsSettingsRequestFromJson(
   Map<String, dynamic> json,
 ) => SavingsSettingsRequest(
+  currencyCode: json['currency_code'] as String?,
+  displayCurrency: json['display_currency'] as String?,
+  financialRegion: json['financial_region'] as String?,
   annualRate: (json['annual_rate'] as num).toDouble(),
   projectionYears: (json['projection_years'] as num).toInt(),
 );
@@ -74,6 +83,9 @@ SavingsSettingsRequest _$SavingsSettingsRequestFromJson(
 Map<String, dynamic> _$SavingsSettingsRequestToJson(
   SavingsSettingsRequest instance,
 ) => <String, dynamic>{
+  'currency_code': ?instance.currencyCode,
+  'display_currency': ?instance.displayCurrency,
+  'financial_region': ?instance.financialRegion,
   'annual_rate': instance.annualRate,
   'projection_years': instance.projectionYears,
 };

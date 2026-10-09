@@ -1,0 +1,448 @@
+{
+  "@@locale": "pt",
+  "privacyPolicy": "Política de privacidade",
+  "financialSettings": "Configurações financeiras",
+  "financialRegion": "Região financeira",
+  "recordCurrency": "Moeda dos registros",
+  "displayCurrency": "Moeda de exibição",
+  "currencyLedgerHint": "A moeda dos registros muda para um livro separado. Registros e metas existentes mantêm a moeda. Use a moeda de exibição para ver equivalentes.",
+  "regionalDefaultsHint": "A região sugere moeda, preços iniciais e taxa de referência. Preços só são adicionados a um livro vazio; suas edições são preservadas.",
+  "applyRegionDefaults": "Aplicar configurações regionais",
+  "conversionHint": "Conversão pela última taxa oficial do Banco da Rússia. Os registros não mudam. Não é uma taxa comercial ou previsão; juros, impostos e tarifas não são convertidos.",
+  "rateReferenceHint": "Os juros são um cenário editável, não uma promessa de retorno. Fonte e período aparecem abaixo.",
+  "rateNeedsInput": "Sem referência verificada: taxa inicial de 0%. Informe as condições do seu depósito.",
+  "exchangeRateDate": "Taxa do Banco da Rússia · {date}",
+  "currencyChanged": "A moeda dos registros mudou. Atualize e tente novamente.",
+  "starterPricesHint": "Os preços são estimativas iniciais editáveis, não médias estatísticas. Ajuste-os às suas compras.",
+  "@exchangeRateDate": {"placeholders": {"date": {"type": "String"}}},
+  "widgetEmptyHint": "Escolha até três favoritos em Impulsos. Toque para confirmar uma economia.",
+  "appName": "Não gastei",
+  "appTagline": "Pequenas escolhas. Mais economia.",
+  "welcomeBack": "Bem-vindo de volta",
+  "loginSubtitle": "Entre para continuar",
+  "createAccount": "Criar conta",
+  "registerSubtitle": "Preencha os dados para começar",
+  "login": "Entrar",
+  "register": "Cadastrar",
+  "email": "E-mail",
+  "emailHint": "Digite seu e-mail",
+  "password": "Senha",
+  "passwordHint": "Digite sua senha",
+  "createPasswordHint": "Crie uma senha",
+  "firstName": "Nome",
+  "firstNameHint": "Digite seu nome",
+  "lastName": "Sobrenome",
+  "lastNameHint": "Digite seu sobrenome",
+  "confirmPassword": "Confirmar senha",
+  "dontHaveAccount": "Não tem uma conta?",
+  "alreadyHaveAccount": "Já tem uma conta?",
+  "signUp": "Cadastre-se",
+  "signIn": "Entrar",
+  "or": "ou",
+  "createAccountButton": "Criar conta",
+  "accountCreatedSuccessfully": "Conta criada",
+  "home": "Economia",
+  "homeWelcome": "Sistema de design",
+  "homeDescription": "Explore cores, tipografia e componentes. Altere o tema e o idioma na hora.",
+  "homeFeatureCategories": "Gerencie categorias e paginação",
+  "homeFeatureProfile": "Perfil, tema e idioma",
+  "homeUiKitTitle": "Kit de interface",
+  "homeUiKitSubtitle": "Sistema de design",
+  "homeUiKitDescription": "Superfícies, estilos e componentes leves para uso fluido.",
+  "homeSectionAppearance": "Aparência",
+  "homeSectionColors": "Cores",
+  "homeSectionTypography": "Tipografia",
+  "homeSectionComponents": "Componentes",
+  "homeSectionTokens": "Variáveis de design",
+  "colorPrimary": "Principal",
+  "colorPrimaryLight": "Principal claro",
+  "colorPrimaryDark": "Principal escuro",
+  "colorSecondary": "Secundário",
+  "colorSuccess": "Sucesso",
+  "colorWarning": "Aviso",
+  "colorError": "Erro",
+  "colorSurface": "Superfície",
+  "colorBackground": "Fundo",
+  "homeShowDialog": "Mostrar diálogo",
+  "homeDialogDemoTitle": "Exemplo de diálogo",
+  "homeDialogDemoContent": "Diálogo de confirmação do kit de interface.",
+  "homeFontFamily": "Família da fonte",
+  "homeFontRegular": "Normal",
+  "homeFontMedium": "Médio",
+  "homeFontBold": "Negrito",
+  "homeSpacing": "Espaçamento",
+  "homeRadius": "Raio da borda",
+  "homeGlassTokens": "Superfícies",
+  "homeDemoInputLabel": "Campo de exemplo",
+  "homeDemoInputHint": "Digite algo…",
+  "homeToggleLoading": "Alternar carregamento",
+  "homeGlassOnLight": "Padrão",
+  "homeGlassPanel": "Painel",
+  "homeGlassOnGradient": "Destaque",
+  "homeTypographySample": "Pequenas escolhas, grandes mudanças",
+  "categories": "Categorias",
+  "profile": "Perfil",
+  "profileSectionAccount": "Conta",
+  "addCategory": "Adicionar categoria",
+  "editCategory": "Editar categoria",
+  "deleteCategory": "Excluir categoria",
+  "categoryName": "Nome da categoria",
+  "categoryNameRequired": "Informe o nome da categoria",
+  "categoryNameTooShort": "O nome é muito curto",
+  "updateCategory": "Atualizar categoria",
+  "deleteCategoryConfirmation": "Excluir esta categoria?",
+  "categoryDeletedSuccessfully": "Categoria excluída",
+  "categoryUpdatedSuccessfully": "Categoria atualizada",
+  "noCategoriesYet": "Ainda não há categorias",
+  "noCategoriesFound": "Nenhuma categoria encontrada",
+  "addFirstCategory": "Adicione sua primeira categoria",
+  "tryDifferentSearch": "Tente outra busca",
+  "searchCategories": "Buscar categorias",
+  "addNewCategoryTooltip": "Adicionar categoria",
+  "editProfile": "Editar perfil",
+  "updatePersonalInfo": "Atualize seus dados pessoais",
+  "personalInformation": "Dados pessoais",
+  "saveChanges": "Salvar alterações",
+  "changePassword": "Alterar senha",
+  "changePasswordTitle": "Alterar senha",
+  "changePasswordButton": "Atualizar senha",
+  "security": "Segurança",
+  "logout": "Sair",
+  "logoutConfirmation": "Sair da conta?",
+  "delete": "Excluir",
+  "edit": "Editar",
+  "cancel": "Cancelar",
+  "save": "Salvar",
+  "error": "Erro",
+  "loading": "Carregando",
+  "retry": "Tentar novamente",
+  "version": "Versão",
+  "currentPassword": "Senha atual",
+  "newPassword": "Nova senha",
+  "confirmNewPassword": "Confirmar nova senha",
+  "enterCurrentPassword": "Digite a senha atual",
+  "enterNewPassword": "Digite a nova senha",
+  "confirmYourNewPassword": "Confirme a nova senha",
+  "currentPasswordRequired": "A senha atual é obrigatória",
+  "newPasswordRequired": "A nova senha é obrigatória",
+  "passwordChangedSuccessfully": "Senha alterada",
+  "profileUpdatedSuccessfully": "Perfil atualizado",
+  "accountDeletedSuccessfully": "Conta excluída",
+  "deleteAccount": "Excluir conta",
+  "deleteAccountConfirmation": "Excluir sua conta?",
+  "deleteAccountDescription": "Exclua permanentemente sua conta e todos os dados",
+  "deleteAccountWarning": "Esta ação não pode ser desfeita. Todos os seus dados serão excluídos permanentemente.",
+  "dangerZone": "Zona de risco",
+  "manageAccount": "Gerencie sua conta",
+  "emailRequired": "O e-mail é obrigatório",
+  "emailInvalid": "Digite um e-mail válido",
+  "passwordRequired": "A senha é obrigatória",
+  "passwordTooShort": "A senha deve ter pelo menos {minLength} caracteres",
+  "@passwordTooShort": {
+    "placeholders": {
+      "minLength": {
+        "type": "int"
+      }
+    }
+  },
+  "newPasswordTooShort": "A nova senha deve ter pelo menos {minLength} caracteres",
+  "@newPasswordTooShort": {
+    "placeholders": {
+      "minLength": {
+        "type": "int"
+      }
+    }
+  },
+  "fieldRequired": "{fieldName} é obrigatório",
+  "@fieldRequired": {
+    "placeholders": {
+      "fieldName": {
+        "type": "String"
+      }
+    }
+  },
+  "fieldTooShort": "{fieldName} deve ter pelo menos {minLength} caracteres",
+  "@fieldTooShort": {
+    "placeholders": {
+      "fieldName": {
+        "type": "String"
+      },
+      "minLength": {
+        "type": "int"
+      }
+    }
+  },
+  "nameLettersOnly": "{fieldName} deve conter apenas letras",
+  "@nameLettersOnly": {
+    "placeholders": {
+      "fieldName": {
+        "type": "String"
+      }
+    }
+  },
+  "numberRequired": "{fieldName} é obrigatório",
+  "numberInvalid": "{fieldName} deve ser um número válido",
+  "numberMustBePositive": "{fieldName} deve ser maior que zero",
+  "passwordsDontMatch": "As senhas não coincidem",
+  "last7Days": "Últimos 7 dias",
+  "last30Days": "Últimos 30 dias",
+  "today": "Hoje",
+  "yesterday": "Ontem",
+  "past": "Anteriores",
+  "ok": "OK",
+  "offlineBanner": "Sem conexão com a internet",
+  "loadMore": "Carregar mais",
+  "appearance": "Aparência",
+  "appearanceDescription": "Tema claro, escuro ou do sistema",
+  "language": "Idioma",
+  "languageDescription": "Idioma da interface",
+  "languageSystem": "Sistema (sem símbolo)",
+  "themeSystem": "Sistema",
+  "themeLight": "Claro",
+  "themeDark": "Escuro",
+  "errorBadRequest": "Solicitação inválida",
+  "errorUnauthorized": "Entre na conta",
+  "errorAccessDenied": "Acesso negado",
+  "errorNotFound": "Não encontrado",
+  "errorTimeout": "Tempo de solicitação esgotado",
+  "errorValidation": "Erro de validação",
+  "errorTooManyRequests": "Muitas solicitações",
+  "errorServer": "Erro do servidor",
+  "errorBadGateway": "Erro de gateway",
+  "errorServiceUnavailable": "Serviço indisponível",
+  "errorGatewayTimeout": "Tempo de gateway esgotado",
+  "errorClient": "Erro do cliente",
+  "errorRequestCancelled": "Solicitação cancelada",
+  "errorInvalidCredentials": "Dados de acesso inválidos",
+  "errorResourceExists": "O recurso já existe",
+  "savingsTagline": "Cada compra por impulso evitada constrói seu futuro",
+  "recordSaving": "Não gastei",
+  "savedToday": "Economizado hoje",
+  "savedThisMonth": "Neste mês",
+  "savedTotal": "Total economizado registrado",
+  "investedTotal": "Realmente guardado",
+  "monthlyPace": "Ritmo mensal",
+  "futureProjection": "Economia futura",
+  "yearsAtCurrentPace": "anos no ritmo atual",
+  "interestIncome": "Rendimento de juros",
+  "contributions": "Seus aportes",
+  "savingsDynamics": "Economia por mês",
+  "recentSavings": "Escolhas recentes",
+  "noSavingsYet": "Nenhuma economia registrada",
+  "habits": "Impulsos",
+  "habitsDescription": "Edite preços e atalhos das compras que deseja evitar",
+  "history": "Histórico",
+  "historyDescription": "Cada pequena escolha a favor do seu futuro",
+  "goals": "Metas",
+  "addGoal": "Adicionar meta",
+  "goalName": "Nome da meta",
+  "targetAmount": "Valor da meta",
+  "noGoalsYet": "Adicione uma meta para acompanhar o progresso",
+  "impulseItem": "Qual compra você evitou?",
+  "amount": "Valor",
+  "actuallySetAside": "Realmente guardei este dinheiro",
+  "actuallySetAsideDescription": "Separa economia potencial de capital real",
+  "noteOptional": "Nota (opcional)",
+  "record": "Registrar",
+  "editHabit": "Editar impulso",
+  "addHabit": "Adicionar impulso",
+  "habitName": "Nome do impulso",
+  "defaultPrice": "Preço habitual",
+  "timesPerWeek": "Vezes por semana",
+  "frequencyZeroHint": "0 significa uma vez por mês",
+  "oncePerMonth": "uma vez por mês",
+  "chooseIcon": "Ícone",
+  "deleteHabitConfirmation": "Excluir este atalho? O histórico será mantido.",
+  "deleteSavingConfirmation": "Excluir este registro de economia?",
+  "noHabits": "Ainda não há atalhos de impulsos",
+  "noHistory": "Seu histórico de economia aparecerá aqui",
+  "weekShort": "semana",
+  "rateAndHorizon": "Taxa e prazo",
+  "annualRate": "Taxa anual do depósito",
+  "projectionYears": "Anos da projeção",
+  "apply": "Aplicar",
+  "noData": "Ainda não há dados suficientes",
+  "quickChoices": "Escolha rápida",
+  "quickChoicesDescription": "Escolha a compra que acabou de evitar",
+  "recordThisSaving": "Não gastei",
+  "annualPotential": "Potencial anual",
+  "weeklyPotential": "Semana habitual",
+  "savingsBreakdown": "Como seu capital se forma",
+  "topSavingsSources": "Suas maiores fontes de economia",
+  "currentPace": "Ritmo atual",
+  "decisionCount": "Escolhas para o seu futuro",
+  "allSavings": "Todas as escolhas",
+  "realSavings": "Realmente guardado",
+  "potentialSavings": "Ainda não guardado",
+  "compoundEffect": "Efeito dos juros compostos",
+  "projectionExplanation": "É um cenário, não um saldo: toda a economia registrada é guardada, o ritmo dos últimos 90 dias continua e os juros são compostos mensalmente. A taxa é hipotética; retornos não são garantidos.",
+  "impulseAnnualHint": "Na frequência escolhida de compras evitadas",
+  "projectionScenario": "Após {years} anos a {rate}% ao ano com aportes mensais. Supõe que você guarde toda a economia; retornos não são garantidos.",
+  "@projectionScenario": {
+    "placeholders": {
+      "years": {
+        "type": "int"
+      },
+      "rate": {
+        "type": "String"
+      }
+    }
+  },
+  "projectionAfterYears": "Após {years} anos com juros",
+  "@projectionAfterYears": {
+    "placeholders": {
+      "years": {
+        "type": "int"
+      }
+    }
+  },
+  "oneSkippedPurchase": "Uma compra evitada",
+  "regularlySkippedPurchases": "Compras evitadas regularmente",
+  "editImpulse": "Personalizar",
+  "historyOverview": "Suas escolhas em resumo",
+  "noFilteredHistory": "Nenhuma escolha deste grupo nos registros carregados",
+  "loadMoreHistory": "Mostrar mais",
+  "historyLoadedCount": "{count} de {total} escolhas carregadas",
+  "@historyLoadedCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
+    }
+  },
+  "projectionTableTitle": "Valores ano a ano",
+  "projectionTableYear": "Ano",
+  "projectionTableTotal": "Total",
+  "habitPaused": "Pausado · fora do potencial total",
+  "showPassword": "Mostrar senha",
+  "hidePassword": "Ocultar senha",
+  "editSaving": "Editar registro",
+  "moneyFormatError": "Digite até 10 dígitos e 2 casas decimais",
+  "frequencyRangeError": "Digite um inteiro de 0 a 50",
+  "habitActive": "Incluir este hábito",
+  "habitActiveDescription": "Pausar remove das escolhas rápidas e do potencial total; o histórico é mantido",
+  "editGoal": "Editar meta",
+  "goalReached": "O valor da meta está guardado",
+  "goalRemaining": "Falta guardar: {amount}",
+  "@goalRemaining": {
+    "placeholders": {
+      "amount": {
+        "type": "String"
+      }
+    }
+  },
+  "goalProgressExplanation": "O progresso conta apenas o dinheiro alocado nesta meta. O mesmo valor não conta para várias metas.",
+  "rateFormatError": "Digite uma taxa de 0 a 100% com até duas casas decimais",
+  "savingRecordedMessage": "Escolha registrada",
+  "savingUpdatedMessage": "Registro atualizado",
+  "habitSavedMessage": "Hábito salvo",
+  "goalSavedMessage": "Meta salva",
+  "settingsSavedMessage": "Projeção atualizada",
+  "entryDeletedMessage": "Registro excluído",
+  "changesSavedMessage": "Alterações salvas",
+  "savingsSummaryUnavailable": "Os totais estão indisponíveis; seu histórico continua aqui",
+  "savingsDataLoadFailed": "Não foi possível carregar seus dados. Verifique a conexão e tente novamente.",
+  "refresh": "Atualizar",
+  "monthlyAmounts": "Valores mensais",
+  "customSaving": "Outra escolha",
+  "customSavingHint": "Registro avulso: nenhum hábito novo será criado.",
+  "oneDecisionProjection": "Uma compra evitada: {amount} em {years} anos.",
+  "@oneDecisionProjection": {
+    "placeholders": {
+      "years": {
+        "type": "int"
+      },
+      "amount": {
+        "type": "String"
+      }
+    }
+  },
+  "oneDecisionProjectionHint": "Se guardar este valor agora a {rate}% ao ano com juros compostos mensais e sem novos aportes. É um cenário hipotético, não uma promessa de retorno.",
+  "@oneDecisionProjectionHint": {
+    "placeholders": {
+      "rate": {
+        "type": "String"
+      }
+    }
+  },
+  "impulseIconCoffee": "Café",
+  "impulseIconRestaurant": "Cafés e restaurantes",
+  "impulseIconDelivery": "Entrega de comida",
+  "impulseIconSmoking": "Cigarros",
+  "impulseIconTaxi": "Táxi",
+  "impulseIconShopping": "Compras",
+  "impulseIconSubscription": "Assinaturas",
+  "impulseIconOther": "Outros",
+  "scenarioComparison": "E se eu comprasse menos vezes?",
+  "scenarioPrice": "Preço: {amount} · taxa hipotética: {rate}%",
+  "@scenarioPrice": {
+    "placeholders": {
+      "amount": {
+        "type": "String"
+      },
+      "rate": {
+        "type": "String"
+      }
+    }
+  },
+  "scenarioBaseline": "Agora",
+  "scenarioModerate": "Opção moderada",
+  "scenarioMinimal": "Opção mínima",
+  "scenarioFrequency": "{name}: {count} compras por semana",
+  "@scenarioFrequency": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      },
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "scenarioOwnMoney": "Aportes",
+  "scenarioAssumptions": "Diferença da frequência atual. 52 semanas por ano; toda a economia é depositada no fim de cada mês com juros compostos mensais. Sem capital inicial, impostos ou inflação; retornos não são garantidos. Este cálculo não cria registros.",
+  "allocateGoal": "Alocar dinheiro",
+  "allocatedAmount": "Total alocado nesta meta",
+  "unallocatedMoney": "Disponível para metas: {amount}",
+  "@unallocatedMoney": {
+    "placeholders": {
+      "amount": {
+        "type": "String"
+      }
+    }
+  },
+  "allocationCapacity": "Você pode alocar até {amount} nesta meta",
+  "@allocationCapacity": {
+    "placeholders": {
+      "amount": {
+        "type": "String"
+      }
+    }
+  },
+  "allocationInvalid": "Digite um valor de 0 ou mais com até duas casas decimais",
+  "allocationTooLarge": "Saldo disponível insuficiente ou valor da meta excedido",
+  "goalBelowAllocation": "Libere primeiro a alocação excedente",
+  "releaseAllocationsFirst": "Estes fundos estão alocados em metas. Reduza as alocações primeiro.",
+  "releaseGoalMoney": "Liberar o dinheiro desta meta",
+  "allocationHint": "Defina a alocação total, não um depósito adicional. 0 devolve o dinheiro ao saldo disponível. Nenhuma transferência bancária é feita.",
+  "allocationSaved": "Dinheiro alocado",
+  "savingReceipt": "Recibo de compra evitada",
+  "weeklyReceipt": "Minhas decisões em 7 dias",
+  "receiptPurchaseNotMade": "Compra não realizada",
+  "receiptPrivateDecision": "Uma decisão para mim",
+  "receiptFooter": "Registro pessoal de uma compra evitada. Não é extrato bancário nem nota fiscal.",
+  "receiptHideName": "Ocultar nome da compra",
+  "receiptExport": "Salvar / compartilhar PNG",
+  "receiptExportFailed": "Não foi possível exportar o recibo. Tente novamente.",
+  "favoriteActions": "Minhas três decisões rápidas",
+  "favoriteActionsHint": "Escolha Adicionar aos favoritos no menu de um hábito. Até três ações aparecerão aqui e no widget do celular. Para adicioná-lo, segure a tela inicial → Widgets → Não gastei.",
+  "addFavorite": "Adicionar aos favoritos / widget",
+  "removeFavorite": "Remover dos favoritos",
+  "favoriteLimit": "Você já tem três favoritos. Remova um primeiro.",
+  "widgetItemUnavailable": "Este item foi excluído, pausado ou não está disponível nesta conta",
+  "chooseLanguage": "Escolher idioma",
+  "coinLanguageHint": "O símbolo do logo é uma associação regional. O idioma não converte valores nem altera a moeda dos seus registros."
+}

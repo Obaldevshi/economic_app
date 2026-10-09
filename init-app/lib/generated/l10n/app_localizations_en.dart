@@ -9,6 +9,68 @@ class AppLocalizationsEn extends AppLocalizations {
   AppLocalizationsEn([String locale = 'en']) : super(locale);
 
   @override
+  String get privacyPolicy => 'Privacy policy';
+
+  @override
+  String get financialSettings => 'Financial settings';
+
+  @override
+  String get financialRegion => 'Financial region';
+
+  @override
+  String get recordCurrency => 'Record currency';
+
+  @override
+  String get displayCurrency => 'Display currency';
+
+  @override
+  String get currencyLedgerHint =>
+      'Record currency switches to a separate ledger. Existing records and goals keep their currency. Use display currency to view equivalents.';
+
+  @override
+  String get regionalDefaultsHint =>
+      'Region suggests currency, starter prices and a rate reference. Prices are added only to an empty ledger; your edits are preserved.';
+
+  @override
+  String get applyRegionDefaults => 'Apply regional settings';
+
+  @override
+  String get conversionHint =>
+      'Converted using the latest official CBR reference rate. Records remain unchanged. Not a bank\'s trading rate or a forecast; deposit interest, taxes and fees are not converted.';
+
+  @override
+  String get rateReferenceHint =>
+      'Interest is an editable scenario, not a promised return. Reference source and period appear below.';
+
+  @override
+  String get rateNeedsInput =>
+      'No verified reference for this region: the starting rate is 0%. Enter your deposit\'s terms.';
+
+  @override
+  String exchangeRateDate(String date) {
+    return 'CBR rate · $date';
+  }
+
+  @override
+  String get currencyChanged =>
+      'Record currency changed. Refresh and try again.';
+
+  @override
+  String get starterPricesHint =>
+      'Default prices are editable starter estimates, not statistical averages. Adjust them to your purchases.';
+
+  @override
+  String get widgetEmptyHint =>
+      'Choose up to three favorites in the Impulses menu. Tap to confirm a saving.';
+
+  @override
+  String get chooseLanguage => 'Choose language';
+
+  @override
+  String get coinLanguageHint =>
+      'The logo\'s currency sign is a regional association. Language does not convert amounts or change the currency of your records.';
+
+  @override
   String get appName => 'Not Spent';
 
   @override

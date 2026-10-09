@@ -2,6 +2,8 @@ from fastapi import APIRouter, Query, status
 
 from app.core.dependencies import CurrentUserDep, SavingsServiceDep
 from app.core.responses import PaginatedResponse, SuccessResponse
+from app.services.exchange_rate_service import exchange_rates
+from app.services.financial_presets import REGIONS
 from app.schemas.savings import (
     ImpulseItemCreate,
     ImpulseItemResponse,
@@ -37,7 +39,14 @@ async def allocate_goal(goal_id: int, service: SavingsServiceDep, current_user: 
 
 @router.get("/dashboard", response_model=SuccessResponse)
 async def get_dashboard(service: SavingsServiceDep, current_user: CurrentUserDep):
-    data = SavingsDashboardResponse.model_validate(service.get_dashboard(current_user["user_id"]))
+    values = service.get_dashboard(current_user["user_id"])
+    values["exchange_rates"] = await exchange_rates.get_rates(service.repository.db)
+    values["regional_presets"] = [
+        {"region": region, "currency_code": preset[0], "annual_rate": preset[1],
+         "rate_reference": preset[3], "rate_source": preset[4]}
+        for region, preset in REGIONS.items()
+    ]
+    data = SavingsDashboardResponse.model_validate(values)
     return SuccessResponse(message="Savings dashboard retrieved", data=data)
 
 

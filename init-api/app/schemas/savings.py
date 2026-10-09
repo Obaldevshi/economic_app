@@ -1,18 +1,30 @@
 from datetime import date, datetime
 from decimal import Decimal
-from typing import Optional
+from typing import Literal, Optional
 
 from pydantic import BaseModel, Field
 
 
-class ImpulseItemCreate(BaseModel):
+Currency = Literal["RUB", "USD", "EUR", "KZT", "BRL", "CNY", "INR", "SAR"]
+Region = Literal["RU", "US", "ES", "FR", "DE", "BR", "CN", "IN", "SA", "KZ"]
+
+
+class CurrencyInput(BaseModel):
+    currency_code: Optional[Currency] = None
+
+
+class CurrencyRecord(BaseModel):
+    currency_code: Currency = "RUB"
+
+
+class ImpulseItemCreate(CurrencyInput):
     name: str = Field(min_length=2, max_length=120)
     default_amount: Decimal = Field(gt=0, max_digits=12, decimal_places=2)
     icon_key: str = Field(default="other", max_length=40)
     weekly_frequency: int = Field(default=1, ge=0, le=50)
 
 
-class ImpulseItemUpdate(BaseModel):
+class ImpulseItemUpdate(CurrencyInput):
     name: Optional[str] = Field(default=None, min_length=2, max_length=120)
     default_amount: Optional[Decimal] = Field(default=None, gt=0, max_digits=12, decimal_places=2)
     icon_key: Optional[str] = Field(default=None, max_length=40)
@@ -20,7 +32,7 @@ class ImpulseItemUpdate(BaseModel):
     is_active: Optional[bool] = None
 
 
-class ImpulseItemResponse(BaseModel):
+class ImpulseItemResponse(CurrencyRecord):
     id: int
     name: str
     default_amount: Decimal
@@ -31,7 +43,7 @@ class ImpulseItemResponse(BaseModel):
     model_config = {"from_attributes": True}
 
 
-class SavingEventCreate(BaseModel):
+class SavingEventCreate(CurrencyInput):
     impulse_item_id: Optional[int] = None
     impulse_name: str = Field(min_length=2, max_length=120)
     amount: Decimal = Field(gt=0, max_digits=12, decimal_places=2)
@@ -40,7 +52,7 @@ class SavingEventCreate(BaseModel):
     note: Optional[str] = Field(default=None, max_length=500)
 
 
-class SavingEventUpdate(BaseModel):
+class SavingEventUpdate(CurrencyInput):
     impulse_item_id: Optional[int] = None
     impulse_name: Optional[str] = Field(default=None, min_length=2, max_length=120)
     amount: Optional[Decimal] = Field(default=None, gt=0, max_digits=12, decimal_places=2)
@@ -49,7 +61,7 @@ class SavingEventUpdate(BaseModel):
     note: Optional[str] = Field(default=None, max_length=500)
 
 
-class SavingEventResponse(BaseModel):
+class SavingEventResponse(CurrencyRecord):
     id: int
     impulse_item_id: Optional[int]
     impulse_name: str
@@ -61,19 +73,19 @@ class SavingEventResponse(BaseModel):
     model_config = {"from_attributes": True}
 
 
-class SavingsGoalCreate(BaseModel):
+class SavingsGoalCreate(CurrencyInput):
     name: str = Field(min_length=2, max_length=120)
     target_amount: Decimal = Field(gt=0, max_digits=12, decimal_places=2)
     target_date: Optional[date] = None
 
 
-class SavingsGoalUpdate(BaseModel):
+class SavingsGoalUpdate(CurrencyInput):
     name: Optional[str] = Field(default=None, min_length=2, max_length=120)
     target_amount: Optional[Decimal] = Field(default=None, gt=0, max_digits=12, decimal_places=2)
     target_date: Optional[date] = None
 
 
-class SavingsGoalResponse(BaseModel):
+class SavingsGoalResponse(CurrencyRecord):
     id: int
     name: str
     target_amount: Decimal
@@ -87,7 +99,7 @@ class GoalAllocationUpdate(BaseModel):
     allocated_amount: Decimal = Field(ge=0, max_digits=12, decimal_places=2)
 
 
-class WeeklyReceiptResponse(BaseModel):
+class WeeklyReceiptResponse(CurrencyRecord):
     start_date: date
     end_date: date
     total_saved: Decimal
@@ -98,9 +110,14 @@ class WeeklyReceiptResponse(BaseModel):
 class SavingsSettingsUpdate(BaseModel):
     annual_rate: Decimal = Field(ge=0, le=100, max_digits=5, decimal_places=2)
     projection_years: int = Field(ge=1, le=30)
+    currency_code: Optional[Currency] = None
+    display_currency: Optional[Currency] = None
+    financial_region: Optional[Region] = None
 
 
-class SavingsSettingsResponse(BaseModel):
+class SavingsSettingsResponse(CurrencyRecord):
+    display_currency: Currency = "RUB"
+    financial_region: Region = "RU"
     annual_rate: Decimal
     projection_years: int
 
@@ -124,7 +141,11 @@ class ImpulseTotal(BaseModel):
     amount: Decimal
 
 
-class SavingsDashboardResponse(BaseModel):
+class SavingsDashboardResponse(CurrencyRecord):
+    display_currency: Currency = "RUB"
+    financial_region: Region = "RU"
+    exchange_rates: dict = Field(default_factory=dict)
+    regional_presets: list[dict] = Field(default_factory=list)
     today_total: Decimal
     month_total: Decimal
     total_saved: Decimal

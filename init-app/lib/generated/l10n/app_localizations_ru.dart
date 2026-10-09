@@ -9,6 +9,68 @@ class AppLocalizationsRu extends AppLocalizations {
   AppLocalizationsRu([String locale = 'ru']) : super(locale);
 
   @override
+  String get privacyPolicy => 'Политика конфиденциальности';
+
+  @override
+  String get financialSettings => 'Финансовые настройки';
+
+  @override
+  String get financialRegion => 'Финансовый регион';
+
+  @override
+  String get recordCurrency => 'Валюта записей';
+
+  @override
+  String get displayCurrency => 'Валюта просмотра';
+
+  @override
+  String get currencyLedgerHint =>
+      'Валюта записей переключает отдельный журнал. Старые записи и цели остаются в прежней валюте. Для просмотра эквивалента используйте валюту просмотра.';
+
+  @override
+  String get regionalDefaultsHint =>
+      'Регион предлагает валюту, стартовые цены и ориентир ставки. Цены добавляются только в пустой журнал; ваши правки сохраняются.';
+
+  @override
+  String get applyRegionDefaults => 'Применить настройки региона';
+
+  @override
+  String get conversionHint =>
+      'Пересчёт по одному последнему официальному курсу ЦБ. Записи не меняются. Это не курс покупки в банке и не прогноз курса; ставка вклада, налоги и комиссии не пересчитываются.';
+
+  @override
+  String get rateReferenceHint =>
+      'Ставка — редактируемый сценарий, не обещание доходности. Источник и период ориентира указаны ниже.';
+
+  @override
+  String get rateNeedsInput =>
+      'Для региона нет подтверждённого ориентира: стартовая ставка 0%. Укажите условия своего вклада.';
+
+  @override
+  String exchangeRateDate(String date) {
+    return 'Курс ЦБ · $date';
+  }
+
+  @override
+  String get currencyChanged =>
+      'Валюта записей изменилась. Обновите данные и повторите действие.';
+
+  @override
+  String get starterPricesHint =>
+      'Цены в стандартном списке — ориентировочные стартовые значения, не статистические средние. Отредактируйте их под свои покупки.';
+
+  @override
+  String get widgetEmptyHint =>
+      'Выберите до трёх избранных импульсов. Нажатие откроет подтверждение экономии.';
+
+  @override
+  String get chooseLanguage => 'Выбрать язык';
+
+  @override
+  String get coinLanguageHint =>
+      'Знак валюты в логотипе — условная региональная ассоциация. Язык не пересчитывает суммы и не меняет валюту ваших записей.';
+
+  @override
   String get appName => 'Не потратил';
 
   @override

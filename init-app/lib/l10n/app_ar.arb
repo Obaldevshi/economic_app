@@ -1,0 +1,448 @@
+{
+  "@@locale": "ar",
+  "privacyPolicy": "سياسة الخصوصية",
+  "financialSettings": "الإعدادات المالية",
+  "financialRegion": "المنطقة المالية",
+  "recordCurrency": "عملة السجلات",
+  "displayCurrency": "عملة العرض",
+  "currencyLedgerHint": "تغيير عملة السجلات يفتح دفترًا منفصلًا. تبقى السجلات والأهداف السابقة بعملتها. استخدم عملة العرض لمشاهدة القيمة المكافئة.",
+  "regionalDefaultsHint": "تقترح المنطقة العملة والأسعار الأولية ومعدلًا مرجعيًا. تُضاف الأسعار إلى الدفتر الفارغ فقط؛ وتُحفظ تعديلاتك.",
+  "applyRegionDefaults": "تطبيق إعدادات المنطقة",
+  "conversionHint": "تحويل بآخر سعر رسمي للبنك المركزي الروسي. لا تتغير السجلات. ليس سعر تداول مصرفي أو توقعًا؛ ولا تُحوّل فوائد الودائع أو الضرائب أو الرسوم.",
+  "rateReferenceHint": "المعدل سيناريو قابل للتعديل وليس وعدًا بعائد. المصدر والفترة مذكوران أدناه.",
+  "rateNeedsInput": "لا يوجد مرجع موثّق للمنطقة: المعدل الأولي 0%. أدخل شروط وديعتك.",
+  "exchangeRateDate": "سعر البنك المركزي الروسي · {date}",
+  "currencyChanged": "تغيّرت عملة السجلات. حدّث البيانات وحاول مجددًا.",
+  "starterPricesHint": "الأسعار الافتراضية تقديرات أولية قابلة للتعديل وليست متوسطات إحصائية. عدّلها حسب مشترياتك.",
+  "@exchangeRateDate": {"placeholders": {"date": {"type": "String"}}},
+  "widgetEmptyHint": "اختر حتى ثلاثة عناصر مفضلة في الشراء الاندفاعي. اضغط لتأكيد التوفير.",
+  "appName": "لم أنفق",
+  "appTagline": "قرارات صغيرة. مدخرات أكبر.",
+  "welcomeBack": "مرحبًا بعودتك",
+  "loginSubtitle": "سجّل الدخول للمتابعة",
+  "createAccount": "إنشاء حساب",
+  "registerSubtitle": "أدخل بياناتك للبدء",
+  "login": "تسجيل الدخول",
+  "register": "التسجيل",
+  "email": "البريد الإلكتروني",
+  "emailHint": "أدخل بريدك الإلكتروني",
+  "password": "كلمة المرور",
+  "passwordHint": "أدخل كلمة المرور",
+  "createPasswordHint": "أنشئ كلمة مرور",
+  "firstName": "الاسم الأول",
+  "firstNameHint": "أدخل اسمك الأول",
+  "lastName": "اسم العائلة",
+  "lastNameHint": "أدخل اسم العائلة",
+  "confirmPassword": "تأكيد كلمة المرور",
+  "dontHaveAccount": "ليس لديك حساب؟",
+  "alreadyHaveAccount": "لديك حساب بالفعل؟",
+  "signUp": "إنشاء حساب",
+  "signIn": "تسجيل الدخول",
+  "or": "أو",
+  "createAccountButton": "إنشاء حساب",
+  "accountCreatedSuccessfully": "تم إنشاء الحساب",
+  "home": "التوفير",
+  "homeWelcome": "نظام التصميم",
+  "homeDescription": "استكشف الألوان والخطوط والمكونات. غيّر المظهر واللغة مباشرة.",
+  "homeFeatureCategories": "إدارة الفئات والصفحات",
+  "homeFeatureProfile": "الملف الشخصي والمظهر واللغة",
+  "homeUiKitTitle": "مجموعة الواجهة",
+  "homeUiKitSubtitle": "نظام التصميم",
+  "homeUiKitDescription": "أسطح وأنماط ومكونات خفيفة لأداء سلس.",
+  "homeSectionAppearance": "المظهر",
+  "homeSectionColors": "الألوان",
+  "homeSectionTypography": "الخطوط",
+  "homeSectionComponents": "المكونات",
+  "homeSectionTokens": "متغيرات التصميم",
+  "colorPrimary": "أساسي",
+  "colorPrimaryLight": "أساسي فاتح",
+  "colorPrimaryDark": "أساسي داكن",
+  "colorSecondary": "ثانوي",
+  "colorSuccess": "نجاح",
+  "colorWarning": "تحذير",
+  "colorError": "خطأ",
+  "colorSurface": "سطح",
+  "colorBackground": "خلفية",
+  "homeShowDialog": "إظهار مربع الحوار",
+  "homeDialogDemoTitle": "مثال لمربع الحوار",
+  "homeDialogDemoContent": "مربع حوار للتأكيد من مجموعة الواجهة.",
+  "homeFontFamily": "عائلة الخط",
+  "homeFontRegular": "عادي",
+  "homeFontMedium": "متوسط",
+  "homeFontBold": "عريض",
+  "homeSpacing": "التباعد",
+  "homeRadius": "استدارة الحواف",
+  "homeGlassTokens": "الأسطح",
+  "homeDemoInputLabel": "حقل تجريبي",
+  "homeDemoInputHint": "اكتب شيئًا…",
+  "homeToggleLoading": "تبديل التحميل",
+  "homeGlassOnLight": "افتراضي",
+  "homeGlassPanel": "لوحة",
+  "homeGlassOnGradient": "تمييز",
+  "homeTypographySample": "قرارات صغيرة وتغييرات كبيرة",
+  "categories": "الفئات",
+  "profile": "الملف الشخصي",
+  "profileSectionAccount": "الحساب",
+  "addCategory": "إضافة فئة",
+  "editCategory": "تعديل الفئة",
+  "deleteCategory": "حذف الفئة",
+  "categoryName": "اسم الفئة",
+  "categoryNameRequired": "اسم الفئة مطلوب",
+  "categoryNameTooShort": "الاسم قصير جدًا",
+  "updateCategory": "تحديث الفئة",
+  "deleteCategoryConfirmation": "هل تريد حذف هذه الفئة؟",
+  "categoryDeletedSuccessfully": "تم حذف الفئة",
+  "categoryUpdatedSuccessfully": "تم تحديث الفئة",
+  "noCategoriesYet": "لا توجد فئات بعد",
+  "noCategoriesFound": "لم يتم العثور على فئات",
+  "addFirstCategory": "أضف فئتك الأولى",
+  "tryDifferentSearch": "جرّب بحثًا آخر",
+  "searchCategories": "البحث عن فئات",
+  "addNewCategoryTooltip": "إضافة فئة",
+  "editProfile": "تعديل الملف الشخصي",
+  "updatePersonalInfo": "حدّث بياناتك الشخصية",
+  "personalInformation": "البيانات الشخصية",
+  "saveChanges": "حفظ التغييرات",
+  "changePassword": "تغيير كلمة المرور",
+  "changePasswordTitle": "تغيير كلمة المرور",
+  "changePasswordButton": "تحديث كلمة المرور",
+  "security": "الأمان",
+  "logout": "تسجيل الخروج",
+  "logoutConfirmation": "هل تريد تسجيل الخروج؟",
+  "delete": "حذف",
+  "edit": "تعديل",
+  "cancel": "إلغاء",
+  "save": "حفظ",
+  "error": "خطأ",
+  "loading": "جارٍ التحميل",
+  "retry": "إعادة المحاولة",
+  "version": "الإصدار",
+  "currentPassword": "كلمة المرور الحالية",
+  "newPassword": "كلمة المرور الجديدة",
+  "confirmNewPassword": "تأكيد كلمة المرور الجديدة",
+  "enterCurrentPassword": "أدخل كلمة المرور الحالية",
+  "enterNewPassword": "أدخل كلمة المرور الجديدة",
+  "confirmYourNewPassword": "أكّد كلمة المرور الجديدة",
+  "currentPasswordRequired": "كلمة المرور الحالية مطلوبة",
+  "newPasswordRequired": "كلمة المرور الجديدة مطلوبة",
+  "passwordChangedSuccessfully": "تم تغيير كلمة المرور",
+  "profileUpdatedSuccessfully": "تم تحديث الملف الشخصي",
+  "accountDeletedSuccessfully": "تم حذف الحساب",
+  "deleteAccount": "حذف الحساب",
+  "deleteAccountConfirmation": "هل تريد حذف حسابك؟",
+  "deleteAccountDescription": "حذف حسابك وجميع بياناتك نهائيًا",
+  "deleteAccountWarning": "لا يمكن التراجع عن هذا الإجراء. ستُحذف جميع بياناتك نهائيًا.",
+  "dangerZone": "منطقة الخطر",
+  "manageAccount": "إدارة حسابك",
+  "emailRequired": "البريد الإلكتروني مطلوب",
+  "emailInvalid": "أدخل بريدًا إلكترونيًا صحيحًا",
+  "passwordRequired": "كلمة المرور مطلوبة",
+  "passwordTooShort": "يجب ألا تقل كلمة المرور عن {minLength} أحرف",
+  "@passwordTooShort": {
+    "placeholders": {
+      "minLength": {
+        "type": "int"
+      }
+    }
+  },
+  "newPasswordTooShort": "يجب ألا تقل كلمة المرور الجديدة عن {minLength} أحرف",
+  "@newPasswordTooShort": {
+    "placeholders": {
+      "minLength": {
+        "type": "int"
+      }
+    }
+  },
+  "fieldRequired": "{fieldName} مطلوب",
+  "@fieldRequired": {
+    "placeholders": {
+      "fieldName": {
+        "type": "String"
+      }
+    }
+  },
+  "fieldTooShort": "يجب ألا يقل {fieldName} عن {minLength} أحرف",
+  "@fieldTooShort": {
+    "placeholders": {
+      "fieldName": {
+        "type": "String"
+      },
+      "minLength": {
+        "type": "int"
+      }
+    }
+  },
+  "nameLettersOnly": "يجب أن يحتوي {fieldName} على حروف فقط",
+  "@nameLettersOnly": {
+    "placeholders": {
+      "fieldName": {
+        "type": "String"
+      }
+    }
+  },
+  "numberRequired": "{fieldName} مطلوب",
+  "numberInvalid": "يجب أن يكون {fieldName} رقمًا صحيحًا",
+  "numberMustBePositive": "يجب أن يكون {fieldName} أكبر من صفر",
+  "passwordsDontMatch": "كلمتا المرور غير متطابقتين",
+  "last7Days": "آخر 7 أيام",
+  "last30Days": "آخر 30 يومًا",
+  "today": "اليوم",
+  "yesterday": "أمس",
+  "past": "السابق",
+  "ok": "حسنًا",
+  "offlineBanner": "لا يوجد اتصال بالإنترنت",
+  "loadMore": "تحميل المزيد",
+  "appearance": "المظهر",
+  "appearanceDescription": "مظهر فاتح أو داكن أو مظهر النظام",
+  "language": "اللغة",
+  "languageDescription": "لغة الواجهة",
+  "languageSystem": "النظام (بلا رمز)",
+  "themeSystem": "النظام",
+  "themeLight": "فاتح",
+  "themeDark": "داكن",
+  "errorBadRequest": "طلب غير صحيح",
+  "errorUnauthorized": "تسجيل الدخول مطلوب",
+  "errorAccessDenied": "تم رفض الوصول",
+  "errorNotFound": "غير موجود",
+  "errorTimeout": "انتهت مهلة الطلب",
+  "errorValidation": "خطأ في التحقق",
+  "errorTooManyRequests": "طلبات كثيرة جدًا",
+  "errorServer": "خطأ في الخادم",
+  "errorBadGateway": "خطأ في البوابة",
+  "errorServiceUnavailable": "الخدمة غير متاحة",
+  "errorGatewayTimeout": "انتهت مهلة البوابة",
+  "errorClient": "خطأ في التطبيق",
+  "errorRequestCancelled": "تم إلغاء الطلب",
+  "errorInvalidCredentials": "بيانات الدخول غير صحيحة",
+  "errorResourceExists": "المورد موجود بالفعل",
+  "savingsTagline": "كل شراء اندفاعي تتجنبه يبني مستقبلك",
+  "recordSaving": "لم أنفق",
+  "savedToday": "وفّرت اليوم",
+  "savedThisMonth": "هذا الشهر",
+  "savedTotal": "إجمالي التوفير المسجل",
+  "investedTotal": "المال المدّخر فعليًا",
+  "monthlyPace": "الوتيرة الشهرية",
+  "futureProjection": "المدخرات المستقبلية",
+  "yearsAtCurrentPace": "سنوات بالوتيرة الحالية",
+  "interestIncome": "عائد الفائدة",
+  "contributions": "مساهماتك",
+  "savingsDynamics": "التوفير حسب الشهر",
+  "recentSavings": "القرارات الأخيرة",
+  "noSavingsYet": "لم تسجّل أي توفير بعد",
+  "habits": "الشراء الاندفاعي",
+  "habitsDescription": "عدّل أسعار واختصارات المشتريات التي تريد تجنبها",
+  "history": "السجل",
+  "historyDescription": "كل قرار صغير ساهم في مستقبلك",
+  "goals": "الأهداف",
+  "addGoal": "إضافة هدف",
+  "goalName": "اسم الهدف",
+  "targetAmount": "المبلغ المستهدف",
+  "noGoalsYet": "أضف هدفًا لمتابعة تقدمك",
+  "impulseItem": "ما الشراء الذي تجنبته؟",
+  "amount": "المبلغ",
+  "actuallySetAside": "ادّخرت هذا المال فعليًا",
+  "actuallySetAsideDescription": "يميّز التوفير المحتمل عن المال الفعلي",
+  "noteOptional": "ملاحظة (اختيارية)",
+  "record": "تسجيل",
+  "editHabit": "تعديل الشراء الاندفاعي",
+  "addHabit": "إضافة شراء اندفاعي",
+  "habitName": "اسم الشراء الاندفاعي",
+  "defaultPrice": "السعر المعتاد",
+  "timesPerWeek": "مرات في الأسبوع",
+  "frequencyZeroHint": "0 يعني مرة في الشهر",
+  "oncePerMonth": "مرة في الشهر",
+  "chooseIcon": "الأيقونة",
+  "deleteHabitConfirmation": "حذف هذا الاختصار؟ سيبقى السجل محفوظًا.",
+  "deleteSavingConfirmation": "حذف سجل التوفير هذا؟",
+  "noHabits": "لا توجد اختصارات للشراء بعد",
+  "noHistory": "سيظهر سجل توفيرك هنا",
+  "weekShort": "أسبوع",
+  "rateAndHorizon": "المعدل والمدة",
+  "annualRate": "معدل فائدة الوديعة السنوي",
+  "projectionYears": "سنوات التوقع",
+  "apply": "تطبيق",
+  "noData": "لا توجد بيانات كافية بعد",
+  "quickChoices": "اختيار سريع",
+  "quickChoicesDescription": "اختر الشراء الذي تجنبته للتو",
+  "recordThisSaving": "لم أنفق",
+  "annualPotential": "الإمكانات السنوية",
+  "weeklyPotential": "أسبوع معتاد",
+  "savingsBreakdown": "كيف تتكوّن مدخراتك",
+  "topSavingsSources": "أهم مصادر توفيرك",
+  "currentPace": "الوتيرة الحالية",
+  "decisionCount": "قرارات لمستقبلك",
+  "allSavings": "جميع القرارات",
+  "realSavings": "مدّخر فعليًا",
+  "potentialSavings": "لم يُدّخر بعد",
+  "compoundEffect": "أثر الفائدة المركّبة",
+  "projectionExplanation": "هذا سيناريو وليس رصيد حساب: يُدّخر كل توفير مسجل، وتستمر وتيرة آخر 90 يومًا، وتتراكم الفائدة شهريًا. المعدل افتراضي والعوائد غير مضمونة.",
+  "impulseAnnualHint": "وفق وتيرة التجنب التي اخترتها",
+  "projectionScenario": "بعد {years} سنة بمعدل {rate}% سنويًا مع إيداعات شهرية. يُفترض ادّخار كل مبلغ تم توفيره؛ العوائد غير مضمونة.",
+  "@projectionScenario": {
+    "placeholders": {
+      "years": {
+        "type": "int"
+      },
+      "rate": {
+        "type": "String"
+      }
+    }
+  },
+  "projectionAfterYears": "بعد {years} سنة مع الفائدة",
+  "@projectionAfterYears": {
+    "placeholders": {
+      "years": {
+        "type": "int"
+      }
+    }
+  },
+  "oneSkippedPurchase": "شراء واحد تم تجنبه",
+  "regularlySkippedPurchases": "تجنب الشراء بانتظام",
+  "editImpulse": "تخصيص",
+  "historyOverview": "نظرة على قراراتك",
+  "noFilteredHistory": "لا توجد قرارات من هذه المجموعة ضمن السجلات المحمّلة",
+  "loadMoreHistory": "عرض المزيد",
+  "historyLoadedCount": "تم تحميل {count} من {total} قرارًا",
+  "@historyLoadedCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
+    }
+  },
+  "projectionTableTitle": "المبالغ سنة بسنة",
+  "projectionTableYear": "السنة",
+  "projectionTableTotal": "الإجمالي",
+  "habitPaused": "متوقف · غير محسوب ضمن الإجمالي المحتمل",
+  "showPassword": "إظهار كلمة المرور",
+  "hidePassword": "إخفاء كلمة المرور",
+  "editSaving": "تعديل السجل",
+  "moneyFormatError": "أدخل مبلغًا لا يتجاوز 10 أرقام ومنزلتين عشريتين",
+  "frequencyRangeError": "أدخل عددًا صحيحًا بين 0 و50",
+  "habitActive": "تضمين هذه العادة",
+  "habitActiveDescription": "الإيقاف يستبعدها من الاختيارات السريعة والإجمالي المحتمل؛ ويُحفظ السجل",
+  "editGoal": "تعديل الهدف",
+  "goalReached": "تم ادّخار المبلغ المستهدف",
+  "goalRemaining": "المتبقي للادّخار: {amount}",
+  "@goalRemaining": {
+    "placeholders": {
+      "amount": {
+        "type": "String"
+      }
+    }
+  },
+  "goalProgressExplanation": "يُحسب التقدم من المال المخصص لهذا الهدف فقط. لا يُحسب المبلغ نفسه لأكثر من هدف.",
+  "rateFormatError": "أدخل معدلًا بين 0 و100% بمنزلتين عشريتين كحد أقصى",
+  "savingRecordedMessage": "تم تسجيل القرار",
+  "savingUpdatedMessage": "تم تحديث السجل",
+  "habitSavedMessage": "تم حفظ العادة",
+  "goalSavedMessage": "تم حفظ الهدف",
+  "settingsSavedMessage": "تم تحديث التوقع",
+  "entryDeletedMessage": "تم حذف السجل",
+  "changesSavedMessage": "تم حفظ التغييرات",
+  "savingsSummaryUnavailable": "الإجماليات غير متاحة؛ سجلك ما زال محفوظًا",
+  "savingsDataLoadFailed": "تعذر تحميل بياناتك. تحقق من الاتصال وحاول مجددًا.",
+  "refresh": "تحديث",
+  "monthlyAmounts": "المبالغ الشهرية",
+  "customSaving": "قرار آخر",
+  "customSavingHint": "سجل لمرة واحدة: لن تُنشأ عادة جديدة.",
+  "oneDecisionProjection": "شراء واحد تم تجنبه: {amount} بعد {years} سنة.",
+  "@oneDecisionProjection": {
+    "placeholders": {
+      "years": {
+        "type": "int"
+      },
+      "amount": {
+        "type": "String"
+      }
+    }
+  },
+  "oneDecisionProjectionHint": "إذا ادّخرت هذا المبلغ الآن بمعدل {rate}% سنويًا مع تراكم شهري ودون مساهمات أخرى. هذا سيناريو افتراضي وليس وعدًا بعائد.",
+  "@oneDecisionProjectionHint": {
+    "placeholders": {
+      "rate": {
+        "type": "String"
+      }
+    }
+  },
+  "impulseIconCoffee": "القهوة",
+  "impulseIconRestaurant": "المقاهي والمطاعم",
+  "impulseIconDelivery": "توصيل الطعام",
+  "impulseIconSmoking": "السجائر",
+  "impulseIconTaxi": "سيارة الأجرة",
+  "impulseIconShopping": "التسوق",
+  "impulseIconSubscription": "الاشتراكات",
+  "impulseIconOther": "أخرى",
+  "scenarioComparison": "ماذا لو اشتريت بوتيرة أقل؟",
+  "scenarioPrice": "السعر: {amount} · المعدل الافتراضي: {rate}%",
+  "@scenarioPrice": {
+    "placeholders": {
+      "amount": {
+        "type": "String"
+      },
+      "rate": {
+        "type": "String"
+      }
+    }
+  },
+  "scenarioBaseline": "حاليًا",
+  "scenarioModerate": "خيار معتدل",
+  "scenarioMinimal": "خيار أدنى",
+  "scenarioFrequency": "{name}: {count} مشتريات في الأسبوع",
+  "@scenarioFrequency": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      },
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "scenarioOwnMoney": "المساهمات",
+  "scenarioAssumptions": "الفرق عن الوتيرة الحالية. 52 أسبوعًا في السنة؛ يُودع كل التوفير في نهاية كل شهر بفائدة مركّبة شهرية. لا يشمل رأس مال أوليًا أو ضرائب أو تضخمًا؛ العوائد غير مضمونة. لا ينشئ هذا الحساب سجلات جديدة.",
+  "allocateGoal": "تخصيص المال",
+  "allocatedAmount": "إجمالي المبلغ المخصص لهذا الهدف",
+  "unallocatedMoney": "المتاح للأهداف: {amount}",
+  "@unallocatedMoney": {
+    "placeholders": {
+      "amount": {
+        "type": "String"
+      }
+    }
+  },
+  "allocationCapacity": "يمكنك تخصيص حتى {amount} لهذا الهدف",
+  "@allocationCapacity": {
+    "placeholders": {
+      "amount": {
+        "type": "String"
+      }
+    }
+  },
+  "allocationInvalid": "أدخل مبلغًا يساوي 0 أو أكثر بمنزلتين عشريتين كحد أقصى",
+  "allocationTooLarge": "المال المتاح غير كافٍ أو تم تجاوز مبلغ الهدف",
+  "goalBelowAllocation": "حرّر التخصيص الزائد أولًا",
+  "releaseAllocationsFirst": "هذه الأموال مخصصة للأهداف. قلّل التخصيصات أولًا.",
+  "releaseGoalMoney": "تحرير مال هذا الهدف",
+  "allocationHint": "حدّد إجمالي التخصيص، وليس إيداعًا إضافيًا. 0 يعيد المال إلى الرصيد المتاح. لا يُنفّذ أي تحويل مصرفي.",
+  "allocationSaved": "تم تخصيص المال",
+  "savingReceipt": "إيصال شراء تم تجنبه",
+  "weeklyReceipt": "قراراتي خلال 7 أيام",
+  "receiptPurchaseNotMade": "لم يتم الشراء",
+  "receiptPrivateDecision": "قرار لنفسي",
+  "receiptFooter": "سجل شخصي لشراء تم تجنبه. ليس كشف حساب مصرفيًا أو إيصالًا ضريبيًا.",
+  "receiptHideName": "إخفاء اسم الشراء",
+  "receiptExport": "حفظ / مشاركة PNG",
+  "receiptExportFailed": "تعذر تصدير الإيصال. حاول مجددًا.",
+  "favoriteActions": "قراراتي الثلاثة السريعة",
+  "favoriteActionsHint": "اختر إضافة إلى المفضلة من قائمة العادة. ستظهر حتى ثلاثة إجراءات هنا وفي أداة الهاتف. لإضافتها، اضغط مطولًا على الشاشة الرئيسية ← الأدوات ← لم أنفق.",
+  "addFavorite": "إضافة إلى المفضلة / الأداة",
+  "removeFavorite": "إزالة من المفضلة",
+  "favoriteLimit": "لديك ثلاثة عناصر مفضلة بالفعل. أزل واحدًا أولًا.",
+  "widgetItemUnavailable": "هذا العنصر محذوف أو متوقف أو غير متاح لهذا الحساب",
+  "chooseLanguage": "اختر اللغة",
+  "coinLanguageHint": "رمز العملة في الشعار ارتباط إقليمي فقط. تغيير اللغة لا يحوّل المبالغ ولا يغيّر عملة سجلاتك."
+}

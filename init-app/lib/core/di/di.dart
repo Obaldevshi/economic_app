@@ -50,7 +50,10 @@ Future<void> configureDependencies() async {
   await nativeSavings.init();
   getIt.registerSingleton<SavingsNativeService>(nativeSavings);
   getIt.registerLazySingleton<LocaleService>(
-    () => LocaleService(preferences)..init(),
+    () =>
+        LocaleService(preferences, onChanged: nativeSavings.setLanguage)
+          ..init(),
+    dispose: (service) => service.dispose(),
   );
   getIt.registerLazySingleton<ThemeService>(
     () => ThemeService(preferences)..init(),
@@ -77,6 +80,28 @@ Future<void> configureDependencies() async {
       ),
     );
     dio.interceptors.add(getIt<AuthInterceptor>());
+    dio.interceptors.add(
+      InterceptorsWrapper(
+        onRequest: (options, handler) {
+          final language =
+              (getIt<LocaleService>().locale ??
+                      WidgetsBinding.instance.platformDispatcher.locale)
+                  .languageCode;
+          options.headers['X-Financial-Region'] = switch (language) {
+            'ru' => 'RU',
+            'es' => 'ES',
+            'fr' => 'FR',
+            'de' => 'DE',
+            'pt' => 'BR',
+            'zh' => 'CN',
+            'hi' => 'IN',
+            'ar' => 'SA',
+            _ => 'US',
+          };
+          handler.next(options);
+        },
+      ),
+    );
     if (kDebugMode) {
       dio.interceptors.add(
         LogInterceptor(requestBody: true, responseBody: true),

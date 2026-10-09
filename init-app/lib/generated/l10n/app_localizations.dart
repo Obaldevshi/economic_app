@@ -5,8 +5,15 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:intl/intl.dart' as intl;
 
+import 'app_localizations_ar.dart';
+import 'app_localizations_de.dart';
 import 'app_localizations_en.dart';
+import 'app_localizations_es.dart';
+import 'app_localizations_fr.dart';
+import 'app_localizations_hi.dart';
+import 'app_localizations_pt.dart';
 import 'app_localizations_ru.dart';
+import 'app_localizations_zh.dart';
 
 // ignore_for_file: type=lint
 
@@ -94,9 +101,118 @@ abstract class AppLocalizations {
 
   /// A list of this localizations delegate's supported locales.
   static const List<Locale> supportedLocales = <Locale>[
+    Locale('ar'),
+    Locale('de'),
     Locale('en'),
+    Locale('es'),
+    Locale('fr'),
+    Locale('hi'),
+    Locale('pt'),
     Locale('ru'),
+    Locale('zh'),
   ];
+
+  /// No description provided for @privacyPolicy.
+  ///
+  /// In en, this message translates to:
+  /// **'Privacy policy'**
+  String get privacyPolicy;
+
+  /// No description provided for @financialSettings.
+  ///
+  /// In en, this message translates to:
+  /// **'Financial settings'**
+  String get financialSettings;
+
+  /// No description provided for @financialRegion.
+  ///
+  /// In en, this message translates to:
+  /// **'Financial region'**
+  String get financialRegion;
+
+  /// No description provided for @recordCurrency.
+  ///
+  /// In en, this message translates to:
+  /// **'Record currency'**
+  String get recordCurrency;
+
+  /// No description provided for @displayCurrency.
+  ///
+  /// In en, this message translates to:
+  /// **'Display currency'**
+  String get displayCurrency;
+
+  /// No description provided for @currencyLedgerHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Record currency switches to a separate ledger. Existing records and goals keep their currency. Use display currency to view equivalents.'**
+  String get currencyLedgerHint;
+
+  /// No description provided for @regionalDefaultsHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Region suggests currency, starter prices and a rate reference. Prices are added only to an empty ledger; your edits are preserved.'**
+  String get regionalDefaultsHint;
+
+  /// No description provided for @applyRegionDefaults.
+  ///
+  /// In en, this message translates to:
+  /// **'Apply regional settings'**
+  String get applyRegionDefaults;
+
+  /// No description provided for @conversionHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Converted using the latest official CBR reference rate. Records remain unchanged. Not a bank\'s trading rate or a forecast; deposit interest, taxes and fees are not converted.'**
+  String get conversionHint;
+
+  /// No description provided for @rateReferenceHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Interest is an editable scenario, not a promised return. Reference source and period appear below.'**
+  String get rateReferenceHint;
+
+  /// No description provided for @rateNeedsInput.
+  ///
+  /// In en, this message translates to:
+  /// **'No verified reference for this region: the starting rate is 0%. Enter your deposit\'s terms.'**
+  String get rateNeedsInput;
+
+  /// No description provided for @exchangeRateDate.
+  ///
+  /// In en, this message translates to:
+  /// **'CBR rate · {date}'**
+  String exchangeRateDate(String date);
+
+  /// No description provided for @currencyChanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Record currency changed. Refresh and try again.'**
+  String get currencyChanged;
+
+  /// No description provided for @starterPricesHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Default prices are editable starter estimates, not statistical averages. Adjust them to your purchases.'**
+  String get starterPricesHint;
+
+  /// No description provided for @widgetEmptyHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Choose up to three favorites in the Impulses menu. Tap to confirm a saving.'**
+  String get widgetEmptyHint;
+
+  /// No description provided for @chooseLanguage.
+  ///
+  /// In en, this message translates to:
+  /// **'Choose language'**
+  String get chooseLanguage;
+
+  /// No description provided for @coinLanguageHint.
+  ///
+  /// In en, this message translates to:
+  /// **'The logo\'s currency sign is a regional association. Language does not convert amounts or change the currency of your records.'**
+  String get coinLanguageHint;
 
   /// No description provided for @appName.
   ///
@@ -1933,8 +2049,17 @@ class _AppLocalizationsDelegate
   }
 
   @override
-  bool isSupported(Locale locale) =>
-      <String>['en', 'ru'].contains(locale.languageCode);
+  bool isSupported(Locale locale) => <String>[
+    'ar',
+    'de',
+    'en',
+    'es',
+    'fr',
+    'hi',
+    'pt',
+    'ru',
+    'zh',
+  ].contains(locale.languageCode);
 
   @override
   bool shouldReload(_AppLocalizationsDelegate old) => false;
@@ -1943,10 +2068,24 @@ class _AppLocalizationsDelegate
 AppLocalizations lookupAppLocalizations(Locale locale) {
   // Lookup logic when only language code is specified.
   switch (locale.languageCode) {
+    case 'ar':
+      return AppLocalizationsAr();
+    case 'de':
+      return AppLocalizationsDe();
     case 'en':
       return AppLocalizationsEn();
+    case 'es':
+      return AppLocalizationsEs();
+    case 'fr':
+      return AppLocalizationsFr();
+    case 'hi':
+      return AppLocalizationsHi();
+    case 'pt':
+      return AppLocalizationsPt();
     case 'ru':
       return AppLocalizationsRu();
+    case 'zh':
+      return AppLocalizationsZh();
   }
 
   throw FlutterError(

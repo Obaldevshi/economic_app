@@ -89,6 +89,10 @@ class ImpulseItemsPage extends StatelessWidget {
                       items: state.impulses,
                       settings: state.settings,
                     ),
+                    Text(
+                      context.l10n.starterPricesHint,
+                      style: Theme.of(context).textTheme.bodySmall,
+                    ),
                     const SizedBox(height: AppDimensions.spaceL),
                     Row(
                       children: [
@@ -367,7 +371,7 @@ class _HabitCard extends StatelessWidget {
                       ),
                       const SizedBox(height: 3),
                       Text(
-                        '${formatRubles(context, item.defaultAmount)} · ${item.weeklyFrequency == 0 ? context.l10n.oncePerMonth : '${item.weeklyFrequency}×/${context.l10n.weekShort}'}',
+                        '${formatRubles(context, item.defaultAmount, currencyCode: item.currencyCode)} · ${item.weeklyFrequency == 0 ? context.l10n.oncePerMonth : '${item.weeklyFrequency}×/${context.l10n.weekShort}'}',
                         style: Theme.of(context).textTheme.bodySmall?.copyWith(
                           color: Theme.of(context).colorScheme.onSurfaceVariant,
                         ),

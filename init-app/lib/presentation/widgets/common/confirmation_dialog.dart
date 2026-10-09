@@ -25,49 +25,51 @@ class ConfirmationDialog extends StatelessWidget {
   Widget build(BuildContext context) {
     return Dialog(
       insetPadding: AppDimensions.paddingAllL,
-      child: Padding(
-        padding: AppDimensions.paddingAllL,
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            Text(
-              title,
-              style: Theme.of(
-                context,
-              ).textTheme.titleLarge?.copyWith(fontWeight: FontWeight.w600),
-            ),
-            const SizedBox(height: AppDimensions.spaceM),
-            Text(
-              content,
-              style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                color: Theme.of(context).colorScheme.onSurfaceVariant,
+      child: SingleChildScrollView(
+        child: Padding(
+          padding: AppDimensions.paddingAllL,
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              Text(
+                title,
+                style: Theme.of(
+                  context,
+                ).textTheme.titleLarge?.copyWith(fontWeight: FontWeight.w600),
               ),
-            ),
-            const SizedBox(height: AppDimensions.spaceL),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: [
-                TextButton(
-                  onPressed: () => Navigator.of(context).pop(false),
-                  child: Text(cancelText ?? context.l10n.cancel),
+              const SizedBox(height: AppDimensions.spaceM),
+              Text(
+                content,
+                style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                  color: Theme.of(context).colorScheme.onSurfaceVariant,
                 ),
-                const SizedBox(width: AppDimensions.spaceS),
-                TextButton(
-                  onPressed: () {
-                    Navigator.of(context).pop(true);
-                    onConfirm?.call();
-                  },
-                  style: TextButton.styleFrom(
-                    foregroundColor: isDestructive
-                        ? AppColors.error
-                        : AppColors.primary,
+              ),
+              const SizedBox(height: AppDimensions.spaceL),
+              Wrap(
+                alignment: WrapAlignment.end,
+                children: [
+                  TextButton(
+                    onPressed: () => Navigator.of(context).pop(false),
+                    child: Text(cancelText ?? context.l10n.cancel),
                   ),
-                  child: Text(confirmText),
-                ),
-              ],
-            ),
-          ],
+                  const SizedBox(width: AppDimensions.spaceS),
+                  TextButton(
+                    onPressed: () {
+                      Navigator.of(context).pop(true);
+                      onConfirm?.call();
+                    },
+                    style: TextButton.styleFrom(
+                      foregroundColor: isDestructive
+                          ? AppColors.error
+                          : AppColors.primary,
+                    ),
+                    child: Text(confirmText),
+                  ),
+                ],
+              ),
+            ],
+          ),
         ),
       ),
     );

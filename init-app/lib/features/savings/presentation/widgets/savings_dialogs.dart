@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter/services.dart';
 import 'dart:math' as math;
+import 'package:mobile_template/features/savings/presentation/widgets/financial_display_scope.dart';
 import 'package:mobile_template/app/theme/app_dimensions.dart';
 import 'package:mobile_template/core/extensions/build_context_extensions.dart';
 import 'package:mobile_template/data/models/request/savings_request.dart';
@@ -98,6 +99,9 @@ class _SavingEditorDialog extends StatefulWidget {
 }
 
 class _SavingEditorDialogState extends State<_SavingEditorDialog> {
+  late final String _ledgerCurrency = FinancialDisplayScope.of(
+    context,
+  ).currency;
   final _formKey = GlobalKey<FormState>();
   late ImpulseItemResponse? _selected = _initialSelection();
   late final _amount = TextEditingController(
@@ -217,7 +221,8 @@ class _SavingEditorDialogState extends State<_SavingEditorDialog> {
                 GlobalTextFormField(
                   controller: _amount,
                   labelText: context.l10n.amount,
-                  prefixText: '₽ ',
+                  prefixText:
+                      '${widget.event?.currencyCode ?? _selected?.currencyCode ?? _ledgerCurrency} ',
                   enabled: !busy,
                   textInputAction: TextInputAction.next,
                   keyboardType: const TextInputType.numberWithOptions(
@@ -278,6 +283,10 @@ class _SavingEditorDialogState extends State<_SavingEditorDialog> {
   bool _submit() {
     if (!_formKey.currentState!.validate()) return false;
     final request = SavingEventRequest(
+      currencyCode:
+          widget.event?.currencyCode ??
+          _selected?.currencyCode ??
+          _ledgerCurrency,
       impulseItemId: widget.event?.impulseItemId ?? _selected?.id,
       impulseName: widget.event == null && _selected != null
           ? _selected!.name
@@ -376,6 +385,9 @@ class _ImpulseEditorDialog extends StatefulWidget {
 }
 
 class _ImpulseEditorDialogState extends State<_ImpulseEditorDialog> {
+  late final String _ledgerCurrency = FinancialDisplayScope.of(
+    context,
+  ).currency;
   final _formKey = GlobalKey<FormState>();
   late final _name = TextEditingController(text: widget.item?.name ?? '');
   late final _amount = TextEditingController(
@@ -426,7 +438,8 @@ class _ImpulseEditorDialogState extends State<_ImpulseEditorDialog> {
                   labelText: context.l10n.defaultPrice,
                   enabled: !busy,
                   textInputAction: TextInputAction.next,
-                  prefixText: '₽ ',
+                  prefixText:
+                      '${widget.item?.currencyCode ?? _ledgerCurrency} ',
                   keyboardType: const TextInputType.numberWithOptions(
                     decimal: true,
                   ),
@@ -540,6 +553,7 @@ class _ImpulseEditorDialogState extends State<_ImpulseEditorDialog> {
     context.read<SavingsBloc>().add(
       SaveImpulseItem(
         ImpulseItemRequest(
+          currencyCode: widget.item?.currencyCode ?? _ledgerCurrency,
           name: _name.text.trim(),
           defaultAmount: amount,
           iconKey: _iconKey,
@@ -573,6 +587,9 @@ class _GoalDialog extends StatefulWidget {
 }
 
 class _GoalDialogState extends State<_GoalDialog> {
+  late final String _ledgerCurrency = FinancialDisplayScope.of(
+    context,
+  ).currency;
   final _formKey = GlobalKey<FormState>();
   late final _name = TextEditingController(text: widget.goal?.name ?? '');
   late final _amount = TextEditingController(
@@ -615,7 +632,8 @@ class _GoalDialogState extends State<_GoalDialog> {
                 GlobalTextFormField(
                   controller: _amount,
                   labelText: context.l10n.targetAmount,
-                  prefixText: '₽ ',
+                  prefixText:
+                      '${widget.goal?.currencyCode ?? _ledgerCurrency} ',
                   enabled: !busy,
                   textInputAction: TextInputAction.done,
                   onFieldSubmitted: (_) => submit(),
@@ -664,6 +682,7 @@ class _GoalDialogState extends State<_GoalDialog> {
   bool _submit() {
     if (!_formKey.currentState!.validate()) return false;
     final request = SavingsGoalRequest(
+      currencyCode: widget.goal?.currencyCode ?? _ledgerCurrency,
       name: _name.text.trim(),
       targetAmount: double.parse(_amount.text.trim().replaceAll(',', '.')),
     );
@@ -753,7 +772,12 @@ class _GoalAllocationDialogState extends State<_GoalAllocationDialog> {
                 const SizedBox(height: AppDimensions.spaceM),
                 Text(
                   context.l10n.allocationCapacity(
-                    formatRubles(context, _capacity),
+                    formatRubles(
+                      context,
+                      _capacity,
+                      currencyCode: widget.goal.currencyCode,
+                      original: true,
+                    ),
                   ),
                 ),
                 const SizedBox(height: AppDimensions.spaceM),
@@ -761,6 +785,7 @@ class _GoalAllocationDialogState extends State<_GoalAllocationDialog> {
                   controller: _amount,
                   enabled: !busy,
                   labelText: context.l10n.allocatedAmount,
+                  prefixText: '${widget.goal.currencyCode} ',
                   keyboardType: const TextInputType.numberWithOptions(
                     decimal: true,
                   ),
@@ -833,6 +858,25 @@ class _ProjectionSettingsDialogState extends State<_ProjectionSettingsDialog> {
     text: moneyInputText(widget.dashboard.annualRate),
   );
   late int _years = widget.dashboard.projectionYears;
+  late String _currency = widget.dashboard.currencyCode;
+  late String _displayCurrency = widget.dashboard.displayCurrency;
+  late String _region = widget.dashboard.financialRegion;
+  static const _regions = {
+    'RU': 'Россия',
+    'US': 'United States',
+    'ES': 'España',
+    'FR': 'France',
+    'DE': 'Deutschland',
+    'BR': 'Brasil',
+    'CN': '中国',
+    'IN': 'भारत',
+    'SA': 'السعودية',
+    'KZ': 'Қазақстан',
+  };
+
+  FinancialPresetResponse? get _preset => widget.dashboard.regionalPresets
+      .where((item) => item.region == _region)
+      .firstOrNull;
 
   @override
   void dispose() {
@@ -844,7 +888,7 @@ class _ProjectionSettingsDialogState extends State<_ProjectionSettingsDialog> {
   Widget build(BuildContext context) => _SavingsActionDialog(
     onSubmit: _submit,
     builder: (context, busy, submit) => AlertDialog(
-      title: Text(context.l10n.rateAndHorizon),
+      title: Text(context.l10n.financialSettings),
       content: SizedBox(
         width: 420,
         child: Form(
@@ -853,6 +897,94 @@ class _ProjectionSettingsDialogState extends State<_ProjectionSettingsDialog> {
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
+                DropdownButtonFormField<String>(
+                  initialValue: _region,
+                  isExpanded: true,
+                  decoration: InputDecoration(
+                    labelText: context.l10n.financialRegion,
+                  ),
+                  items: [
+                    for (final entry in _regions.entries)
+                      DropdownMenuItem(
+                        value: entry.key,
+                        child: Text(entry.value),
+                      ),
+                  ],
+                  onChanged: busy
+                      ? null
+                      : (value) => setState(() => _region = value ?? _region),
+                ),
+                OutlinedButton.icon(
+                  onPressed: busy || _preset == null
+                      ? null
+                      : () => setState(() {
+                          _currency = _preset!.currencyCode;
+                          _displayCurrency = _currency;
+                          _rate.text = moneyInputText(_preset!.annualRate);
+                        }),
+                  icon: const Icon(Icons.public_outlined),
+                  label: Text(context.l10n.applyRegionDefaults),
+                ),
+                Text(
+                  context.l10n.regionalDefaultsHint,
+                  style: Theme.of(context).textTheme.bodySmall,
+                ),
+                const SizedBox(height: AppDimensions.spaceM),
+                DropdownButtonFormField<String>(
+                  key: ValueKey('record-$_currency'),
+                  initialValue: _currency,
+                  isExpanded: true,
+                  decoration: InputDecoration(
+                    labelText: context.l10n.recordCurrency,
+                  ),
+                  items: [
+                    for (final code in financialCurrencies)
+                      DropdownMenuItem(
+                        value: code,
+                        child: Text('$code · ${currencySymbol(code)}'),
+                      ),
+                  ],
+                  onChanged: busy
+                      ? null
+                      : (value) => setState(() {
+                          if (value != null && value != _currency) {
+                            _currency = value;
+                            _rate.text = '0';
+                          }
+                        }),
+                ),
+                const SizedBox(height: AppDimensions.spaceM),
+                Text(
+                  context.l10n.currencyLedgerHint,
+                  style: Theme.of(context).textTheme.bodySmall,
+                ),
+                const SizedBox(height: AppDimensions.spaceM),
+                DropdownButtonFormField<String>(
+                  key: ValueKey('display-$_displayCurrency'),
+                  initialValue: _displayCurrency,
+                  isExpanded: true,
+                  decoration: InputDecoration(
+                    labelText: context.l10n.displayCurrency,
+                  ),
+                  items: [
+                    for (final code in financialCurrencies)
+                      DropdownMenuItem(
+                        value: code,
+                        child: Text('$code · ${currencySymbol(code)}'),
+                      ),
+                  ],
+                  onChanged: busy
+                      ? null
+                      : (value) => setState(
+                          () => _displayCurrency = value ?? _displayCurrency,
+                        ),
+                ),
+                const SizedBox(height: AppDimensions.spaceM),
+                Text(
+                  context.l10n.conversionHint,
+                  style: Theme.of(context).textTheme.bodySmall,
+                ),
+                const SizedBox(height: AppDimensions.spaceM),
                 GlobalTextFormField(
                   controller: _rate,
                   labelText: context.l10n.annualRate,
@@ -877,6 +1009,26 @@ class _ProjectionSettingsDialogState extends State<_ProjectionSettingsDialog> {
                         : null;
                   },
                 ),
+                const SizedBox(height: AppDimensions.spaceS),
+                Text(
+                  context.l10n.rateReferenceHint,
+                  style: Theme.of(context).textTheme.bodySmall,
+                ),
+                if (_preset?.currencyCode == _currency &&
+                    _preset?.rateReference.isNotEmpty == true) ...[
+                  Text(
+                    _preset!.rateReference,
+                    style: Theme.of(context).textTheme.bodySmall,
+                  ),
+                  SelectableText(
+                    _preset!.rateSource,
+                    style: Theme.of(context).textTheme.bodySmall,
+                  ),
+                ] else
+                  Text(
+                    context.l10n.rateNeedsInput,
+                    style: Theme.of(context).textTheme.bodySmall,
+                  ),
                 const SizedBox(height: AppDimensions.spaceM),
                 DropdownButtonFormField<int>(
                   initialValue: _years,
@@ -926,6 +1078,9 @@ class _ProjectionSettingsDialogState extends State<_ProjectionSettingsDialog> {
         SavingsSettingsRequest(
           annualRate: double.parse(_rate.text.trim().replaceAll(',', '.')),
           projectionYears: _years,
+          currencyCode: _currency,
+          displayCurrency: _displayCurrency,
+          financialRegion: _region,
         ),
       ),
     );

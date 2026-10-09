@@ -1,0 +1,7 @@
+<!doctype html>
+<html lang="ru"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Privacy · Не потратил / Not Spent</title><link rel="stylesheet" href="../legal.css"></head>
+<body><main><nav><a href="../#/login">Не потратил / Not Spent</a><a href="../account-deletion/">Удалить аккаунт / Delete account</a><button id="language" type="button">English</button></nav>
+<article data-language="ru">{{RU_CONTENT}}</article><article data-language="en" hidden>{{EN_CONTENT}}</article>
+</main><script>
+'use strict';document.getElementById('language').addEventListener('click',()=>{const en=document.documentElement.lang==='ru';document.documentElement.lang=en?'en':'ru';document.querySelectorAll('[data-language]').forEach(item=>item.hidden=item.dataset.language!==document.documentElement.lang);document.getElementById('language').textContent=en?'Русский':'English';});
+</script></body></html>

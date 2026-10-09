@@ -30,6 +30,7 @@ class SavingsBloc extends Bloc<SavingsEvent, SavingsState> {
     );
     on<LoadWeeklyReceipt>((event, emit) async {
       if (state.isReceiptLoading) return;
+      final requestId = ++_receiptRequestId;
       emit(
         state.copyWith(
           isReceiptLoading: true,
@@ -38,6 +39,7 @@ class SavingsBloc extends Bloc<SavingsEvent, SavingsState> {
         ),
       );
       final result = await _repository.getWeeklyReceipt();
+      if (requestId != _receiptRequestId) return;
       result.fold(
         (failure) =>
             emit(state.copyWith(isReceiptLoading: false, failure: failure)),
@@ -54,6 +56,7 @@ class SavingsBloc extends Bloc<SavingsEvent, SavingsState> {
   int _dashboardRequestId = 0;
   int _impulseRequestId = 0;
   int _historyRequestId = 0;
+  int _receiptRequestId = 0;
 
   Future<void> _loadDashboard(
     LoadSavingsDashboard event,
@@ -258,11 +261,43 @@ class SavingsBloc extends Bloc<SavingsEvent, SavingsState> {
   Future<void> _updateSettings(
     UpdateSavingsSettings event,
     Emitter<SavingsState> emit,
-  ) async => _runAction(
-    emit,
-    () => _repository.updateSettings(event.request),
-    refreshDashboard: true,
-  );
+  ) async {
+    if (state.isSaving) return;
+    emit(
+      state.copyWith(isSaving: true, clearFailure: true, clearMessage: true),
+    );
+    final result = await _repository.updateSettings(event.request);
+    result.fold(
+      (failure) => emit(state.copyWith(isSaving: false, failure: failure)),
+      (message) {
+        ++_dashboardRequestId;
+        ++_impulseRequestId;
+        ++_historyRequestId;
+        ++_receiptRequestId;
+        emit(
+          state.copyWith(
+            isSaving: false,
+            actionMessage: message,
+            clearDashboard: true,
+            clearSettings: true,
+            clearReceipt: true,
+            impulses: [],
+            history: [],
+            historyTotal: 0,
+            historyPage: 0,
+            hasMoreHistory: false,
+            isReceiptLoading: false,
+            isDashboardLoading: false,
+            isImpulseLoading: false,
+            isHistoryLoading: false,
+          ),
+        );
+        add(const LoadSavingsDashboard());
+        add(const LoadImpulseItems(withSettings: true));
+        add(const LoadSavingHistory());
+      },
+    );
+  }
 
   Future<void> _updateGoal(
     UpdateSavingsGoal event,

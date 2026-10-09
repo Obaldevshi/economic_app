@@ -83,7 +83,8 @@ class _LoginPageState extends State<LoginPage> {
                     ],
                     autocorrect: false,
                     enabled: !_isLoading,
-                    validator: ValidationUtils.validateEmail,
+                    validator: (value) =>
+                        ValidationUtils.validateEmail(value, context),
                   ),
                   const SizedBox(height: AppDimensions.spaceL),
                   GlobalTextFormField(
@@ -110,7 +111,8 @@ class _LoginPageState extends State<LoginPage> {
                         () => _isPasswordVisible = !_isPasswordVisible,
                       ),
                     ),
-                    validator: ValidationUtils.validatePassword,
+                    validator: (value) =>
+                        ValidationUtils.validatePassword(value, context),
                   ),
                   const SizedBox(height: AppDimensions.spaceXL),
                   GlobalButton(
@@ -140,6 +142,11 @@ class _LoginPageState extends State<LoginPage> {
                     linkText: context.l10n.signUp,
                     onTap: _navigateToRegister,
                     onGradient: false,
+                  ),
+                  const SizedBox(height: AppDimensions.spaceM),
+                  TextButton(
+                    onPressed: () => context.push(AppRoutes.privacy),
+                    child: Text(context.l10n.privacyPolicy),
                   ),
                 ],
               ),

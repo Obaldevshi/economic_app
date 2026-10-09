@@ -7,6 +7,7 @@ from app.models.base import Base
 from app.models.user import User
 from app.models.category import Category
 from app.models.savings import ImpulseItem, SavingEvent, SavingsGoal, SavingsSettings
+from app.models.exchange_rates import ExchangeRateCache
 from app.config.settings import settings
 
 from alembic import context
@@ -19,7 +20,7 @@ if config.config_file_name is not None:
 
 target_metadata = Base.metadata
 
-_ = (User, Category, ImpulseItem, SavingEvent, SavingsGoal, SavingsSettings)
+_ = (User, Category, ImpulseItem, SavingEvent, SavingsGoal, SavingsSettings, ExchangeRateCache)
 
 
 def run_migrations_offline() -> None:

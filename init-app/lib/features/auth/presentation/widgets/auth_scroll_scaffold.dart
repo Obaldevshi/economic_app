@@ -108,10 +108,12 @@ class _AuthScrollScaffoldState extends State<AuthScrollScaffold> {
       children: [
         Expanded(
           flex: 4,
-          child: Center(
-            child: ConstrainedBox(
-              constraints: const BoxConstraints(maxWidth: 520),
-              child: widget.hero,
+          child: SingleChildScrollView(
+            child: Center(
+              child: ConstrainedBox(
+                constraints: const BoxConstraints(maxWidth: 520),
+                child: widget.hero,
+              ),
             ),
           ),
         ),
@@ -127,9 +129,9 @@ class _AuthScrollScaffoldState extends State<AuthScrollScaffold> {
                 child: _buildFormPanel(
                   keyboardInset: keyboardInset,
                   bottomSafe: bottomSafe,
-                  borderRadius: const BorderRadius.horizontal(
-                    left: Radius.circular(AppDimensions.radius),
-                  ),
+                  borderRadius: const BorderRadiusDirectional.horizontal(
+                    start: Radius.circular(AppDimensions.radius),
+                  ).resolve(Directionality.of(context)),
                 ),
               ),
             ],

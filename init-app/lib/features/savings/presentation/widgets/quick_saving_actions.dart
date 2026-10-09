@@ -83,7 +83,7 @@ class _QuickSavingActionsState extends State<QuickSavingActions> {
                   ))
                     ActionChip(
                       label: Text(
-                        '${item.name} · ${formatRubles(context, item.defaultAmount)}',
+                        '${item.name} · ${formatRubles(context, item.defaultAmount, currencyCode: item.currencyCode)}',
                       ),
                       onPressed: state.isSaving
                           ? null

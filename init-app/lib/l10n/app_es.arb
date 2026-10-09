@@ -1,0 +1,448 @@
+{
+  "@@locale": "es",
+  "privacyPolicy": "Política de privacidad",
+  "financialSettings": "Ajustes financieros",
+  "financialRegion": "Región financiera",
+  "recordCurrency": "Moneda de registro",
+  "displayCurrency": "Moneda de visualización",
+  "currencyLedgerHint": "La moneda de registro cambia a un libro separado. Los registros y objetivos existentes conservan su moneda. Usa la moneda de visualización para ver equivalencias.",
+  "regionalDefaultsHint": "La región sugiere moneda, precios iniciales y un tipo de referencia. Solo se añaden precios a un libro vacío; tus cambios se conservan.",
+  "applyRegionDefaults": "Aplicar ajustes regionales",
+  "conversionHint": "Conversión con el último tipo oficial del Banco de Rusia. No modifica registros. No es un tipo comercial ni una previsión; no convierte intereses, impuestos o comisiones.",
+  "rateReferenceHint": "El interés es un escenario editable, no una rentabilidad garantizada. La fuente y el período figuran abajo.",
+  "rateNeedsInput": "Sin referencia verificada: tipo inicial del 0 %. Introduce las condiciones de tu depósito.",
+  "exchangeRateDate": "Tipo del Banco de Rusia · {date}",
+  "currencyChanged": "La moneda de registro cambió. Actualiza e inténtalo de nuevo.",
+  "starterPricesHint": "Los precios son estimaciones iniciales editables, no promedios estadísticos. Ajústalos a tus compras.",
+  "@exchangeRateDate": {"placeholders": {"date": {"type": "String"}}},
+  "widgetEmptyHint": "Elige hasta tres favoritos en Impulsos. Toca para confirmar el ahorro.",
+  "appName": "No gastado",
+  "appTagline": "Pequeñas decisiones. Más ahorro.",
+  "welcomeBack": "Bienvenido de nuevo",
+  "loginSubtitle": "Inicia sesión para continuar",
+  "createAccount": "Crear cuenta",
+  "registerSubtitle": "Completa los datos para empezar",
+  "login": "Iniciar sesión",
+  "register": "Registrarse",
+  "email": "Correo electrónico",
+  "emailHint": "Introduce tu correo",
+  "password": "Contraseña",
+  "passwordHint": "Introduce tu contraseña",
+  "createPasswordHint": "Crea una contraseña",
+  "firstName": "Nombre",
+  "firstNameHint": "Introduce tu nombre",
+  "lastName": "Apellido",
+  "lastNameHint": "Introduce tu apellido",
+  "confirmPassword": "Confirmar contraseña",
+  "dontHaveAccount": "¿No tienes cuenta?",
+  "alreadyHaveAccount": "¿Ya tienes cuenta?",
+  "signUp": "Regístrate",
+  "signIn": "Entrar",
+  "or": "o",
+  "createAccountButton": "Crear cuenta",
+  "accountCreatedSuccessfully": "Cuenta creada",
+  "home": "Ahorro",
+  "homeWelcome": "Sistema de diseño",
+  "homeDescription": "Explora colores, tipografía y componentes. Cambia tema e idioma al instante.",
+  "homeFeatureCategories": "Gestiona categorías y páginas",
+  "homeFeatureProfile": "Perfil, tema e idioma",
+  "homeUiKitTitle": "Kit de interfaz",
+  "homeUiKitSubtitle": "Sistema de diseño",
+  "homeUiKitDescription": "Superficies, estilos y componentes ligeros para un uso fluido.",
+  "homeSectionAppearance": "Apariencia",
+  "homeSectionColors": "Colores",
+  "homeSectionTypography": "Tipografía",
+  "homeSectionComponents": "Componentes",
+  "homeSectionTokens": "Variables de diseño",
+  "colorPrimary": "Principal",
+  "colorPrimaryLight": "Principal claro",
+  "colorPrimaryDark": "Principal oscuro",
+  "colorSecondary": "Secundario",
+  "colorSuccess": "Éxito",
+  "colorWarning": "Advertencia",
+  "colorError": "Error",
+  "colorSurface": "Superficie",
+  "colorBackground": "Fondo",
+  "homeShowDialog": "Mostrar diálogo",
+  "homeDialogDemoTitle": "Ejemplo de diálogo",
+  "homeDialogDemoContent": "Diálogo de confirmación del kit de interfaz.",
+  "homeFontFamily": "Familia de fuente",
+  "homeFontRegular": "Normal",
+  "homeFontMedium": "Medio",
+  "homeFontBold": "Negrita",
+  "homeSpacing": "Espaciado",
+  "homeRadius": "Radio del borde",
+  "homeGlassTokens": "Superficies",
+  "homeDemoInputLabel": "Campo de ejemplo",
+  "homeDemoInputHint": "Escribe algo…",
+  "homeToggleLoading": "Alternar carga",
+  "homeGlassOnLight": "Predeterminado",
+  "homeGlassPanel": "Panel",
+  "homeGlassOnGradient": "Acento",
+  "homeTypographySample": "Pequeñas decisiones, grandes cambios",
+  "categories": "Categorías",
+  "profile": "Perfil",
+  "profileSectionAccount": "Cuenta",
+  "addCategory": "Añadir categoría",
+  "editCategory": "Editar categoría",
+  "deleteCategory": "Eliminar categoría",
+  "categoryName": "Nombre de categoría",
+  "categoryNameRequired": "Introduce el nombre de la categoría",
+  "categoryNameTooShort": "El nombre es demasiado corto",
+  "updateCategory": "Actualizar categoría",
+  "deleteCategoryConfirmation": "¿Eliminar esta categoría?",
+  "categoryDeletedSuccessfully": "Categoría eliminada",
+  "categoryUpdatedSuccessfully": "Categoría actualizada",
+  "noCategoriesYet": "Aún no hay categorías",
+  "noCategoriesFound": "No se encontraron categorías",
+  "addFirstCategory": "Añade tu primera categoría",
+  "tryDifferentSearch": "Prueba otra búsqueda",
+  "searchCategories": "Buscar categorías",
+  "addNewCategoryTooltip": "Añadir categoría",
+  "editProfile": "Editar perfil",
+  "updatePersonalInfo": "Actualiza tus datos personales",
+  "personalInformation": "Datos personales",
+  "saveChanges": "Guardar cambios",
+  "changePassword": "Cambiar contraseña",
+  "changePasswordTitle": "Cambiar contraseña",
+  "changePasswordButton": "Actualizar contraseña",
+  "security": "Seguridad",
+  "logout": "Cerrar sesión",
+  "logoutConfirmation": "¿Cerrar sesión?",
+  "delete": "Eliminar",
+  "edit": "Editar",
+  "cancel": "Cancelar",
+  "save": "Guardar",
+  "error": "Error",
+  "loading": "Cargando",
+  "retry": "Reintentar",
+  "version": "Versión",
+  "currentPassword": "Contraseña actual",
+  "newPassword": "Nueva contraseña",
+  "confirmNewPassword": "Confirmar nueva contraseña",
+  "enterCurrentPassword": "Introduce la contraseña actual",
+  "enterNewPassword": "Introduce la nueva contraseña",
+  "confirmYourNewPassword": "Confirma la nueva contraseña",
+  "currentPasswordRequired": "La contraseña actual es obligatoria",
+  "newPasswordRequired": "La nueva contraseña es obligatoria",
+  "passwordChangedSuccessfully": "Contraseña cambiada",
+  "profileUpdatedSuccessfully": "Perfil actualizado",
+  "accountDeletedSuccessfully": "Cuenta eliminada",
+  "deleteAccount": "Eliminar cuenta",
+  "deleteAccountConfirmation": "¿Eliminar tu cuenta?",
+  "deleteAccountDescription": "Elimina permanentemente tu cuenta y todos tus datos",
+  "deleteAccountWarning": "Esta acción no se puede deshacer. Todos tus datos se eliminarán permanentemente.",
+  "dangerZone": "Zona de riesgo",
+  "manageAccount": "Gestiona tu cuenta",
+  "emailRequired": "El correo es obligatorio",
+  "emailInvalid": "Introduce un correo válido",
+  "passwordRequired": "La contraseña es obligatoria",
+  "passwordTooShort": "La contraseña debe tener al menos {minLength} caracteres",
+  "@passwordTooShort": {
+    "placeholders": {
+      "minLength": {
+        "type": "int"
+      }
+    }
+  },
+  "newPasswordTooShort": "La nueva contraseña debe tener al menos {minLength} caracteres",
+  "@newPasswordTooShort": {
+    "placeholders": {
+      "minLength": {
+        "type": "int"
+      }
+    }
+  },
+  "fieldRequired": "{fieldName} es obligatorio",
+  "@fieldRequired": {
+    "placeholders": {
+      "fieldName": {
+        "type": "String"
+      }
+    }
+  },
+  "fieldTooShort": "{fieldName} debe tener al menos {minLength} caracteres",
+  "@fieldTooShort": {
+    "placeholders": {
+      "fieldName": {
+        "type": "String"
+      },
+      "minLength": {
+        "type": "int"
+      }
+    }
+  },
+  "nameLettersOnly": "{fieldName} solo debe contener letras",
+  "@nameLettersOnly": {
+    "placeholders": {
+      "fieldName": {
+        "type": "String"
+      }
+    }
+  },
+  "numberRequired": "{fieldName} es obligatorio",
+  "numberInvalid": "{fieldName} debe ser un número válido",
+  "numberMustBePositive": "{fieldName} debe ser mayor que cero",
+  "passwordsDontMatch": "Las contraseñas no coinciden",
+  "last7Days": "Últimos 7 días",
+  "last30Days": "Últimos 30 días",
+  "today": "Hoy",
+  "yesterday": "Ayer",
+  "past": "Anteriores",
+  "ok": "Aceptar",
+  "offlineBanner": "Sin conexión a internet",
+  "loadMore": "Cargar más",
+  "appearance": "Apariencia",
+  "appearanceDescription": "Tema claro, oscuro o del sistema",
+  "language": "Idioma",
+  "languageDescription": "Idioma de la interfaz",
+  "languageSystem": "Sistema (sin símbolo)",
+  "themeSystem": "Sistema",
+  "themeLight": "Claro",
+  "themeDark": "Oscuro",
+  "errorBadRequest": "Solicitud incorrecta",
+  "errorUnauthorized": "Inicia sesión",
+  "errorAccessDenied": "Acceso denegado",
+  "errorNotFound": "No encontrado",
+  "errorTimeout": "Tiempo de espera agotado",
+  "errorValidation": "Error de validación",
+  "errorTooManyRequests": "Demasiadas solicitudes",
+  "errorServer": "Error del servidor",
+  "errorBadGateway": "Error de pasarela",
+  "errorServiceUnavailable": "Servicio no disponible",
+  "errorGatewayTimeout": "Tiempo de pasarela agotado",
+  "errorClient": "Error del cliente",
+  "errorRequestCancelled": "Solicitud cancelada",
+  "errorInvalidCredentials": "Datos de acceso incorrectos",
+  "errorResourceExists": "El recurso ya existe",
+  "savingsTagline": "Cada compra impulsiva que evitas construye tu futuro",
+  "recordSaving": "No lo gasté",
+  "savedToday": "Ahorrado hoy",
+  "savedThisMonth": "Este mes",
+  "savedTotal": "Ahorro registrado total",
+  "investedTotal": "Realmente apartado",
+  "monthlyPace": "Ritmo mensual",
+  "futureProjection": "Ahorro futuro",
+  "yearsAtCurrentPace": "años al ritmo actual",
+  "interestIncome": "Intereses",
+  "contributions": "Tus aportaciones",
+  "savingsDynamics": "Ahorro por mes",
+  "recentSavings": "Decisiones recientes",
+  "noSavingsYet": "Aún no has registrado ahorro",
+  "habits": "Impulsos",
+  "habitsDescription": "Edita precios y accesos para las compras que quieres evitar",
+  "history": "Historial",
+  "historyDescription": "Cada pequeña decisión que construyó tu futuro",
+  "goals": "Objetivos",
+  "addGoal": "Añadir objetivo",
+  "goalName": "Nombre del objetivo",
+  "targetAmount": "Importe objetivo",
+  "noGoalsYet": "Añade un objetivo para ver tu progreso",
+  "impulseItem": "¿Qué compra evitaste?",
+  "amount": "Importe",
+  "actuallySetAside": "Realmente aparté este dinero",
+  "actuallySetAsideDescription": "Distingue el ahorro potencial del capital real",
+  "noteOptional": "Nota (opcional)",
+  "record": "Registrar",
+  "editHabit": "Editar impulso",
+  "addHabit": "Añadir impulso",
+  "habitName": "Nombre del impulso",
+  "defaultPrice": "Precio habitual",
+  "timesPerWeek": "Veces por semana",
+  "frequencyZeroHint": "0 significa una vez al mes",
+  "oncePerMonth": "una vez al mes",
+  "chooseIcon": "Icono",
+  "deleteHabitConfirmation": "¿Eliminar este acceso? El historial se conserva.",
+  "deleteSavingConfirmation": "¿Eliminar este registro de ahorro?",
+  "noHabits": "Aún no hay accesos de impulsos",
+  "noHistory": "Aquí aparecerá tu historial de ahorro",
+  "weekShort": "semana",
+  "rateAndHorizon": "Tasa y plazo",
+  "annualRate": "Tasa anual del depósito",
+  "projectionYears": "Años del pronóstico",
+  "apply": "Aplicar",
+  "noData": "Aún no hay suficientes datos",
+  "quickChoices": "Elección rápida",
+  "quickChoicesDescription": "Elige la compra que acabas de evitar",
+  "recordThisSaving": "No gasté",
+  "annualPotential": "Potencial anual",
+  "weeklyPotential": "Semana habitual",
+  "savingsBreakdown": "Cómo se forma tu capital",
+  "topSavingsSources": "Tus mayores fuentes de ahorro",
+  "currentPace": "Ritmo actual",
+  "decisionCount": "Decisiones para tu futuro",
+  "allSavings": "Todas las decisiones",
+  "realSavings": "Realmente apartado",
+  "potentialSavings": "Aún no apartado",
+  "compoundEffect": "Efecto del interés compuesto",
+  "projectionExplanation": "Es un escenario, no un saldo: todo el ahorro registrado se aparta, se mantiene el ritmo de los últimos 90 días y los intereses se capitalizan mensualmente. La tasa es hipotética; no se garantizan rendimientos.",
+  "impulseAnnualHint": "Según la frecuencia elegida de compras evitadas",
+  "projectionScenario": "Tras {years} años al {rate}% anual con aportaciones mensuales. Se supone que apartas todo el ahorro; no se garantizan rendimientos.",
+  "@projectionScenario": {
+    "placeholders": {
+      "years": {
+        "type": "int"
+      },
+      "rate": {
+        "type": "String"
+      }
+    }
+  },
+  "projectionAfterYears": "Tras {years} años con intereses",
+  "@projectionAfterYears": {
+    "placeholders": {
+      "years": {
+        "type": "int"
+      }
+    }
+  },
+  "oneSkippedPurchase": "Una compra evitada",
+  "regularlySkippedPurchases": "Compras evitadas regularmente",
+  "editImpulse": "Personalizar",
+  "historyOverview": "Tus decisiones de un vistazo",
+  "noFilteredHistory": "No hay decisiones de este grupo entre los registros cargados",
+  "loadMoreHistory": "Mostrar más",
+  "historyLoadedCount": "Cargadas {count} de {total} decisiones",
+  "@historyLoadedCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
+    }
+  },
+  "projectionTableTitle": "Importes año a año",
+  "projectionTableYear": "Año",
+  "projectionTableTotal": "Total",
+  "habitPaused": "En pausa · no cuenta en el potencial total",
+  "showPassword": "Mostrar contraseña",
+  "hidePassword": "Ocultar contraseña",
+  "editSaving": "Editar registro",
+  "moneyFormatError": "Introduce hasta 10 dígitos y 2 decimales",
+  "frequencyRangeError": "Introduce un entero entre 0 y 50",
+  "habitActive": "Incluir este hábito",
+  "habitActiveDescription": "Pausarlo lo excluye de elecciones rápidas y potencial total; el historial se conserva",
+  "editGoal": "Editar objetivo",
+  "goalReached": "El importe objetivo está apartado",
+  "goalRemaining": "Falta por apartar: {amount}",
+  "@goalRemaining": {
+    "placeholders": {
+      "amount": {
+        "type": "String"
+      }
+    }
+  },
+  "goalProgressExplanation": "El progreso solo cuenta el dinero asignado a este objetivo. Una misma cantidad no cuenta en varios objetivos.",
+  "rateFormatError": "Introduce una tasa entre 0 y 100% con hasta dos decimales",
+  "savingRecordedMessage": "Decisión registrada",
+  "savingUpdatedMessage": "Registro actualizado",
+  "habitSavedMessage": "Hábito guardado",
+  "goalSavedMessage": "Objetivo guardado",
+  "settingsSavedMessage": "Pronóstico actualizado",
+  "entryDeletedMessage": "Registro eliminado",
+  "changesSavedMessage": "Cambios guardados",
+  "savingsSummaryUnavailable": "El total no está disponible; el historial sigue aquí",
+  "savingsDataLoadFailed": "No se pudieron cargar los datos. Comprueba la conexión e inténtalo de nuevo.",
+  "refresh": "Actualizar",
+  "monthlyAmounts": "Importes mensuales",
+  "customSaving": "Otra decisión",
+  "customSavingHint": "Registro único: no se creará un hábito nuevo.",
+  "oneDecisionProjection": "Una compra evitada: {amount} en {years} años.",
+  "@oneDecisionProjection": {
+    "placeholders": {
+      "years": {
+        "type": "int"
+      },
+      "amount": {
+        "type": "String"
+      }
+    }
+  },
+  "oneDecisionProjectionHint": "Si apartas este importe ahora al {rate}% anual con capitalización mensual y sin más aportaciones. Es un escenario hipotético, no un rendimiento prometido.",
+  "@oneDecisionProjectionHint": {
+    "placeholders": {
+      "rate": {
+        "type": "String"
+      }
+    }
+  },
+  "impulseIconCoffee": "Café",
+  "impulseIconRestaurant": "Cafés y restaurantes",
+  "impulseIconDelivery": "Comida a domicilio",
+  "impulseIconSmoking": "Cigarrillos",
+  "impulseIconTaxi": "Taxi",
+  "impulseIconShopping": "Compras",
+  "impulseIconSubscription": "Suscripciones",
+  "impulseIconOther": "Otros",
+  "scenarioComparison": "¿Y si comprara menos veces?",
+  "scenarioPrice": "Precio: {amount} · tasa hipotética: {rate}%",
+  "@scenarioPrice": {
+    "placeholders": {
+      "amount": {
+        "type": "String"
+      },
+      "rate": {
+        "type": "String"
+      }
+    }
+  },
+  "scenarioBaseline": "Ahora",
+  "scenarioModerate": "Opción moderada",
+  "scenarioMinimal": "Opción mínima",
+  "scenarioFrequency": "{name}: {count} compras por semana",
+  "@scenarioFrequency": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      },
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "scenarioOwnMoney": "Aportaciones",
+  "scenarioAssumptions": "Diferencia respecto a la frecuencia actual. 52 semanas al año; todo el ahorro se deposita al final de cada mes con capitalización mensual. Sin capital inicial, impuestos ni inflación; no se garantizan rendimientos. Este cálculo no crea registros.",
+  "allocateGoal": "Asignar dinero",
+  "allocatedAmount": "Total asignado a este objetivo",
+  "unallocatedMoney": "Disponible para objetivos: {amount}",
+  "@unallocatedMoney": {
+    "placeholders": {
+      "amount": {
+        "type": "String"
+      }
+    }
+  },
+  "allocationCapacity": "Puedes asignar hasta {amount} a este objetivo",
+  "@allocationCapacity": {
+    "placeholders": {
+      "amount": {
+        "type": "String"
+      }
+    }
+  },
+  "allocationInvalid": "Introduce un importe de 0 o más con hasta dos decimales",
+  "allocationTooLarge": "No hay suficiente dinero disponible o se supera el objetivo",
+  "goalBelowAllocation": "Libera primero el importe asignado de más",
+  "releaseAllocationsFirst": "Estos fondos están asignados a objetivos. Reduce primero las asignaciones.",
+  "releaseGoalMoney": "Liberar el dinero del objetivo",
+  "allocationHint": "Establece el total asignado, no un ingreso adicional. 0 devuelve el dinero al saldo disponible. No se realiza ninguna transferencia bancaria.",
+  "allocationSaved": "Dinero asignado",
+  "savingReceipt": "Recibo de compra evitada",
+  "weeklyReceipt": "Mis decisiones de 7 días",
+  "receiptPurchaseNotMade": "Compra no realizada",
+  "receiptPrivateDecision": "Una decisión para mí",
+  "receiptFooter": "Registro personal de una compra evitada. No es un extracto bancario ni un recibo fiscal.",
+  "receiptHideName": "Ocultar nombre de compra",
+  "receiptExport": "Guardar / compartir PNG",
+  "receiptExportFailed": "No se pudo exportar el recibo. Inténtalo de nuevo.",
+  "favoriteActions": "Mis tres decisiones rápidas",
+  "favoriteActionsHint": "Elige Añadir a favoritos en el menú de un hábito. Hasta tres acciones aparecerán aquí y en el widget del teléfono. Para añadirlo, mantén pulsada la pantalla de inicio → Widgets → No gastado.",
+  "addFavorite": "Añadir a favoritos / widget",
+  "removeFavorite": "Quitar de favoritos",
+  "favoriteLimit": "Ya tienes tres favoritos. Quita uno primero.",
+  "widgetItemUnavailable": "Este elemento fue eliminado, pausado o no está disponible para esta cuenta",
+  "chooseLanguage": "Elegir idioma",
+  "coinLanguageHint": "El símbolo del logo es una asociación regional. El idioma no convierte importes ni cambia la moneda de tus registros."
+}

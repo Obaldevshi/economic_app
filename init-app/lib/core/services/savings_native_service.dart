@@ -1,4 +1,7 @@
 import 'dart:convert';
+import 'dart:ui' show Locale, PlatformDispatcher;
+import 'package:mobile_template/core/services/app_languages.dart';
+import 'package:mobile_template/generated/l10n/app_localizations.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -20,6 +23,29 @@ class SavingsNativeService {
       !kIsWeb &&
       (defaultTargetPlatform == TargetPlatform.android ||
           defaultTargetPlatform == TargetPlatform.iOS);
+
+  Future<void> setLanguage(String? code) async {
+    if (!_mobile) return;
+    final requested = code == null
+        ? PlatformDispatcher.instance.locale
+        : Locale(code);
+    final locale = AppLanguage.find(requested) == null
+        ? const Locale('en')
+        : Locale(requested.languageCode);
+    final strings = lookupAppLocalizations(locale);
+    try {
+      await _channel.invokeMethod<void>('setWidgetLanguage', {
+        'locale': locale.languageCode,
+        'title': strings.appName,
+        'empty': strings.widgetEmptyHint,
+        'share': strings.receiptExport,
+      });
+    } on PlatformException {
+      // Optional bridge: language selection must still work on older installs.
+    } on MissingPluginException {
+      // Other desktop targets do not expose the bridge.
+    }
+  }
 
   Future<void> init() async {
     _sessionToken = _session.getAccessToken();
@@ -58,6 +84,15 @@ class SavingsNativeService {
     favorites.value = [];
     await _prefs.remove(_key);
     await _publish();
+    if (_mobile) {
+      try {
+        await _channel.invokeMethod<void>('clearPersonalData');
+      } on PlatformException {
+        // Clearing the session must still complete on an older bridge.
+      } on MissingPluginException {
+        // Optional bridge on platforms other than Android.
+      }
+    }
   }
 
   Future<bool> toggleFavorite(int id) async {
@@ -101,7 +136,12 @@ class SavingsNativeService {
         'syncWidget',
         jsonEncode([
           for (final item in selected)
-            {'id': item.id, 'name': item.name, 'amount': item.defaultAmount},
+            {
+              'id': item.id,
+              'name': item.name,
+              'amount': item.defaultAmount,
+              'currency': item.currencyCode,
+            },
         ]),
       );
     } on PlatformException {
