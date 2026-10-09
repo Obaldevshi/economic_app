@@ -123,7 +123,7 @@ class _ScenarioComparisonState extends State<ScenarioComparison> {
                     ),
                   ],
                   rows: [
-                    for (final years in [1, 5, 10])
+                    for (final years in projectionPeriods)
                       _row(context, item, scenario.$2, years),
                   ],
                 ),

@@ -1,5 +1,6 @@
 import 'dart:math' as math;
 import 'package:mobile_template/features/savings/presentation/widgets/financial_currency_bar.dart';
+import 'package:mobile_template/features/savings/presentation/widgets/projection_period_selector.dart';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -76,8 +77,9 @@ class SavingsDashboardPage extends StatelessWidget {
             if (dashboard != null)
               IconButton(
                 tooltip: context.l10n.rateAndHorizon,
-                onPressed: () =>
-                    showProjectionSettingsDialog(context, dashboard),
+                onPressed: state.isSaving || state.isLoading
+                    ? null
+                    : () => showProjectionSettingsDialog(context, dashboard),
                 icon: const Icon(Icons.tune_rounded),
               ),
           ],
@@ -205,13 +207,15 @@ class _SavingsHero extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          '${dashboard.annualRate.toStringAsFixed(1)}%  /  ${dashboard.projectionYears} ${context.l10n.yearsAtCurrentPace}',
+          '${dashboard.annualRate.toStringAsFixed(1)}%  /  ${context.l10n.projectionPeriod(dashboard.projectionYears)}',
           style: theme.textTheme.labelMedium?.copyWith(
             color: AppColors.primaryLight,
             fontWeight: FontWeight.w700,
             letterSpacing: 1,
           ),
         ),
+        const SizedBox(height: AppDimensions.spaceS),
+        ProjectionPeriodSelector(dashboard: dashboard, onDark: true),
         const SizedBox(height: AppDimensions.spaceM),
         Text(
           context.l10n.futureProjection,
@@ -543,6 +547,7 @@ class _ProjectionCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final finalPoint = dashboard.projectionSeries.lastOrNull;
+    final state = context.watch<SavingsBloc>().state;
     final contributions =
         finalPoint?.contributions ??
         (dashboard.projectedTotal - dashboard.projectedInterest);
@@ -563,19 +568,22 @@ class _ProjectionCard extends StatelessWidget {
                 ),
               ),
               TextButton.icon(
-                onPressed: () =>
-                    showProjectionSettingsDialog(context, dashboard),
+                onPressed: state.isSaving || state.isLoading
+                    ? null
+                    : () => showProjectionSettingsDialog(context, dashboard),
                 icon: const Icon(Icons.tune_rounded, size: 18),
                 label: Text('${dashboard.annualRate.toStringAsFixed(1)}%'),
               ),
             ],
           ),
           Text(
-            '${dashboard.projectionYears} ${context.l10n.yearsAtCurrentPace}',
+            '${context.l10n.projectionPeriod(dashboard.projectionYears)} · ${context.l10n.currentPace}',
             style: Theme.of(context).textTheme.bodyMedium?.copyWith(
               color: Theme.of(context).colorScheme.onSurfaceVariant,
             ),
           ),
+          const SizedBox(height: AppDimensions.spaceS),
+          ProjectionPeriodSelector(dashboard: dashboard),
           const SizedBox(height: AppDimensions.spaceL),
           SizedBox(
             height: 190,

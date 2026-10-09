@@ -112,6 +112,12 @@ abstract class AppLocalizations {
     Locale('zh'),
   ];
 
+  /// No description provided for @projectionPeriod.
+  ///
+  /// In en, this message translates to:
+  /// **'{years, plural, one {# year} other {# years}}'**
+  String projectionPeriod(int years);
+
   /// No description provided for @privacyPolicy.
   ///
   /// In en, this message translates to:

@@ -9,6 +9,19 @@ class AppLocalizationsRu extends AppLocalizations {
   AppLocalizationsRu([String locale = 'ru']) : super(locale);
 
   @override
+  String projectionPeriod(int years) {
+    String _temp0 = intl.Intl.pluralLogic(
+      years,
+      locale: localeName,
+      other: '# лет',
+      many: '# лет',
+      few: '# года',
+      one: '# год',
+    );
+    return '$_temp0';
+  }
+
+  @override
   String get privacyPolicy => 'Политика конфиденциальности';
 
   @override

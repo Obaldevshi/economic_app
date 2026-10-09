@@ -8,6 +8,8 @@ import 'package:mobile_template/data/models/response/savings_response.dart';
 import 'package:mobile_template/core/extensions/build_context_extensions.dart';
 import 'package:mobile_template/core/errors/failure.dart';
 
+const projectionPeriods = <int>[1, 3, 5];
+
 Failure localizeSavingsFailure(BuildContext context, Failure failure) {
   final message = switch (failure.message) {
     'Release goal funds before reducing its target' =>

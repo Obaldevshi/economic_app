@@ -12,6 +12,7 @@ class FinancialCurrencyBar extends StatelessWidget {
   final SavingsDashboardResponse dashboard;
   @override
   Widget build(BuildContext context) {
+    final state = context.watch<SavingsBloc>().state;
     final data = FinancialDisplayData(
       currency: dashboard.currencyCode,
       displayCurrency: dashboard.displayCurrency,
@@ -43,7 +44,7 @@ class FinancialCurrencyBar extends StatelessWidget {
                   child: Text('$code · ${currencySymbol(code)}'),
                 ),
             ],
-            onChanged: context.watch<SavingsBloc>().state.isSaving
+            onChanged: state.isSaving || state.isLoading
                 ? null
                 : (code) {
                     if (code == null || code == displayed) return;

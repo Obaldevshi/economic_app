@@ -109,7 +109,7 @@ class WeeklyReceiptResponse(CurrencyRecord):
 
 class SavingsSettingsUpdate(BaseModel):
     annual_rate: Decimal = Field(ge=0, le=100, max_digits=5, decimal_places=2)
-    projection_years: int = Field(ge=1, le=30)
+    projection_years: Literal[1, 3, 5]
     currency_code: Optional[Currency] = None
     display_currency: Optional[Currency] = None
     financial_region: Optional[Region] = None

@@ -1,4 +1,6 @@
 {
+  "projectionPeriod": "{years} वर्ष",
+  "@projectionPeriod": {"placeholders": {"years": {"type": "int"}}},
   "@@locale": "hi",
   "privacyPolicy": "गोपनीयता नीति",
   "financialSettings": "वित्तीय सेटिंग",

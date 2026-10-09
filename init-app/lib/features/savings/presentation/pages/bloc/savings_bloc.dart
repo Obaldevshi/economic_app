@@ -263,6 +263,11 @@ class SavingsBloc extends Bloc<SavingsEvent, SavingsState> {
     Emitter<SavingsState> emit,
   ) async {
     if (state.isSaving) return;
+    final currency =
+        state.dashboard?.currencyCode ?? state.settings?.currencyCode;
+    final changesLedger =
+        event.request.currencyCode != null &&
+        event.request.currencyCode != currency;
     emit(
       state.copyWith(isSaving: true, clearFailure: true, clearMessage: true),
     );
@@ -272,6 +277,21 @@ class SavingsBloc extends Bloc<SavingsEvent, SavingsState> {
       (message) {
         ++_dashboardRequestId;
         ++_impulseRequestId;
+        if (!changesLedger) {
+          // Keep the current forecast visible until its replacement arrives.
+          // A horizon/rate/display change must not reset history or user inputs.
+          emit(
+            state.copyWith(
+              isSaving: false,
+              isDashboardLoading: true,
+              isImpulseLoading: true,
+              actionMessage: message,
+            ),
+          );
+          add(const LoadSavingsDashboard());
+          add(const LoadImpulseItems(withSettings: true));
+          return;
+        }
         ++_historyRequestId;
         ++_receiptRequestId;
         emit(

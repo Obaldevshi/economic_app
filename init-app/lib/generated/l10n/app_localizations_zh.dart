@@ -9,6 +9,11 @@ class AppLocalizationsZh extends AppLocalizations {
   AppLocalizationsZh([String locale = 'zh']) : super(locale);
 
   @override
+  String projectionPeriod(int years) {
+    return '$years 年';
+  }
+
+  @override
   String get privacyPolicy => '隐私政策';
 
   @override

@@ -1,4 +1,6 @@
 {
+  "projectionPeriod": "{years, plural, one {# год} few {# года} many {# лет} other {# лет}}",
+  "@projectionPeriod": {"placeholders": {"years": {"type": "int"}}},
   "@@locale": "ru",
   "privacyPolicy": "Политика конфиденциальности",
   "financialSettings": "Финансовые настройки",

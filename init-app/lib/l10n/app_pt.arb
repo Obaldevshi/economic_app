@@ -1,4 +1,6 @@
 {
+  "projectionPeriod": "{years, plural, one {# ano} other {# anos}}",
+  "@projectionPeriod": {"placeholders": {"years": {"type": "int"}}},
   "@@locale": "pt",
   "privacyPolicy": "Política de privacidade",
   "financialSettings": "Configurações financeiras",

@@ -9,6 +9,17 @@ class AppLocalizationsAr extends AppLocalizations {
   AppLocalizationsAr([String locale = 'ar']) : super(locale);
 
   @override
+  String projectionPeriod(int years) {
+    String _temp0 = intl.Intl.pluralLogic(
+      years,
+      locale: localeName,
+      other: '# سنوات',
+      one: '# سنة',
+    );
+    return '$_temp0';
+  }
+
+  @override
   String get privacyPolicy => 'سياسة الخصوصية';
 
   @override

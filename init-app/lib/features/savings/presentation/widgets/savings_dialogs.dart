@@ -857,7 +857,9 @@ class _ProjectionSettingsDialogState extends State<_ProjectionSettingsDialog> {
   late final _rate = TextEditingController(
     text: moneyInputText(widget.dashboard.annualRate),
   );
-  late int _years = widget.dashboard.projectionYears;
+  late int _years = projectionPeriods.contains(widget.dashboard.projectionYears)
+      ? widget.dashboard.projectionYears
+      : projectionPeriods.last;
   late String _currency = widget.dashboard.currencyCode;
   late String _displayCurrency = widget.dashboard.displayCurrency;
   late String _region = widget.dashboard.financialRegion;
@@ -1035,11 +1037,11 @@ class _ProjectionSettingsDialogState extends State<_ProjectionSettingsDialog> {
                   decoration: InputDecoration(
                     labelText: context.l10n.projectionYears,
                   ),
-                  items: List.generate(30, (index) => index + 1)
+                  items: projectionPeriods
                       .map(
                         (value) => DropdownMenuItem(
                           value: value,
-                          child: Text('$value'),
+                          child: Text(context.l10n.projectionPeriod(value)),
                         ),
                       )
                       .toList(),

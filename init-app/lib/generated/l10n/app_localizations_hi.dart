@@ -9,6 +9,11 @@ class AppLocalizationsHi extends AppLocalizations {
   AppLocalizationsHi([String locale = 'hi']) : super(locale);
 
   @override
+  String projectionPeriod(int years) {
+    return '$years वर्ष';
+  }
+
+  @override
   String get privacyPolicy => 'गोपनीयता नीति';
 
   @override
