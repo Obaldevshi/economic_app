@@ -7,20 +7,38 @@ sealed class SavingsEvent extends Equatable {
   List<Object?> get props => [];
 }
 
+class AllocateSavingsGoal extends SavingsEvent {
+  const AllocateSavingsGoal(this.id, this.request);
+  final int id;
+  final GoalAllocationRequest request;
+  @override
+  List<Object?> get props => [id, request];
+}
+
+class LoadWeeklyReceipt extends SavingsEvent {
+  const LoadWeeklyReceipt();
+}
+
 class LoadSavingsDashboard extends SavingsEvent {
   const LoadSavingsDashboard();
 }
 
 class LoadImpulseItems extends SavingsEvent {
-  const LoadImpulseItems();
+  const LoadImpulseItems({this.withSettings = false});
+
+  final bool withSettings;
+
+  @override
+  List<Object?> get props => [withSettings];
 }
 
 class LoadSavingHistory extends SavingsEvent {
-  const LoadSavingHistory({this.page = 1});
+  const LoadSavingHistory({this.page = 1, this.append = false});
   final int page;
+  final bool append;
 
   @override
-  List<Object?> get props => [page];
+  List<Object?> get props => [page, append];
 }
 
 class CreateSavingEvent extends SavingsEvent {
@@ -29,6 +47,15 @@ class CreateSavingEvent extends SavingsEvent {
 
   @override
   List<Object?> get props => [request];
+}
+
+class UpdateSavingEvent extends SavingsEvent {
+  const UpdateSavingEvent(this.id, this.request);
+  final int id;
+  final SavingEventRequest request;
+
+  @override
+  List<Object?> get props => [id, request];
 }
 
 class SaveImpulseItem extends SavingsEvent {
@@ -70,4 +97,13 @@ class UpdateSavingsSettings extends SavingsEvent {
 
   @override
   List<Object?> get props => [request];
+}
+
+class UpdateSavingsGoal extends SavingsEvent {
+  const UpdateSavingsGoal(this.id, this.request);
+  final int id;
+  final SavingsGoalRequest request;
+
+  @override
+  List<Object?> get props => [id, request];
 }

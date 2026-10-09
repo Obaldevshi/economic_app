@@ -6,6 +6,16 @@ part of 'savings_request.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
+GoalAllocationRequest _$GoalAllocationRequestFromJson(
+  Map<String, dynamic> json,
+) => GoalAllocationRequest(
+  allocatedAmount: (json['allocated_amount'] as num).toDouble(),
+);
+
+Map<String, dynamic> _$GoalAllocationRequestToJson(
+  GoalAllocationRequest instance,
+) => <String, dynamic>{'allocated_amount': instance.allocatedAmount};
+
 SavingEventRequest _$SavingEventRequestFromJson(Map<String, dynamic> json) =>
     SavingEventRequest(
       impulseItemId: (json['impulse_item_id'] as num?)?.toInt(),

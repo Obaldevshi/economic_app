@@ -11,8 +11,14 @@ import 'package:mobile_template/data/models/response/savings_response.dart';
 import 'package:mobile_template/features/savings/presentation/pages/bloc/savings_bloc.dart';
 import 'package:mobile_template/features/savings/presentation/widgets/savings_dialogs.dart';
 import 'package:mobile_template/features/savings/presentation/widgets/savings_ui.dart';
+import 'package:mobile_template/features/savings/presentation/widgets/scenario_comparison.dart';
+import 'package:mobile_template/features/savings/presentation/widgets/saving_receipt.dart';
+import 'package:mobile_template/features/savings/presentation/widgets/quick_saving_actions.dart';
+import 'package:mobile_template/features/shell/presentation/widgets/navigation_branch_scope.dart';
 import 'package:mobile_template/presentation/widgets/common/error_dialog.dart';
 import 'package:mobile_template/presentation/widgets/common/glass_surface_card.dart';
+import 'package:mobile_template/presentation/widgets/common/editorial_icons.dart';
+import 'package:mobile_template/presentation/widgets/common/brand_mark.dart';
 import 'package:mobile_template/presentation/widgets/layout/scroll_shell.dart';
 
 class SavingsDashboardPage extends StatelessWidget {
@@ -25,12 +31,25 @@ class SavingsDashboardPage extends StatelessWidget {
           previous.failure != current.failure ||
           previous.actionMessage != current.actionMessage,
       listener: (context, state) {
+        if (!NavigationBranchScope.isActive(
+          context,
+          AppNavigationBranch.home,
+        )) {
+          return;
+        }
         if (state.failure != null) {
-          ErrorDialog.show(context, state.failure!);
-        } else if (state.actionMessage != null) {
-          ScaffoldMessenger.of(
+          ErrorDialog.show(
             context,
-          ).showSnackBar(SnackBar(content: Text(state.actionMessage!)));
+            localizeSavingsFailure(context, state.failure!),
+          );
+        } else if (state.actionMessage != null) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text(
+                savingsActionMessage(context, state.actionMessage!),
+              ),
+            ),
+          );
         }
       },
       builder: (context, state) {
@@ -38,7 +57,7 @@ class SavingsDashboardPage extends StatelessWidget {
         return ScrollShell(
           title: context.l10n.appName,
           expandedHeaderHeight: 58,
-          isLoading: state.isLoading && dashboard == null,
+          isLoading: state.isDashboardLoading && dashboard == null,
           onRefresh: () async {
             context.read<SavingsBloc>()
               ..add(const LoadSavingsDashboard())
@@ -48,6 +67,11 @@ class SavingsDashboardPage extends StatelessWidget {
             );
           },
           actions: [
+            IconButton(
+              tooltip: context.l10n.weeklyReceipt,
+              onPressed: () => showWeeklyReceiptDialog(context),
+              icon: const Icon(Icons.receipt_long_outlined),
+            ),
             if (dashboard != null)
               IconButton(
                 tooltip: context.l10n.rateAndHorizon,
@@ -59,19 +83,30 @@ class SavingsDashboardPage extends StatelessWidget {
           headerContent: Text(
             context.l10n.savingsTagline,
             style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-              color: Colors.white.withValues(alpha: 0.92),
+              color: ScrollShell.subtitleColor(context),
               fontWeight: FontWeight.w600,
             ),
           ),
           body: dashboard == null
-              ? _EmptyDashboard(
-                  onRetry: () {
-                    context.read<SavingsBloc>()
-                      ..add(const LoadSavingsDashboard())
-                      ..add(const LoadImpulseItems());
-                  },
-                )
-              : _DashboardBody(dashboard: dashboard, impulses: state.impulses),
+              ? state.dashboardLoadFailed
+                    ? SavingsLoadError(
+                        onRetry: () => context.read<SavingsBloc>().add(
+                          const LoadSavingsDashboard(),
+                        ),
+                      )
+                    : _EmptyDashboard(
+                        onRetry: () {
+                          context.read<SavingsBloc>()
+                            ..add(const LoadSavingsDashboard())
+                            ..add(const LoadImpulseItems());
+                        },
+                      )
+              : _DashboardBody(
+                  dashboard: dashboard,
+                  impulses: state.impulses
+                      .where((item) => item.isActive)
+                      .toList(),
+                ),
         );
       },
     );
@@ -93,6 +128,10 @@ class _DashboardBody extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             _SavingsHero(dashboard: dashboard, impulses: impulses),
+            const SizedBox(height: AppDimensions.spaceL),
+            const QuickSavingActions(),
+            const SizedBox(height: AppDimensions.spaceL),
+            ScenarioComparison(items: impulses, rate: dashboard.annualRate),
             if (impulses.isNotEmpty) ...[
               const SizedBox(height: AppDimensions.spaceL),
               _QuickChoices(impulses: impulses),
@@ -162,18 +201,12 @@ class _SavingsHero extends StatelessWidget {
     final details = Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Container(
-          padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 7),
-          decoration: BoxDecoration(
-            color: Colors.white.withValues(alpha: 0.12),
-            borderRadius: AppDimensions.borderRadiusCircular,
-          ),
-          child: Text(
-            '${dashboard.annualRate.toStringAsFixed(1)}% · ${dashboard.projectionYears} ${context.l10n.yearsAtCurrentPace}',
-            style: theme.textTheme.labelMedium?.copyWith(
-              color: Colors.white,
-              fontWeight: FontWeight.w700,
-            ),
+        Text(
+          '${dashboard.annualRate.toStringAsFixed(1)}%  /  ${dashboard.projectionYears} ${context.l10n.yearsAtCurrentPace}',
+          style: theme.textTheme.labelMedium?.copyWith(
+            color: AppColors.primaryLight,
+            fontWeight: FontWeight.w700,
+            letterSpacing: 1,
           ),
         ),
         const SizedBox(height: AppDimensions.spaceM),
@@ -188,8 +221,7 @@ class _SavingsHero extends StatelessWidget {
           formatRubles(context, dashboard.projectedTotal),
           style: theme.textTheme.displaySmall?.copyWith(
             color: Colors.white,
-            fontWeight: FontWeight.w800,
-            letterSpacing: -1,
+            fontWeight: FontWeight.w600,
           ),
         ),
         const SizedBox(height: AppDimensions.spaceS),
@@ -218,15 +250,15 @@ class _SavingsHero extends StatelessWidget {
         ),
         const SizedBox(height: AppDimensions.spaceM),
         FilledButton.icon(
-          onPressed: impulses.isEmpty
+          onPressed: context.watch<SavingsBloc>().state.isSaving
               ? null
               : () => showAddSavingDialog(context, impulses),
           icon: const Icon(Icons.add_rounded),
           label: Text(context.l10n.recordSaving),
           style: FilledButton.styleFrom(
-            backgroundColor: Colors.white,
+            backgroundColor: AppColors.accent,
             foregroundColor: AppColors.primaryDark,
-            disabledBackgroundColor: Colors.white.withValues(alpha: 0.28),
+            disabledBackgroundColor: Colors.white.withValues(alpha: 0.18),
             disabledForegroundColor: Colors.white.withValues(alpha: 0.6),
             minimumSize: const Size.fromHeight(54),
           ),
@@ -238,34 +270,46 @@ class _SavingsHero extends StatelessWidget {
       decoration: BoxDecoration(
         color: AppColors.primaryDark,
         borderRadius: AppDimensions.borderRadiusXL,
-        boxShadow: [
-          BoxShadow(
-            color: AppColors.primaryDark.withValues(alpha: 0.22),
-            blurRadius: 28,
-            offset: const Offset(0, 14),
-          ),
-        ],
+        border: Border.all(color: Colors.white.withValues(alpha: 0.12)),
       ),
       child: Padding(
         padding: const EdgeInsets.all(AppDimensions.paddingL),
-        child: AppLayoutItemBuilder<Widget>(
-          narrow: () => Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              details,
-              const SizedBox(height: AppDimensions.spaceL),
-              action,
-            ],
-          ),
-          wide: () => Row(
-            crossAxisAlignment: CrossAxisAlignment.end,
-            children: [
-              Expanded(flex: 3, child: details),
-              const SizedBox(width: AppDimensions.spaceXL),
-              Expanded(flex: 2, child: action),
-            ],
-          ),
-        )(context, width: 760),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            Row(
+              children: [
+                const BrandMark(size: 32, onDark: true),
+                const SizedBox(width: AppDimensions.spaceM),
+                Expanded(
+                  child: Container(
+                    height: 1,
+                    color: Colors.white.withValues(alpha: 0.2),
+                  ),
+                ),
+              ],
+            ),
+            const SizedBox(height: AppDimensions.spaceL),
+            AppLayoutItemBuilder<Widget>(
+              narrow: () => Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  details,
+                  const SizedBox(height: AppDimensions.spaceL),
+                  action,
+                ],
+              ),
+              wide: () => Row(
+                crossAxisAlignment: CrossAxisAlignment.end,
+                children: [
+                  Expanded(flex: 3, child: details),
+                  const SizedBox(width: AppDimensions.spaceXL),
+                  Expanded(flex: 2, child: action),
+                ],
+              ),
+            )(context, width: 760),
+          ],
+        ),
       ),
     );
   }
@@ -283,16 +327,11 @@ class _HeroMetric extends StatelessWidget {
   final String value;
 
   @override
-  Widget build(BuildContext context) => Container(
-    padding: const EdgeInsets.all(AppDimensions.paddingM),
-    decoration: BoxDecoration(
-      color: Colors.white.withValues(alpha: 0.09),
-      borderRadius: AppDimensions.borderRadiusM,
-      border: Border.all(color: Colors.white.withValues(alpha: 0.12)),
-    ),
+  Widget build(BuildContext context) => Padding(
+    padding: const EdgeInsets.symmetric(vertical: AppDimensions.spaceS),
     child: Row(
       children: [
-        Icon(icon, color: AppColors.primaryLight, size: 22),
+        Icon(icon, color: AppColors.accent, size: 20),
         const SizedBox(width: AppDimensions.spaceS),
         Expanded(
           child: Text(
@@ -362,17 +401,17 @@ class _QuickChoices extends StatelessWidget {
                         children: [
                           GlassIconBadge(
                             size: 38,
-                            color: AppColors.primary,
-                            child: Icon(
-                              impulseIcon(item.iconKey),
+                            color: Theme.of(context).colorScheme.primary,
+                            child: ImpulseGlyph(
+                              keyName: item.iconKey,
                               size: 20,
-                              color: AppColors.primary,
+                              color: Theme.of(context).colorScheme.primary,
                             ),
                           ),
                           const Spacer(),
-                          const Icon(
+                          Icon(
                             Icons.add_circle_rounded,
-                            color: AppColors.primary,
+                            color: Theme.of(context).colorScheme.primary,
                             size: 24,
                           ),
                         ],
@@ -389,7 +428,7 @@ class _QuickChoices extends StatelessWidget {
                         formatRubles(context, item.defaultAmount),
                         style: Theme.of(context).textTheme.titleMedium
                             ?.copyWith(
-                              color: AppColors.primary,
+                              color: Theme.of(context).colorScheme.primary,
                               fontWeight: FontWeight.w800,
                             ),
                       ),
@@ -416,13 +455,13 @@ class _SummarySection extends StatelessWidget {
         context.l10n.savedToday,
         dashboard.todayTotal,
         Icons.today_outlined,
-        AppColors.secondary,
+        Theme.of(context).colorScheme.secondary,
       ),
       (
         context.l10n.savedThisMonth,
         dashboard.monthTotal,
         Icons.calendar_month_outlined,
-        AppColors.primary,
+        Theme.of(context).colorScheme.primary,
       ),
       (
         context.l10n.savedTotal,
@@ -434,7 +473,7 @@ class _SummarySection extends StatelessWidget {
         context.l10n.investedTotal,
         dashboard.investedTotal,
         Icons.account_balance_outlined,
-        AppColors.accent,
+        AppColors.warning,
       ),
     ];
     return LayoutBuilder(
@@ -549,7 +588,7 @@ class _ProjectionCard extends StatelessWidget {
                   Container(
                     width: constraints.maxWidth * contributionShare,
                     height: 10,
-                    color: AppColors.primary,
+                    color: Theme.of(context).colorScheme.primary,
                   ),
                   Expanded(
                     child: Container(height: 10, color: AppColors.accent),
@@ -564,7 +603,7 @@ class _ProjectionCard extends StatelessWidget {
             runSpacing: AppDimensions.spaceS,
             children: [
               _LegendItem(
-                color: AppColors.primary,
+                color: Theme.of(context).colorScheme.primary,
                 label: context.l10n.contributions,
                 value: formatCompactRubles(context, contributions),
               ),
@@ -578,10 +617,87 @@ class _ProjectionCard extends StatelessWidget {
               ),
             ],
           ),
+          const SizedBox(height: AppDimensions.spaceM),
+          Text(
+            context.l10n.projectionExplanation,
+            style: Theme.of(context).textTheme.bodySmall?.copyWith(
+              color: Theme.of(context).colorScheme.onSurfaceVariant,
+            ),
+          ),
+          if (dashboard.projectionSeries.isNotEmpty)
+            _ProjectionTable(points: dashboard.projectionSeries),
         ],
       ),
     );
   }
+}
+
+class _ProjectionTable extends StatefulWidget {
+  const _ProjectionTable({required this.points});
+  final List<ProjectionPoint> points;
+
+  @override
+  State<_ProjectionTable> createState() => _ProjectionTableState();
+}
+
+class _ProjectionTableState extends State<_ProjectionTable> {
+  final _horizontalScroll = ScrollController();
+
+  @override
+  void dispose() {
+    _horizontalScroll.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) => ExpansionTile(
+    tilePadding: EdgeInsets.zero,
+    title: Text(
+      context.l10n.projectionTableTitle,
+      style: Theme.of(context).textTheme.titleSmall,
+    ),
+    children: [
+      Scrollbar(
+        controller: _horizontalScroll,
+        thumbVisibility: true,
+        child: SingleChildScrollView(
+          controller: _horizontalScroll,
+          scrollDirection: Axis.horizontal,
+          padding: const EdgeInsets.only(bottom: AppDimensions.spaceM),
+          child: DataTable(
+            horizontalMargin: 0,
+            columnSpacing: AppDimensions.spaceL,
+            columns: [
+              DataColumn(label: Text(context.l10n.projectionTableYear)),
+              DataColumn(
+                label: Text(context.l10n.contributions),
+                numeric: true,
+              ),
+              DataColumn(
+                label: Text(context.l10n.interestIncome),
+                numeric: true,
+              ),
+              DataColumn(
+                label: Text(context.l10n.projectionTableTotal),
+                numeric: true,
+              ),
+            ],
+            rows: [
+              for (final point in widget.points)
+                DataRow(
+                  cells: [
+                    DataCell(Text('${point.year}')),
+                    DataCell(Text(formatRubles(context, point.contributions))),
+                    DataCell(Text(formatRubles(context, point.interest))),
+                    DataCell(Text(formatRubles(context, point.total))),
+                  ],
+                ),
+            ],
+          ),
+        ),
+      ),
+    ],
+  );
 }
 
 class _LegendItem extends StatelessWidget {
@@ -650,7 +766,7 @@ class _ProjectionChart extends StatelessWidget {
                         widthFactor: 0.55,
                         child: DecoratedBox(
                           decoration: BoxDecoration(
-                            color: AppColors.primary.withValues(alpha: 0.84),
+                            color: Theme.of(context).colorScheme.primary,
                             borderRadius: const BorderRadius.vertical(
                               top: Radius.circular(10),
                             ),
@@ -750,6 +866,40 @@ class _DynamicsCard extends StatelessWidget {
                     ],
                   ),
           ),
+          if (points.isNotEmpty) ...[
+            const SizedBox(height: AppDimensions.spaceM),
+            ExpansionTile(
+              tilePadding: EdgeInsets.zero,
+              title: Text(context.l10n.monthlyAmounts),
+              children: [
+                for (final point in points)
+                  Padding(
+                    padding: const EdgeInsets.symmetric(
+                      vertical: AppDimensions.paddingS,
+                    ),
+                    child: Row(
+                      children: [
+                        Expanded(
+                          child: Text(
+                            DateFormat.yMMMM(
+                              Localizations.localeOf(context).toLanguageTag(),
+                            ).format(DateTime.parse('${point.month}-01')),
+                          ),
+                        ),
+                        const SizedBox(width: AppDimensions.spaceM),
+                        Flexible(
+                          child: Text(
+                            formatRubles(context, point.amount),
+                            textAlign: TextAlign.end,
+                            style: Theme.of(context).textTheme.labelLarge,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+              ],
+            ),
+          ],
         ],
       ),
     );
@@ -859,25 +1009,82 @@ class _GoalsCard extends StatelessWidget {
                   ),
                 ),
                 Text(
-                  '${((dashboard.investedTotal / goal.targetAmount).clamp(0, 1) * 100).round()}%',
-                  style: Theme.of(
-                    context,
-                  ).textTheme.labelLarge?.copyWith(color: AppColors.primary),
+                  '${((goal.allocatedAmount / goal.targetAmount).clamp(0, 1) * 100).floor()}%',
+                  style: Theme.of(context).textTheme.labelLarge?.copyWith(
+                    color: Theme.of(context).colorScheme.primary,
+                  ),
+                ),
+                IconButton(
+                  tooltip: context.l10n.allocateGoal,
+                  onPressed: context.watch<SavingsBloc>().state.isSaving
+                      ? null
+                      : () =>
+                            showGoalAllocationDialog(context, goal, dashboard),
+                  icon: const Icon(
+                    Icons.account_balance_wallet_outlined,
+                    size: 20,
+                  ),
+                ),
+                IconButton(
+                  tooltip: context.l10n.editGoal,
+                  onPressed: context.watch<SavingsBloc>().state.isSaving
+                      ? null
+                      : () => showGoalDialog(context, goal: goal),
+                  icon: const Icon(Icons.edit_outlined, size: 20),
                 ),
               ],
             ),
             const SizedBox(height: 8),
             LinearProgressIndicator(
-              value: (dashboard.investedTotal / goal.targetAmount).clamp(0, 1),
+              value: (goal.allocatedAmount / goal.targetAmount).clamp(0, 1),
               minHeight: 10,
               borderRadius: AppDimensions.borderRadiusCircular,
             ),
             const SizedBox(height: 7),
             Text(
-              '${formatRubles(context, dashboard.investedTotal)} / ${formatRubles(context, goal.targetAmount)}',
+              '${formatRubles(context, goal.allocatedAmount)} / ${formatRubles(context, goal.targetAmount)}',
               style: Theme.of(context).textTheme.bodySmall,
             ),
+            const SizedBox(height: 4),
+            Text(
+              goal.allocatedAmount >= goal.targetAmount
+                  ? context.l10n.goalReached
+                  : context.l10n.goalRemaining(
+                      formatRubles(
+                        context,
+                        goal.targetAmount - goal.allocatedAmount,
+                      ),
+                    ),
+              style: Theme.of(context).textTheme.labelMedium?.copyWith(
+                color: Theme.of(context).colorScheme.primary,
+              ),
+            ),
           ],
+        if (dashboard.goals.isNotEmpty) ...[
+          const SizedBox(height: AppDimensions.spaceM),
+          Text(
+            context.l10n.unallocatedMoney(
+              formatRubles(
+                context,
+                math.max(
+                  0,
+                  dashboard.investedTotal -
+                      dashboard.goals.fold<double>(
+                        0,
+                        (sum, goal) => sum + goal.allocatedAmount,
+                      ),
+                ),
+              ),
+            ),
+          ),
+          const SizedBox(height: AppDimensions.spaceS),
+          Text(
+            context.l10n.goalProgressExplanation,
+            style: Theme.of(context).textTheme.bodySmall?.copyWith(
+              color: Theme.of(context).colorScheme.onSurfaceVariant,
+            ),
+          ),
+        ],
       ],
     ),
   );
@@ -911,14 +1118,14 @@ class _RecentSavings extends StatelessWidget {
               leading: CircleAvatar(
                 backgroundColor: event.isInvested
                     ? AppColors.success.withValues(alpha: 0.13)
-                    : AppColors.primaryContainer,
+                    : Theme.of(context).colorScheme.primaryContainer,
                 child: Icon(
                   event.isInvested
                       ? Icons.account_balance_outlined
                       : Icons.check_rounded,
                   color: event.isInvested
                       ? AppColors.success
-                      : AppColors.primary,
+                      : Theme.of(context).colorScheme.primary,
                 ),
               ),
               title: Text(
@@ -955,10 +1162,10 @@ class _EmptyDashboard extends StatelessWidget {
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          const Icon(
+          Icon(
             Icons.savings_outlined,
             size: 64,
-            color: AppColors.primary,
+            color: Theme.of(context).colorScheme.primary,
           ),
           const SizedBox(height: AppDimensions.spaceM),
           Text(

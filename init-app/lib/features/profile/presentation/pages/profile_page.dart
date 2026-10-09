@@ -56,7 +56,7 @@ class ProfilePage extends StatelessWidget {
               : Text(
                   profile!.email,
                   style: theme.textTheme.bodyMedium?.copyWith(
-                    color: Colors.white.withValues(alpha: 0.85),
+                    color: ScrollShell.subtitleColor(context),
                   ),
                 ),
           body: isLoading
@@ -202,11 +202,21 @@ class ProfilePage extends StatelessWidget {
               color: theme.colorScheme.primary,
             ),
             const SizedBox(width: AppDimensions.spaceM),
-            Text(
-              '${context.l10n.version} ${snapshot.data ?? '—'}',
-              style: theme.textTheme.bodyMedium?.copyWith(
-                color: theme.colorScheme.onSurfaceVariant,
+            Expanded(
+              child: Text(
+                '${context.l10n.version} ${snapshot.data ?? '—'}',
+                style: theme.textTheme.bodyMedium?.copyWith(
+                  color: theme.colorScheme.onSurfaceVariant,
+                ),
               ),
+            ),
+            IconButton(
+              tooltip: MaterialLocalizations.of(context).licensesPageTitle,
+              onPressed: () => showLicensePage(
+                context: context,
+                applicationName: context.l10n.appName,
+              ),
+              icon: const Icon(Icons.policy_outlined),
             ),
           ],
         ),

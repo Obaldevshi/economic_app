@@ -9,6 +9,7 @@ import 'package:mobile_template/core/services/session_service.dart';
 import 'package:mobile_template/core/utils/package_info_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:mobile_template/presentation/widgets/common/brand_mark.dart';
 
 class SplashPage extends StatefulWidget {
   const SplashPage({super.key});
@@ -37,11 +38,13 @@ class _SplashPageState extends State<SplashPage> {
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         const Spacer(),
+        const BrandMark(size: 72, onDark: true),
+        const SizedBox(height: AppDimensions.spaceL),
         Text(
           context.l10n.appName,
           style: AppTextStyles.displayMedium.copyWith(
             color: Colors.white,
-            fontWeight: FontWeight.bold,
+            fontWeight: FontWeight.w600,
           ),
           textAlign: TextAlign.center,
         ),
@@ -73,7 +76,7 @@ class _SplashPageState extends State<SplashPage> {
 
     return Scaffold(
       body: Container(
-        color: AppColors.primary,
+        color: AppColors.primaryDark,
         child: SafeArea(
           child: AppLayoutItemBuilder<Widget>(
             narrow: () => Padding(

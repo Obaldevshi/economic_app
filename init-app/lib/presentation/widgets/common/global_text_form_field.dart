@@ -1,4 +1,3 @@
-import 'package:mobile_template/app/theme/app_colors.dart';
 import 'package:mobile_template/app/theme/app_dimensions.dart';
 import 'package:mobile_template/app/theme/app_glass.dart';
 import 'package:mobile_template/core/utils/keyboard_inset.dart';
@@ -22,6 +21,11 @@ class GlobalTextFormField extends StatefulWidget {
     this.inputFormatters,
     this.maxLength,
     this.autofocus = false,
+    this.textInputAction,
+    this.onFieldSubmitted,
+    this.autofillHints,
+    this.autocorrect = true,
+    this.enableSuggestions = true,
   });
 
   final TextEditingController controller;
@@ -38,6 +42,11 @@ class GlobalTextFormField extends StatefulWidget {
   final List<TextInputFormatter>? inputFormatters;
   final int? maxLength;
   final bool autofocus;
+  final TextInputAction? textInputAction;
+  final ValueChanged<String>? onFieldSubmitted;
+  final Iterable<String>? autofillHints;
+  final bool autocorrect;
+  final bool enableSuggestions;
 
   @override
   State<GlobalTextFormField> createState() => _GlobalTextFormFieldState();
@@ -83,6 +92,11 @@ class _GlobalTextFormFieldState extends State<GlobalTextFormField> {
       onChanged: widget.onChanged,
       inputFormatters: widget.inputFormatters,
       autofocus: widget.autofocus,
+      textInputAction: widget.textInputAction,
+      onFieldSubmitted: widget.onFieldSubmitted,
+      autofillHints: widget.autofillHints,
+      autocorrect: widget.autocorrect,
+      enableSuggestions: widget.enableSuggestions,
       onTapOutside: (_) => _focusNode.unfocus(),
       style: Theme.of(context).textTheme.bodyLarge,
       decoration: InputDecoration(
@@ -102,7 +116,10 @@ class _GlobalTextFormFieldState extends State<GlobalTextFormField> {
         ),
         focusedBorder: OutlineInputBorder(
           borderRadius: AppDimensions.borderRadiusM,
-          borderSide: const BorderSide(color: AppColors.primary, width: 1.5),
+          borderSide: BorderSide(
+            color: Theme.of(context).colorScheme.primary,
+            width: 1.5,
+          ),
         ),
         disabledBorder: OutlineInputBorder(
           borderRadius: AppDimensions.borderRadiusM,

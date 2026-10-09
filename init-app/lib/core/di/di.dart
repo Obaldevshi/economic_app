@@ -9,6 +9,7 @@ import 'package:mobile_template/core/interceptors/auth_interceptor.dart';
 import 'package:mobile_template/core/services/connectivity_service.dart';
 import 'package:mobile_template/core/services/locale_service.dart';
 import 'package:mobile_template/core/services/session_service.dart';
+import 'package:mobile_template/core/services/savings_native_service.dart';
 import 'package:mobile_template/core/services/theme_service.dart';
 import 'package:mobile_template/data/datasources/remote/api_service.dart';
 import 'package:mobile_template/data/repositories/auth_repository_impl.dart';
@@ -45,6 +46,9 @@ Future<void> configureDependencies() async {
     preferences,
   );
   getIt.registerSingleton<SessionService>(session);
+  final nativeSavings = SavingsNativeService(preferences, session);
+  await nativeSavings.init();
+  getIt.registerSingleton<SavingsNativeService>(nativeSavings);
   getIt.registerLazySingleton<LocaleService>(
     () => LocaleService(preferences)..init(),
   );
@@ -136,6 +140,7 @@ Future<void> configureDependencies() async {
     () => SavingsRepository(getIt<ApiService>()),
   );
   getIt.registerFactory<SavingsBloc>(
-    () => SavingsBloc(getIt<SavingsRepository>()),
+    () =>
+        SavingsBloc(getIt<SavingsRepository>(), getIt<SavingsNativeService>()),
   );
 }

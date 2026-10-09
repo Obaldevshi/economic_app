@@ -1,0 +1,5 @@
+<resources>
+    <string name="saving_widget_title">Not spent</string>
+    <string name="saving_widget_empty">Choose up to 3 favorites in the Habits menu, then confirm a saving with a tap.</string>
+    <string name="receipt_share">Save or share your receipt</string>
+</resources>

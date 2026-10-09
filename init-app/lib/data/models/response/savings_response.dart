@@ -69,15 +69,42 @@ class SavingsGoalResponse {
   final String name;
   @JsonKey(name: 'target_amount', fromJson: _moneyFromJson)
   final double targetAmount;
+  @JsonKey(name: 'allocated_amount', fromJson: _moneyFromJson)
+  final double allocatedAmount;
 
   SavingsGoalResponse({
     required this.id,
     required this.name,
     required this.targetAmount,
+    this.allocatedAmount = 0,
   });
 
   factory SavingsGoalResponse.fromJson(Map<String, dynamic> json) =>
       _$SavingsGoalResponseFromJson(json);
+}
+
+@JsonSerializable(createToJson: false)
+class WeeklyReceiptResponse {
+  @JsonKey(name: 'start_date')
+  final DateTime startDate;
+  @JsonKey(name: 'end_date')
+  final DateTime endDate;
+  @JsonKey(name: 'total_saved', fromJson: _moneyFromJson)
+  final double totalSaved;
+  @JsonKey(name: 'invested_total', fromJson: _moneyFromJson)
+  final double investedTotal;
+  @JsonKey(name: 'decision_count')
+  final int decisionCount;
+
+  WeeklyReceiptResponse({
+    required this.startDate,
+    required this.endDate,
+    required this.totalSaved,
+    required this.investedTotal,
+    required this.decisionCount,
+  });
+  factory WeeklyReceiptResponse.fromJson(Map<String, dynamic> json) =>
+      _$WeeklyReceiptResponseFromJson(json);
 }
 
 @JsonSerializable(createToJson: false)
@@ -123,6 +150,22 @@ class ImpulseTotal {
 
   factory ImpulseTotal.fromJson(Map<String, dynamic> json) =>
       _$ImpulseTotalFromJson(json);
+}
+
+@JsonSerializable(createToJson: false)
+class SavingsSettingsResponse {
+  @JsonKey(name: 'annual_rate', fromJson: _moneyFromJson)
+  final double annualRate;
+  @JsonKey(name: 'projection_years')
+  final int projectionYears;
+
+  SavingsSettingsResponse({
+    required this.annualRate,
+    required this.projectionYears,
+  });
+
+  factory SavingsSettingsResponse.fromJson(Map<String, dynamic> json) =>
+      _$SavingsSettingsResponseFromJson(json);
 }
 
 @JsonSerializable(createToJson: false)

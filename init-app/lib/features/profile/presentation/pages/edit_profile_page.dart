@@ -101,7 +101,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
             headerContent: Text(
               context.l10n.updatePersonalInfo,
               style: theme.textTheme.bodyMedium?.copyWith(
-                color: Colors.white.withValues(alpha: 0.85),
+                color: ScrollShell.subtitleColor(context),
               ),
             ),
             body: AppLayoutItemBuilder<Widget>(

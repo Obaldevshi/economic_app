@@ -1,0 +1,14 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="match_parent"
+    android:orientation="vertical" android:padding="16dp" android:background="@drawable/widget_paper">
+    <TextView android:id="@+id/saving_title" android:layout_width="match_parent" android:layout_height="40dp"
+        android:text="@string/saving_widget_title" android:textColor="#272D34" android:textSize="21sp" android:fontFamily="serif" />
+    <TextView android:id="@+id/saving_empty" android:layout_width="match_parent" android:layout_height="wrap_content"
+        android:minHeight="48dp" android:text="@string/saving_widget_empty" android:textColor="#666A70" android:textSize="14sp" />
+    <TextView android:id="@+id/saving_one" android:layout_width="match_parent" android:layout_height="48dp"
+        android:gravity="center_vertical" android:textColor="#272D34" android:textSize="16sp" android:maxLines="1" android:ellipsize="end" />
+    <TextView android:id="@+id/saving_two" android:layout_width="match_parent" android:layout_height="48dp"
+        android:gravity="center_vertical" android:textColor="#272D34" android:textSize="16sp" android:maxLines="1" android:ellipsize="end" />
+    <TextView android:id="@+id/saving_three" android:layout_width="match_parent" android:layout_height="48dp"
+        android:gravity="center_vertical" android:textColor="#272D34" android:textSize="16sp" android:maxLines="1" android:ellipsize="end" />
+</LinearLayout>

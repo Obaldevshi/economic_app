@@ -32,7 +32,20 @@ SavingsGoalResponse _$SavingsGoalResponseFromJson(Map<String, dynamic> json) =>
       id: (json['id'] as num).toInt(),
       name: json['name'] as String,
       targetAmount: _moneyFromJson(json['target_amount']),
+      allocatedAmount: json['allocated_amount'] == null
+          ? 0
+          : _moneyFromJson(json['allocated_amount']),
     );
+
+WeeklyReceiptResponse _$WeeklyReceiptResponseFromJson(
+  Map<String, dynamic> json,
+) => WeeklyReceiptResponse(
+  startDate: DateTime.parse(json['start_date'] as String),
+  endDate: DateTime.parse(json['end_date'] as String),
+  totalSaved: _moneyFromJson(json['total_saved']),
+  investedTotal: _moneyFromJson(json['invested_total']),
+  decisionCount: (json['decision_count'] as num).toInt(),
+);
 
 MonthlySavingPoint _$MonthlySavingPointFromJson(Map<String, dynamic> json) =>
     MonthlySavingPoint(
@@ -51,6 +64,13 @@ ProjectionPoint _$ProjectionPointFromJson(Map<String, dynamic> json) =>
 ImpulseTotal _$ImpulseTotalFromJson(Map<String, dynamic> json) => ImpulseTotal(
   name: json['name'] as String,
   amount: _moneyFromJson(json['amount']),
+);
+
+SavingsSettingsResponse _$SavingsSettingsResponseFromJson(
+  Map<String, dynamic> json,
+) => SavingsSettingsResponse(
+  annualRate: _moneyFromJson(json['annual_rate']),
+  projectionYears: (json['projection_years'] as num).toInt(),
 );
 
 SavingsDashboardResponse _$SavingsDashboardResponseFromJson(

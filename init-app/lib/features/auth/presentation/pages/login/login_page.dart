@@ -35,6 +35,7 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   Future<void> _handleLogin() async {
+    if (_isLoading) return;
     if (_formKey.currentState!.validate()) {
       context.read<LoginBloc>().add(
         LoginSubmitted(
@@ -62,66 +63,86 @@ class _LoginPageState extends State<LoginPage> {
             title: context.l10n.welcomeBack,
             subtitle: context.l10n.loginSubtitle,
           ),
-          form: Form(
-            key: _formKey,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: [
-                GlobalTextFormField(
-                  controller: _emailController,
-                  labelText: context.l10n.email,
-                  hintText: context.l10n.emailHint,
-                  keyboardType: TextInputType.emailAddress,
-                  validator: ValidationUtils.validateEmail,
-                ),
-                const SizedBox(height: AppDimensions.spaceL),
-                GlobalTextFormField(
-                  controller: _passwordController,
-                  labelText: context.l10n.password,
-                  hintText: context.l10n.passwordHint,
-                  obscureText: !_isPasswordVisible,
-                  suffixIcon: IconButton(
-                    icon: Icon(
-                      _isPasswordVisible
-                          ? Icons.visibility_off_outlined
-                          : Icons.visibility_outlined,
-                    ),
-                    onPressed: () => setState(
-                      () => _isPasswordVisible = !_isPasswordVisible,
-                    ),
+          form: AutofillGroup(
+            onDisposeAction: AutofillContextAction.cancel,
+            child: Form(
+              key: _formKey,
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  GlobalTextFormField(
+                    controller: _emailController,
+                    labelText: context.l10n.email,
+                    hintText: context.l10n.emailHint,
+                    keyboardType: TextInputType.emailAddress,
+                    textInputAction: TextInputAction.next,
+                    autofillHints: const [
+                      AutofillHints.username,
+                      AutofillHints.email,
+                    ],
+                    autocorrect: false,
+                    enabled: !_isLoading,
+                    validator: ValidationUtils.validateEmail,
                   ),
-                  validator: ValidationUtils.validatePassword,
-                ),
-                const SizedBox(height: AppDimensions.spaceXL),
-                GlobalButton(
-                  text: context.l10n.signIn,
-                  onPressed: _handleLogin,
-                  isLoading: _isLoading,
-                ),
-                const SizedBox(height: AppDimensions.spaceXL),
-                Row(
-                  children: [
-                    Expanded(child: Divider(color: dividerColor)),
-                    Padding(
-                      padding: AppDimensions.paddingHorizontalM,
-                      child: Text(
-                        context.l10n.or,
-                        style: theme.textTheme.bodyMedium?.copyWith(
-                          color: theme.colorScheme.onSurfaceVariant,
-                        ),
+                  const SizedBox(height: AppDimensions.spaceL),
+                  GlobalTextFormField(
+                    controller: _passwordController,
+                    labelText: context.l10n.password,
+                    hintText: context.l10n.passwordHint,
+                    obscureText: !_isPasswordVisible,
+                    textInputAction: TextInputAction.done,
+                    onFieldSubmitted: (_) => _handleLogin(),
+                    autofillHints: const [AutofillHints.password],
+                    autocorrect: false,
+                    enableSuggestions: false,
+                    enabled: !_isLoading,
+                    suffixIcon: IconButton(
+                      tooltip: _isPasswordVisible
+                          ? context.l10n.hidePassword
+                          : context.l10n.showPassword,
+                      icon: Icon(
+                        _isPasswordVisible
+                            ? Icons.visibility_off_outlined
+                            : Icons.visibility_outlined,
+                      ),
+                      onPressed: () => setState(
+                        () => _isPasswordVisible = !_isPasswordVisible,
                       ),
                     ),
-                    Expanded(child: Divider(color: dividerColor)),
-                  ],
-                ),
-                const SizedBox(height: AppDimensions.spaceXL),
-                AuthLinkText(
-                  normalText: context.l10n.dontHaveAccount,
-                  linkText: context.l10n.signUp,
-                  onTap: _navigateToRegister,
-                  onGradient: false,
-                ),
-              ],
+                    validator: ValidationUtils.validatePassword,
+                  ),
+                  const SizedBox(height: AppDimensions.spaceXL),
+                  GlobalButton(
+                    text: context.l10n.signIn,
+                    onPressed: _handleLogin,
+                    isLoading: _isLoading,
+                  ),
+                  const SizedBox(height: AppDimensions.spaceXL),
+                  Row(
+                    children: [
+                      Expanded(child: Divider(color: dividerColor)),
+                      Padding(
+                        padding: AppDimensions.paddingHorizontalM,
+                        child: Text(
+                          context.l10n.or,
+                          style: theme.textTheme.bodyMedium?.copyWith(
+                            color: theme.colorScheme.onSurfaceVariant,
+                          ),
+                        ),
+                      ),
+                      Expanded(child: Divider(color: dividerColor)),
+                    ],
+                  ),
+                  const SizedBox(height: AppDimensions.spaceXL),
+                  AuthLinkText(
+                    normalText: context.l10n.dontHaveAccount,
+                    linkText: context.l10n.signUp,
+                    onTap: _navigateToRegister,
+                    onGradient: false,
+                  ),
+                ],
+              ),
             ),
           ),
         );

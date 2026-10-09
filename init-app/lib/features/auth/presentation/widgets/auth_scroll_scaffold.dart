@@ -4,6 +4,7 @@ import 'package:mobile_template/app/theme/app_dimensions.dart';
 import 'package:mobile_template/core/utils/keyboard_inset.dart';
 import 'package:mobile_template/presentation/widgets/common/glass_surface.dart';
 import 'package:mobile_template/presentation/widgets/layout/scroll_shell.dart';
+import 'package:mobile_template/presentation/widgets/common/savings_backdrop.dart';
 
 /// Общая оболочка входа и регистрации с устойчивым поведением клавиатуры.
 class AuthScrollScaffold extends StatefulWidget {
@@ -43,27 +44,30 @@ class _AuthScrollScaffoldState extends State<AuthScrollScaffold> {
       resizeToAvoidBottomInset: false,
       body: ColoredBox(
         color: ScrollShell.headerBackground,
-        child: KeyboardInsetBuilder(
-          onOpened: () => KeyboardInset.ensureFocusedVisible(context),
-          onClosed: _scrollToTop,
-          builder: (context, keyboardInset) {
-            return Padding(
-              padding: EdgeInsets.only(bottom: keyboardInset),
-              child: SafeArea(
-                bottom: false,
-                child: AppLayoutItemBuilder<Widget>(
-                  narrow: () => _buildNarrow(
-                    keyboardInset: keyboardInset,
-                    bottomSafe: bottomSafe,
-                  ),
-                  wide: () => _buildWide(
-                    keyboardInset: keyboardInset,
-                    bottomSafe: bottomSafe,
-                  ),
-                )(context),
-              ),
-            );
-          },
+        child: SavingsBackdrop(
+          onDark: true,
+          child: KeyboardInsetBuilder(
+            onOpened: () => KeyboardInset.ensureFocusedVisible(context),
+            onClosed: _scrollToTop,
+            builder: (context, keyboardInset) {
+              return Padding(
+                padding: EdgeInsets.only(bottom: keyboardInset),
+                child: SafeArea(
+                  bottom: false,
+                  child: AppLayoutItemBuilder<Widget>(
+                    narrow: () => _buildNarrow(
+                      keyboardInset: keyboardInset,
+                      bottomSafe: bottomSafe,
+                    ),
+                    wide: () => _buildWide(
+                      keyboardInset: keyboardInset,
+                      bottomSafe: bottomSafe,
+                    ),
+                  )(context),
+                ),
+              );
+            },
+          ),
         ),
       ),
     );
@@ -153,7 +157,7 @@ class _AuthScrollScaffoldState extends State<AuthScrollScaffold> {
       ),
       child: Center(
         child: ConstrainedBox(
-          constraints: const BoxConstraints(maxWidth: 720),
+          constraints: const BoxConstraints(maxWidth: 480),
           child: SizedBox(width: double.infinity, child: widget.form),
         ),
       ),

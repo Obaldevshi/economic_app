@@ -1,4 +1,5 @@
 import 'package:mobile_template/app/theme/app_colors.dart';
+import 'package:mobile_template/app/app_router.dart';
 import 'package:mobile_template/app/layout/app_layout_item_builder.dart';
 import 'package:mobile_template/app/theme/app_dimensions.dart';
 import 'package:mobile_template/core/extensions/build_context_extensions.dart';
@@ -40,6 +41,7 @@ class _RegisterPageState extends State<RegisterPage> {
   }
 
   Future<void> _handleRegister() async {
+    if (_isLoading) return;
     if (_formKey.currentState!.validate()) {
       context.read<RegisterBloc>().add(
         RegisterSubmitted(
@@ -52,12 +54,23 @@ class _RegisterPageState extends State<RegisterPage> {
     }
   }
 
+  void _navigateToLogin() {
+    if (context.canPop()) {
+      context.pop();
+    } else {
+      context.go(AppRoutes.login);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     Widget firstNameField() => GlobalTextFormField(
       controller: _firstNameController,
       labelText: context.l10n.firstName,
       hintText: context.l10n.firstNameHint,
+      textInputAction: TextInputAction.next,
+      autofillHints: const [AutofillHints.givenName],
+      enabled: !_isLoading,
       validator: (value) =>
           ValidationUtils.validateName(value, context.l10n.firstName),
     );
@@ -66,6 +79,9 @@ class _RegisterPageState extends State<RegisterPage> {
       controller: _lastNameController,
       labelText: context.l10n.lastName,
       hintText: context.l10n.lastNameHint,
+      textInputAction: TextInputAction.next,
+      autofillHints: const [AutofillHints.familyName],
+      enabled: !_isLoading,
       validator: (value) =>
           ValidationUtils.validateName(value, context.l10n.lastName),
     );
@@ -78,69 +94,87 @@ class _RegisterPageState extends State<RegisterPage> {
             title: context.l10n.createAccount,
             subtitle: context.l10n.registerSubtitle,
             showBackButton: true,
+            onBackPressed: _navigateToLogin,
           ),
-          form: Form(
-            key: _formKey,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: [
-                AppLayoutItemBuilder<Widget>(
-                  narrow: () => Column(
-                    children: [
-                      firstNameField(),
-                      const SizedBox(height: AppDimensions.spaceL),
-                      lastNameField(),
-                    ],
-                  ),
-                  wide: () => Row(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Expanded(child: firstNameField()),
-                      const SizedBox(width: AppDimensions.spaceM),
-                      Expanded(child: lastNameField()),
-                    ],
-                  ),
-                )(context),
-                const SizedBox(height: AppDimensions.spaceL),
-                GlobalTextFormField(
-                  controller: _emailController,
-                  labelText: context.l10n.email,
-                  hintText: context.l10n.emailHint,
-                  keyboardType: TextInputType.emailAddress,
-                  validator: ValidationUtils.validateEmail,
-                ),
-                const SizedBox(height: AppDimensions.spaceL),
-                GlobalTextFormField(
-                  controller: _passwordController,
-                  labelText: context.l10n.password,
-                  hintText: context.l10n.createPasswordHint,
-                  obscureText: !_isPasswordVisible,
-                  suffixIcon: IconButton(
-                    icon: Icon(
-                      _isPasswordVisible
-                          ? Icons.visibility_off_outlined
-                          : Icons.visibility_outlined,
+          form: AutofillGroup(
+            onDisposeAction: AutofillContextAction.cancel,
+            child: Form(
+              key: _formKey,
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  AppLayoutItemBuilder<Widget>(
+                    narrow: () => Column(
+                      children: [
+                        firstNameField(),
+                        const SizedBox(height: AppDimensions.spaceL),
+                        lastNameField(),
+                      ],
                     ),
-                    onPressed: () => setState(
-                      () => _isPasswordVisible = !_isPasswordVisible,
+                    wide: () => Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Expanded(child: firstNameField()),
+                        const SizedBox(width: AppDimensions.spaceM),
+                        Expanded(child: lastNameField()),
+                      ],
                     ),
+                  )(context),
+                  const SizedBox(height: AppDimensions.spaceL),
+                  GlobalTextFormField(
+                    controller: _emailController,
+                    labelText: context.l10n.email,
+                    hintText: context.l10n.emailHint,
+                    keyboardType: TextInputType.emailAddress,
+                    textInputAction: TextInputAction.next,
+                    autofillHints: const [AutofillHints.email],
+                    autocorrect: false,
+                    enabled: !_isLoading,
+                    validator: ValidationUtils.validateEmail,
                   ),
-                  validator: ValidationUtils.validatePassword,
-                ),
-                const SizedBox(height: AppDimensions.spaceXL),
-                GlobalButton(
-                  text: context.l10n.createAccountButton,
-                  onPressed: _handleRegister,
-                  isLoading: _isLoading,
-                ),
-                const SizedBox(height: AppDimensions.spaceXL),
-                AuthLinkText(
-                  normalText: context.l10n.alreadyHaveAccount,
-                  linkText: context.l10n.signIn,
-                  onTap: () => context.pop(),
-                  onGradient: false,
-                ),
-              ],
+                  const SizedBox(height: AppDimensions.spaceL),
+                  GlobalTextFormField(
+                    controller: _passwordController,
+                    labelText: context.l10n.password,
+                    hintText: context.l10n.createPasswordHint,
+                    obscureText: !_isPasswordVisible,
+                    textInputAction: TextInputAction.done,
+                    onFieldSubmitted: (_) => _handleRegister(),
+                    autofillHints: const [AutofillHints.newPassword],
+                    autocorrect: false,
+                    enableSuggestions: false,
+                    enabled: !_isLoading,
+                    suffixIcon: IconButton(
+                      tooltip: _isPasswordVisible
+                          ? context.l10n.hidePassword
+                          : context.l10n.showPassword,
+                      icon: Icon(
+                        _isPasswordVisible
+                            ? Icons.visibility_off_outlined
+                            : Icons.visibility_outlined,
+                      ),
+                      onPressed: () => setState(
+                        () => _isPasswordVisible = !_isPasswordVisible,
+                      ),
+                    ),
+                    validator: ValidationUtils.validatePassword,
+                  ),
+                  const SizedBox(height: AppDimensions.spaceXL),
+                  GlobalButton(
+                    text: context.l10n.createAccountButton,
+                    onPressed: _handleRegister,
+                    isLoading: _isLoading,
+                  ),
+                  const SizedBox(height: AppDimensions.spaceXL),
+                  AuthLinkText(
+                    normalText: context.l10n.alreadyHaveAccount,
+                    linkText: context.l10n.signIn,
+                    onTap: _navigateToLogin,
+                    onGradient: false,
+                  ),
+                ],
+              ),
             ),
           ),
         );
@@ -159,7 +193,7 @@ class _RegisterPageState extends State<RegisterPage> {
           backgroundColor: AppColors.success,
         ),
       );
-      context.pop();
+      _navigateToLogin();
     } else if (state is RegisterFailure) {
       setState(() => _isLoading = false);
       ErrorDialog.show(context, state.failure);

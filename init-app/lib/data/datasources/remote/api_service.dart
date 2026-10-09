@@ -48,6 +48,18 @@ abstract class ApiService {
   @GET('/savings/dashboard')
   Future<BaseResponse<SavingsDashboardResponse>> getSavingsDashboard();
 
+  @GET('/savings/receipts/week')
+  Future<BaseResponse<WeeklyReceiptResponse>> getWeeklyReceipt();
+
+  @PUT('/savings/goals/{id}/allocation')
+  Future<BaseResponse> allocateSavingsGoal(
+    @Path('id') int id,
+    @Body() GoalAllocationRequest request,
+  );
+
+  @GET('/savings/settings')
+  Future<BaseResponse<SavingsSettingsResponse>> getSavingsSettings();
+
   @GET('/savings/impulses')
   Future<BaseResponse<List<ImpulseItemResponse>>> getImpulseItems(
     @Query('include_inactive') bool includeInactive,
@@ -74,11 +86,23 @@ abstract class ApiService {
   @POST('/savings/events')
   Future<BaseResponse> createSavingEvent(@Body() SavingEventRequest request);
 
+  @PUT('/savings/events/{id}')
+  Future<BaseResponse> updateSavingEvent(
+    @Path('id') int id,
+    @Body() SavingEventRequest request,
+  );
+
   @DELETE('/savings/events/{id}')
   Future<void> deleteSavingEvent(@Path('id') int id);
 
   @POST('/savings/goals')
   Future<BaseResponse> createSavingsGoal(@Body() SavingsGoalRequest request);
+
+  @PUT('/savings/goals/{id}')
+  Future<BaseResponse> updateSavingsGoal(
+    @Path('id') int id,
+    @Body() SavingsGoalRequest request,
+  );
 
   @PUT('/savings/settings')
   Future<BaseResponse> updateSavingsSettings(

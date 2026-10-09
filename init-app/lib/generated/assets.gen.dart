@@ -17,27 +17,14 @@ import 'package:vector_graphics/vector_graphics.dart' as _vg;
 class $AssetsEnvGen {
   const $AssetsEnvGen();
 
+  /// File path: assets/env/.env
+  String get aEnv => 'assets/env/.env';
+
   /// File path: assets/env/.env.example
   String get aEnvExample => 'assets/env/.env.example';
 
   /// List of all assets
-  List<String> get values => [aEnvExample];
-}
-
-class $AssetsFontsGen {
-  const $AssetsFontsGen();
-
-  /// File path: assets/fonts/Quicksand-Bold.ttf
-  String get quicksandBold => 'assets/fonts/Quicksand-Bold.ttf';
-
-  /// File path: assets/fonts/Quicksand-Medium.ttf
-  String get quicksandMedium => 'assets/fonts/Quicksand-Medium.ttf';
-
-  /// File path: assets/fonts/Quicksand-Regular.ttf
-  String get quicksandRegular => 'assets/fonts/Quicksand-Regular.ttf';
-
-  /// List of all assets
-  List<String> get values => [quicksandBold, quicksandMedium, quicksandRegular];
+  List<String> get values => [aEnv, aEnvExample];
 }
 
 class $AssetsIconsGen {
@@ -80,7 +67,6 @@ class Assets {
   const Assets._();
 
   static const $AssetsEnvGen env = $AssetsEnvGen();
-  static const $AssetsFontsGen fonts = $AssetsFontsGen();
   static const $AssetsIconsGen icons = $AssetsIconsGen();
   static const $AssetsImagesGen images = $AssetsImagesGen();
 }

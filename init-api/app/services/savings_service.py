@@ -3,7 +3,7 @@ from decimal import Decimal, ROUND_HALF_UP
 
 from sqlalchemy.orm import Session
 
-from app.core.exceptions import NotFoundError
+from app.core.exceptions import NotFoundError, ValidationError
 from app.repositories.savings_repository import SavingsRepository
 from app.schemas.savings import (
     ImpulseItemCreate,
@@ -73,18 +73,37 @@ class SavingsService:
         return self.repository.events.create({"user_id": user_id, **values})
 
     def update_event(self, event_id: int, user_id: int, data: SavingEventUpdate):
-        event = self.repository.get_event(event_id, user_id)
-        if not event:
-            raise NotFoundError("Saving event not found")
-        if data.impulse_item_id is not None and not self.repository.get_impulse(data.impulse_item_id, user_id):
-            raise NotFoundError("Impulse item not found")
-        return self.repository.events.update(event, data.model_dump(exclude_unset=True))
+        self._lock_balance(user_id)
+        try:
+            event = self.repository.get_event(event_id, user_id)
+            if not event:
+                raise NotFoundError("Saving event not found")
+            if data.impulse_item_id is not None and not self.repository.get_impulse(data.impulse_item_id, user_id):
+                raise NotFoundError("Impulse item not found")
+            for field, value in data.model_dump(exclude_unset=True).items():
+                setattr(event, field, value)
+            self.repository.db.flush()
+            self._check_allocation_balance(user_id)
+            self.repository.db.commit()
+            self.repository.db.refresh(event)
+            return event
+        except Exception:
+            self.repository.db.rollback()
+            raise
 
     def delete_event(self, event_id: int, user_id: int):
-        event = self.repository.get_event(event_id, user_id)
-        if not event:
-            raise NotFoundError("Saving event not found")
-        return self.repository.events.delete(event.id)
+        self._lock_balance(user_id)
+        try:
+            event = self.repository.get_event(event_id, user_id)
+            if not event:
+                raise NotFoundError("Saving event not found")
+            self.repository.db.delete(event)
+            self.repository.db.flush()
+            self._check_allocation_balance(user_id)
+            self.repository.db.commit()
+        except Exception:
+            self.repository.db.rollback()
+            raise
 
     def get_goals(self, user_id: int):
         return self.repository.get_goals(user_id)
@@ -93,16 +112,57 @@ class SavingsService:
         return self.repository.goals.create({"user_id": user_id, **data.model_dump()})
 
     def update_goal(self, goal_id: int, user_id: int, data: SavingsGoalUpdate):
+        self._lock_balance(user_id)
         goal = self.repository.get_goal(goal_id, user_id)
         if not goal:
             raise NotFoundError("Savings goal not found")
+        if data.target_amount is not None and data.target_amount < goal.allocated_amount:
+            raise ValidationError("Release goal funds before reducing its target")
         return self.repository.goals.update(goal, data.model_dump(exclude_unset=True))
 
     def delete_goal(self, goal_id: int, user_id: int):
+        self._lock_balance(user_id)
         goal = self.repository.get_goal(goal_id, user_id)
         if not goal:
             raise NotFoundError("Savings goal not found")
         return self.repository.goals.delete(goal.id)
+
+    def _lock_balance(self, user_id: int):
+        self.get_settings(user_id)
+        self.repository.lock_balance(user_id)
+
+    def _check_allocation_balance(self, user_id: int):
+        if self.repository.allocated_total(user_id) > self.repository.invested_total(user_id):
+            raise ValidationError("Release goal allocations before reducing saved funds")
+
+    def allocate_goal(self, goal_id: int, user_id: int, amount: Decimal):
+        self._lock_balance(user_id)
+        try:
+            goal = self.repository.get_goal(goal_id, user_id)
+            if not goal:
+                raise NotFoundError("Savings goal not found")
+            if amount > goal.target_amount:
+                raise ValidationError("Allocation must not exceed the goal target")
+            goal.allocated_amount = amount
+            self.repository.db.flush()
+            self._check_allocation_balance(user_id)
+            self.repository.db.commit()
+            self.repository.db.refresh(goal)
+            return goal
+        except Exception:
+            self.repository.db.rollback()
+            raise
+
+    def get_weekly_receipt(self, user_id: int):
+        now = datetime.now()
+        start = now.replace(hour=0, minute=0, second=0, microsecond=0) - timedelta(days=6)
+        events = [item for item in self.repository.get_events_since(user_id, start) if item.occurred_at <= now]
+        return {
+            "start_date": start.date(), "end_date": now.date(),
+            "total_saved": _money(sum((item.amount for item in events), Decimal(0))),
+            "invested_total": _money(sum((item.amount for item in events if item.is_invested), Decimal(0))),
+            "decision_count": len(events),
+        }
 
     def get_settings(self, user_id: int):
         settings = self.repository.get_settings(user_id)

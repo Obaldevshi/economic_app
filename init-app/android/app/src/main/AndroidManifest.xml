@@ -1,9 +1,18 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
     <uses-permission android:name="android.permission.INTERNET" />
     <application
-        android:label="Template App"
+        android:label="Не потратил"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
+        <receiver android:name=".SavingsWidgetProvider" android:exported="false"
+            android:label="@string/saving_widget_title">
+            <intent-filter><action android:name="android.appwidget.action.APPWIDGET_UPDATE" /></intent-filter>
+            <meta-data android:name="android.appwidget.provider" android:resource="@xml/savings_widget_info" />
+        </receiver>
+        <provider android:name="androidx.core.content.FileProvider"
+            android:authorities="${applicationId}.receipts" android:exported="false" android:grantUriPermissions="true">
+            <meta-data android:name="android.support.FILE_PROVIDER_PATHS" android:resource="@xml/receipt_paths" />
+        </provider>
         <activity
             android:name=".MainActivity"
             android:exported="true"

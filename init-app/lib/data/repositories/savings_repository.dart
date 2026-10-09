@@ -11,9 +11,32 @@ class SavingsRepository {
 
   final ApiService _apiService;
 
+  Future<Either<Failure, WeeklyReceiptResponse>> getWeeklyReceipt() async {
+    try {
+      final response = await _apiService.getWeeklyReceipt();
+      return Right(response.data!);
+    } catch (error) {
+      return Left(ErrorHandler.handleError(error));
+    }
+  }
+
+  Future<Either<Failure, String>> allocateGoal(
+    int id,
+    GoalAllocationRequest request,
+  ) => _message(() => _apiService.allocateSavingsGoal(id, request));
+
   Future<Either<Failure, SavingsDashboardResponse>> getDashboard() async {
     try {
       final response = await _apiService.getSavingsDashboard();
+      return Right(response.data!);
+    } catch (error) {
+      return Left(ErrorHandler.handleError(error));
+    }
+  }
+
+  Future<Either<Failure, SavingsSettingsResponse>> getSettings() async {
+    try {
+      final response = await _apiService.getSavingsSettings();
       return Right(response.data!);
     } catch (error) {
       return Left(ErrorHandler.handleError(error));
@@ -53,6 +76,11 @@ class SavingsRepository {
     }
   }
 
+  Future<Either<Failure, String>> updateEvent(
+    int id,
+    SavingEventRequest request,
+  ) async => _message(() => _apiService.updateSavingEvent(id, request));
+
   Future<Either<Failure, String>> createImpulse(
     ImpulseItemRequest request,
   ) async => _message(() => _apiService.createImpulseItem(request));
@@ -74,6 +102,11 @@ class SavingsRepository {
   Future<Either<Failure, String>> createGoal(
     SavingsGoalRequest request,
   ) async => _message(() => _apiService.createSavingsGoal(request));
+
+  Future<Either<Failure, String>> updateGoal(
+    int id,
+    SavingsGoalRequest request,
+  ) async => _message(() => _apiService.updateSavingsGoal(id, request));
 
   Future<Either<Failure, String>> updateSettings(
     SavingsSettingsRequest request,

@@ -620,6 +620,12 @@ class AppLocalizationsRu extends AppLocalizations {
   String get timesPerWeek => 'Раз в неделю';
 
   @override
+  String get frequencyZeroHint => '0 — один раз в месяц';
+
+  @override
+  String get oncePerMonth => 'раз в месяц';
+
+  @override
   String get chooseIcon => 'Иконка';
 
   @override
@@ -695,10 +701,26 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get projectionExplanation =>
-      'Прогноз учитывает текущий темп и ежемесячное реинвестирование';
+      'Это сценарий, а не баланс счёта: вся учтённая экономия откладывается, темп последних 90 дней сохраняется, проценты начисляются ежемесячно. Ставка условная, доходность не гарантирована.';
 
   @override
   String get impulseAnnualHint => 'Если отказываться с выбранной частотой';
+
+  @override
+  String projectionScenario(int years, String rate) {
+    return 'Через $years г. при $rate% годовых и ежемесячном пополнении. Предполагается, что вся экономия откладывается; доходность не гарантирована.';
+  }
+
+  @override
+  String projectionAfterYears(int years) {
+    return 'Через $years г. с процентами';
+  }
+
+  @override
+  String get oneSkippedPurchase => 'Один отказ';
+
+  @override
+  String get regularlySkippedPurchases => 'Регулярные отказы';
 
   @override
   String get editImpulse => 'Настроить';
@@ -707,5 +729,260 @@ class AppLocalizationsRu extends AppLocalizations {
   String get historyOverview => 'Итог ваших решений';
 
   @override
-  String get noFilteredHistory => 'В этой группе пока нет записей';
+  String get noFilteredHistory =>
+      'В загруженных записях этой группы пока нет решений';
+
+  @override
+  String get loadMoreHistory => 'Показать ещё';
+
+  @override
+  String historyLoadedCount(int count, int total) {
+    return 'Загружено $count из $total решений';
+  }
+
+  @override
+  String get projectionTableTitle => 'Суммы по годам';
+
+  @override
+  String get projectionTableYear => 'Год';
+
+  @override
+  String get projectionTableTotal => 'Итого';
+
+  @override
+  String get habitPaused => 'На паузе · не входит в общий потенциал';
+
+  @override
+  String get showPassword => 'Показать пароль';
+
+  @override
+  String get hidePassword => 'Скрыть пароль';
+
+  @override
+  String get editSaving => 'Изменить запись';
+
+  @override
+  String get moneyFormatError =>
+      'Укажите сумму: до 10 цифр и не более 2 знаков после запятой';
+
+  @override
+  String get frequencyRangeError => 'Укажите целое число от 0 до 50';
+
+  @override
+  String get habitActive => 'Учитывать эту привычку';
+
+  @override
+  String get habitActiveDescription =>
+      'На паузе она не входит в быстрый выбор и общий потенциал; история остаётся';
+
+  @override
+  String get editGoal => 'Изменить цель';
+
+  @override
+  String get goalReached => 'Сумма для цели уже отложена';
+
+  @override
+  String goalRemaining(String amount) {
+    return 'Осталось отложить $amount';
+  }
+
+  @override
+  String get goalProgressExplanation =>
+      'Прогресс учитывает только деньги, выделенные на эту цель. Одна сумма не считается сразу в нескольких целях.';
+
+  @override
+  String get rateFormatError =>
+      'Укажите ставку от 0 до 100% с точностью до двух знаков';
+
+  @override
+  String get savingRecordedMessage => 'Решение записано';
+
+  @override
+  String get savingUpdatedMessage => 'Запись обновлена';
+
+  @override
+  String get habitSavedMessage => 'Привычка сохранена';
+
+  @override
+  String get goalSavedMessage => 'Цель сохранена';
+
+  @override
+  String get settingsSavedMessage => 'Прогноз обновлён';
+
+  @override
+  String get entryDeletedMessage => 'Запись удалена';
+
+  @override
+  String get changesSavedMessage => 'Изменения сохранены';
+
+  @override
+  String get savingsSummaryUnavailable =>
+      'Общие суммы пока недоступны — записи истории сохранены';
+
+  @override
+  String get savingsDataLoadFailed =>
+      'Не удалось загрузить данные. Проверьте подключение и попробуйте ещё раз.';
+
+  @override
+  String get refresh => 'Обновить';
+
+  @override
+  String get monthlyAmounts => 'Суммы по месяцам';
+
+  @override
+  String get customSaving => 'Другое решение';
+
+  @override
+  String get customSavingHint => 'Разовая запись: новая привычка не создаётся.';
+
+  @override
+  String oneDecisionProjection(int years, String amount) {
+    return 'Один отказ: $amount через $years г.';
+  }
+
+  @override
+  String oneDecisionProjectionHint(String rate) {
+    return 'Если отложить эту сумму сейчас под $rate% годовых с ежемесячной капитализацией, без новых пополнений. Это условный сценарий, не обещание доходности.';
+  }
+
+  @override
+  String get impulseIconCoffee => 'Кофе';
+
+  @override
+  String get impulseIconRestaurant => 'Кафе и рестораны';
+
+  @override
+  String get impulseIconDelivery => 'Доставка еды';
+
+  @override
+  String get impulseIconSmoking => 'Сигареты';
+
+  @override
+  String get impulseIconTaxi => 'Такси';
+
+  @override
+  String get impulseIconShopping => 'Покупки';
+
+  @override
+  String get impulseIconSubscription => 'Подписки';
+
+  @override
+  String get impulseIconOther => 'Другое';
+
+  @override
+  String get scenarioComparison => 'А если покупать реже?';
+
+  @override
+  String scenarioPrice(String amount, String rate) {
+    return 'Цена: $amount · условная ставка: $rate%';
+  }
+
+  @override
+  String get scenarioBaseline => 'Сейчас';
+
+  @override
+  String get scenarioModerate => 'Умеренный вариант';
+
+  @override
+  String get scenarioMinimal => 'Минимальный вариант';
+
+  @override
+  String scenarioFrequency(String name, int count) {
+    return '$name: $count покупок в неделю';
+  }
+
+  @override
+  String get scenarioOwnMoney => 'Свои деньги';
+
+  @override
+  String get scenarioAssumptions =>
+      'Разница относительно текущей частоты. 52 недели в году, вся экономия откладывается в конце каждого месяца, проценты капитализируются ежемесячно. Без начального капитала, налогов и инфляции; доходность не гарантирована. Это расчёт, не запись в истории.';
+
+  @override
+  String get allocateGoal => 'Выделить деньги';
+
+  @override
+  String get allocatedAmount => 'Всего выделено на цель';
+
+  @override
+  String unallocatedMoney(String amount) {
+    return 'Свободно для целей: $amount';
+  }
+
+  @override
+  String allocationCapacity(String amount) {
+    return 'Можно выделить на эту цель до $amount';
+  }
+
+  @override
+  String get allocationInvalid =>
+      'Введите сумму от 0, не более двух знаков после запятой';
+
+  @override
+  String get allocationTooLarge =>
+      'Не хватает свободных денег или превышена сумма цели';
+
+  @override
+  String get goalBelowAllocation => 'Сначала освободите лишние деньги из цели';
+
+  @override
+  String get releaseAllocationsFirst =>
+      'Эти деньги распределены по целям. Сначала уменьшите выделенные суммы.';
+
+  @override
+  String get releaseGoalMoney => 'Освободить деньги этой цели';
+
+  @override
+  String get allocationHint =>
+      'Вы задаёте итоговую выделенную сумму, а не добавляете её повторно. 0 возвращает деньги в свободный остаток. Перевод в банке не выполняется.';
+
+  @override
+  String get allocationSaved => 'Деньги распределены';
+
+  @override
+  String get savingReceipt => 'Чек несостоявшейся покупки';
+
+  @override
+  String get weeklyReceipt => 'Мои решения за 7 дней';
+
+  @override
+  String get receiptPurchaseNotMade => 'Покупка не состоялась';
+
+  @override
+  String get receiptPrivateDecision => 'Решение в пользу себя';
+
+  @override
+  String get receiptFooter =>
+      'Личная запись об отказе от покупки. Не банковский баланс и не кассовый чек.';
+
+  @override
+  String get receiptHideName => 'Скрыть название покупки';
+
+  @override
+  String get receiptExport => 'Сохранить / отправить PNG';
+
+  @override
+  String get receiptExportFailed =>
+      'Не удалось сохранить чек. Попробуйте ещё раз.';
+
+  @override
+  String get favoriteActions => 'Мои три быстрых решения';
+
+  @override
+  String get favoriteActionsHint =>
+      'В меню привычки выберите «В избранное». До трёх действий появятся здесь и в виджете телефона. Для виджета удерживайте рабочий стол → Виджеты → Не потратил.';
+
+  @override
+  String get addFavorite => 'В избранное / виджет';
+
+  @override
+  String get removeFavorite => 'Убрать из избранного';
+
+  @override
+  String get favoriteLimit =>
+      'В избранном уже три действия. Сначала уберите одно.';
+
+  @override
+  String get widgetItemUnavailable =>
+      'Этот импульс удалён, на паузе или недоступен этому аккаунту';
 }

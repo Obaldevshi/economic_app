@@ -3,6 +3,14 @@ import 'package:json_annotation/json_annotation.dart';
 part 'savings_request.g.dart';
 
 @JsonSerializable()
+class GoalAllocationRequest {
+  @JsonKey(name: 'allocated_amount')
+  final double allocatedAmount;
+  GoalAllocationRequest({required this.allocatedAmount});
+  Map<String, dynamic> toJson() => _$GoalAllocationRequestToJson(this);
+}
+
+@JsonSerializable()
 class SavingEventRequest {
   @JsonKey(name: 'impulse_item_id')
   final int? impulseItemId;

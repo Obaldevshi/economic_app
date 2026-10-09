@@ -622,6 +622,12 @@ class AppLocalizationsEn extends AppLocalizations {
   String get timesPerWeek => 'Times per week';
 
   @override
+  String get frequencyZeroHint => '0 means once a month';
+
+  @override
+  String get oncePerMonth => 'once a month';
+
+  @override
   String get chooseIcon => 'Icon';
 
   @override
@@ -697,10 +703,26 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get projectionExplanation =>
-      'The projection uses your current pace and monthly reinvestment';
+      'A scenario, not an account balance: every recorded saving is set aside, the last 90 days\' pace continues, and interest compounds monthly. The rate is hypothetical; returns are not guaranteed.';
 
   @override
   String get impulseAnnualHint => 'At your selected skip frequency';
+
+  @override
+  String projectionScenario(int years, String rate) {
+    return 'After $years years at $rate% per year with monthly deposits. Assumes you set aside every saved amount; returns are not guaranteed.';
+  }
+
+  @override
+  String projectionAfterYears(int years) {
+    return 'After $years years with interest';
+  }
+
+  @override
+  String get oneSkippedPurchase => 'One skipped purchase';
+
+  @override
+  String get regularlySkippedPurchases => 'Regular skips';
 
   @override
   String get editImpulse => 'Customize';
@@ -709,5 +731,261 @@ class AppLocalizationsEn extends AppLocalizations {
   String get historyOverview => 'Your choices at a glance';
 
   @override
-  String get noFilteredHistory => 'No entries in this group yet';
+  String get noFilteredHistory =>
+      'No choices in this group among loaded entries';
+
+  @override
+  String get loadMoreHistory => 'Show more';
+
+  @override
+  String historyLoadedCount(int count, int total) {
+    return 'Loaded $count of $total choices';
+  }
+
+  @override
+  String get projectionTableTitle => 'Year-by-year amounts';
+
+  @override
+  String get projectionTableYear => 'Year';
+
+  @override
+  String get projectionTableTotal => 'Total';
+
+  @override
+  String get habitPaused => 'Paused · excluded from total potential';
+
+  @override
+  String get showPassword => 'Show password';
+
+  @override
+  String get hidePassword => 'Hide password';
+
+  @override
+  String get editSaving => 'Edit entry';
+
+  @override
+  String get moneyFormatError =>
+      'Enter an amount with up to 10 digits and 2 decimal places';
+
+  @override
+  String get frequencyRangeError => 'Enter a whole number between 0 and 50';
+
+  @override
+  String get habitActive => 'Include this habit';
+
+  @override
+  String get habitActiveDescription =>
+      'Pausing excludes it from quick choices and total potential; history is kept';
+
+  @override
+  String get editGoal => 'Edit goal';
+
+  @override
+  String get goalReached => 'The target amount is set aside';
+
+  @override
+  String goalRemaining(String amount) {
+    return 'Still to set aside: $amount';
+  }
+
+  @override
+  String get goalProgressExplanation =>
+      'Progress counts only money allocated to this goal. The same amount isn\'t counted toward multiple goals.';
+
+  @override
+  String get rateFormatError =>
+      'Enter a rate from 0 to 100% with up to two decimal places';
+
+  @override
+  String get savingRecordedMessage => 'Choice recorded';
+
+  @override
+  String get savingUpdatedMessage => 'Entry updated';
+
+  @override
+  String get habitSavedMessage => 'Habit saved';
+
+  @override
+  String get goalSavedMessage => 'Goal saved';
+
+  @override
+  String get settingsSavedMessage => 'Projection updated';
+
+  @override
+  String get entryDeletedMessage => 'Entry deleted';
+
+  @override
+  String get changesSavedMessage => 'Changes saved';
+
+  @override
+  String get savingsSummaryUnavailable =>
+      'Overall totals are unavailable — your history is still here';
+
+  @override
+  String get savingsDataLoadFailed =>
+      'Couldn\'t load your data. Check your connection and try again.';
+
+  @override
+  String get refresh => 'Refresh';
+
+  @override
+  String get monthlyAmounts => 'Monthly amounts';
+
+  @override
+  String get customSaving => 'Another decision';
+
+  @override
+  String get customSavingHint =>
+      'A one-off entry: no new habit will be created.';
+
+  @override
+  String oneDecisionProjection(int years, String amount) {
+    return 'One skipped purchase: $amount in $years yr.';
+  }
+
+  @override
+  String oneDecisionProjectionHint(String rate) {
+    return 'If you set this amount aside now at $rate% annually with monthly compounding, without further contributions. This is a hypothetical scenario, not a promised return.';
+  }
+
+  @override
+  String get impulseIconCoffee => 'Coffee';
+
+  @override
+  String get impulseIconRestaurant => 'Cafés and restaurants';
+
+  @override
+  String get impulseIconDelivery => 'Food delivery';
+
+  @override
+  String get impulseIconSmoking => 'Cigarettes';
+
+  @override
+  String get impulseIconTaxi => 'Taxi';
+
+  @override
+  String get impulseIconShopping => 'Shopping';
+
+  @override
+  String get impulseIconSubscription => 'Subscriptions';
+
+  @override
+  String get impulseIconOther => 'Other';
+
+  @override
+  String get scenarioComparison => 'What if I bought less often?';
+
+  @override
+  String scenarioPrice(String amount, String rate) {
+    return 'Price: $amount · hypothetical rate: $rate%';
+  }
+
+  @override
+  String get scenarioBaseline => 'Now';
+
+  @override
+  String get scenarioModerate => 'Moderate option';
+
+  @override
+  String get scenarioMinimal => 'Minimal option';
+
+  @override
+  String scenarioFrequency(String name, int count) {
+    return '$name: $count purchases per week';
+  }
+
+  @override
+  String get scenarioOwnMoney => 'Contributions';
+
+  @override
+  String get scenarioAssumptions =>
+      'Difference from the current frequency. 52 weeks per year; all savings are deposited at each month\'s end with monthly compounding. No starting capital, taxes or inflation; returns aren\'t guaranteed. This calculation doesn\'t create history entries.';
+
+  @override
+  String get allocateGoal => 'Allocate money';
+
+  @override
+  String get allocatedAmount => 'Total allocated to this goal';
+
+  @override
+  String unallocatedMoney(String amount) {
+    return 'Available for goals: $amount';
+  }
+
+  @override
+  String allocationCapacity(String amount) {
+    return 'You can allocate up to $amount to this goal';
+  }
+
+  @override
+  String get allocationInvalid =>
+      'Enter an amount of 0 or more with up to two decimal places';
+
+  @override
+  String get allocationTooLarge =>
+      'Not enough available money, or the goal amount is exceeded';
+
+  @override
+  String get goalBelowAllocation => 'Release the excess allocation first';
+
+  @override
+  String get releaseAllocationsFirst =>
+      'These funds are allocated to goals. Reduce the allocations first.';
+
+  @override
+  String get releaseGoalMoney => 'Release this goal\'s money';
+
+  @override
+  String get allocationHint =>
+      'Set the total allocation, not an additional deposit. 0 returns the money to the available balance. No bank transfer is performed.';
+
+  @override
+  String get allocationSaved => 'Money allocated';
+
+  @override
+  String get savingReceipt => 'Skipped purchase receipt';
+
+  @override
+  String get weeklyReceipt => 'My decisions over 7 days';
+
+  @override
+  String get receiptPurchaseNotMade => 'Purchase not made';
+
+  @override
+  String get receiptPrivateDecision => 'A decision for myself';
+
+  @override
+  String get receiptFooter =>
+      'A personal record of a skipped purchase. Not a bank statement or fiscal receipt.';
+
+  @override
+  String get receiptHideName => 'Hide purchase name';
+
+  @override
+  String get receiptExport => 'Save / share PNG';
+
+  @override
+  String get receiptExportFailed =>
+      'Couldn\'t export the receipt. Please try again.';
+
+  @override
+  String get favoriteActions => 'My three quick decisions';
+
+  @override
+  String get favoriteActionsHint =>
+      'Choose Add to favorites in a habit\'s menu. Up to three actions will appear here and in your phone\'s widget. To add the widget, hold the home screen → Widgets → Not spent.';
+
+  @override
+  String get addFavorite => 'Add to favorites / widget';
+
+  @override
+  String get removeFavorite => 'Remove from favorites';
+
+  @override
+  String get favoriteLimit =>
+      'You already have three favorites. Remove one first.';
+
+  @override
+  String get widgetItemUnavailable =>
+      'This item is deleted, paused, or unavailable to this account';
 }

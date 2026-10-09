@@ -3,6 +3,7 @@ import 'package:mobile_template/app/layout/app_layout_item_builder.dart';
 import 'package:mobile_template/app/theme/app_dimensions.dart';
 import 'package:mobile_template/app/theme/app_glass.dart';
 import 'package:mobile_template/core/utils/keyboard_inset.dart';
+import 'package:mobile_template/core/extensions/build_context_extensions.dart';
 import 'package:mobile_template/presentation/widgets/common/glass_surface.dart';
 import 'package:flutter/material.dart';
 
@@ -45,11 +46,17 @@ class ScrollShell extends StatefulWidget {
 
   static const double toolbarHeight = 52;
   static const double _panelRadius = AppDimensions.radius;
-  static const double _navBarHeight = 64;
+  static const double _navBarHeight = 72;
   static const double _navBarBottomMargin = 10;
 
   /// Flat header/panel-corner color. Gradients are not allowed in this shell.
-  static const Color headerBackground = AppColors.primary;
+  static const Color headerBackground = AppColors.primaryDark;
+
+  static Color subtitleColor(BuildContext context) =>
+      AppLayoutItemBuilder<Color>(
+        narrow: () => Colors.white.withValues(alpha: 0.9),
+        wide: () => Theme.of(context).colorScheme.onSurfaceVariant,
+      )(context);
 
   static bool isKeyboardOpen(BuildContext context) =>
       KeyboardInset.resolve(context) > 0;
@@ -80,6 +87,18 @@ class ScrollShell extends StatefulWidget {
 class _ScrollShellState extends State<ScrollShell> {
   final _scrollController = ScrollController();
   double _collapseT = 0;
+  Future<void>? _refreshFuture;
+
+  Future<void> _refresh() {
+    if (_refreshFuture != null) return _refreshFuture!;
+    final callback = widget.onRefresh;
+    if (callback == null) return Future<void>.value();
+    final pending = Future<void>.sync(callback).whenComplete(() {
+      if (mounted) setState(() => _refreshFuture = null);
+    });
+    setState(() => _refreshFuture = pending);
+    return pending;
+  }
 
   @override
   void initState() {
@@ -125,6 +144,28 @@ class _ScrollShellState extends State<ScrollShell> {
       context,
       _collapseT,
     );
+    final actions = [
+      ...widget.actions,
+      if (widget.onRefresh != null)
+        IconButton(
+          tooltip: context.l10n.refresh,
+          onPressed: widget.isLoading || _refreshFuture != null
+              ? null
+              : _refresh,
+          icon: _refreshFuture != null
+              ? SizedBox(
+                  width: 20,
+                  height: 20,
+                  child: CircularProgressIndicator(
+                    strokeWidth: 2,
+                    color: isWide
+                        ? Theme.of(context).colorScheme.primary
+                        : foregroundColor,
+                  ),
+                )
+              : const Icon(Icons.refresh_rounded),
+        ),
+    ];
     final screenHeight = MediaQuery.sizeOf(context).height;
     final panelTopRadius = isWide
         ? 0.0
@@ -171,7 +212,7 @@ class _ScrollShellState extends State<ScrollShell> {
                       child: _WebShellHeader(
                         title: widget.title,
                         leading: widget.leading,
-                        actions: widget.actions,
+                        actions: actions,
                         headerContent: widget.expandedHeaderHeight > 40
                             ? widget.headerContent
                             : null,
@@ -201,10 +242,10 @@ class _ScrollShellState extends State<ScrollShell> {
                               data: IconThemeData(color: foregroundColor),
                               child: widget.leading!,
                             ),
-                      actions: widget.actions.isEmpty
+                      actions: actions.isEmpty
                           ? null
                           : [
-                              for (final action in widget.actions)
+                              for (final action in actions)
                                 IconTheme(
                                   data: IconThemeData(color: foregroundColor),
                                   child: action,
@@ -218,6 +259,8 @@ class _ScrollShellState extends State<ScrollShell> {
                         titleLeftInset: widget.leading != null
                             ? 52.0
                             : horizontalInset,
+                        titleRightInset:
+                            AppDimensions.paddingM + actions.length * 48.0,
                         contentHorizontalInset: horizontalInset,
                       ),
                     ),
@@ -275,7 +318,7 @@ class _ScrollShellState extends State<ScrollShell> {
     if (widget.onRefresh == null) return shell;
 
     return RefreshIndicator(
-      onRefresh: widget.onRefresh!,
+      onRefresh: _refresh,
       color: AppColors.primary,
       displacement: ScrollShell.toolbarHeight + topInset + 8,
       notificationPredicate: (notification) => notification.depth <= 1,
@@ -354,6 +397,7 @@ class _ShellFlexibleHeader extends StatelessWidget {
     required this.headerContent,
     required this.toolbarHeight,
     required this.titleLeftInset,
+    required this.titleRightInset,
     required this.contentHorizontalInset,
   });
 
@@ -362,6 +406,7 @@ class _ShellFlexibleHeader extends StatelessWidget {
   final Widget headerContent;
   final double toolbarHeight;
   final double titleLeftInset;
+  final double titleRightInset;
   final double contentHorizontalInset;
 
   @override
@@ -413,7 +458,7 @@ class _ShellFlexibleHeader extends StatelessWidget {
         Positioned(
           top: topInset,
           left: titleLeftInset,
-          right: AppDimensions.paddingM,
+          right: titleRightInset,
           height: toolbarHeight,
           child: Align(
             alignment: Alignment.centerLeft,

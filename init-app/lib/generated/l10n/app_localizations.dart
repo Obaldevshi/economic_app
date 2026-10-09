@@ -1268,6 +1268,18 @@ abstract class AppLocalizations {
   /// **'Times per week'**
   String get timesPerWeek;
 
+  /// No description provided for @frequencyZeroHint.
+  ///
+  /// In en, this message translates to:
+  /// **'0 means once a month'**
+  String get frequencyZeroHint;
+
+  /// No description provided for @oncePerMonth.
+  ///
+  /// In en, this message translates to:
+  /// **'once a month'**
+  String get oncePerMonth;
+
   /// No description provided for @chooseIcon.
   ///
   /// In en, this message translates to:
@@ -1415,7 +1427,7 @@ abstract class AppLocalizations {
   /// No description provided for @projectionExplanation.
   ///
   /// In en, this message translates to:
-  /// **'The projection uses your current pace and monthly reinvestment'**
+  /// **'A scenario, not an account balance: every recorded saving is set aside, the last 90 days\' pace continues, and interest compounds monthly. The rate is hypothetical; returns are not guaranteed.'**
   String get projectionExplanation;
 
   /// No description provided for @impulseAnnualHint.
@@ -1423,6 +1435,30 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'At your selected skip frequency'**
   String get impulseAnnualHint;
+
+  /// No description provided for @projectionScenario.
+  ///
+  /// In en, this message translates to:
+  /// **'After {years} years at {rate}% per year with monthly deposits. Assumes you set aside every saved amount; returns are not guaranteed.'**
+  String projectionScenario(int years, String rate);
+
+  /// No description provided for @projectionAfterYears.
+  ///
+  /// In en, this message translates to:
+  /// **'After {years} years with interest'**
+  String projectionAfterYears(int years);
+
+  /// No description provided for @oneSkippedPurchase.
+  ///
+  /// In en, this message translates to:
+  /// **'One skipped purchase'**
+  String get oneSkippedPurchase;
+
+  /// No description provided for @regularlySkippedPurchases.
+  ///
+  /// In en, this message translates to:
+  /// **'Regular skips'**
+  String get regularlySkippedPurchases;
 
   /// No description provided for @editImpulse.
   ///
@@ -1439,8 +1475,452 @@ abstract class AppLocalizations {
   /// No description provided for @noFilteredHistory.
   ///
   /// In en, this message translates to:
-  /// **'No entries in this group yet'**
+  /// **'No choices in this group among loaded entries'**
   String get noFilteredHistory;
+
+  /// No description provided for @loadMoreHistory.
+  ///
+  /// In en, this message translates to:
+  /// **'Show more'**
+  String get loadMoreHistory;
+
+  /// No description provided for @historyLoadedCount.
+  ///
+  /// In en, this message translates to:
+  /// **'Loaded {count} of {total} choices'**
+  String historyLoadedCount(int count, int total);
+
+  /// No description provided for @projectionTableTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Year-by-year amounts'**
+  String get projectionTableTitle;
+
+  /// No description provided for @projectionTableYear.
+  ///
+  /// In en, this message translates to:
+  /// **'Year'**
+  String get projectionTableYear;
+
+  /// No description provided for @projectionTableTotal.
+  ///
+  /// In en, this message translates to:
+  /// **'Total'**
+  String get projectionTableTotal;
+
+  /// No description provided for @habitPaused.
+  ///
+  /// In en, this message translates to:
+  /// **'Paused · excluded from total potential'**
+  String get habitPaused;
+
+  /// No description provided for @showPassword.
+  ///
+  /// In en, this message translates to:
+  /// **'Show password'**
+  String get showPassword;
+
+  /// No description provided for @hidePassword.
+  ///
+  /// In en, this message translates to:
+  /// **'Hide password'**
+  String get hidePassword;
+
+  /// No description provided for @editSaving.
+  ///
+  /// In en, this message translates to:
+  /// **'Edit entry'**
+  String get editSaving;
+
+  /// No description provided for @moneyFormatError.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter an amount with up to 10 digits and 2 decimal places'**
+  String get moneyFormatError;
+
+  /// No description provided for @frequencyRangeError.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter a whole number between 0 and 50'**
+  String get frequencyRangeError;
+
+  /// No description provided for @habitActive.
+  ///
+  /// In en, this message translates to:
+  /// **'Include this habit'**
+  String get habitActive;
+
+  /// No description provided for @habitActiveDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'Pausing excludes it from quick choices and total potential; history is kept'**
+  String get habitActiveDescription;
+
+  /// No description provided for @editGoal.
+  ///
+  /// In en, this message translates to:
+  /// **'Edit goal'**
+  String get editGoal;
+
+  /// No description provided for @goalReached.
+  ///
+  /// In en, this message translates to:
+  /// **'The target amount is set aside'**
+  String get goalReached;
+
+  /// No description provided for @goalRemaining.
+  ///
+  /// In en, this message translates to:
+  /// **'Still to set aside: {amount}'**
+  String goalRemaining(String amount);
+
+  /// No description provided for @goalProgressExplanation.
+  ///
+  /// In en, this message translates to:
+  /// **'Progress counts only money allocated to this goal. The same amount isn\'t counted toward multiple goals.'**
+  String get goalProgressExplanation;
+
+  /// No description provided for @rateFormatError.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter a rate from 0 to 100% with up to two decimal places'**
+  String get rateFormatError;
+
+  /// No description provided for @savingRecordedMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'Choice recorded'**
+  String get savingRecordedMessage;
+
+  /// No description provided for @savingUpdatedMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'Entry updated'**
+  String get savingUpdatedMessage;
+
+  /// No description provided for @habitSavedMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'Habit saved'**
+  String get habitSavedMessage;
+
+  /// No description provided for @goalSavedMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'Goal saved'**
+  String get goalSavedMessage;
+
+  /// No description provided for @settingsSavedMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'Projection updated'**
+  String get settingsSavedMessage;
+
+  /// No description provided for @entryDeletedMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'Entry deleted'**
+  String get entryDeletedMessage;
+
+  /// No description provided for @changesSavedMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'Changes saved'**
+  String get changesSavedMessage;
+
+  /// No description provided for @savingsSummaryUnavailable.
+  ///
+  /// In en, this message translates to:
+  /// **'Overall totals are unavailable — your history is still here'**
+  String get savingsSummaryUnavailable;
+
+  /// No description provided for @savingsDataLoadFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'Couldn\'t load your data. Check your connection and try again.'**
+  String get savingsDataLoadFailed;
+
+  /// No description provided for @refresh.
+  ///
+  /// In en, this message translates to:
+  /// **'Refresh'**
+  String get refresh;
+
+  /// No description provided for @monthlyAmounts.
+  ///
+  /// In en, this message translates to:
+  /// **'Monthly amounts'**
+  String get monthlyAmounts;
+
+  /// No description provided for @customSaving.
+  ///
+  /// In en, this message translates to:
+  /// **'Another decision'**
+  String get customSaving;
+
+  /// No description provided for @customSavingHint.
+  ///
+  /// In en, this message translates to:
+  /// **'A one-off entry: no new habit will be created.'**
+  String get customSavingHint;
+
+  /// No description provided for @oneDecisionProjection.
+  ///
+  /// In en, this message translates to:
+  /// **'One skipped purchase: {amount} in {years} yr.'**
+  String oneDecisionProjection(int years, String amount);
+
+  /// No description provided for @oneDecisionProjectionHint.
+  ///
+  /// In en, this message translates to:
+  /// **'If you set this amount aside now at {rate}% annually with monthly compounding, without further contributions. This is a hypothetical scenario, not a promised return.'**
+  String oneDecisionProjectionHint(String rate);
+
+  /// No description provided for @impulseIconCoffee.
+  ///
+  /// In en, this message translates to:
+  /// **'Coffee'**
+  String get impulseIconCoffee;
+
+  /// No description provided for @impulseIconRestaurant.
+  ///
+  /// In en, this message translates to:
+  /// **'Cafés and restaurants'**
+  String get impulseIconRestaurant;
+
+  /// No description provided for @impulseIconDelivery.
+  ///
+  /// In en, this message translates to:
+  /// **'Food delivery'**
+  String get impulseIconDelivery;
+
+  /// No description provided for @impulseIconSmoking.
+  ///
+  /// In en, this message translates to:
+  /// **'Cigarettes'**
+  String get impulseIconSmoking;
+
+  /// No description provided for @impulseIconTaxi.
+  ///
+  /// In en, this message translates to:
+  /// **'Taxi'**
+  String get impulseIconTaxi;
+
+  /// No description provided for @impulseIconShopping.
+  ///
+  /// In en, this message translates to:
+  /// **'Shopping'**
+  String get impulseIconShopping;
+
+  /// No description provided for @impulseIconSubscription.
+  ///
+  /// In en, this message translates to:
+  /// **'Subscriptions'**
+  String get impulseIconSubscription;
+
+  /// No description provided for @impulseIconOther.
+  ///
+  /// In en, this message translates to:
+  /// **'Other'**
+  String get impulseIconOther;
+
+  /// No description provided for @scenarioComparison.
+  ///
+  /// In en, this message translates to:
+  /// **'What if I bought less often?'**
+  String get scenarioComparison;
+
+  /// No description provided for @scenarioPrice.
+  ///
+  /// In en, this message translates to:
+  /// **'Price: {amount} · hypothetical rate: {rate}%'**
+  String scenarioPrice(String amount, String rate);
+
+  /// No description provided for @scenarioBaseline.
+  ///
+  /// In en, this message translates to:
+  /// **'Now'**
+  String get scenarioBaseline;
+
+  /// No description provided for @scenarioModerate.
+  ///
+  /// In en, this message translates to:
+  /// **'Moderate option'**
+  String get scenarioModerate;
+
+  /// No description provided for @scenarioMinimal.
+  ///
+  /// In en, this message translates to:
+  /// **'Minimal option'**
+  String get scenarioMinimal;
+
+  /// No description provided for @scenarioFrequency.
+  ///
+  /// In en, this message translates to:
+  /// **'{name}: {count} purchases per week'**
+  String scenarioFrequency(String name, int count);
+
+  /// No description provided for @scenarioOwnMoney.
+  ///
+  /// In en, this message translates to:
+  /// **'Contributions'**
+  String get scenarioOwnMoney;
+
+  /// No description provided for @scenarioAssumptions.
+  ///
+  /// In en, this message translates to:
+  /// **'Difference from the current frequency. 52 weeks per year; all savings are deposited at each month\'s end with monthly compounding. No starting capital, taxes or inflation; returns aren\'t guaranteed. This calculation doesn\'t create history entries.'**
+  String get scenarioAssumptions;
+
+  /// No description provided for @allocateGoal.
+  ///
+  /// In en, this message translates to:
+  /// **'Allocate money'**
+  String get allocateGoal;
+
+  /// No description provided for @allocatedAmount.
+  ///
+  /// In en, this message translates to:
+  /// **'Total allocated to this goal'**
+  String get allocatedAmount;
+
+  /// No description provided for @unallocatedMoney.
+  ///
+  /// In en, this message translates to:
+  /// **'Available for goals: {amount}'**
+  String unallocatedMoney(String amount);
+
+  /// No description provided for @allocationCapacity.
+  ///
+  /// In en, this message translates to:
+  /// **'You can allocate up to {amount} to this goal'**
+  String allocationCapacity(String amount);
+
+  /// No description provided for @allocationInvalid.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter an amount of 0 or more with up to two decimal places'**
+  String get allocationInvalid;
+
+  /// No description provided for @allocationTooLarge.
+  ///
+  /// In en, this message translates to:
+  /// **'Not enough available money, or the goal amount is exceeded'**
+  String get allocationTooLarge;
+
+  /// No description provided for @goalBelowAllocation.
+  ///
+  /// In en, this message translates to:
+  /// **'Release the excess allocation first'**
+  String get goalBelowAllocation;
+
+  /// No description provided for @releaseAllocationsFirst.
+  ///
+  /// In en, this message translates to:
+  /// **'These funds are allocated to goals. Reduce the allocations first.'**
+  String get releaseAllocationsFirst;
+
+  /// No description provided for @releaseGoalMoney.
+  ///
+  /// In en, this message translates to:
+  /// **'Release this goal\'s money'**
+  String get releaseGoalMoney;
+
+  /// No description provided for @allocationHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Set the total allocation, not an additional deposit. 0 returns the money to the available balance. No bank transfer is performed.'**
+  String get allocationHint;
+
+  /// No description provided for @allocationSaved.
+  ///
+  /// In en, this message translates to:
+  /// **'Money allocated'**
+  String get allocationSaved;
+
+  /// No description provided for @savingReceipt.
+  ///
+  /// In en, this message translates to:
+  /// **'Skipped purchase receipt'**
+  String get savingReceipt;
+
+  /// No description provided for @weeklyReceipt.
+  ///
+  /// In en, this message translates to:
+  /// **'My decisions over 7 days'**
+  String get weeklyReceipt;
+
+  /// No description provided for @receiptPurchaseNotMade.
+  ///
+  /// In en, this message translates to:
+  /// **'Purchase not made'**
+  String get receiptPurchaseNotMade;
+
+  /// No description provided for @receiptPrivateDecision.
+  ///
+  /// In en, this message translates to:
+  /// **'A decision for myself'**
+  String get receiptPrivateDecision;
+
+  /// No description provided for @receiptFooter.
+  ///
+  /// In en, this message translates to:
+  /// **'A personal record of a skipped purchase. Not a bank statement or fiscal receipt.'**
+  String get receiptFooter;
+
+  /// No description provided for @receiptHideName.
+  ///
+  /// In en, this message translates to:
+  /// **'Hide purchase name'**
+  String get receiptHideName;
+
+  /// No description provided for @receiptExport.
+  ///
+  /// In en, this message translates to:
+  /// **'Save / share PNG'**
+  String get receiptExport;
+
+  /// No description provided for @receiptExportFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'Couldn\'t export the receipt. Please try again.'**
+  String get receiptExportFailed;
+
+  /// No description provided for @favoriteActions.
+  ///
+  /// In en, this message translates to:
+  /// **'My three quick decisions'**
+  String get favoriteActions;
+
+  /// No description provided for @favoriteActionsHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Choose Add to favorites in a habit\'s menu. Up to three actions will appear here and in your phone\'s widget. To add the widget, hold the home screen → Widgets → Not spent.'**
+  String get favoriteActionsHint;
+
+  /// No description provided for @addFavorite.
+  ///
+  /// In en, this message translates to:
+  /// **'Add to favorites / widget'**
+  String get addFavorite;
+
+  /// No description provided for @removeFavorite.
+  ///
+  /// In en, this message translates to:
+  /// **'Remove from favorites'**
+  String get removeFavorite;
+
+  /// No description provided for @favoriteLimit.
+  ///
+  /// In en, this message translates to:
+  /// **'You already have three favorites. Remove one first.'**
+  String get favoriteLimit;
+
+  /// No description provided for @widgetItemUnavailable.
+  ///
+  /// In en, this message translates to:
+  /// **'This item is deleted, paused, or unavailable to this account'**
+  String get widgetItemUnavailable;
 }
 
 class _AppLocalizationsDelegate

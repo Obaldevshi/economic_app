@@ -15,9 +15,24 @@ from app.schemas.savings import (
     SavingsGoalUpdate,
     SavingsSettingsResponse,
     SavingsSettingsUpdate,
+    GoalAllocationUpdate,
+    WeeklyReceiptResponse,
 )
 
 router = APIRouter()
+
+
+@router.get("/receipts/week", response_model=SuccessResponse)
+async def weekly_receipt(service: SavingsServiceDep, current_user: CurrentUserDep):
+    return SuccessResponse(message="Weekly receipt retrieved", data=WeeklyReceiptResponse.model_validate(
+        service.get_weekly_receipt(current_user["user_id"]),
+    ))
+
+
+@router.put("/goals/{goal_id}/allocation", response_model=SuccessResponse)
+async def allocate_goal(goal_id: int, service: SavingsServiceDep, current_user: CurrentUserDep, data: GoalAllocationUpdate):
+    goal = service.allocate_goal(goal_id, current_user["user_id"], data.allocated_amount)
+    return SuccessResponse(message="Goal allocation updated", data=SavingsGoalResponse.model_validate(goal))
 
 
 @router.get("/dashboard", response_model=SuccessResponse)

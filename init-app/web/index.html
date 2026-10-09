@@ -19,6 +19,16 @@
   <meta charset="UTF-8">
   <meta content="IE=Edge" http-equiv="X-UA-Compatible">
   <meta name="description" content="Не потратил — сервис для учёта импульсивной экономии и прогноза будущих накоплений.">
+  <meta name="theme-color" content="#272D34">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+    html, body { margin: 0; min-height: 100%; background: #f3efe7; }
+    #boot { position: fixed; inset: 0; display: grid; place-content: center;
+      text-align: center; color: #292f35; font: 16px/1.6 system-ui, sans-serif; }
+    #boot img { margin: 0 auto 20px; width: 64px; height: 64px; }
+    #boot strong { font: 32px/1.2 Georgia, serif; }
+    #boot small { margin-top: 16px; color: #666a70; }
+  </style>
 
   <!-- iOS meta tags & icons -->
   <meta name="mobile-web-app-capable" content="yes">
@@ -27,12 +37,23 @@
   <link rel="apple-touch-icon" href="icons/Icon-192.png">
 
   <!-- Favicon -->
+  <link rel="icon" type="image/svg+xml" href="brand-mark.svg"/>
   <link rel="icon" type="image/png" href="favicon.png"/>
 
   <title>Не потратил</title>
   <link rel="manifest" href="manifest.json">
 </head>
 <body>
+  <div id="boot" role="status" aria-live="polite">
+    <img src="brand-mark.svg" alt="">
+    <strong>Не потратил</strong>
+    <small>Маленькие решения. Большая разница.</small>
+  </div>
+  <script>
+    window.addEventListener('flutter-first-frame', function () {
+      document.getElementById('boot')?.remove();
+    });
+  </script>
   <!--
     You can customize the "flutter_bootstrap.js" script.
     This is useful to provide a custom configuration to the Flutter loader

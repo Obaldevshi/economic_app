@@ -1,10 +1,10 @@
 {
     "name": "Не потратил",
-    "short_name": "Экономия",
+    "short_name": "Не потратил",
     "start_url": ".",
     "display": "standalone",
-    "background_color": "#F4F8F7",
-    "theme_color": "#0F766E",
+    "background_color": "#F3EFE7",
+    "theme_color": "#272D34",
     "description": "Учёт импульсивной экономии и прогноз будущих накоплений.",
     "orientation": "any",
     "prefer_related_applications": false,

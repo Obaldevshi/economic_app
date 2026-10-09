@@ -6,64 +6,65 @@ class AppTextStyles {
   AppTextStyles._();
 
   // Font Family
-  static const String fontFamily = 'Quicksand';
+  static const String fontFamily = 'sans-serif';
+  static const String displayFamily = 'serif';
 
   // Display Styles (Large headers)
   static const TextStyle displayLarge = TextStyle(
-    fontFamily: fontFamily,
-    fontSize: 57,
-    fontWeight: FontWeight.bold,
-    letterSpacing: -0.25,
+    fontFamily: displayFamily,
+    fontSize: 58,
+    fontWeight: FontWeight.w600,
+    letterSpacing: -1.8,
     color: AppColors.onBackground,
   );
 
   static const TextStyle displayMedium = TextStyle(
-    fontFamily: fontFamily,
-    fontSize: 45,
-    fontWeight: FontWeight.bold,
-    letterSpacing: 0,
+    fontFamily: displayFamily,
+    fontSize: 46,
+    fontWeight: FontWeight.w600,
+    letterSpacing: -1.4,
     color: AppColors.onBackground,
   );
 
   static const TextStyle displaySmall = TextStyle(
-    fontFamily: fontFamily,
-    fontSize: 36,
-    fontWeight: FontWeight.bold,
-    letterSpacing: 0,
+    fontFamily: displayFamily,
+    fontSize: 38,
+    fontWeight: FontWeight.w600,
+    letterSpacing: -1,
     color: AppColors.onBackground,
   );
 
   // Headline Styles (Medium headers)
   static const TextStyle headlineLarge = TextStyle(
-    fontFamily: fontFamily,
-    fontSize: 32,
-    fontWeight: FontWeight.bold,
-    letterSpacing: 0,
+    fontFamily: displayFamily,
+    fontSize: 34,
+    fontWeight: FontWeight.w600,
+    letterSpacing: -0.8,
     color: AppColors.onBackground,
   );
 
   static const TextStyle headlineMedium = TextStyle(
-    fontFamily: fontFamily,
-    fontSize: 28,
-    fontWeight: FontWeight.bold,
-    letterSpacing: 0,
+    fontFamily: displayFamily,
+    fontSize: 30,
+    fontWeight: FontWeight.w600,
+    letterSpacing: -0.6,
     color: AppColors.onBackground,
   );
 
   static const TextStyle headlineSmall = TextStyle(
-    fontFamily: fontFamily,
-    fontSize: 24,
-    fontWeight: FontWeight.bold,
-    letterSpacing: 0,
+    fontFamily: displayFamily,
+    fontSize: 26,
+    fontWeight: FontWeight.w600,
+    letterSpacing: -0.4,
     color: AppColors.onBackground,
   );
 
   // Title Styles (Small headers)
   static const TextStyle titleLarge = TextStyle(
-    fontFamily: fontFamily,
-    fontSize: 22,
-    fontWeight: FontWeight.bold,
-    letterSpacing: 0,
+    fontFamily: displayFamily,
+    fontSize: 24,
+    fontWeight: FontWeight.w600,
+    letterSpacing: -0.3,
     color: AppColors.onBackground,
   );
 
@@ -96,7 +97,7 @@ class AppTextStyles {
     fontFamily: fontFamily,
     fontSize: 12,
     fontWeight: FontWeight.w600,
-    letterSpacing: 0.5,
+    letterSpacing: 0.8,
     color: AppColors.onBackground,
   );
 
@@ -104,7 +105,7 @@ class AppTextStyles {
     fontFamily: fontFamily,
     fontSize: 11,
     fontWeight: FontWeight.w600,
-    letterSpacing: 0.5,
+    letterSpacing: 0.8,
     color: AppColors.onBackground,
   );
 
@@ -151,7 +152,7 @@ class AppTextStyles {
   );
 
   static const TextStyle balanceAmount = TextStyle(
-    fontFamily: fontFamily,
+    fontFamily: displayFamily,
     fontSize: 32,
     fontWeight: FontWeight.bold,
     letterSpacing: 0,
@@ -159,7 +160,7 @@ class AppTextStyles {
   );
 
   static const TextStyle cardTitle = TextStyle(
-    fontFamily: fontFamily,
+    fontFamily: displayFamily,
     fontSize: 18,
     fontWeight: FontWeight.bold,
     letterSpacing: 0,

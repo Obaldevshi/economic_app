@@ -3,38 +3,39 @@ import 'package:flutter/material.dart';
 class AppColors {
   AppColors._();
 
-  static const Color primary = Color(0xFF0F766E);
-  static const Color primaryLight = Color(0xFF2DD4BF);
-  static const Color primaryDark = Color(0xFF115E59);
-  static const Color primaryContainer = Color(0xFFCCFBF1);
+  // Paper, graphite ink and copper. Green is reserved for positive outcomes.
+  static const Color primary = Color(0xFF965238);
+  static const Color primaryLight = Color(0xFFEBB08A);
+  static const Color primaryDark = Color(0xFF272D34);
+  static const Color primaryContainer = Color(0xFFF1DFD2);
 
-  static const Color secondary = Color(0xFF4F46E5);
-  static const Color secondaryLight = Color(0xFF818CF8);
-  static const Color secondaryDark = Color(0xFF3730A3);
-  static const Color secondaryContainer = Color(0xFFE0E7FF);
+  static const Color secondary = Color(0xFF526B79);
+  static const Color secondaryLight = Color(0xFFB0C7D1);
+  static const Color secondaryDark = Color(0xFF314752);
+  static const Color secondaryContainer = Color(0xFFDFE7EB);
 
-  static const Color accent = Color(0xFFF4B740);
-  static const Color accentContainer = Color(0xFFFFF1C2);
+  static const Color accent = Color(0xFFE58B60);
+  static const Color accentContainer = Color(0xFFF7E1D3);
 
-  static const Color background = Color(0xFFF5F7F3);
-  static const Color surface = Color(0xFFFFFFFF);
-  static const Color surfaceVariant = Color(0xFFEDF3EF);
+  static const Color background = Color(0xFFF3EFE7);
+  static const Color surface = Color(0xFFFFFCF7);
+  static const Color surfaceVariant = Color(0xFFECE5DB);
 
-  static const Color onBackground = Color(0xFF102A2A);
-  static const Color onSurface = Color(0xFF102A2A);
-  static const Color onSurfaceVariant = Color(0xFF536665);
+  static const Color onBackground = Color(0xFF292F35);
+  static const Color onSurface = Color(0xFF292F35);
+  static const Color onSurfaceVariant = Color(0xFF666A70);
   static const Color onPrimary = Color(0xFFFFFFFF);
   static const Color onSecondary = Color(0xFFFFFFFF);
 
-  static const Color success = Color(0xFF16A34A);
-  static const Color warning = Color(0xFFF59E0B);
-  static const Color error = Color(0xFFEF4444);
-  static const Color info = Color(0xFF4F46E5);
+  static const Color success = Color(0xFF4E7654);
+  static const Color warning = Color(0xFFA9732F);
+  static const Color error = Color(0xFFB5483B);
+  static const Color info = Color(0xFF4A6970);
 
-  static const Color backgroundDark = Color(0xFF071713);
-  static const Color surfaceDark = Color(0xFF10251F);
-  static const Color surfaceVariantDark = Color(0xFF1A342C);
-  static const Color onBackgroundDark = Color(0xFFE0F2F1);
-  static const Color onSurfaceDark = Color(0xFFE0F2F1);
-  static const Color onSurfaceVariantDark = Color(0xFFA7C4C1);
+  static const Color backgroundDark = Color(0xFF1C2026);
+  static const Color surfaceDark = Color(0xFF272D34);
+  static const Color surfaceVariantDark = Color(0xFF343B44);
+  static const Color onBackgroundDark = Color(0xFFF4F0E7);
+  static const Color onSurfaceDark = Color(0xFFF4F0E7);
+  static const Color onSurfaceVariantDark = Color(0xFFB9C0C8);
 }

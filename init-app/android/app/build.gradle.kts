@@ -1,9 +1,15 @@
+import java.util.Properties
+
 plugins {
     id("com.android.application")
     id("kotlin-android")
     // The Flutter Gradle Plugin must be applied after the Android and Kotlin Gradle plugins.
     id("dev.flutter.flutter-gradle-plugin")
 }
+
+val releaseKeyProperties = Properties()
+val releaseKeyFile = rootProject.file("key.properties")
+if (releaseKeyFile.exists()) releaseKeyFile.inputStream().use { releaseKeyProperties.load(it) }
 
 android {
     namespace = "com.template.mobile_template"
@@ -42,8 +48,30 @@ android {
             useLegacyPackaging = false
         }
     }
+
+    signingConfigs {
+        if (releaseKeyFile.exists()) {
+            create("release") {
+                keyAlias = releaseKeyProperties.getProperty("keyAlias")
+                keyPassword = releaseKeyProperties.getProperty("keyPassword")
+                storeFile = rootProject.file(releaseKeyProperties.getProperty("storeFile"))
+                storePassword = releaseKeyProperties.getProperty("storePassword")
+            }
+        }
+    }
+    buildTypes {
+        getByName("release") {
+            // Installable local APK; store publication requires a private release key.
+            signingConfig = signingConfigs.getByName(if (releaseKeyFile.exists()) "release" else "debug")
+        }
+    }
 }
 
 flutter {
     source = "../.."
+}
+
+dependencies {
+    // FileProvider shares only the generated receipt's cache file.
+    implementation("androidx.core:core:1.15.0")
 }

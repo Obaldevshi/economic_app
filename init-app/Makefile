@@ -35,7 +35,7 @@ build-apk-prod: check-prod-env pub-get
 ## Build release Flutter Web for Timeweb Static App
 ## Output: build/web/
 build-web-prod: check-prod-env pub-get
-	flutter build web --release --target=$(PROD_TARGET)
+	flutter build web --release --no-web-resources-cdn --target=$(PROD_TARGET)
 	@echo "Web: build/web/"
 
 ## Build both production artifacts

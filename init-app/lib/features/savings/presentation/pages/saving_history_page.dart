@@ -1,12 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
+import 'package:mobile_template/app/layout/app_layout_item_builder.dart';
 import 'package:mobile_template/app/theme/app_colors.dart';
 import 'package:mobile_template/app/theme/app_dimensions.dart';
 import 'package:mobile_template/core/extensions/build_context_extensions.dart';
 import 'package:mobile_template/data/models/response/savings_response.dart';
 import 'package:mobile_template/features/savings/presentation/pages/bloc/savings_bloc.dart';
 import 'package:mobile_template/features/savings/presentation/widgets/savings_ui.dart';
+import 'package:mobile_template/features/savings/presentation/widgets/savings_dialogs.dart';
+import 'package:mobile_template/features/savings/presentation/widgets/saving_receipt.dart';
+import 'package:mobile_template/features/shell/presentation/widgets/navigation_branch_scope.dart';
 import 'package:mobile_template/presentation/widgets/common/confirmation_dialog.dart';
 import 'package:mobile_template/presentation/widgets/common/error_dialog.dart';
 import 'package:mobile_template/presentation/widgets/common/glass_surface_card.dart';
@@ -31,12 +35,25 @@ class _SavingHistoryPageState extends State<SavingHistoryPage> {
           previous.failure != current.failure ||
           previous.actionMessage != current.actionMessage,
       listener: (context, state) {
+        if (!NavigationBranchScope.isActive(
+          context,
+          AppNavigationBranch.history,
+        )) {
+          return;
+        }
         if (state.failure != null) {
-          ErrorDialog.show(context, state.failure!);
-        } else if (state.actionMessage != null) {
-          ScaffoldMessenger.of(
+          ErrorDialog.show(
             context,
-          ).showSnackBar(SnackBar(content: Text(state.actionMessage!)));
+            localizeSavingsFailure(context, state.failure!),
+          );
+        } else if (state.actionMessage != null) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text(
+                savingsActionMessage(context, state.actionMessage!),
+              ),
+            ),
+          );
         }
       },
       builder: (context, state) {
@@ -51,19 +68,19 @@ class _SavingHistoryPageState extends State<SavingHistoryPage> {
         return ScrollShell(
           title: context.l10n.history,
           expandedHeaderHeight: 58,
-          isLoading: state.isLoading && state.history.isEmpty,
+          isLoading: state.isHistoryLoading && state.history.isEmpty,
           onRefresh: () async {
             context.read<SavingsBloc>()
               ..add(const LoadSavingHistory())
               ..add(const LoadSavingsDashboard());
             await context.read<SavingsBloc>().stream.firstWhere(
-              (value) => !value.isLoading,
+              (value) => !value.isHistoryLoading && !value.isDashboardLoading,
             );
           },
           headerContent: Text(
             context.l10n.historyDescription,
             style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-              color: Colors.white.withValues(alpha: 0.92),
+              color: ScrollShell.subtitleColor(context),
               fontWeight: FontWeight.w600,
             ),
           ),
@@ -71,14 +88,20 @@ class _SavingHistoryPageState extends State<SavingHistoryPage> {
             child: ConstrainedBox(
               constraints: const BoxConstraints(maxWidth: 980),
               child: state.history.isEmpty
-                  ? const _EmptyHistory()
+                  ? state.historyLoadFailed
+                        ? SavingsLoadError(
+                            onRetry: () => context.read<SavingsBloc>().add(
+                              const LoadSavingHistory(),
+                            ),
+                          )
+                        : const _EmptyHistory()
                   : Column(
                       crossAxisAlignment: CrossAxisAlignment.stretch,
                       children: [
                         _HistoryOverview(
-                          events: state.history,
                           totalCount: state.historyTotal,
                           dashboard: state.dashboard,
+                          isLoading: state.isDashboardLoading,
                         ),
                         const SizedBox(height: AppDimensions.spaceL),
                         Text(
@@ -127,6 +150,41 @@ class _SavingHistoryPageState extends State<SavingHistoryPage> {
                           )
                         else
                           ..._buildGroupedHistory(context, filtered),
+                        const SizedBox(height: AppDimensions.spaceL),
+                        Text(
+                          context.l10n.historyLoadedCount(
+                            state.history.length,
+                            state.historyTotal,
+                          ),
+                          textAlign: TextAlign.center,
+                          style: Theme.of(context).textTheme.bodySmall,
+                        ),
+                        if (state.hasMoreHistory) ...[
+                          const SizedBox(height: AppDimensions.spaceS),
+                          Center(
+                            child: OutlinedButton.icon(
+                              onPressed:
+                                  state.isHistoryLoading || state.isSaving
+                                  ? null
+                                  : () => context.read<SavingsBloc>().add(
+                                      LoadSavingHistory(
+                                        page: state.historyPage + 1,
+                                        append: true,
+                                      ),
+                                    ),
+                              icon: state.isHistoryLoading
+                                  ? const SizedBox(
+                                      width: 18,
+                                      height: 18,
+                                      child: CircularProgressIndicator(
+                                        strokeWidth: 2,
+                                      ),
+                                    )
+                                  : const Icon(Icons.expand_more_rounded),
+                              label: Text(context.l10n.loadMoreHistory),
+                            ),
+                          ),
+                        ],
                       ],
                     ),
             ),
@@ -171,7 +229,8 @@ class _SavingHistoryPageState extends State<SavingHistoryPage> {
 
   String _dateGroup(BuildContext context, DateTime date) {
     final now = DateTime.now();
-    final value = DateTime(date.year, date.month, date.day);
+    final localDate = date.toLocal();
+    final value = DateTime(localDate.year, localDate.month, localDate.day);
     final today = DateTime(now.year, now.month, now.day);
     if (value == today) return context.l10n.today;
     if (value == today.subtract(const Duration(days: 1))) {
@@ -183,35 +242,30 @@ class _SavingHistoryPageState extends State<SavingHistoryPage> {
 
 class _HistoryOverview extends StatelessWidget {
   const _HistoryOverview({
-    required this.events,
     required this.totalCount,
+    required this.isLoading,
     this.dashboard,
   });
 
-  final List<SavingEventResponse> events;
   final int totalCount;
+  final bool isLoading;
   final SavingsDashboardResponse? dashboard;
 
   @override
   Widget build(BuildContext context) {
-    final total =
-        dashboard?.totalSaved ??
-        events.fold<double>(0, (sum, event) => sum + event.amount);
-    final invested =
-        dashboard?.investedTotal ??
-        events
-            .where((event) => event.isInvested)
-            .fold<double>(0, (sum, event) => sum + event.amount);
+    // A loaded history page is not a complete account-wide balance.
+    final total = dashboard?.totalSaved;
+    final invested = dashboard?.investedTotal;
     final cards = [
       (
         context.l10n.savedTotal,
-        formatRubles(context, total),
+        total == null ? '—' : formatRubles(context, total),
         Icons.savings_outlined,
         AppColors.primary,
       ),
       (
         context.l10n.realSavings,
-        formatRubles(context, invested),
+        invested == null ? '—' : formatRubles(context, invested),
         Icons.account_balance_outlined,
         AppColors.success,
       ),
@@ -235,42 +289,68 @@ class _HistoryOverview extends StatelessWidget {
         final cardWidth =
             (constraints.maxWidth - AppDimensions.spaceM * (columns - 1)) /
             columns;
-        return Wrap(
-          spacing: AppDimensions.spaceM,
-          runSpacing: AppDimensions.spaceM,
+        return Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            for (final card in cards)
-              SizedBox(
-                width: cardWidth,
-                child: GlassSurfaceCard(
-                  child: Row(
-                    children: [
-                      GlassIconBadge(
-                        color: card.$4,
-                        child: Icon(card.$3, color: card.$4),
+            if (dashboard == null) ...[
+              if (isLoading)
+                const LinearProgressIndicator()
+              else
+                Wrap(
+                  spacing: AppDimensions.spaceM,
+                  runSpacing: AppDimensions.spaceS,
+                  crossAxisAlignment: WrapCrossAlignment.center,
+                  children: [
+                    Text(context.l10n.savingsSummaryUnavailable),
+                    TextButton.icon(
+                      onPressed: () => context.read<SavingsBloc>().add(
+                        const LoadSavingsDashboard(),
                       ),
-                      const SizedBox(width: AppDimensions.spaceM),
-                      Expanded(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              card.$1,
-                              style: Theme.of(context).textTheme.bodySmall,
-                            ),
-                            const SizedBox(height: 4),
-                            Text(
-                              card.$2,
-                              style: Theme.of(context).textTheme.titleLarge
-                                  ?.copyWith(fontWeight: FontWeight.w800),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ],
-                  ),
+                      icon: const Icon(Icons.refresh_rounded),
+                      label: Text(context.l10n.retry),
+                    ),
+                  ],
                 ),
-              ),
+              const SizedBox(height: AppDimensions.spaceM),
+            ],
+            Wrap(
+              spacing: AppDimensions.spaceM,
+              runSpacing: AppDimensions.spaceM,
+              children: [
+                for (final card in cards)
+                  SizedBox(
+                    width: cardWidth,
+                    child: GlassSurfaceCard(
+                      child: Row(
+                        children: [
+                          GlassIconBadge(
+                            color: card.$4,
+                            child: Icon(card.$3, color: card.$4),
+                          ),
+                          const SizedBox(width: AppDimensions.spaceM),
+                          Expanded(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  card.$1,
+                                  style: Theme.of(context).textTheme.bodySmall,
+                                ),
+                                const SizedBox(height: 4),
+                                Text(
+                                  card.$2,
+                                  style: Theme.of(context).textTheme.titleLarge
+                                      ?.copyWith(fontWeight: FontWeight.w800),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+              ],
+            ),
           ],
         );
       },
@@ -286,113 +366,173 @@ class _HistoryItem extends StatelessWidget {
   Widget build(BuildContext context) => Padding(
     padding: const EdgeInsets.only(bottom: AppDimensions.spaceM),
     child: GlassSurfaceCard(
-      child: Row(
-        children: [
-          CircleAvatar(
-            backgroundColor: event.isInvested
-                ? AppColors.success.withValues(alpha: 0.14)
-                : AppColors.primaryContainer,
-            child: Icon(
-              event.isInvested
-                  ? Icons.account_balance_outlined
-                  : Icons.check_rounded,
-              color: event.isInvested ? AppColors.success : AppColors.primary,
-            ),
-          ),
-          const SizedBox(width: AppDimensions.spaceM),
-          Expanded(
-            child: Column(
+      child: AppLayoutItemBuilder<Widget>(
+        narrow: () => Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            Row(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(
-                  event.impulseName,
-                  maxLines: 1,
-                  overflow: TextOverflow.ellipsis,
-                  style: Theme.of(context).textTheme.titleMedium,
-                ),
-                const SizedBox(height: 4),
-                Text(
-                  DateFormat.yMMMd(
-                    Localizations.localeOf(context).toLanguageTag(),
-                  ).add_Hm().format(event.occurredAt),
-                  style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                    color: Theme.of(context).colorScheme.onSurfaceVariant,
-                  ),
-                ),
-                if (event.note?.isNotEmpty == true) ...[
-                  const SizedBox(height: 5),
-                  Text(
-                    event.note!,
-                    maxLines: 2,
-                    overflow: TextOverflow.ellipsis,
-                    style: Theme.of(context).textTheme.bodySmall,
-                  ),
-                ],
+                Expanded(child: _description(context)),
+                _actions(context),
               ],
             ),
-          ),
-          const SizedBox(width: AppDimensions.spaceS),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.end,
-            children: [
-              Text(
-                '+${formatRubles(context, event.amount)}',
-                style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                  color: AppColors.success,
-                  fontWeight: FontWeight.w800,
-                ),
+            const SizedBox(height: AppDimensions.spaceM),
+            _amount(context, Alignment.centerLeft),
+            const SizedBox(height: AppDimensions.spaceS),
+            _status(context),
+          ],
+        ),
+        wide: () => Row(
+          children: [
+            CircleAvatar(
+              backgroundColor: event.isInvested
+                  ? AppColors.success.withValues(alpha: 0.14)
+                  : AppColors.primaryContainer,
+              child: Icon(
+                event.isInvested
+                    ? Icons.account_balance_outlined
+                    : Icons.check_rounded,
+                color: event.isInvested ? AppColors.success : AppColors.primary,
               ),
-              const SizedBox(height: 4),
-              Row(
-                mainAxisSize: MainAxisSize.min,
+            ),
+            const SizedBox(width: AppDimensions.spaceM),
+            Expanded(child: _description(context)),
+            const SizedBox(width: AppDimensions.spaceM),
+            SizedBox(
+              width: 200,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.end,
                 children: [
-                  Tooltip(
-                    message: event.isInvested
-                        ? context.l10n.realSavings
-                        : context.l10n.potentialSavings,
-                    child: Icon(
-                      event.isInvested
-                          ? Icons.verified_rounded
-                          : Icons.hourglass_bottom_rounded,
-                      size: 18,
-                      color: event.isInvested
-                          ? AppColors.success
-                          : Theme.of(context).colorScheme.onSurfaceVariant,
-                    ),
-                  ),
-                  PopupMenuButton<String>(
-                    tooltip: context.l10n.delete,
-                    onSelected: (_) => ConfirmationDialog.show(
-                      context,
-                      title: context.l10n.delete,
-                      content: context.l10n.deleteSavingConfirmation,
-                      confirmText: context.l10n.delete,
-                      isDestructive: true,
-                      onConfirm: () => context.read<SavingsBloc>().add(
-                        DeleteSavingEvent(event.id),
-                      ),
-                    ),
-                    itemBuilder: (context) => [
-                      PopupMenuItem(
-                        value: 'delete',
-                        child: ListTile(
-                          contentPadding: EdgeInsets.zero,
-                          leading: const Icon(
-                            Icons.delete_outline_rounded,
-                            color: AppColors.error,
-                          ),
-                          title: Text(context.l10n.delete),
-                        ),
-                      ),
-                    ],
-                  ),
+                  _amount(context, Alignment.centerRight),
+                  const SizedBox(height: AppDimensions.spaceS),
+                  _status(context),
                 ],
               ),
-            ],
-          ),
-        ],
+            ),
+            _actions(context),
+          ],
+        ),
+      )(context),
+    ),
+  );
+
+  Widget _description(BuildContext context) => Column(
+    crossAxisAlignment: CrossAxisAlignment.start,
+    children: [
+      Text(
+        event.impulseName,
+        maxLines: 2,
+        overflow: TextOverflow.ellipsis,
+        style: Theme.of(context).textTheme.titleMedium,
+      ),
+      const SizedBox(height: 4),
+      Text(
+        DateFormat.yMMMd(
+          Localizations.localeOf(context).toLanguageTag(),
+        ).add_Hm().format(event.occurredAt.toLocal()),
+        style: Theme.of(context).textTheme.bodySmall?.copyWith(
+          color: Theme.of(context).colorScheme.onSurfaceVariant,
+        ),
+      ),
+      if (event.note?.isNotEmpty == true) ...[
+        const SizedBox(height: 5),
+        Text(
+          event.note!,
+          maxLines: 2,
+          overflow: TextOverflow.ellipsis,
+          style: Theme.of(context).textTheme.bodySmall,
+        ),
+      ],
+    ],
+  );
+
+  Widget _amount(BuildContext context, Alignment alignment) => FittedBox(
+    fit: BoxFit.scaleDown,
+    alignment: alignment,
+    child: Text(
+      '+${formatRubles(context, event.amount)}',
+      style: Theme.of(context).textTheme.titleMedium?.copyWith(
+        color: AppColors.success,
+        fontWeight: FontWeight.w800,
       ),
     ),
+  );
+
+  Widget _status(BuildContext context) => Row(
+    children: [
+      Icon(
+        event.isInvested
+            ? Icons.verified_rounded
+            : Icons.hourglass_bottom_rounded,
+        size: 18,
+        color: event.isInvested
+            ? AppColors.success
+            : Theme.of(context).colorScheme.onSurfaceVariant,
+      ),
+      const SizedBox(width: AppDimensions.spaceXS),
+      Expanded(
+        child: Text(
+          event.isInvested
+              ? context.l10n.realSavings
+              : context.l10n.potentialSavings,
+          style: Theme.of(context).textTheme.bodySmall,
+        ),
+      ),
+    ],
+  );
+
+  Widget _actions(BuildContext context) => PopupMenuButton<String>(
+    tooltip: context.l10n.editSaving,
+    enabled: !context.watch<SavingsBloc>().state.isSaving,
+    onSelected: (value) {
+      if (value == 'receipt') {
+        showSavingReceipt(context, event);
+        return;
+      }
+      if (value == 'edit') {
+        showEditSavingDialog(context, event);
+        return;
+      }
+      ConfirmationDialog.show(
+        context,
+        title: context.l10n.delete,
+        content: context.l10n.deleteSavingConfirmation,
+        confirmText: context.l10n.delete,
+        isDestructive: true,
+        onConfirm: () =>
+            context.read<SavingsBloc>().add(DeleteSavingEvent(event.id)),
+      );
+    },
+    itemBuilder: (context) => [
+      PopupMenuItem(
+        value: 'receipt',
+        child: ListTile(
+          contentPadding: EdgeInsets.zero,
+          leading: const Icon(Icons.receipt_long_outlined),
+          title: Text(context.l10n.savingReceipt),
+        ),
+      ),
+      PopupMenuItem(
+        value: 'edit',
+        child: ListTile(
+          contentPadding: EdgeInsets.zero,
+          leading: const Icon(Icons.edit_outlined),
+          title: Text(context.l10n.editSaving),
+        ),
+      ),
+      PopupMenuItem(
+        value: 'delete',
+        child: ListTile(
+          contentPadding: EdgeInsets.zero,
+          leading: const Icon(
+            Icons.delete_outline_rounded,
+            color: AppColors.error,
+          ),
+          title: Text(context.l10n.delete),
+        ),
+      ),
+    ],
   );
 }
 

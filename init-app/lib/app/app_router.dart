@@ -12,11 +12,13 @@ import 'package:mobile_template/features/savings/presentation/pages/bloc/savings
 import 'package:mobile_template/features/savings/presentation/pages/impulse_items_page.dart';
 import 'package:mobile_template/features/savings/presentation/pages/saving_history_page.dart';
 import 'package:mobile_template/features/savings/presentation/pages/savings_dashboard_page.dart';
+import 'package:mobile_template/features/savings/presentation/widgets/savings_branch_content.dart';
 import 'package:mobile_template/features/profile/domain/dto/profile_dto.dart';
 import 'package:mobile_template/features/profile/presentation/pages/bloc/profile_bloc.dart';
 import 'package:mobile_template/features/profile/presentation/pages/edit_profile_page.dart';
 import 'package:mobile_template/features/profile/presentation/pages/profile_page.dart';
 import 'package:mobile_template/features/shell/presentation/pages/main_navigation.dart';
+import 'package:mobile_template/features/shell/presentation/widgets/navigation_branch_scope.dart';
 
 class AppRoutes {
   static const splash = '/splash';
@@ -90,7 +92,11 @@ GoRouter createAppRouter() {
                   create: (_) => getIt<SavingsBloc>()
                     ..add(const LoadSavingsDashboard())
                     ..add(const LoadImpulseItems()),
-                  child: const SavingsDashboardPage(),
+                  child: const SavingsBranchContent(
+                    branch: AppNavigationBranch.home,
+                    refreshEvents: [LoadSavingsDashboard(), LoadImpulseItems()],
+                    child: SavingsDashboardPage(),
+                  ),
                 ),
               ),
             ],
@@ -103,7 +109,14 @@ GoRouter createAppRouter() {
                   create: (_) => getIt<SavingsBloc>()
                     ..add(const LoadSavingHistory())
                     ..add(const LoadSavingsDashboard()),
-                  child: const SavingHistoryPage(),
+                  child: const SavingsBranchContent(
+                    branch: AppNavigationBranch.history,
+                    refreshEvents: [
+                      LoadSavingHistory(),
+                      LoadSavingsDashboard(),
+                    ],
+                    child: SavingHistoryPage(),
+                  ),
                 ),
               ),
             ],
@@ -114,8 +127,13 @@ GoRouter createAppRouter() {
                 path: AppRoutes.habits,
                 builder: (context, state) => BlocProvider(
                   create: (_) =>
-                      getIt<SavingsBloc>()..add(const LoadImpulseItems()),
-                  child: const ImpulseItemsPage(),
+                      getIt<SavingsBloc>()
+                        ..add(const LoadImpulseItems(withSettings: true)),
+                  child: const SavingsBranchContent(
+                    branch: AppNavigationBranch.habits,
+                    refreshEvents: [LoadImpulseItems(withSettings: true)],
+                    child: ImpulseItemsPage(),
+                  ),
                 ),
               ),
             ],

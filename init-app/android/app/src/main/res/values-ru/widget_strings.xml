@@ -1,0 +1,5 @@
+<resources>
+    <string name="saving_widget_title">Не потратил</string>
+    <string name="saving_widget_empty">Выберите до 3 избранных импульсов в меню привычек. Нажатие откроет подтверждение экономии.</string>
+    <string name="receipt_share">Сохранить или отправить чек</string>
+</resources>

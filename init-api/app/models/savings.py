@@ -1,4 +1,4 @@
-from sqlalchemy import Boolean, Column, Date, DateTime, ForeignKey, Integer, Numeric, String
+from sqlalchemy import Boolean, CheckConstraint, Column, Date, DateTime, ForeignKey, Integer, Numeric, String
 from sqlalchemy.orm import relationship
 
 from .base import Base
@@ -40,11 +40,15 @@ class SavingEvent(Base):
 
 class SavingsGoal(Base):
     __tablename__ = "savings_goals"
+    __table_args__ = (
+        CheckConstraint("allocated_amount >= 0", name="ck_goal_allocation_nonnegative"),
+    )
 
     user_id = Column(Integer, ForeignKey("users.id", ondelete="CASCADE"), nullable=False, index=True)
     name = Column(String(120), nullable=False)
     target_amount = Column(Numeric(12, 2), nullable=False)
     target_date = Column(Date, nullable=True)
+    allocated_amount = Column(Numeric(12, 2), nullable=False, default=0, server_default="0")
 
     user = relationship("User", back_populates="savings_goals")
 

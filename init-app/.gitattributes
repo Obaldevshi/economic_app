@@ -1,0 +1,6 @@
+# Flutter's compact binary asset manifest may contain no NUL bytes. Never let
+# Git treat it as text or convert its line endings when transferring a build.
+*.bin binary
+*.wasm binary
+*.ttf binary
+*.otf binary

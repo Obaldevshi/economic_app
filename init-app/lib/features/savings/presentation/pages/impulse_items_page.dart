@@ -4,13 +4,17 @@ import 'package:mobile_template/app/layout/app_layout_item_builder.dart';
 import 'package:mobile_template/app/theme/app_colors.dart';
 import 'package:mobile_template/app/theme/app_dimensions.dart';
 import 'package:mobile_template/core/extensions/build_context_extensions.dart';
+import 'package:mobile_template/core/di/di.dart';
+import 'package:mobile_template/core/services/savings_native_service.dart';
 import 'package:mobile_template/data/models/response/savings_response.dart';
 import 'package:mobile_template/features/savings/presentation/pages/bloc/savings_bloc.dart';
 import 'package:mobile_template/features/savings/presentation/widgets/savings_dialogs.dart';
 import 'package:mobile_template/features/savings/presentation/widgets/savings_ui.dart';
+import 'package:mobile_template/features/shell/presentation/widgets/navigation_branch_scope.dart';
 import 'package:mobile_template/presentation/widgets/common/confirmation_dialog.dart';
 import 'package:mobile_template/presentation/widgets/common/error_dialog.dart';
 import 'package:mobile_template/presentation/widgets/common/glass_surface_card.dart';
+import 'package:mobile_template/presentation/widgets/common/editorial_icons.dart';
 import 'package:mobile_template/presentation/widgets/layout/scroll_shell.dart';
 
 class ImpulseItemsPage extends StatelessWidget {
@@ -22,22 +26,35 @@ class ImpulseItemsPage extends StatelessWidget {
         previous.failure != current.failure ||
         previous.actionMessage != current.actionMessage,
     listener: (context, state) {
+      if (!NavigationBranchScope.isActive(
+        context,
+        AppNavigationBranch.habits,
+      )) {
+        return;
+      }
       if (state.failure != null) {
-        ErrorDialog.show(context, state.failure!);
-      } else if (state.actionMessage != null) {
-        ScaffoldMessenger.of(
+        ErrorDialog.show(
           context,
-        ).showSnackBar(SnackBar(content: Text(state.actionMessage!)));
+          localizeSavingsFailure(context, state.failure!),
+        );
+      } else if (state.actionMessage != null) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text(savingsActionMessage(context, state.actionMessage!)),
+          ),
+        );
       }
     },
     builder: (context, state) => ScrollShell(
       title: context.l10n.habits,
       expandedHeaderHeight: 58,
-      isLoading: state.isLoading && state.impulses.isEmpty,
+      isLoading: state.isImpulseLoading && state.impulses.isEmpty,
       onRefresh: () async {
-        context.read<SavingsBloc>().add(const LoadImpulseItems());
+        context.read<SavingsBloc>().add(
+          const LoadImpulseItems(withSettings: true),
+        );
         await context.read<SavingsBloc>().stream.firstWhere(
-          (value) => !value.isLoading,
+          (value) => !value.isImpulseLoading,
         );
       },
       actions: [
@@ -50,19 +67,28 @@ class ImpulseItemsPage extends StatelessWidget {
       headerContent: Text(
         context.l10n.habitsDescription,
         style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-          color: Colors.white.withValues(alpha: 0.92),
+          color: ScrollShell.subtitleColor(context),
           fontWeight: FontWeight.w600,
         ),
       ),
       body: state.impulses.isEmpty
-          ? _EmptyHabits(onAdd: () => showImpulseEditorDialog(context))
+          ? state.impulseLoadFailed
+                ? SavingsLoadError(
+                    onRetry: () => context.read<SavingsBloc>().add(
+                      const LoadImpulseItems(withSettings: true),
+                    ),
+                  )
+                : _EmptyHabits(onAdd: () => showImpulseEditorDialog(context))
           : Center(
               child: ConstrainedBox(
                 constraints: const BoxConstraints(maxWidth: 1180),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
-                    _PotentialSummary(items: state.impulses),
+                    _PotentialSummary(
+                      items: state.impulses,
+                      settings: state.settings,
+                    ),
                     const SizedBox(height: AppDimensions.spaceL),
                     Row(
                       children: [
@@ -99,23 +125,27 @@ class ImpulseItemsPage extends StatelessWidget {
                       narrow: () => Column(
                         children: [
                           for (final item in state.impulses)
-                            _HabitCard(item: item, allItems: state.impulses),
+                            _HabitCard(
+                              item: item,
+                              allItems: state.impulses,
+                              settings: state.settings,
+                            ),
                         ],
                       ),
                       wide: () => GridView.builder(
                         shrinkWrap: true,
                         physics: const NeverScrollableScrollPhysics(),
                         itemCount: state.impulses.length,
-                        gridDelegate:
-                            const SliverGridDelegateWithMaxCrossAxisExtent(
-                              maxCrossAxisExtent: 390,
-                              mainAxisExtent: 228,
-                              crossAxisSpacing: AppDimensions.spaceM,
-                              mainAxisSpacing: AppDimensions.spaceM,
-                            ),
+                        gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
+                          maxCrossAxisExtent: 390,
+                          mainAxisExtent: state.settings == null ? 228 : 346,
+                          crossAxisSpacing: AppDimensions.spaceM,
+                          mainAxisSpacing: AppDimensions.spaceM,
+                        ),
                         itemBuilder: (context, index) => _HabitCard(
                           item: state.impulses[index],
                           allItems: state.impulses,
+                          settings: state.settings,
                           addBottomSpacing: false,
                         ),
                       ),
@@ -129,20 +159,24 @@ class ImpulseItemsPage extends StatelessWidget {
 }
 
 class _PotentialSummary extends StatelessWidget {
-  const _PotentialSummary({required this.items});
+  const _PotentialSummary({required this.items, required this.settings});
 
   final List<ImpulseItemResponse> items;
+  final SavingsSettingsResponse? settings;
 
   @override
   Widget build(BuildContext context) {
-    final annual = items.fold<double>(
-      0,
-      (total, item) => total + impulseAnnualPotential(item),
-    );
-    final weekly = items.fold<double>(
-      0,
-      (total, item) => total + item.defaultAmount * item.weeklyFrequency,
-    );
+    final annual = items
+        .where((item) => item.isActive)
+        .fold<double>(0, (total, item) => total + impulseAnnualPotential(item));
+    final weekly = annual / 52;
+    final forecast = settings == null
+        ? null
+        : regularSkipsFutureValue(
+            annual,
+            settings!.annualRate,
+            settings!.projectionYears,
+          );
 
     return DecoratedBox(
       decoration: BoxDecoration(
@@ -151,45 +185,80 @@ class _PotentialSummary extends StatelessWidget {
       ),
       child: Padding(
         padding: const EdgeInsets.all(AppDimensions.paddingL),
-        child: AppLayoutItemBuilder<Widget>(
-          narrow: () => Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              _SummaryValue(
-                icon: Icons.calendar_view_week_outlined,
-                label: context.l10n.weeklyPotential,
-                value: formatRubles(context, weekly),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            AppLayoutItemBuilder<Widget>(
+              narrow: () => Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  _SummaryValue(
+                    icon: Icons.calendar_view_week_outlined,
+                    label: context.l10n.weeklyPotential,
+                    value: formatRubles(context, weekly),
+                  ),
+                  const SizedBox(height: AppDimensions.spaceM),
+                  _SummaryValue(
+                    icon: Icons.rocket_launch_outlined,
+                    label: context.l10n.annualPotential,
+                    value: formatRubles(context, annual),
+                  ),
+                  if (forecast != null) ...[
+                    const SizedBox(height: AppDimensions.spaceM),
+                    _SummaryValue(
+                      icon: Icons.auto_graph_rounded,
+                      label: context.l10n.futureProjection,
+                      value: formatRubles(context, forecast),
+                      highlighted: true,
+                    ),
+                  ],
+                ],
               ),
+              wide: () => Row(
+                children: [
+                  Expanded(
+                    child: _SummaryValue(
+                      icon: Icons.calendar_view_week_outlined,
+                      label: context.l10n.weeklyPotential,
+                      value: formatRubles(context, weekly),
+                    ),
+                  ),
+                  const SizedBox(width: AppDimensions.spaceXL),
+                  Expanded(
+                    child: _SummaryValue(
+                      icon: Icons.rocket_launch_outlined,
+                      label: context.l10n.annualPotential,
+                      value: formatRubles(context, annual),
+                    ),
+                  ),
+                  if (forecast != null) ...[
+                    const SizedBox(width: AppDimensions.spaceXL),
+                    Expanded(
+                      child: _SummaryValue(
+                        icon: Icons.auto_graph_rounded,
+                        label: context.l10n.futureProjection,
+                        value: formatRubles(context, forecast),
+                        highlighted: true,
+                      ),
+                    ),
+                  ],
+                ],
+              ),
+            )(context, width: 850),
+            if (settings != null) ...[
               const SizedBox(height: AppDimensions.spaceM),
-              _SummaryValue(
-                icon: Icons.rocket_launch_outlined,
-                label: context.l10n.annualPotential,
-                value: formatRubles(context, annual),
-                highlighted: true,
-              ),
-            ],
-          ),
-          wide: () => Row(
-            children: [
-              Expanded(
-                child: _SummaryValue(
-                  icon: Icons.calendar_view_week_outlined,
-                  label: context.l10n.weeklyPotential,
-                  value: formatRubles(context, weekly),
+              Text(
+                context.l10n.projectionScenario(
+                  settings!.projectionYears,
+                  formatRate(context, settings!.annualRate),
                 ),
-              ),
-              const SizedBox(width: AppDimensions.spaceXL),
-              Expanded(
-                child: _SummaryValue(
-                  icon: Icons.rocket_launch_outlined,
-                  label: context.l10n.annualPotential,
-                  value: formatRubles(context, annual),
-                  highlighted: true,
+                style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                  color: Colors.white.withValues(alpha: 0.75),
                 ),
               ),
             ],
-          ),
-        )(context, width: 700),
+          ],
+        ),
       ),
     );
   }
@@ -255,11 +324,13 @@ class _HabitCard extends StatelessWidget {
   const _HabitCard({
     required this.item,
     required this.allItems,
+    required this.settings,
     this.addBottomSpacing = true,
   });
 
   final ImpulseItemResponse item;
   final List<ImpulseItemResponse> allItems;
+  final SavingsSettingsResponse? settings;
   final bool addBottomSpacing;
 
   @override
@@ -277,10 +348,10 @@ class _HabitCard extends StatelessWidget {
             Row(
               children: [
                 GlassIconBadge(
-                  color: AppColors.primary,
-                  child: Icon(
-                    impulseIcon(item.iconKey),
-                    color: AppColors.primary,
+                  color: Theme.of(context).colorScheme.primary,
+                  child: ImpulseGlyph(
+                    keyName: item.iconKey,
+                    color: Theme.of(context).colorScheme.primary,
                   ),
                 ),
                 const SizedBox(width: AppDimensions.spaceM),
@@ -296,7 +367,7 @@ class _HabitCard extends StatelessWidget {
                       ),
                       const SizedBox(height: 3),
                       Text(
-                        '${formatRubles(context, item.defaultAmount)} · ${item.weeklyFrequency}×/${context.l10n.weekShort}',
+                        '${formatRubles(context, item.defaultAmount)} · ${item.weeklyFrequency == 0 ? context.l10n.oncePerMonth : '${item.weeklyFrequency}×/${context.l10n.weekShort}'}',
                         style: Theme.of(context).textTheme.bodySmall?.copyWith(
                           color: Theme.of(context).colorScheme.onSurfaceVariant,
                         ),
@@ -307,6 +378,19 @@ class _HabitCard extends StatelessWidget {
                 PopupMenuButton<String>(
                   tooltip: context.l10n.editImpulse,
                   onSelected: (value) {
+                    if (value == 'favorite') {
+                      getIt<SavingsNativeService>()
+                          .toggleFavorite(item.id)
+                          .then((saved) {
+                            if (!saved && context.mounted)
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                SnackBar(
+                                  content: Text(context.l10n.favoriteLimit),
+                                ),
+                              );
+                          });
+                      return;
+                    }
                     if (value == 'edit') {
                       showImpulseEditorDialog(context, item: item);
                     } else if (value == 'delete') {
@@ -323,6 +407,19 @@ class _HabitCard extends StatelessWidget {
                     }
                   },
                   itemBuilder: (context) => [
+                    PopupMenuItem(
+                      value: 'favorite',
+                      child: ListTile(
+                        contentPadding: EdgeInsets.zero,
+                        leading: const Icon(Icons.star_outline_rounded),
+                        title: Text(
+                          getIt<SavingsNativeService>().favorites.value
+                                  .contains(item.id)
+                              ? context.l10n.removeFavorite
+                              : context.l10n.addFavorite,
+                        ),
+                      ),
+                    ),
                     PopupMenuItem(
                       value: 'edit',
                       child: ListTile(
@@ -366,7 +463,7 @@ class _HabitCard extends StatelessWidget {
                   Text(
                     formatCompactRubles(context, annual),
                     style: Theme.of(context).textTheme.titleSmall?.copyWith(
-                      color: AppColors.primary,
+                      color: Theme.of(context).colorScheme.primary,
                       fontWeight: FontWeight.w800,
                     ),
                   ),
@@ -374,9 +471,54 @@ class _HabitCard extends StatelessWidget {
               ),
             ),
             const SizedBox(height: AppDimensions.spaceM),
+            if (!item.isActive) ...[
+              Text(
+                context.l10n.habitPaused,
+                style: Theme.of(context).textTheme.labelMedium,
+              ),
+              const SizedBox(height: AppDimensions.spaceS),
+            ],
+            if (settings != null) ...[
+              Text(
+                context.l10n.projectionAfterYears(settings!.projectionYears),
+                style: Theme.of(context).textTheme.labelMedium?.copyWith(
+                  color: Theme.of(context).colorScheme.onSurfaceVariant,
+                ),
+              ),
+              const SizedBox(height: AppDimensions.spaceS),
+              _ProjectionRow(
+                label: context.l10n.oneSkippedPurchase,
+                value: formatRubles(
+                  context,
+                  oneSkipFutureValue(
+                    item.defaultAmount,
+                    settings!.annualRate,
+                    settings!.projectionYears,
+                  ),
+                ),
+              ),
+              const SizedBox(height: 4),
+              _ProjectionRow(
+                label: context.l10n.regularlySkippedPurchases,
+                value: formatCompactRubles(
+                  context,
+                  regularSkipsFutureValue(
+                    annual,
+                    settings!.annualRate,
+                    settings!.projectionYears,
+                  ),
+                ),
+              ),
+              const SizedBox(height: AppDimensions.spaceM),
+            ],
             FilledButton.tonalIcon(
-              onPressed: () =>
-                  showAddSavingDialog(context, allItems, initialImpulse: item),
+              onPressed: !item.isActive
+                  ? null
+                  : () => showAddSavingDialog(
+                      context,
+                      allItems,
+                      initialImpulse: item,
+                    ),
               icon: const Icon(Icons.add_task_rounded),
               label: Text(context.l10n.recordThisSaving),
             ),
@@ -385,6 +527,30 @@ class _HabitCard extends StatelessWidget {
       ),
     );
   }
+}
+
+class _ProjectionRow extends StatelessWidget {
+  const _ProjectionRow({required this.label, required this.value});
+
+  final String label;
+  final String value;
+
+  @override
+  Widget build(BuildContext context) => Row(
+    children: [
+      Expanded(
+        child: Text(label, style: Theme.of(context).textTheme.bodySmall),
+      ),
+      const SizedBox(width: AppDimensions.spaceS),
+      Text(
+        value,
+        style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+          color: Theme.of(context).colorScheme.primary,
+          fontWeight: FontWeight.w700,
+        ),
+      ),
+    ],
+  );
 }
 
 class _EmptyHabits extends StatelessWidget {
@@ -401,14 +567,14 @@ class _EmptyHabits extends StatelessWidget {
           Container(
             width: 84,
             height: 84,
-            decoration: const BoxDecoration(
-              color: AppColors.primaryContainer,
+            decoration: BoxDecoration(
+              color: Theme.of(context).colorScheme.primaryContainer,
               shape: BoxShape.circle,
             ),
-            child: const Icon(
-              Icons.coffee_outlined,
+            child: ImpulseGlyph(
+              keyName: 'coffee',
               size: 40,
-              color: AppColors.primary,
+              color: Theme.of(context).colorScheme.primary,
             ),
           ),
           const SizedBox(height: AppDimensions.spaceM),

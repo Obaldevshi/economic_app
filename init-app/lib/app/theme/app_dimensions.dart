@@ -11,13 +11,13 @@ class AppDimensions {
   static const double paddingXL = 32.0;
   static const double paddingXXL = 48.0;
 
-  // Soft geometry with enough hierarchy between controls and content cards.
-  static const double radius = 22.0;
-  static const double radiusXS = 8.0;
-  static const double radiusS = 12.0;
-  static const double radiusM = 16.0;
-  static const double radiusL = 22.0;
-  static const double radiusXL = 28.0;
+  // Compact, editorial geometry instead of oversized pill-shaped surfaces.
+  static const double radius = 14.0;
+  static const double radiusXS = 4.0;
+  static const double radiusS = 7.0;
+  static const double radiusM = 10.0;
+  static const double radiusL = 14.0;
+  static const double radiusXL = 18.0;
   static const double radiusCircular = 999.0;
 
   // Icon Sizes
@@ -34,9 +34,9 @@ class AppDimensions {
   static const double buttonHeightL = 56.0;
 
   // Card & Container
-  static const double cardElevation = 2.0;
-  static const double cardElevationHovered = 4.0;
-  static const double cardElevationPressed = 1.0;
+  static const double cardElevation = 0.0;
+  static const double cardElevationHovered = 1.0;
+  static const double cardElevationPressed = 0.0;
 
   static const double containerMinHeight = 56.0;
   static const double listItemHeight = 72.0;

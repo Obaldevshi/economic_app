@@ -78,8 +78,21 @@ class SavingsGoalResponse(BaseModel):
     name: str
     target_amount: Decimal
     target_date: Optional[date]
+    allocated_amount: Decimal = Decimal(0)
 
     model_config = {"from_attributes": True}
+
+
+class GoalAllocationUpdate(BaseModel):
+    allocated_amount: Decimal = Field(ge=0, max_digits=12, decimal_places=2)
+
+
+class WeeklyReceiptResponse(BaseModel):
+    start_date: date
+    end_date: date
+    total_saved: Decimal
+    invested_total: Decimal
+    decision_count: int
 
 
 class SavingsSettingsUpdate(BaseModel):

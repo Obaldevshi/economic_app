@@ -82,3 +82,19 @@ class SavingsRepository:
         ).filter(SavingEvent.user_id == user_id).group_by(
             SavingEvent.impulse_name
         ).order_by(func.sum(SavingEvent.amount).desc()).limit(limit).all()
+
+    def lock_balance(self, user_id: int):
+        # All writes which can reduce the available balance share this row lock.
+        return self.db.query(SavingsSettings).filter(
+            SavingsSettings.user_id == user_id,
+        ).with_for_update().one()
+
+    def invested_total(self, user_id: int):
+        return self.db.query(func.coalesce(func.sum(SavingEvent.amount), 0)).filter(
+            SavingEvent.user_id == user_id, SavingEvent.is_invested.is_(True),
+        ).scalar()
+
+    def allocated_total(self, user_id: int):
+        return self.db.query(func.coalesce(func.sum(SavingsGoal.allocated_amount), 0)).filter(
+            SavingsGoal.user_id == user_id,
+        ).scalar()

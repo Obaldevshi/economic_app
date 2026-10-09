@@ -32,15 +32,21 @@ class AppTheme {
         onSurface: AppColors.onSurface,
         surfaceContainerHighest: AppColors.surfaceVariant,
         onSurfaceVariant: AppColors.onSurfaceVariant,
+        outline: Color(0xFFA7A096),
+        outlineVariant: Color(0xFFD9D2C7),
+        onPrimaryContainer: AppColors.onSurface,
+        onSecondaryContainer: AppColors.onSurface,
+        surfaceContainerLow: AppColors.background,
+        surfaceContainer: AppColors.surfaceVariant,
         error: AppColors.error,
       ),
 
       // App Bar Theme
       appBarTheme: const AppBarTheme(
-        backgroundColor: AppColors.primary,
+        backgroundColor: AppColors.primaryDark,
         foregroundColor: AppColors.onPrimary,
         elevation: 0,
-        centerTitle: true,
+        centerTitle: false,
         titleTextStyle: AppTextStyles.appBarTitle,
         systemOverlayStyle: SystemUiOverlayStyle.light,
         iconTheme: IconThemeData(
@@ -258,15 +264,21 @@ class AppTheme {
       // Color Scheme
       colorScheme: const ColorScheme.dark(
         primary: AppColors.primaryLight,
-        onPrimary: AppColors.onPrimary,
+        onPrimary: AppColors.primaryDark,
         primaryContainer: AppColors.primaryDark,
         secondary: AppColors.secondaryLight,
-        onSecondary: AppColors.onSecondary,
+        onSecondary: AppColors.primaryDark,
         secondaryContainer: AppColors.secondaryDark,
         surface: AppColors.surfaceDark,
         onSurface: AppColors.onSurfaceDark,
         surfaceContainerHighest: AppColors.surfaceVariantDark,
         onSurfaceVariant: AppColors.onSurfaceVariantDark,
+        outline: Color(0xFF939DA8),
+        outlineVariant: Color(0xFF46505C),
+        onPrimaryContainer: AppColors.onSurfaceDark,
+        onSecondaryContainer: AppColors.onSurfaceDark,
+        surfaceContainerLow: AppColors.backgroundDark,
+        surfaceContainer: AppColors.surfaceVariantDark,
         error: AppColors.error,
       ),
 
@@ -316,14 +328,14 @@ class AppTheme {
       // Elevated Button Theme
       elevatedButtonTheme: ElevatedButtonThemeData(
         style: ElevatedButton.styleFrom(
-          backgroundColor: AppColors.primaryDark,
-          foregroundColor: AppColors.onPrimary,
+          backgroundColor: AppColors.primaryLight,
+          foregroundColor: AppColors.primaryDark,
           elevation: AppDimensions.cardElevation,
           minimumSize: const Size(double.infinity, AppDimensions.buttonHeightM),
           shape: RoundedRectangleBorder(
             borderRadius: AppDimensions.borderRadiusM,
           ),
-          textStyle: _buttonTextStyle(AppColors.onPrimary),
+          textStyle: _buttonTextStyle(AppColors.primaryDark),
         ),
       ),
 
@@ -413,6 +425,33 @@ class AppTheme {
         elevation: AppDimensions.cardElevation,
         selectedLabelStyle: AppTextStyles.labelSmallDark,
         unselectedLabelStyle: AppTextStyles.labelSmallDark,
+      ),
+
+      tabBarTheme: const TabBarThemeData(
+        labelColor: AppColors.primaryLight,
+        unselectedLabelColor: AppColors.onSurfaceVariantDark,
+        labelStyle: AppTextStyles.tabText,
+        unselectedLabelStyle: AppTextStyles.tabText,
+        indicator: UnderlineTabIndicator(
+          borderSide: BorderSide(color: AppColors.primaryLight, width: 2),
+        ),
+      ),
+
+      chipTheme: ChipThemeData(
+        backgroundColor: AppColors.surfaceVariantDark,
+        selectedColor: AppColors.primaryDark,
+        labelStyle: AppTextStyles.labelMediumDark,
+        shape: RoundedRectangleBorder(
+          borderRadius: AppDimensions.borderRadiusL,
+        ),
+        padding: AppDimensions.paddingAllS,
+      ),
+
+      dividerTheme: const DividerThemeData(
+        color: AppColors.onSurfaceVariantDark,
+        thickness: AppDimensions.dividerThickness,
+        indent: AppDimensions.dividerIndent,
+        endIndent: AppDimensions.dividerIndent,
       ),
 
       // Dialog Theme

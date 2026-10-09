@@ -3,6 +3,8 @@ import 'package:mobile_template/app/theme/app_dimensions.dart';
 import 'package:mobile_template/core/extensions/build_context_extensions.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:mobile_template/app/theme/app_colors.dart';
+import 'package:mobile_template/presentation/widgets/common/brand_mark.dart';
 
 class LoginHeroSection extends StatelessWidget {
   const LoginHeroSection({
@@ -35,6 +37,7 @@ class LoginHeroSection extends StatelessWidget {
               AppDimensions.paddingL,
             ),
       child: Column(
+        mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: isWide
             ? CrossAxisAlignment.start
             : CrossAxisAlignment.center,
@@ -47,20 +50,26 @@ class LoginHeroSection extends StatelessWidget {
                 icon: const Icon(Icons.arrow_back_rounded, color: Colors.white),
               ),
             ),
+          Align(
+            alignment: isWide ? Alignment.centerLeft : Alignment.center,
+            child: const BrandMark(size: 60, onDark: true),
+          ),
+          const SizedBox(height: AppDimensions.spaceL),
           Text(
             context.l10n.appName,
-            style: theme.textTheme.headlineLarge?.copyWith(
-              color: Colors.white,
-              fontWeight: FontWeight.w800,
-            ),
+            style: theme.textTheme.displaySmall?.copyWith(color: Colors.white),
             textAlign: isWide ? TextAlign.left : TextAlign.center,
+          ),
+          const SizedBox(height: AppDimensions.spaceL),
+          Align(
+            alignment: isWide ? Alignment.centerLeft : Alignment.center,
+            child: Container(width: 44, height: 2, color: AppColors.accent),
           ),
           const SizedBox(height: AppDimensions.spaceL),
           Text(
             title,
-            style: theme.textTheme.titleLarge?.copyWith(
+            style: theme.textTheme.headlineMedium?.copyWith(
               color: Colors.white,
-              fontWeight: FontWeight.w700,
             ),
             textAlign: isWide ? TextAlign.left : TextAlign.center,
           ),

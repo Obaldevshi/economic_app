@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:mobile_template/app/theme/app_colors.dart';
 import 'package:mobile_template/app/theme/app_dimensions.dart';
 import 'package:mobile_template/app/theme/app_glass.dart';
+import 'package:mobile_template/presentation/widgets/common/savings_backdrop.dart';
 
 enum GlassSurfaceVariant { onGradient, onLight, panel }
 
@@ -31,24 +32,16 @@ class GlassSurface extends StatelessWidget {
     final color = switch (variant) {
       GlassSurfaceVariant.onGradient => AppColors.primaryDark,
       GlassSurfaceVariant.onLight => Theme.of(context).colorScheme.surface,
-      GlassSurfaceVariant.panel => Theme.of(context).colorScheme.surface,
+      GlassSurfaceVariant.panel => Theme.of(context).scaffoldBackgroundColor,
     };
+    final content = padding == null
+        ? child
+        : Padding(padding: padding!, child: child);
 
     Widget surface = DecoratedBox(
       decoration: BoxDecoration(
         color: color,
         borderRadius: borderRadius,
-        boxShadow: variant == GlassSurfaceVariant.onLight
-            ? [
-                BoxShadow(
-                  color: Colors.black.withValues(
-                    alpha: AppGlass.isDark(context) ? 0.16 : 0.045,
-                  ),
-                  blurRadius: 18,
-                  offset: const Offset(0, 8),
-                ),
-              ]
-            : null,
         border: showBorder
             ? Border.all(
                 color: variant == GlassSurfaceVariant.onGradient
@@ -58,7 +51,12 @@ class GlassSurface extends StatelessWidget {
               )
             : null,
       ),
-      child: padding == null ? child : Padding(padding: padding!, child: child),
+      child: variant == GlassSurfaceVariant.panel
+          ? ClipRRect(
+              borderRadius: borderRadius,
+              child: SavingsBackdrop(child: content),
+            )
+          : content,
     );
 
     if (margin != null) {
