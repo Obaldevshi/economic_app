@@ -162,6 +162,7 @@ class _LoginPageState extends State<LoginPage> {
       setState(() => _isLoading = true);
     } else if (state is LoginSuccess) {
       setState(() => _isLoading = false);
+      context.go(AppRoutes.home);
     } else if (state is LoginFailure) {
       setState(() => _isLoading = false);
       ErrorDialog.show(context, state.failure);

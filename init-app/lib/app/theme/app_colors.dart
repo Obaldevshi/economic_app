@@ -1,7 +1,27 @@
 import 'package:flutter/material.dart';
 
+class BrandColors extends ThemeExtension<BrandColors> {
+  const BrandColors({required this.ink, required this.accent});
+  final Color ink, accent;
+  @override
+  BrandColors copyWith({Color? ink, Color? accent}) =>
+      BrandColors(ink: ink ?? this.ink, accent: accent ?? this.accent);
+  @override
+  BrandColors lerp(ThemeExtension<BrandColors>? other, double t) =>
+      other is BrandColors
+      ? BrandColors(
+          ink: Color.lerp(ink, other.ink, t)!,
+          accent: Color.lerp(accent, other.accent, t)!,
+        )
+      : this;
+}
+
 class AppColors {
   AppColors._();
+  static Color ink(BuildContext context) =>
+      Theme.of(context).extension<BrandColors>()?.ink ?? primaryDark;
+  static Color highlight(BuildContext context) =>
+      Theme.of(context).extension<BrandColors>()?.accent ?? accent;
 
   // Paper, graphite ink and copper. Green is reserved for positive outcomes.
   static const Color primary = Color(0xFF965238);

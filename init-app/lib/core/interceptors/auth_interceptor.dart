@@ -11,7 +11,7 @@ class AuthInterceptor extends Interceptor {
   void onRequest(RequestOptions options, RequestInterceptorHandler handler) {
     if (!AuthApiPaths.isUnauthenticated(options.path)) {
       final authHeader = _sessionService.getAuthHeader();
-      if (authHeader != null) {
+      if (authHeader != null && !options.headers.containsKey('Authorization')) {
         options.headers['Authorization'] = authHeader;
       }
     }
@@ -21,8 +21,11 @@ class AuthInterceptor extends Interceptor {
   @override
   void onError(DioException err, ErrorInterceptorHandler handler) async {
     if (err.response?.statusCode == 401 &&
-        !AuthApiPaths.isUnauthenticated(err.requestOptions.path)) {
-      await _sessionService.clearSession();
+        !AuthApiPaths.isUnauthenticated(err.requestOptions.path) &&
+        err.requestOptions.headers['Authorization'] ==
+            _sessionService.getAuthHeader()) {
+      // Do not destroy the local account or its pending offline operations.
+      _sessionService.requireOnlineLogin();
     }
     handler.next(err);
   }

@@ -1,8 +1,9 @@
 import 'package:mobile_template/app/app_router.dart';
 import 'package:mobile_template/core/di/di.dart';
-import 'package:mobile_template/core/services/connectivity_service.dart';
 import 'package:mobile_template/core/services/locale_service.dart';
 import 'package:mobile_template/core/services/theme_service.dart';
+import 'package:mobile_template/core/services/app_lock_service.dart';
+import 'package:mobile_template/features/savings/presentation/widgets/sync_status_strip.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:go_router/go_router.dart';
@@ -21,7 +22,21 @@ class _MobileTemplateAppState extends State<MobileTemplateApp> {
   late final GoRouter _router = createAppRouter();
   final _themeService = getIt<ThemeService>();
   final _localeService = getIt<LocaleService>();
-  final _connectivityService = getIt<ConnectivityService>();
+  late final AppLifecycleListener _lifecycle;
+  @override
+  void initState() {
+    super.initState();
+    _lifecycle = AppLifecycleListener(
+      onInactive: () => getIt<AppLockService>().lock(),
+    );
+  }
+
+  @override
+  void dispose() {
+    _lifecycle.dispose();
+    _router.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -61,52 +76,26 @@ class _MobileTemplateAppState extends State<MobileTemplateApp> {
             return const Locale('en');
           },
           onGenerateTitle: (context) => AppLocalizations.of(context)!.appName,
-          theme: readableTheme(AppTheme.lightTheme),
-          darkTheme: readableTheme(AppTheme.darkTheme),
+          theme: readableTheme(
+            AppTheme.withSeed(AppTheme.lightTheme, _themeService.lightSeed),
+          ),
+          darkTheme: readableTheme(
+            AppTheme.withSeed(AppTheme.darkTheme, _themeService.darkSeed),
+          ),
           themeMode: _themeService.themeMode,
           builder: (context, child) {
-            return StreamBuilder<bool>(
-              stream: _connectivityService.onlineStream,
-              initialData: _connectivityService.isOnline,
-              builder: (context, snapshot) {
-                final isOnline = snapshot.data ?? true;
-                final appChild = child == null
-                    ? null
-                    : ColoredBox(
-                        color: Theme.of(context).scaffoldBackgroundColor,
-                        child: child,
-                      );
-                return Stack(
-                  children: [
-                    ?appChild,
-                    if (!isOnline)
-                      Positioned(
-                        top: 0,
-                        left: 0,
-                        right: 0,
-                        child: Material(
-                          color: Colors.red.shade700,
-                          child: SafeArea(
-                            bottom: false,
-                            child: Padding(
-                              padding: const EdgeInsets.symmetric(vertical: 8),
-                              child: Center(
-                                child: Text(
-                                  AppLocalizations.of(context)?.offlineBanner ??
-                                      'No internet connection',
-                                  style: const TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 13,
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ),
-                        ),
-                      ),
-                  ],
-                );
-              },
+            return Column(
+              children: [
+                Expanded(
+                  child: ColoredBox(
+                    color: Theme.of(context).scaffoldBackgroundColor,
+                    child: child ?? const SizedBox.shrink(),
+                  ),
+                ),
+                SyncStatusStrip(
+                  onLogin: () => _router.go('${AppRoutes.login}?reauth=true'),
+                ),
+              ],
             );
           },
         );

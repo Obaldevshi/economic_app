@@ -60,6 +60,12 @@ abstract class ApiService {
   @GET('/savings/settings')
   Future<BaseResponse<SavingsSettingsResponse>> getSavingsSettings();
 
+  @POST('/savings/sync')
+  Future<BaseResponse<SavingsSyncResponse>> syncSavings(
+    @Header('Authorization') String authorization,
+    @Body() Map<String, dynamic> request,
+  );
+
   @GET('/savings/impulses')
   Future<BaseResponse<List<ImpulseItemResponse>>> getImpulseItems(
     @Query('include_inactive') bool includeInactive,
@@ -85,6 +91,24 @@ abstract class ApiService {
 
   @POST('/savings/events')
   Future<BaseResponse> createSavingEvent(@Body() SavingEventRequest request);
+
+  @GET('/savings/spent')
+  Future<BaseResponse<SpentHistoryResponse>> getSpentHistory(
+    @Query('page') int page,
+    @Query('per_page') int perPage,
+  );
+
+  @POST('/savings/spent')
+  Future<BaseResponse> createSpentEvent(@Body() SpentEventRequest request);
+
+  @PUT('/savings/spent/{id}')
+  Future<BaseResponse> updateSpentEvent(
+    @Path('id') int id,
+    @Body() SpentEventRequest request,
+  );
+
+  @DELETE('/savings/spent/{id}')
+  Future<void> deleteSpentEvent(@Path('id') int id);
 
   @PUT('/savings/events/{id}')
   Future<BaseResponse> updateSavingEvent(

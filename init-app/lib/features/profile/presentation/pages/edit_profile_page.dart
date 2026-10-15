@@ -204,9 +204,10 @@ class _EditProfilePageState extends State<EditProfilePage> {
   Widget _buildLastNameField(BuildContext context) {
     return GlobalTextFormField(
       controller: _lastNameController,
-      labelText: context.l10n.lastName,
-      validator: (value) =>
-          ValidationUtils.validateName(value, context.l10n.lastName, context),
+      labelText: context.l10n.lastNameOptional,
+      validator: (value) => (value ?? '').trim().isEmpty
+          ? null
+          : ValidationUtils.validateName(value, context.l10n.lastName, context),
     );
   }
 

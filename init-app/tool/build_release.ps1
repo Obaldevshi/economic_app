@@ -25,7 +25,7 @@ try {
     $version = ((Get-Content pubspec.yaml | Where-Object { $_ -match '^version:' }) -replace '^version:\s*', '').Trim()
     $distribution = Join-Path $appRoot ('build/distribution/not-spent-' + $version.Replace('+', '-'))
     New-Item -ItemType Directory -Path $distribution -Force | Out-Null
-    & $flutterCommand.Source build web --release
+    & $flutterCommand.Source build web --release --no-web-resources-cdn
     if ($LASTEXITCODE -ne 0) { throw 'Web build failed.' }
     Compress-Archive -Path (Join-Path $appRoot 'build/web/*') -DestinationPath (Join-Path $distribution 'not-spent-web.zip') -Force
     if ($Mode -eq 'Preview') { $env:NOT_SPENT_PREVIEW_SIGNING = '1' }

@@ -19,7 +19,7 @@ import 'package:mobile_template/features/savings/presentation/widgets/quick_savi
 import 'package:mobile_template/features/shell/presentation/widgets/navigation_branch_scope.dart';
 import 'package:mobile_template/presentation/widgets/common/error_dialog.dart';
 import 'package:mobile_template/presentation/widgets/common/glass_surface_card.dart';
-import 'package:mobile_template/presentation/widgets/common/editorial_icons.dart';
+import 'package:go_router/go_router.dart';
 import 'package:mobile_template/presentation/widgets/common/brand_mark.dart';
 import 'package:mobile_template/presentation/widgets/layout/scroll_shell.dart';
 
@@ -74,14 +74,6 @@ class SavingsDashboardPage extends StatelessWidget {
               onPressed: () => showWeeklyReceiptDialog(context),
               icon: const Icon(Icons.receipt_long_outlined),
             ),
-            if (dashboard != null)
-              IconButton(
-                tooltip: context.l10n.rateAndHorizon,
-                onPressed: state.isSaving || state.isLoading
-                    ? null
-                    : () => showProjectionSettingsDialog(context, dashboard),
-                icon: const Icon(Icons.tune_rounded),
-              ),
           ],
           headerContent: Text(
             context.l10n.savingsTagline,
@@ -132,27 +124,15 @@ class _DashboardBody extends StatelessWidget {
           children: [
             FinancialCurrencyBar(dashboard: dashboard),
             const SizedBox(height: AppDimensions.spaceM),
-            _SavingsHero(dashboard: dashboard, impulses: impulses),
+            _HomeHero(dashboard: dashboard, impulses: impulses),
             const SizedBox(height: AppDimensions.spaceL),
             const QuickSavingActions(),
-            const SizedBox(height: AppDimensions.spaceL),
-            ScenarioComparison(items: impulses, rate: dashboard.annualRate),
-            if (impulses.isNotEmpty) ...[
-              const SizedBox(height: AppDimensions.spaceL),
-              _QuickChoices(impulses: impulses),
-            ],
             const SizedBox(height: AppDimensions.spaceL),
             _SummarySection(dashboard: dashboard),
             const SizedBox(height: AppDimensions.spaceL),
             AppLayoutItemBuilder<Widget>(
               narrow: () => Column(
                 children: [
-                  _ProjectionCard(dashboard: dashboard),
-                  const SizedBox(height: AppDimensions.spaceM),
-                  _DynamicsCard(points: dashboard.monthlySeries),
-                  const SizedBox(height: AppDimensions.spaceM),
-                  _TopSourcesCard(items: dashboard.impulseTotals),
-                  const SizedBox(height: AppDimensions.spaceM),
                   _GoalsCard(dashboard: dashboard),
                   const SizedBox(height: AppDimensions.spaceM),
                   _RecentSavings(events: dashboard.recentEvents),
@@ -161,28 +141,10 @@ class _DashboardBody extends StatelessWidget {
               wide: () => Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Expanded(
-                    flex: 3,
-                    child: Column(
-                      children: [
-                        _ProjectionCard(dashboard: dashboard),
-                        const SizedBox(height: AppDimensions.spaceM),
-                        _DynamicsCard(points: dashboard.monthlySeries),
-                        const SizedBox(height: AppDimensions.spaceM),
-                        _TopSourcesCard(items: dashboard.impulseTotals),
-                      ],
-                    ),
-                  ),
+                  Expanded(child: _GoalsCard(dashboard: dashboard)),
                   const SizedBox(width: AppDimensions.spaceM),
                   Expanded(
-                    flex: 2,
-                    child: Column(
-                      children: [
-                        _GoalsCard(dashboard: dashboard),
-                        const SizedBox(height: AppDimensions.spaceM),
-                        _RecentSavings(events: dashboard.recentEvents),
-                      ],
-                    ),
+                    child: _RecentSavings(events: dashboard.recentEvents),
                   ),
                 ],
               ),
@@ -192,6 +154,132 @@ class _DashboardBody extends StatelessWidget {
       ),
     );
   }
+}
+
+class SavingsForecastPage extends StatelessWidget {
+  const SavingsForecastPage({super.key});
+  @override
+  Widget build(BuildContext context) => BlocConsumer<SavingsBloc, SavingsState>(
+    listenWhen: (a, b) => a.failure != b.failure,
+    listener: (context, state) {
+      if (state.failure != null &&
+          NavigationBranchScope.isActive(
+            context,
+            AppNavigationBranch.forecast,
+          )) {
+        ErrorDialog.show(
+          context,
+          localizeSavingsFailure(context, state.failure!),
+        );
+      }
+    },
+    builder: (context, state) {
+      final dashboard = state.dashboard;
+      return ScrollShell(
+        title: context.l10n.forecastTab,
+        headerContent: const SizedBox.shrink(),
+        expandedHeaderHeight: 0,
+        isLoading: state.isDashboardLoading && dashboard == null,
+        onRefresh: () async {
+          final bloc = context.read<SavingsBloc>();
+          bloc
+            ..add(const LoadSavingsDashboard())
+            ..add(const LoadImpulseItems());
+          await bloc.stream.firstWhere((s) => !s.isLoading);
+        },
+        body: dashboard == null
+            ? SavingsLoadError(
+                onRetry: () => context.read<SavingsBloc>().add(
+                  const LoadSavingsDashboard(),
+                ),
+              )
+            : Center(
+                child: ConstrainedBox(
+                  constraints: const BoxConstraints(maxWidth: 1100),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: [
+                      FinancialCurrencyBar(dashboard: dashboard),
+                      const SizedBox(height: AppDimensions.spaceM),
+                      _SavingsHero(
+                        dashboard: dashboard,
+                        impulses: state.impulses,
+                      ),
+                      const SizedBox(height: AppDimensions.spaceL),
+                      _ProjectionCard(dashboard: dashboard),
+                      const SizedBox(height: AppDimensions.spaceL),
+                      ScenarioComparison(
+                        items: state.impulses.where((i) => i.isActive).toList(),
+                        rate: dashboard.annualRate,
+                      ),
+                      const SizedBox(height: AppDimensions.spaceL),
+                      _DynamicsCard(points: dashboard.monthlySeries),
+                      const SizedBox(height: AppDimensions.spaceM),
+                      _TopSourcesCard(items: dashboard.impulseTotals),
+                    ],
+                  ),
+                ),
+              ),
+      );
+    },
+  );
+}
+
+class _HomeHero extends StatelessWidget {
+  const _HomeHero({required this.dashboard, required this.impulses});
+  final SavingsDashboardResponse dashboard;
+  final List<ImpulseItemResponse> impulses;
+  @override
+  Widget build(BuildContext context) => GlassSurfaceCard(
+    child: Column(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      children: [
+        Text(
+          context.l10n.savedTotal,
+          style: Theme.of(context).textTheme.titleMedium,
+        ),
+        const SizedBox(height: AppDimensions.spaceS),
+        Text(
+          formatRubles(context, dashboard.totalSaved),
+          style: Theme.of(context).textTheme.displaySmall,
+        ),
+        const SizedBox(height: AppDimensions.spaceS),
+        Text(
+          context.l10n.homeActualHint,
+          style: Theme.of(context).textTheme.bodyMedium,
+        ),
+        const SizedBox(height: AppDimensions.spaceM),
+        Text(
+          '${context.l10n.realSavings}: ${formatRubles(context, dashboard.investedTotal)}',
+          style: Theme.of(context).textTheme.titleSmall,
+        ),
+        const SizedBox(height: AppDimensions.spaceL),
+        Wrap(
+          spacing: AppDimensions.spaceS,
+          runSpacing: AppDimensions.spaceS,
+          children: [
+            FilledButton.icon(
+              onPressed: context.watch<SavingsBloc>().state.isSaving
+                  ? null
+                  : () => showAddSavingDialog(context, impulses),
+              icon: const Icon(Icons.add_rounded),
+              label: Text(context.l10n.recordSaving),
+            ),
+            OutlinedButton.icon(
+              onPressed: () => context.go('/spent'),
+              icon: const Icon(Icons.shopping_bag_outlined),
+              label: Text(context.l10n.recordSpent),
+            ),
+            TextButton.icon(
+              onPressed: () => context.go('/forecast'),
+              icon: const Icon(Icons.show_chart_rounded),
+              label: Text(context.l10n.openForecast),
+            ),
+          ],
+        ),
+      ],
+    ),
+  );
 }
 
 class _SavingsHero extends StatelessWidget {
@@ -263,8 +351,8 @@ class _SavingsHero extends StatelessWidget {
           icon: const Icon(Icons.add_rounded),
           label: Text(context.l10n.recordSaving),
           style: FilledButton.styleFrom(
-            backgroundColor: AppColors.accent,
-            foregroundColor: AppColors.primaryDark,
+            backgroundColor: AppColors.highlight(context),
+            foregroundColor: AppColors.ink(context),
             disabledBackgroundColor: Colors.white.withValues(alpha: 0.18),
             disabledForegroundColor: Colors.white.withValues(alpha: 0.6),
             minimumSize: const Size.fromHeight(54),
@@ -275,7 +363,7 @@ class _SavingsHero extends StatelessWidget {
 
     return DecoratedBox(
       decoration: BoxDecoration(
-        color: AppColors.primaryDark,
+        color: AppColors.ink(context),
         borderRadius: AppDimensions.borderRadiusXL,
         border: Border.all(color: Colors.white.withValues(alpha: 0.12)),
       ),
@@ -338,7 +426,7 @@ class _HeroMetric extends StatelessWidget {
     padding: const EdgeInsets.symmetric(vertical: AppDimensions.spaceS),
     child: Row(
       children: [
-        Icon(icon, color: AppColors.accent, size: 20),
+        Icon(icon, color: AppColors.highlight(context), size: 20),
         const SizedBox(width: AppDimensions.spaceS),
         Expanded(
           child: Text(
@@ -360,101 +448,6 @@ class _HeroMetric extends StatelessWidget {
   );
 }
 
-class _QuickChoices extends StatelessWidget {
-  const _QuickChoices({required this.impulses});
-
-  final List<ImpulseItemResponse> impulses;
-
-  @override
-  Widget build(BuildContext context) {
-    final visible = impulses.take(6).toList();
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(
-          context.l10n.quickChoices,
-          style: Theme.of(context).textTheme.titleLarge,
-        ),
-        const SizedBox(height: 4),
-        Text(
-          context.l10n.quickChoicesDescription,
-          style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-            color: Theme.of(context).colorScheme.onSurfaceVariant,
-          ),
-        ),
-        const SizedBox(height: AppDimensions.spaceM),
-        SizedBox(
-          height: 132,
-          child: ListView.separated(
-            scrollDirection: Axis.horizontal,
-            itemCount: visible.length,
-            separatorBuilder: (_, _) =>
-                const SizedBox(width: AppDimensions.spaceS),
-            itemBuilder: (context, index) {
-              final item = visible[index];
-              return SizedBox(
-                width: 190,
-                child: GlassSurfaceCard(
-                  onTap: () => showAddSavingDialog(
-                    context,
-                    impulses,
-                    initialImpulse: item,
-                  ),
-                  padding: const EdgeInsets.all(AppDimensions.paddingM),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Row(
-                        children: [
-                          GlassIconBadge(
-                            size: 38,
-                            color: Theme.of(context).colorScheme.primary,
-                            child: ImpulseGlyph(
-                              keyName: item.iconKey,
-                              size: 20,
-                              color: Theme.of(context).colorScheme.primary,
-                            ),
-                          ),
-                          const Spacer(),
-                          Icon(
-                            Icons.add_circle_rounded,
-                            color: Theme.of(context).colorScheme.primary,
-                            size: 24,
-                          ),
-                        ],
-                      ),
-                      const Spacer(),
-                      Text(
-                        item.name,
-                        maxLines: 1,
-                        overflow: TextOverflow.ellipsis,
-                        style: Theme.of(context).textTheme.titleSmall,
-                      ),
-                      const SizedBox(height: 2),
-                      Text(
-                        formatRubles(
-                          context,
-                          item.defaultAmount,
-                          currencyCode: item.currencyCode,
-                        ),
-                        style: Theme.of(context).textTheme.titleMedium
-                            ?.copyWith(
-                              color: Theme.of(context).colorScheme.primary,
-                              fontWeight: FontWeight.w800,
-                            ),
-                      ),
-                    ],
-                  ),
-                ),
-              );
-            },
-          ),
-        ),
-      ],
-    );
-  }
-}
-
 class _SummarySection extends StatelessWidget {
   const _SummarySection({required this.dashboard});
   final SavingsDashboardResponse dashboard;
@@ -474,26 +467,10 @@ class _SummarySection extends StatelessWidget {
         Icons.calendar_month_outlined,
         Theme.of(context).colorScheme.primary,
       ),
-      (
-        context.l10n.savedTotal,
-        dashboard.totalSaved,
-        Icons.savings_outlined,
-        AppColors.success,
-      ),
-      (
-        context.l10n.investedTotal,
-        dashboard.investedTotal,
-        Icons.account_balance_outlined,
-        AppColors.warning,
-      ),
     ];
     return LayoutBuilder(
       builder: (context, constraints) {
-        final columns = constraints.maxWidth >= 900
-            ? 4
-            : constraints.maxWidth >= 520
-            ? 2
-            : 1;
+        final columns = constraints.maxWidth >= 520 ? 2 : 1;
         final width =
             (constraints.maxWidth - AppDimensions.spaceM * (columns - 1)) /
             columns;
@@ -606,7 +583,10 @@ class _ProjectionCard extends StatelessWidget {
                     color: Theme.of(context).colorScheme.primary,
                   ),
                   Expanded(
-                    child: Container(height: 10, color: AppColors.accent),
+                    child: Container(
+                      height: 10,
+                      color: AppColors.highlight(context),
+                    ),
                   ),
                 ],
               ),
@@ -623,7 +603,7 @@ class _ProjectionCard extends StatelessWidget {
                 value: formatCompactRubles(context, contributions),
               ),
               _LegendItem(
-                color: AppColors.accent,
+                color: AppColors.highlight(context),
                 label: context.l10n.interestIncome,
                 value: formatCompactRubles(
                   context,

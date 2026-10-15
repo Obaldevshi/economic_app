@@ -11,6 +11,7 @@ class ErrorHandler {
       case DioExceptionType.connectionTimeout:
       case DioExceptionType.sendTimeout:
       case DioExceptionType.receiveTimeout:
+      case DioExceptionType.transformTimeout:
         return const TimeoutFailure();
 
       case DioExceptionType.connectionError:
@@ -28,9 +29,6 @@ class ErrorHandler {
           message: error.message ?? '',
           errorCode: FailureCodes.unknown,
         );
-      case DioExceptionType.transformTimeout:
-        // TODO: Handle this case.
-        throw UnimplementedError();
     }
   }
 
@@ -128,6 +126,7 @@ class ErrorHandler {
   }
 
   static Failure handleError(Object error) {
+    if (error is Failure) return error;
     if (error is DioException) {
       return handleDioError(error);
     }

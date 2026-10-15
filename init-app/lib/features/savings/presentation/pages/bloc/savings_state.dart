@@ -20,6 +20,14 @@ class SavingsState extends Equatable {
     this.actionMessage,
     this.weeklyReceipt,
     this.isReceiptLoading = false,
+    this.spent = const [],
+    this.spentTotal = 0,
+    this.spentAmount = 0,
+    this.spentPage = 0,
+    this.spentCurrency,
+    this.hasMoreSpent = false,
+    this.isSpentLoading = false,
+    this.spentLoadFailed = false,
   });
 
   final bool isDashboardLoading;
@@ -41,6 +49,14 @@ class SavingsState extends Equatable {
   final String? actionMessage;
   final WeeklyReceiptResponse? weeklyReceipt;
   final bool isReceiptLoading;
+  final List<SpentEventResponse> spent;
+  final int spentTotal;
+  final double spentAmount;
+  final int spentPage;
+  final String? spentCurrency;
+  final bool hasMoreSpent;
+  final bool isSpentLoading;
+  final bool spentLoadFailed;
 
   SavingsState copyWith({
     bool? isDashboardLoading,
@@ -66,6 +82,14 @@ class SavingsState extends Equatable {
     bool clearReceipt = false,
     bool clearDashboard = false,
     bool clearSettings = false,
+    List<SpentEventResponse>? spent,
+    int? spentTotal,
+    double? spentAmount,
+    int? spentPage,
+    String? spentCurrency,
+    bool? hasMoreSpent,
+    bool? isSpentLoading,
+    bool? spentLoadFailed,
   }) => SavingsState(
     isDashboardLoading: isDashboardLoading ?? this.isDashboardLoading,
     isImpulseLoading: isImpulseLoading ?? this.isImpulseLoading,
@@ -85,6 +109,14 @@ class SavingsState extends Equatable {
     actionMessage: clearMessage ? null : actionMessage ?? this.actionMessage,
     weeklyReceipt: clearReceipt ? null : weeklyReceipt ?? this.weeklyReceipt,
     isReceiptLoading: isReceiptLoading ?? this.isReceiptLoading,
+    spent: spent ?? this.spent,
+    spentTotal: spentTotal ?? this.spentTotal,
+    spentAmount: spentAmount ?? this.spentAmount,
+    spentPage: spentPage ?? this.spentPage,
+    spentCurrency: spentCurrency ?? this.spentCurrency,
+    hasMoreSpent: hasMoreSpent ?? this.hasMoreSpent,
+    isSpentLoading: isSpentLoading ?? this.isSpentLoading,
+    spentLoadFailed: spentLoadFailed ?? this.spentLoadFailed,
   );
 
   @override
@@ -107,5 +139,13 @@ class SavingsState extends Equatable {
     actionMessage,
     weeklyReceipt,
     isReceiptLoading,
+    spent,
+    spentTotal,
+    spentAmount,
+    spentPage,
+    spentCurrency,
+    hasMoreSpent,
+    isSpentLoading,
+    spentLoadFailed,
   ];
 }

@@ -40,10 +40,10 @@ class _AuthScrollScaffoldState extends State<AuthScrollScaffold> {
     final bottomSafe = MediaQuery.paddingOf(context).bottom;
 
     return Scaffold(
-      backgroundColor: ScrollShell.headerBackground,
+      backgroundColor: ScrollShell.headerBackground(context),
       resizeToAvoidBottomInset: false,
       body: ColoredBox(
-        color: ScrollShell.headerBackground,
+        color: ScrollShell.headerBackground(context),
         child: SavingsBackdrop(
           onDark: true,
           child: KeyboardInsetBuilder(

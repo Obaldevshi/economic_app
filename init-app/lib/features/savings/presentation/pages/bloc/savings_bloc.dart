@@ -14,6 +14,21 @@ class SavingsBloc extends Bloc<SavingsEvent, SavingsState> {
     on<LoadSavingsDashboard>(_loadDashboard);
     on<LoadImpulseItems>(_loadImpulses);
     on<LoadSavingHistory>(_loadHistory);
+    on<LoadSpentHistory>(_loadSpent);
+    on<SaveSpentEvent>(
+      (event, emit) => _runAction(
+        emit,
+        () => _repository.saveSpent(event.request, id: event.id),
+        refreshSpent: true,
+      ),
+    );
+    on<DeleteSpentEvent>(
+      (event, emit) => _runAction(
+        emit,
+        () => _repository.deleteSpent(event.id),
+        refreshSpent: true,
+      ),
+    );
     on<CreateSavingEvent>(_createSaving);
     on<UpdateSavingEvent>(_updateSaving);
     on<SaveImpulseItem>(_saveImpulse);
@@ -39,7 +54,7 @@ class SavingsBloc extends Bloc<SavingsEvent, SavingsState> {
         ),
       );
       final result = await _repository.getWeeklyReceipt();
-      if (requestId != _receiptRequestId) return;
+      if (emit.isDone || requestId != _receiptRequestId) return;
       result.fold(
         (failure) =>
             emit(state.copyWith(isReceiptLoading: false, failure: failure)),
@@ -57,6 +72,57 @@ class SavingsBloc extends Bloc<SavingsEvent, SavingsState> {
   int _impulseRequestId = 0;
   int _historyRequestId = 0;
   int _receiptRequestId = 0;
+  int _spentRequestId = 0;
+
+  Future<void> _loadSpent(
+    LoadSpentHistory event,
+    Emitter<SavingsState> emit,
+  ) async {
+    if (event.append &&
+        (state.isSpentLoading ||
+            !state.hasMoreSpent ||
+            event.page != state.spentPage + 1)) {
+      return;
+    }
+    final requestId = ++_spentRequestId;
+    emit(
+      state.copyWith(
+        isSpentLoading: true,
+        spentLoadFailed: false,
+        clearFailure: true,
+      ),
+    );
+    final result = await _repository.getSpent(page: event.page);
+    if (emit.isDone || requestId != _spentRequestId) return;
+    result.fold(
+      (failure) => emit(
+        state.copyWith(
+          isSpentLoading: false,
+          spentLoadFailed: true,
+          failure: failure,
+        ),
+      ),
+      (page) => emit(
+        state.copyWith(
+          isSpentLoading: false,
+          spentLoadFailed: false,
+          spent: event.append && state.spentCurrency == page.currencyCode
+              ? {
+                  for (final item in [...state.spent, ...page.items])
+                    item.id: item,
+                }.values.toList()
+              : page.items,
+          spentAmount: page.totalAmount,
+          spentTotal: page.total,
+          spentCurrency: page.currencyCode,
+          spentPage: page.page,
+          hasMoreSpent:
+              page.items.isNotEmpty && page.page * page.perPage < page.total,
+          clearFailure: true,
+        ),
+      ),
+    );
+  }
 
   Future<void> _loadDashboard(
     LoadSavingsDashboard event,
@@ -71,7 +137,7 @@ class SavingsBloc extends Bloc<SavingsEvent, SavingsState> {
       ),
     );
     final result = await _repository.getDashboard();
-    if (requestId != _dashboardRequestId) return;
+    if (emit.isDone || requestId != _dashboardRequestId) return;
     result.fold(
       (failure) => emit(
         state.copyWith(
@@ -107,7 +173,7 @@ class SavingsBloc extends Bloc<SavingsEvent, SavingsState> {
         ? _repository.getSettings()
         : null;
     final result = await _repository.getImpulses();
-    if (requestId != _impulseRequestId) return;
+    if (emit.isDone || requestId != _impulseRequestId) return;
     if (settingsFuture == null) {
       result.fold(
         (failure) => emit(
@@ -132,7 +198,7 @@ class SavingsBloc extends Bloc<SavingsEvent, SavingsState> {
     }
 
     final settingsResult = await settingsFuture;
-    if (requestId != _impulseRequestId) return;
+    if (emit.isDone || requestId != _impulseRequestId) return;
     settingsResult.fold(
       (failure) => emit(state.copyWith(failure: failure)),
       (settings) => emit(state.copyWith(settings: settings)),
@@ -159,8 +225,9 @@ class SavingsBloc extends Bloc<SavingsEvent, SavingsState> {
     if (event.append &&
         (state.isHistoryLoading ||
             !state.hasMoreHistory ||
-            event.page != state.historyPage + 1))
+            event.page != state.historyPage + 1)) {
       return;
+    }
     final requestId = ++_historyRequestId;
     emit(
       state.copyWith(
@@ -171,7 +238,7 @@ class SavingsBloc extends Bloc<SavingsEvent, SavingsState> {
     );
     final result = await _repository.getEvents(page: event.page);
     // A refresh or mutation supersedes an in-flight next-page request.
-    if (requestId != _historyRequestId) return;
+    if (emit.isDone || requestId != _historyRequestId) return;
     result.fold(
       (failure) => emit(
         state.copyWith(
@@ -272,6 +339,7 @@ class SavingsBloc extends Bloc<SavingsEvent, SavingsState> {
       state.copyWith(isSaving: true, clearFailure: true, clearMessage: true),
     );
     final result = await _repository.updateSettings(event.request);
+    if (emit.isDone) return;
     result.fold(
       (failure) => emit(state.copyWith(isSaving: false, failure: failure)),
       (message) {
@@ -293,6 +361,7 @@ class SavingsBloc extends Bloc<SavingsEvent, SavingsState> {
           return;
         }
         ++_historyRequestId;
+        ++_spentRequestId;
         ++_receiptRequestId;
         emit(
           state.copyWith(
@@ -310,11 +379,19 @@ class SavingsBloc extends Bloc<SavingsEvent, SavingsState> {
             isDashboardLoading: false,
             isImpulseLoading: false,
             isHistoryLoading: false,
+            spent: [],
+            spentTotal: 0,
+            spentAmount: 0,
+            spentPage: 0,
+            hasMoreSpent: false,
+            isSpentLoading: false,
+            spentLoadFailed: false,
           ),
         );
         add(const LoadSavingsDashboard());
         add(const LoadImpulseItems(withSettings: true));
         add(const LoadSavingHistory());
+        add(const LoadSpentHistory());
       },
     );
   }
@@ -334,12 +411,14 @@ class SavingsBloc extends Bloc<SavingsEvent, SavingsState> {
     bool refreshDashboard = false,
     bool refreshImpulses = false,
     bool refreshHistory = false,
+    bool refreshSpent = false,
   }) async {
     if (state.isSaving) return;
     emit(
       state.copyWith(isSaving: true, clearFailure: true, clearMessage: true),
     );
     final result = await action();
+    if (emit.isDone) return;
     result.fold(
       (Failure failure) =>
           emit(state.copyWith(isSaving: false, failure: failure)),
@@ -356,6 +435,7 @@ class SavingsBloc extends Bloc<SavingsEvent, SavingsState> {
           add(const LoadImpulseItems(withSettings: true));
         }
         if (refreshHistory) add(const LoadSavingHistory());
+        if (refreshSpent) add(const LoadSpentHistory());
       },
     );
   }

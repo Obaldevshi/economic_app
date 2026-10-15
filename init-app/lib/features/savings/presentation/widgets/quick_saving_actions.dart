@@ -32,16 +32,19 @@ class _QuickSavingActionsState extends State<QuickSavingActions> {
             !state.isSaving &&
             !state.impulseLoadFailed) {
           WidgetsBinding.instance.addPostFrameCallback((_) async {
-            if (!context.mounted || native.pendingImpulse.value != pending)
+            if (!context.mounted || native.pendingImpulse.value != pending) {
               return;
+            }
             if (!NavigationBranchScope.isActive(
               context,
               AppNavigationBranch.home,
-            ))
+            )) {
               return;
+            }
             final current = context.read<SavingsBloc>().state;
-            if (_opening || current.isImpulseLoading || current.isSaving)
+            if (_opening || current.isImpulseLoading || current.isSaving) {
               return;
+            }
             native.pendingImpulse.value = null;
             final item = current.impulses
                 .where((item) => item.id == pending && item.isActive)

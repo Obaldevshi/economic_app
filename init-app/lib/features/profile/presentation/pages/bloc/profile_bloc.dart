@@ -36,6 +36,7 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
   ) async {
     emit(GetProfileLoading(data: state.data));
     final result = await _getProfileUsecase.call();
+    if (emit.isDone) return;
     result.fold(
       (failure) => emit(GetProfileFailure(failure: failure, data: state.data)),
       (profile) =>
@@ -54,6 +55,7 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
       email: event.email,
     );
     final result = await _updateProfileUsecase.call(request);
+    if (emit.isDone) return;
     result.fold(
       (failure) =>
           emit(UpdateProfileFailure(failure: failure, data: state.data)),
@@ -69,6 +71,7 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
   ) async {
     emit(DeleteAccountLoading(data: state.data));
     final result = await _deleteAccountUsecase.call();
+    if (emit.isDone) return;
     result.fold(
       (failure) =>
           emit(DeleteAccountFailure(failure: failure, data: state.data)),
@@ -86,6 +89,7 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
       newPassword: event.newPassword,
     );
     final result = await _changePasswordUsecase.call(request);
+    if (emit.isDone) return;
     result.fold(
       (failure) =>
           emit(ChangePasswordFailure(failure: failure, data: state.data)),

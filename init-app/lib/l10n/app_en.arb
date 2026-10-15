@@ -1,5 +1,57 @@
 {
-  "projectionPeriod": "{years, plural, one {# year} other {# years}}",
+  "lastNameOptional": "Last name (optional)",
+  "lightPalette": "Light theme palette",
+  "darkPalette": "Dark theme palette",
+  "customColor": "Custom color · HEX",
+  "colorHue": "Hue",
+  "resetPalette": "Reset palette",
+  "invalidColor": "Enter 6 characters: 0–9, A–F",
+  "pinCreate": "Create a PIN",
+  "pinEnter": "Enter your PIN",
+  "pinHint": "Four digits lock this device locally. Your account password is still needed to sign in and sync.",
+  "pinConfirm": "Confirm your PIN",
+  "pinFourDigits": "PIN · 4 digits",
+  "pinMismatch": "PINs do not match. Start again.",
+  "pinIncorrect": "Incorrect PIN",
+  "pinWait": "Try again in {seconds} s.",
+  "pinStorageError": "Unable to read or save the PIN. Sign in with your password.",
+  "pinLater": "Later / cancel",
+  "pinUsePassword": "Sign in with password",
+  "pinSettings": "Set / change PIN",
+  "pinRemove": "Disable PIN",
+  "pinVerifyFirst": "Verify your current PIN first",
+  "continueAction": "Continue",
+  "offlineStorageError": "Unable to save data on this device. Check available storage.",
+  "offlineAvailable": "Offline: downloaded data is available. New entries stay on this device.",
+  "syncConflict": "Changes are not synced. The server record changed or needs review.",
+  "syncLogin": "Sign in again to sync. Your local entries are safe.",
+  "syncPending": "Waiting to sync: {count}",
+  "syncInProgress": "Syncing…",
+  "syncNow": "Sync now",
+  "syncKeepLocal": "Keep my version",
+  "syncOverwriteWarning": "Your version will replace this record on the server. Continue?",
+  "syncKeepServer": "Remove from queue",
+  "syncDiscardWarning": "Remove the failed operation and its dependent local entries? Server records are not deleted. Cancelled local changes will be lost.",
+  "offlineInitialData": "Connect to the internet once to download this account's journal.",
+  "syncBeforeCurrency": "Sync your entries and connect to the internet before changing currency.",
+  "localAccountChanged": "The account changed. Reopen this screen.",
+  "savedOnDevice": "Saved on this device",
+  "@pinWait": {"placeholders":{"seconds":{"type":"int"}}},
+  "@syncPending": {"placeholders":{"count":{"type":"int"}}},
+  "impulseIconAlcohol": "Alcohol",
+  "impulseIconSnacks": "Snacks and sweets",
+  "impulseIconBakery": "Bakery",
+  "impulseIconSoda": "Soft drinks",
+  "impulseIconEnergyDrink": "Energy drinks",
+  "impulseIconFastFood": "Fast food",
+  "impulseIconCinema": "Cinema",
+  "impulseIconGames": "Games and in-app purchases",
+  "impulseIconClothes": "Clothes",
+  "impulseIconCosmetics": "Cosmetics",
+  "impulseIconGadgets": "Gadgets",
+  "impulseIconGifts": "Gifts",
+  "impulseIconHobbies": "Books and hobbies",
+  "projectionPeriod": "{years, plural, one {{years} year} other {{years} years}}",
   "@projectionPeriod": {"placeholders": {"years": {"type": "int"}}},
   "@@locale": "en",
   "privacyPolicy": "Privacy policy",
@@ -368,5 +420,57 @@
   "addFavorite": "Add to favorites / widget",
   "removeFavorite": "Remove from favorites",
   "favoriteLimit": "You already have three favorites. Remove one first.",
-  "widgetItemUnavailable": "This item is deleted, paused, or unavailable to this account"
+  "widgetItemUnavailable": "This item is deleted, paused, or unavailable to this account",
+  "spentTab": "Spent",
+  "forecastTab": "Forecast",
+  "homeActualHint": "Expectations live in Forecast. Here are your actual decisions: recorded savings do not necessarily mean money has been set aside.",
+  "recordSpent": "Record purchase",
+  "openForecast": "View forecast",
+  "spentIntro": "Only impulse purchases, not everyday expenses. Notice a habit without blaming yourself. Recorded savings and goals remain unchanged.",
+  "spentPrincipal": "Spent on impulses",
+  "spentHistory": "Impulse purchase history",
+  "noSpentYet": "No purchases yet. If an impulse wins, you can calmly record it here.",
+  "spentOpportunity": "Possible missed opportunity",
+  "spentMissedInterest": "Potential missed interest",
+  "spentPossibleTotal": "Principal + interest: {amount}",
+  "spentAssumptions": "Scenario starting today: set aside the entire amount now at {rate}% a year, compounded monthly, with no further deposits, tax or inflation. This is not a real debt or guaranteed income. The purchase itself is not lost interest.",
+  "spentFormHint": "Record only an optional impulse purchase. This is not a saving or a withdrawal from your goals.",
+  "deleteSpentConfirm": "Delete this purchase record? Recorded savings and goals will not change.",
+  "spentLoadedCount": "Loaded {count} of {total} purchases",
+  "spentMissedLine": "Potential interest over {years} yr: {amount}",
+  "spentRecordedMessage": "Purchase recorded",
+  "@spentPossibleTotal": {
+    "placeholders": {
+      "amount": {
+        "type": "String"
+      }
+    }
+  },
+  "@spentAssumptions": {
+    "placeholders": {
+      "rate": {
+        "type": "String"
+      }
+    }
+  },
+  "@spentLoadedCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
+    }
+  },
+  "@spentMissedLine": {
+    "placeholders": {
+      "amount": {
+        "type": "String"
+      },
+      "years": {
+        "type": "int"
+      }
+    }
+  }
 }

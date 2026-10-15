@@ -9,6 +9,169 @@ class AppLocalizationsHi extends AppLocalizations {
   AppLocalizationsHi([String locale = 'hi']) : super(locale);
 
   @override
+  String get lastNameOptional => 'उपनाम (वैकल्पिक)';
+
+  @override
+  String get lightPalette => 'हल्की थीम के रंग';
+
+  @override
+  String get darkPalette => 'गहरी थीम के रंग';
+
+  @override
+  String get customColor => 'अपना रंग · HEX';
+
+  @override
+  String get colorHue => 'रंगत';
+
+  @override
+  String get resetPalette => 'रंग रीसेट करें';
+
+  @override
+  String get invalidColor => '6 अक्षर दर्ज करें: 0–9, A–F';
+
+  @override
+  String get pinCreate => 'PIN बनाएँ';
+
+  @override
+  String get pinEnter => 'PIN दर्ज करें';
+
+  @override
+  String get pinHint =>
+      'चार अंक केवल इस डिवाइस को लॉक करते हैं। लॉगिन और सिंक के लिए खाते का पासवर्ड ज़रूरी है।';
+
+  @override
+  String get pinConfirm => 'PIN की पुष्टि करें';
+
+  @override
+  String get pinFourDigits => 'PIN · 4 अंक';
+
+  @override
+  String get pinMismatch => 'PIN मेल नहीं खाते। फिर से शुरू करें।';
+
+  @override
+  String get pinIncorrect => 'गलत PIN';
+
+  @override
+  String pinWait(int seconds) {
+    return '$seconds सेकंड बाद फिर प्रयास करें।';
+  }
+
+  @override
+  String get pinStorageError =>
+      'PIN पढ़ा या सहेजा नहीं जा सका। पासवर्ड से लॉगिन करें।';
+
+  @override
+  String get pinLater => 'बाद में / रद्द करें';
+
+  @override
+  String get pinUsePassword => 'पासवर्ड से लॉगिन';
+
+  @override
+  String get pinSettings => 'PIN सेट / बदलें';
+
+  @override
+  String get pinRemove => 'PIN बंद करें';
+
+  @override
+  String get pinVerifyFirst => 'पहले वर्तमान PIN की पुष्टि करें';
+
+  @override
+  String get continueAction => 'जारी रखें';
+
+  @override
+  String get offlineStorageError => 'डेटा सहेजा नहीं जा सका। खाली जगह जाँचें।';
+
+  @override
+  String get offlineAvailable =>
+      'ऑफ़लाइन: डाउनलोड किया डेटा उपलब्ध है। नई प्रविष्टियाँ इस डिवाइस पर रहती हैं।';
+
+  @override
+  String get syncConflict =>
+      'बदलाव सिंक नहीं हुए। सर्वर का रिकॉर्ड बदला है या समीक्षा चाहिए।';
+
+  @override
+  String get syncLogin =>
+      'सिंक के लिए दोबारा लॉगिन करें। स्थानीय प्रविष्टियाँ सुरक्षित हैं।';
+
+  @override
+  String syncPending(int count) {
+    return 'सिंक की प्रतीक्षा: $count';
+  }
+
+  @override
+  String get syncInProgress => 'सिंक हो रहा है…';
+
+  @override
+  String get syncNow => 'अभी सिंक करें';
+
+  @override
+  String get syncKeepLocal => 'मेरा संस्करण रखें';
+
+  @override
+  String get syncOverwriteWarning =>
+      'आपका संस्करण सर्वर के इस रिकॉर्ड को बदल देगा। जारी रखें?';
+
+  @override
+  String get syncKeepServer => 'कतार से हटाएँ';
+
+  @override
+  String get syncDiscardWarning =>
+      'विफल कार्रवाई और उससे जुड़ी स्थानीय प्रविष्टियाँ हटाएँ? सर्वर के रिकॉर्ड नहीं हटेंगे। रद्द स्थानीय बदलाव खो जाएँगे।';
+
+  @override
+  String get offlineInitialData =>
+      'इस खाते का रिकॉर्ड डाउनलोड करने के लिए पहले इंटरनेट से जुड़ें।';
+
+  @override
+  String get syncBeforeCurrency =>
+      'मुद्रा बदलने से पहले इंटरनेट से जुड़ें और सिंक करें।';
+
+  @override
+  String get localAccountChanged => 'खाता बदल गया। यह स्क्रीन फिर खोलें।';
+
+  @override
+  String get savedOnDevice => 'इस डिवाइस पर सहेजा गया';
+
+  @override
+  String get impulseIconAlcohol => 'शराब';
+
+  @override
+  String get impulseIconSnacks => 'स्नैक्स और मिठाई';
+
+  @override
+  String get impulseIconBakery => 'बेकरी';
+
+  @override
+  String get impulseIconSoda => 'शीतल पेय';
+
+  @override
+  String get impulseIconEnergyDrink => 'ऊर्जा पेय';
+
+  @override
+  String get impulseIconFastFood => 'फ़ास्ट फ़ूड';
+
+  @override
+  String get impulseIconCinema => 'सिनेमा';
+
+  @override
+  String get impulseIconGames => 'गेम और इन-ऐप खरीदारी';
+
+  @override
+  String get impulseIconClothes => 'कपड़े';
+
+  @override
+  String get impulseIconCosmetics => 'सौंदर्य प्रसाधन';
+
+  @override
+  String get impulseIconGadgets => 'गैजेट';
+
+  @override
+  String get impulseIconGifts => 'उपहार';
+
+  @override
+  String get impulseIconHobbies => 'किताबें और शौक';
+
+  @override
   String projectionPeriod(int years) {
     return '$years वर्ष';
   }
@@ -1043,4 +1206,71 @@ class AppLocalizationsHi extends AppLocalizations {
   @override
   String get widgetItemUnavailable =>
       'यह आइटम हटाया गया, रोका गया या इस खाते के लिए उपलब्ध नहीं है';
+
+  @override
+  String get spentTab => 'खर्च किया';
+
+  @override
+  String get forecastTab => 'पूर्वानुमान';
+
+  @override
+  String get homeActualHint =>
+      'संभावनाएँ पूर्वानुमान में हैं। यहाँ आपके वास्तविक निर्णय हैं: दर्ज बचत का मतलब यह नहीं कि रकम अलग रख दी गई है।';
+
+  @override
+  String get recordSpent => 'खरीद दर्ज करें';
+
+  @override
+  String get openForecast => 'पूर्वानुमान देखें';
+
+  @override
+  String get spentIntro =>
+      'केवल आवेगपूर्ण खरीद, रोज़ के खर्च नहीं। खुद को दोष दिए बिना आदत समझें। दर्ज बचत और लक्ष्य नहीं बदलेंगे।';
+
+  @override
+  String get spentPrincipal => 'आवेगपूर्ण खरीद पर खर्च';
+
+  @override
+  String get spentHistory => 'आवेगपूर्ण खरीद का इतिहास';
+
+  @override
+  String get noSpentYet =>
+      'अभी कोई खरीद नहीं। अगर इच्छा जीत जाए, तो उसे यहाँ शांति से दर्ज करें।';
+
+  @override
+  String get spentOpportunity => 'संभावित छूटा अवसर';
+
+  @override
+  String get spentMissedInterest => 'संभावित छूटा ब्याज';
+
+  @override
+  String spentPossibleTotal(String amount) {
+    return 'मूलधन + ब्याज: $amount';
+  }
+
+  @override
+  String spentAssumptions(String rate) {
+    return 'आज से एक अनुमान: पूरी रकम अभी $rate% वार्षिक दर पर मासिक चक्रवृद्धि के साथ रखें, बिना नई जमा, कर या महँगाई के। यह वास्तविक कर्ज़ या गारंटी वाली आय नहीं है। खरीद की रकम खुद छूटा ब्याज नहीं है।';
+  }
+
+  @override
+  String get spentFormHint =>
+      'केवल गैरज़रूरी आवेगपूर्ण खरीद दर्ज करें। यह बचत या आपके लक्ष्यों से निकासी नहीं है।';
+
+  @override
+  String get deleteSpentConfirm =>
+      'यह खरीद हटाएँ? दर्ज बचत और लक्ष्य नहीं बदलेंगे।';
+
+  @override
+  String spentLoadedCount(int count, int total) {
+    return '$total में से $count खरीद लोड हुईं';
+  }
+
+  @override
+  String spentMissedLine(String amount, int years) {
+    return '$years वर्ष में संभावित ब्याज: $amount';
+  }
+
+  @override
+  String get spentRecordedMessage => 'खरीद दर्ज हुई';
 }

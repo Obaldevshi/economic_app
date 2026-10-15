@@ -5,6 +5,16 @@ import 'package:flutter/material.dart';
 
 extension FailureLocalization on Failure {
   String localizedMessage(BuildContext context) {
+    final custom = switch (message) {
+      'Offline journal unavailable' => context.l10n.offlineInitialData,
+      'Offline storage unavailable' => context.l10n.offlineStorageError,
+      'Sync before switching currency' ||
+      'Currency switch requires online request' =>
+        context.l10n.syncBeforeCurrency,
+      'Local account changed' => context.l10n.localAccountChanged,
+      _ => null,
+    };
+    if (custom != null) return custom;
     if (message.isNotEmpty) return message;
 
     final l10n = context.l10n;

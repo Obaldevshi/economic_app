@@ -77,13 +77,14 @@ class _RegisterPageState extends State<RegisterPage> {
 
     Widget lastNameField() => GlobalTextFormField(
       controller: _lastNameController,
-      labelText: context.l10n.lastName,
+      labelText: context.l10n.lastNameOptional,
       hintText: context.l10n.lastNameHint,
       textInputAction: TextInputAction.next,
       autofillHints: const [AutofillHints.familyName],
       enabled: !_isLoading,
-      validator: (value) =>
-          ValidationUtils.validateName(value, context.l10n.lastName, context),
+      validator: (value) => (value ?? '').trim().isEmpty
+          ? null
+          : ValidationUtils.validateName(value, context.l10n.lastName, context),
     );
 
     return BlocConsumer<RegisterBloc, RegisterState>(

@@ -16,6 +16,26 @@ Map<String, dynamic> _$GoalAllocationRequestToJson(
   GoalAllocationRequest instance,
 ) => <String, dynamic>{'allocated_amount': instance.allocatedAmount};
 
+SpentEventRequest _$SpentEventRequestFromJson(Map<String, dynamic> json) =>
+    SpentEventRequest(
+      currencyCode: json['currency_code'] as String,
+      impulseItemId: (json['impulse_item_id'] as num?)?.toInt(),
+      impulseName: json['impulse_name'] as String,
+      amount: (json['amount'] as num).toDouble(),
+      occurredAt: json['occurred_at'] as String?,
+      note: json['note'] as String?,
+    );
+
+Map<String, dynamic> _$SpentEventRequestToJson(SpentEventRequest instance) =>
+    <String, dynamic>{
+      'currency_code': instance.currencyCode,
+      'impulse_item_id': instance.impulseItemId,
+      'impulse_name': instance.impulseName,
+      'amount': instance.amount,
+      'occurred_at': ?instance.occurredAt,
+      'note': instance.note,
+    };
+
 SavingEventRequest _$SavingEventRequestFromJson(Map<String, dynamic> json) =>
     SavingEventRequest(
       currencyCode: json['currency_code'] as String?,

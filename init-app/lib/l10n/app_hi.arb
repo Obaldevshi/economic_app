@@ -1,4 +1,56 @@
 {
+  "lastNameOptional": "उपनाम (वैकल्पिक)",
+  "lightPalette": "हल्की थीम के रंग",
+  "darkPalette": "गहरी थीम के रंग",
+  "customColor": "अपना रंग · HEX",
+  "colorHue": "रंगत",
+  "resetPalette": "रंग रीसेट करें",
+  "invalidColor": "6 अक्षर दर्ज करें: 0–9, A–F",
+  "pinCreate": "PIN बनाएँ",
+  "pinEnter": "PIN दर्ज करें",
+  "pinHint": "चार अंक केवल इस डिवाइस को लॉक करते हैं। लॉगिन और सिंक के लिए खाते का पासवर्ड ज़रूरी है।",
+  "pinConfirm": "PIN की पुष्टि करें",
+  "pinFourDigits": "PIN · 4 अंक",
+  "pinMismatch": "PIN मेल नहीं खाते। फिर से शुरू करें।",
+  "pinIncorrect": "गलत PIN",
+  "pinWait": "{seconds} सेकंड बाद फिर प्रयास करें।",
+  "pinStorageError": "PIN पढ़ा या सहेजा नहीं जा सका। पासवर्ड से लॉगिन करें।",
+  "pinLater": "बाद में / रद्द करें",
+  "pinUsePassword": "पासवर्ड से लॉगिन",
+  "pinSettings": "PIN सेट / बदलें",
+  "pinRemove": "PIN बंद करें",
+  "pinVerifyFirst": "पहले वर्तमान PIN की पुष्टि करें",
+  "continueAction": "जारी रखें",
+  "offlineStorageError": "डेटा सहेजा नहीं जा सका। खाली जगह जाँचें।",
+  "offlineAvailable": "ऑफ़लाइन: डाउनलोड किया डेटा उपलब्ध है। नई प्रविष्टियाँ इस डिवाइस पर रहती हैं।",
+  "syncConflict": "बदलाव सिंक नहीं हुए। सर्वर का रिकॉर्ड बदला है या समीक्षा चाहिए।",
+  "syncLogin": "सिंक के लिए दोबारा लॉगिन करें। स्थानीय प्रविष्टियाँ सुरक्षित हैं।",
+  "syncPending": "सिंक की प्रतीक्षा: {count}",
+  "syncInProgress": "सिंक हो रहा है…",
+  "syncNow": "अभी सिंक करें",
+  "syncKeepLocal": "मेरा संस्करण रखें",
+  "syncOverwriteWarning": "आपका संस्करण सर्वर के इस रिकॉर्ड को बदल देगा। जारी रखें?",
+  "syncKeepServer": "कतार से हटाएँ",
+  "syncDiscardWarning": "विफल कार्रवाई और उससे जुड़ी स्थानीय प्रविष्टियाँ हटाएँ? सर्वर के रिकॉर्ड नहीं हटेंगे। रद्द स्थानीय बदलाव खो जाएँगे।",
+  "offlineInitialData": "इस खाते का रिकॉर्ड डाउनलोड करने के लिए पहले इंटरनेट से जुड़ें।",
+  "syncBeforeCurrency": "मुद्रा बदलने से पहले इंटरनेट से जुड़ें और सिंक करें।",
+  "localAccountChanged": "खाता बदल गया। यह स्क्रीन फिर खोलें।",
+  "savedOnDevice": "इस डिवाइस पर सहेजा गया",
+  "@pinWait": {"placeholders":{"seconds":{"type":"int"}}},
+  "@syncPending": {"placeholders":{"count":{"type":"int"}}},
+  "impulseIconAlcohol": "शराब",
+  "impulseIconSnacks": "स्नैक्स और मिठाई",
+  "impulseIconBakery": "बेकरी",
+  "impulseIconSoda": "शीतल पेय",
+  "impulseIconEnergyDrink": "ऊर्जा पेय",
+  "impulseIconFastFood": "फ़ास्ट फ़ूड",
+  "impulseIconCinema": "सिनेमा",
+  "impulseIconGames": "गेम और इन-ऐप खरीदारी",
+  "impulseIconClothes": "कपड़े",
+  "impulseIconCosmetics": "सौंदर्य प्रसाधन",
+  "impulseIconGadgets": "गैजेट",
+  "impulseIconGifts": "उपहार",
+  "impulseIconHobbies": "किताबें और शौक",
   "projectionPeriod": "{years} वर्ष",
   "@projectionPeriod": {"placeholders": {"years": {"type": "int"}}},
   "@@locale": "hi",
@@ -446,5 +498,57 @@
   "favoriteLimit": "तीन पसंदीदा पहले से हैं। पहले एक हटाएं।",
   "widgetItemUnavailable": "यह आइटम हटाया गया, रोका गया या इस खाते के लिए उपलब्ध नहीं है",
   "chooseLanguage": "भाषा चुनें",
-  "coinLanguageHint": "लोगो का मुद्रा चिह्न एक क्षेत्रीय संकेत है। भाषा बदलने से रकम का रूपांतरण या रिकॉर्ड की मुद्रा नहीं बदलती।"
+  "coinLanguageHint": "लोगो का मुद्रा चिह्न एक क्षेत्रीय संकेत है। भाषा बदलने से रकम का रूपांतरण या रिकॉर्ड की मुद्रा नहीं बदलती।",
+  "spentTab": "खर्च किया",
+  "forecastTab": "पूर्वानुमान",
+  "homeActualHint": "संभावनाएँ पूर्वानुमान में हैं। यहाँ आपके वास्तविक निर्णय हैं: दर्ज बचत का मतलब यह नहीं कि रकम अलग रख दी गई है।",
+  "recordSpent": "खरीद दर्ज करें",
+  "openForecast": "पूर्वानुमान देखें",
+  "spentIntro": "केवल आवेगपूर्ण खरीद, रोज़ के खर्च नहीं। खुद को दोष दिए बिना आदत समझें। दर्ज बचत और लक्ष्य नहीं बदलेंगे।",
+  "spentPrincipal": "आवेगपूर्ण खरीद पर खर्च",
+  "spentHistory": "आवेगपूर्ण खरीद का इतिहास",
+  "noSpentYet": "अभी कोई खरीद नहीं। अगर इच्छा जीत जाए, तो उसे यहाँ शांति से दर्ज करें।",
+  "spentOpportunity": "संभावित छूटा अवसर",
+  "spentMissedInterest": "संभावित छूटा ब्याज",
+  "spentPossibleTotal": "मूलधन + ब्याज: {amount}",
+  "spentAssumptions": "आज से एक अनुमान: पूरी रकम अभी {rate}% वार्षिक दर पर मासिक चक्रवृद्धि के साथ रखें, बिना नई जमा, कर या महँगाई के। यह वास्तविक कर्ज़ या गारंटी वाली आय नहीं है। खरीद की रकम खुद छूटा ब्याज नहीं है।",
+  "spentFormHint": "केवल गैरज़रूरी आवेगपूर्ण खरीद दर्ज करें। यह बचत या आपके लक्ष्यों से निकासी नहीं है।",
+  "deleteSpentConfirm": "यह खरीद हटाएँ? दर्ज बचत और लक्ष्य नहीं बदलेंगे।",
+  "spentLoadedCount": "{total} में से {count} खरीद लोड हुईं",
+  "spentMissedLine": "{years} वर्ष में संभावित ब्याज: {amount}",
+  "spentRecordedMessage": "खरीद दर्ज हुई",
+  "@spentPossibleTotal": {
+    "placeholders": {
+      "amount": {
+        "type": "String"
+      }
+    }
+  },
+  "@spentAssumptions": {
+    "placeholders": {
+      "rate": {
+        "type": "String"
+      }
+    }
+  },
+  "@spentLoadedCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
+    }
+  },
+  "@spentMissedLine": {
+    "placeholders": {
+      "amount": {
+        "type": "String"
+      },
+      "years": {
+        "type": "int"
+      }
+    }
+  }
 }

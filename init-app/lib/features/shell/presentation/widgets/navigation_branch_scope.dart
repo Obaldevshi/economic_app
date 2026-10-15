@@ -1,6 +1,6 @@
 import 'package:flutter/widgets.dart';
 
-enum AppNavigationBranch { home, history, habits, profile }
+enum AppNavigationBranch { home, history, habits, spent, forecast, profile }
 
 /// Branch visibility also follows browser back/forward navigation.
 class NavigationBranchScope extends InheritedWidget {

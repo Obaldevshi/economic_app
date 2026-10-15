@@ -9,12 +9,175 @@ class AppLocalizationsEn extends AppLocalizations {
   AppLocalizationsEn([String locale = 'en']) : super(locale);
 
   @override
+  String get lastNameOptional => 'Last name (optional)';
+
+  @override
+  String get lightPalette => 'Light theme palette';
+
+  @override
+  String get darkPalette => 'Dark theme palette';
+
+  @override
+  String get customColor => 'Custom color · HEX';
+
+  @override
+  String get colorHue => 'Hue';
+
+  @override
+  String get resetPalette => 'Reset palette';
+
+  @override
+  String get invalidColor => 'Enter 6 characters: 0–9, A–F';
+
+  @override
+  String get pinCreate => 'Create a PIN';
+
+  @override
+  String get pinEnter => 'Enter your PIN';
+
+  @override
+  String get pinHint =>
+      'Four digits lock this device locally. Your account password is still needed to sign in and sync.';
+
+  @override
+  String get pinConfirm => 'Confirm your PIN';
+
+  @override
+  String get pinFourDigits => 'PIN · 4 digits';
+
+  @override
+  String get pinMismatch => 'PINs do not match. Start again.';
+
+  @override
+  String get pinIncorrect => 'Incorrect PIN';
+
+  @override
+  String pinWait(int seconds) {
+    return 'Try again in $seconds s.';
+  }
+
+  @override
+  String get pinStorageError =>
+      'Unable to read or save the PIN. Sign in with your password.';
+
+  @override
+  String get pinLater => 'Later / cancel';
+
+  @override
+  String get pinUsePassword => 'Sign in with password';
+
+  @override
+  String get pinSettings => 'Set / change PIN';
+
+  @override
+  String get pinRemove => 'Disable PIN';
+
+  @override
+  String get pinVerifyFirst => 'Verify your current PIN first';
+
+  @override
+  String get continueAction => 'Continue';
+
+  @override
+  String get offlineStorageError =>
+      'Unable to save data on this device. Check available storage.';
+
+  @override
+  String get offlineAvailable =>
+      'Offline: downloaded data is available. New entries stay on this device.';
+
+  @override
+  String get syncConflict =>
+      'Changes are not synced. The server record changed or needs review.';
+
+  @override
+  String get syncLogin => 'Sign in again to sync. Your local entries are safe.';
+
+  @override
+  String syncPending(int count) {
+    return 'Waiting to sync: $count';
+  }
+
+  @override
+  String get syncInProgress => 'Syncing…';
+
+  @override
+  String get syncNow => 'Sync now';
+
+  @override
+  String get syncKeepLocal => 'Keep my version';
+
+  @override
+  String get syncOverwriteWarning =>
+      'Your version will replace this record on the server. Continue?';
+
+  @override
+  String get syncKeepServer => 'Remove from queue';
+
+  @override
+  String get syncDiscardWarning =>
+      'Remove the failed operation and its dependent local entries? Server records are not deleted. Cancelled local changes will be lost.';
+
+  @override
+  String get offlineInitialData =>
+      'Connect to the internet once to download this account\'s journal.';
+
+  @override
+  String get syncBeforeCurrency =>
+      'Sync your entries and connect to the internet before changing currency.';
+
+  @override
+  String get localAccountChanged => 'The account changed. Reopen this screen.';
+
+  @override
+  String get savedOnDevice => 'Saved on this device';
+
+  @override
+  String get impulseIconAlcohol => 'Alcohol';
+
+  @override
+  String get impulseIconSnacks => 'Snacks and sweets';
+
+  @override
+  String get impulseIconBakery => 'Bakery';
+
+  @override
+  String get impulseIconSoda => 'Soft drinks';
+
+  @override
+  String get impulseIconEnergyDrink => 'Energy drinks';
+
+  @override
+  String get impulseIconFastFood => 'Fast food';
+
+  @override
+  String get impulseIconCinema => 'Cinema';
+
+  @override
+  String get impulseIconGames => 'Games and in-app purchases';
+
+  @override
+  String get impulseIconClothes => 'Clothes';
+
+  @override
+  String get impulseIconCosmetics => 'Cosmetics';
+
+  @override
+  String get impulseIconGadgets => 'Gadgets';
+
+  @override
+  String get impulseIconGifts => 'Gifts';
+
+  @override
+  String get impulseIconHobbies => 'Books and hobbies';
+
+  @override
   String projectionPeriod(int years) {
     String _temp0 = intl.Intl.pluralLogic(
       years,
       locale: localeName,
-      other: '# years',
-      one: '# year',
+      other: '$years years',
+      one: '$years year',
     );
     return '$_temp0';
   }
@@ -1061,4 +1224,71 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get widgetItemUnavailable =>
       'This item is deleted, paused, or unavailable to this account';
+
+  @override
+  String get spentTab => 'Spent';
+
+  @override
+  String get forecastTab => 'Forecast';
+
+  @override
+  String get homeActualHint =>
+      'Expectations live in Forecast. Here are your actual decisions: recorded savings do not necessarily mean money has been set aside.';
+
+  @override
+  String get recordSpent => 'Record purchase';
+
+  @override
+  String get openForecast => 'View forecast';
+
+  @override
+  String get spentIntro =>
+      'Only impulse purchases, not everyday expenses. Notice a habit without blaming yourself. Recorded savings and goals remain unchanged.';
+
+  @override
+  String get spentPrincipal => 'Spent on impulses';
+
+  @override
+  String get spentHistory => 'Impulse purchase history';
+
+  @override
+  String get noSpentYet =>
+      'No purchases yet. If an impulse wins, you can calmly record it here.';
+
+  @override
+  String get spentOpportunity => 'Possible missed opportunity';
+
+  @override
+  String get spentMissedInterest => 'Potential missed interest';
+
+  @override
+  String spentPossibleTotal(String amount) {
+    return 'Principal + interest: $amount';
+  }
+
+  @override
+  String spentAssumptions(String rate) {
+    return 'Scenario starting today: set aside the entire amount now at $rate% a year, compounded monthly, with no further deposits, tax or inflation. This is not a real debt or guaranteed income. The purchase itself is not lost interest.';
+  }
+
+  @override
+  String get spentFormHint =>
+      'Record only an optional impulse purchase. This is not a saving or a withdrawal from your goals.';
+
+  @override
+  String get deleteSpentConfirm =>
+      'Delete this purchase record? Recorded savings and goals will not change.';
+
+  @override
+  String spentLoadedCount(int count, int total) {
+    return 'Loaded $count of $total purchases';
+  }
+
+  @override
+  String spentMissedLine(String amount, int years) {
+    return 'Potential interest over $years yr: $amount';
+  }
+
+  @override
+  String get spentRecordedMessage => 'Purchase recorded';
 }

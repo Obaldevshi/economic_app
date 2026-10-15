@@ -2,7 +2,14 @@ import 'dart:math' as math;
 
 import 'package:flutter/material.dart';
 
-enum EditorialNavIconKind { overview, history, impulses, profile }
+enum EditorialNavIconKind {
+  overview,
+  history,
+  impulses,
+  spent,
+  forecast,
+  profile,
+}
 
 /// A small, consistent line-icon family drawn for this product.
 class EditorialNavIcon extends StatelessWidget {
@@ -91,6 +98,43 @@ class _EditorialIconPainter extends CustomPainter {
           ..quadraticBezierTo(5.5, 14, 12, 14)
           ..quadraticBezierTo(18.5, 14, 19, 20);
         canvas.drawPath(shoulders, stroke);
+        break;
+      case EditorialNavIconKind.spent:
+        canvas.drawRRect(
+          RRect.fromRectAndRadius(
+            const Rect.fromLTWH(4, 8, 16, 13),
+            const Radius.circular(2),
+          ),
+          stroke,
+        );
+        canvas.drawArc(
+          const Rect.fromLTWH(8, 3, 8, 10),
+          math.pi,
+          math.pi,
+          false,
+          stroke,
+        );
+        canvas.drawLine(const Offset(9, 15), const Offset(15, 15), stroke);
+        break;
+      case EditorialNavIconKind.forecast:
+        canvas.drawPath(
+          Path()
+            ..moveTo(4, 4)
+            ..lineTo(4, 20)
+            ..lineTo(21, 20),
+          stroke,
+        );
+        canvas.drawPath(
+          Path()
+            ..moveTo(7, 16)
+            ..lineTo(12, 11)
+            ..lineTo(15, 13)
+            ..lineTo(21, 5)
+            ..moveTo(16, 5)
+            ..lineTo(21, 5)
+            ..lineTo(21, 10),
+          stroke,
+        );
         break;
     }
   }
@@ -204,6 +248,204 @@ class _ImpulseGlyphPainter extends CustomPainter {
         );
         canvas.drawLine(const Offset(20.5, 17), const Offset(20, 14.5), stroke);
         canvas.drawCircle(const Offset(12, 12), 2.2, stroke);
+        break;
+      case 'alcohol':
+        canvas.drawPath(
+          Path()
+            ..moveTo(8, 3)
+            ..lineTo(16, 3)
+            ..lineTo(16, 9)
+            ..quadraticBezierTo(16, 13, 12, 13)
+            ..quadraticBezierTo(8, 13, 8, 9)
+            ..close(),
+          stroke,
+        );
+        canvas.drawLine(const Offset(12, 13), const Offset(12, 21), stroke);
+        canvas.drawLine(const Offset(8, 21), const Offset(16, 21), stroke);
+        canvas.drawLine(const Offset(8, 8), const Offset(16, 8), stroke);
+        break;
+      case 'snacks':
+        canvas.drawPath(
+          Path()
+            ..moveTo(6, 3)
+            ..lineTo(18, 3)
+            ..lineTo(17, 8)
+            ..lineTo(19, 20)
+            ..lineTo(5, 20)
+            ..lineTo(7, 8)
+            ..close(),
+          stroke,
+        );
+        canvas.drawLine(const Offset(7, 6), const Offset(17, 6), stroke);
+        canvas.drawOval(const Rect.fromLTWH(9, 10, 6, 7), stroke);
+        break;
+      case 'bakery':
+        canvas.drawPath(
+          Path()
+            ..moveTo(3, 14)
+            ..quadraticBezierTo(4, 6, 9, 8)
+            ..quadraticBezierTo(12, 3, 15, 8)
+            ..quadraticBezierTo(20, 6, 21, 14)
+            ..lineTo(18, 19)
+            ..lineTo(6, 19)
+            ..close(),
+          stroke,
+        );
+        canvas.drawLine(const Offset(9, 9), const Offset(10, 16), stroke);
+        canvas.drawLine(const Offset(15, 9), const Offset(14, 16), stroke);
+        break;
+      case 'soda':
+        canvas.drawPath(
+          Path()
+            ..moveTo(6, 8)
+            ..lineTo(18, 8)
+            ..lineTo(16, 21)
+            ..lineTo(8, 21)
+            ..close(),
+          stroke,
+        );
+        canvas.drawLine(const Offset(5, 8), const Offset(19, 8), stroke);
+        canvas.drawPath(
+          Path()
+            ..moveTo(12, 14)
+            ..lineTo(14, 3)
+            ..lineTo(20, 3),
+          stroke,
+        );
+        break;
+      case 'energy_drink':
+        canvas.drawRRect(
+          RRect.fromRectAndRadius(
+            const Rect.fromLTWH(6, 3, 12, 18),
+            const Radius.circular(2),
+          ),
+          stroke,
+        );
+        canvas.drawPath(
+          Path()
+            ..moveTo(13, 7)
+            ..lineTo(9, 13)
+            ..lineTo(13, 13)
+            ..lineTo(11, 18)
+            ..lineTo(16, 11)
+            ..lineTo(12, 11),
+          stroke,
+        );
+        break;
+      case 'fast_food':
+        canvas.drawArc(
+          const Rect.fromLTWH(4, 5, 16, 12),
+          math.pi,
+          math.pi,
+          false,
+          stroke,
+        );
+        canvas.drawLine(const Offset(3, 12), const Offset(21, 12), stroke);
+        canvas.drawLine(const Offset(3, 16), const Offset(21, 16), stroke);
+        canvas.drawPath(
+          Path()
+            ..moveTo(4, 18)
+            ..quadraticBezierTo(12, 23, 20, 18),
+          stroke,
+        );
+        break;
+      case 'cinema':
+        canvas.drawRRect(
+          RRect.fromRectAndRadius(
+            const Rect.fromLTWH(3, 5, 18, 14),
+            const Radius.circular(2),
+          ),
+          stroke,
+        );
+        canvas.drawLine(const Offset(3, 9), const Offset(21, 9), stroke);
+        canvas.drawLine(const Offset(3, 15), const Offset(21, 15), stroke);
+        for (final x in [7.0, 12.0, 17.0]) {
+          canvas.drawLine(Offset(x, 5), Offset(x, 9), stroke);
+          canvas.drawLine(Offset(x, 15), Offset(x, 19), stroke);
+        }
+        break;
+      case 'games':
+        canvas.drawPath(
+          Path()
+            ..moveTo(7, 7)
+            ..lineTo(17, 7)
+            ..quadraticBezierTo(21, 7, 22, 17)
+            ..quadraticBezierTo(22, 21, 17, 16)
+            ..lineTo(7, 16)
+            ..quadraticBezierTo(2, 21, 2, 17)
+            ..quadraticBezierTo(3, 7, 7, 7),
+          stroke,
+        );
+        canvas.drawLine(const Offset(6, 11), const Offset(10, 11), stroke);
+        canvas.drawLine(const Offset(8, 9), const Offset(8, 13), stroke);
+        canvas.drawCircle(const Offset(16, 10), 0.8, Paint()..color = color);
+        canvas.drawCircle(const Offset(18, 13), 0.8, Paint()..color = color);
+        break;
+      case 'clothes':
+        canvas.drawPath(
+          Path()
+            ..moveTo(8, 4)
+            ..quadraticBezierTo(12, 8, 16, 4)
+            ..lineTo(22, 8)
+            ..lineTo(19, 12)
+            ..lineTo(17, 10)
+            ..lineTo(17, 21)
+            ..lineTo(7, 21)
+            ..lineTo(7, 10)
+            ..lineTo(5, 12)
+            ..lineTo(2, 8)
+            ..close(),
+          stroke,
+        );
+        break;
+      case 'cosmetics':
+        canvas.drawRect(const Rect.fromLTWH(7, 12, 10, 9), stroke);
+        canvas.drawPath(
+          Path()
+            ..moveTo(9, 12)
+            ..lineTo(9, 6)
+            ..lineTo(15, 3)
+            ..lineTo(15, 12),
+          stroke,
+        );
+        canvas.drawLine(const Offset(7, 16), const Offset(17, 16), stroke);
+        break;
+      case 'gadgets':
+        canvas.drawRRect(
+          RRect.fromRectAndRadius(
+            const Rect.fromLTWH(6, 2, 12, 20),
+            const Radius.circular(2),
+          ),
+          stroke,
+        );
+        canvas.drawLine(const Offset(10, 5), const Offset(14, 5), stroke);
+        canvas.drawCircle(const Offset(12, 18), 0.8, Paint()..color = color);
+        break;
+      case 'gifts':
+        canvas.drawRect(const Rect.fromLTWH(4, 10, 16, 11), stroke);
+        canvas.drawRect(const Rect.fromLTWH(3, 7, 18, 3), stroke);
+        canvas.drawLine(const Offset(12, 7), const Offset(12, 21), stroke);
+        canvas.drawPath(
+          Path()
+            ..moveTo(12, 7)
+            ..cubicTo(1, 7, 7, -2, 12, 7)
+            ..cubicTo(17, -2, 23, 7, 12, 7),
+          stroke,
+        );
+        break;
+      case 'hobbies':
+        canvas.drawPath(
+          Path()
+            ..moveTo(4, 3)
+            ..lineTo(19, 3)
+            ..lineTo(19, 21)
+            ..lineTo(4, 21)
+            ..close(),
+          stroke,
+        );
+        canvas.drawLine(const Offset(8, 3), const Offset(8, 21), stroke);
+        canvas.drawLine(const Offset(11, 8), const Offset(16, 8), stroke);
+        canvas.drawLine(const Offset(11, 12), const Offset(16, 12), stroke);
         break;
       default:
         canvas.drawPath(

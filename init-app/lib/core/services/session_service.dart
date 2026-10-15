@@ -1,4 +1,5 @@
 import 'package:flutter/foundation.dart';
+import 'dart:convert';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -16,6 +17,25 @@ class SessionService extends ChangeNotifier {
   String? _tokenType;
   int? _expiresIn;
   int? _loginTime;
+  bool _needsOnlineLogin = false;
+  int? get accountId {
+    try {
+      final payload = jsonDecode(
+        utf8.decode(
+          base64Url.decode(base64Url.normalize(_accessToken!.split('.')[1])),
+        ),
+      );
+      return int.tryParse('${payload['user_id']}');
+    } catch (_) {
+      return null;
+    }
+  }
+
+  bool get needsOnlineLogin => _needsOnlineLogin || isTokenExpired();
+  void requireOnlineLogin() {
+    _needsOnlineLogin = true;
+    notifyListeners();
+  }
 
   static Future<SessionService> create(
     FlutterSecureStorage secureStorage,
@@ -100,6 +120,7 @@ class SessionService extends ChangeNotifier {
     _tokenType = tokenType;
     _expiresIn = expiresIn;
     _loginTime = resolvedLoginTime;
+    _needsOnlineLogin = false;
     notifyListeners();
   }
 
@@ -111,7 +132,14 @@ class SessionService extends ChangeNotifier {
     final token = getAccessToken();
     if (token == null || token.isEmpty) return false;
 
-    return !isTokenExpired();
+    // Expiry revokes server access, not access to this account's local journal.
+    // Offline work remains on this device until a successful password login.
+    final mobile =
+        !kIsWeb &&
+        (defaultTargetPlatform == TargetPlatform.android ||
+            defaultTargetPlatform == TargetPlatform.iOS);
+    return accountId != null &&
+        (mobile || (!isTokenExpired() && !_needsOnlineLogin));
   }
 
   bool isTokenExpired() {
@@ -146,6 +174,7 @@ class SessionService extends ChangeNotifier {
     _tokenType = null;
     _expiresIn = null;
     _loginTime = null;
+    _needsOnlineLogin = false;
   }
 
   Future<void> _deleteStoredSession() async {

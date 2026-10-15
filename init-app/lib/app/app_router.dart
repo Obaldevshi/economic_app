@@ -3,6 +3,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:mobile_template/core/di/di.dart';
 import 'package:mobile_template/core/services/session_service.dart';
+import 'package:mobile_template/core/services/app_lock_service.dart';
+import 'package:mobile_template/core/services/offline_savings_service.dart';
+import 'package:mobile_template/features/auth/presentation/pages/pin_page.dart';
 import 'package:mobile_template/features/auth/presentation/pages/login/bloc/login_bloc.dart';
 import 'package:mobile_template/features/auth/presentation/pages/login/login_page.dart';
 import 'package:mobile_template/features/auth/presentation/pages/register/bloc/register_bloc.dart';
@@ -12,6 +15,7 @@ import 'package:mobile_template/features/savings/presentation/pages/bloc/savings
 import 'package:mobile_template/features/savings/presentation/pages/impulse_items_page.dart';
 import 'package:mobile_template/features/savings/presentation/pages/saving_history_page.dart';
 import 'package:mobile_template/features/savings/presentation/pages/savings_dashboard_page.dart';
+import 'package:mobile_template/features/savings/presentation/pages/spent_page.dart';
 import 'package:mobile_template/features/savings/presentation/widgets/savings_branch_content.dart';
 import 'package:mobile_template/features/profile/domain/dto/profile_dto.dart';
 import 'package:mobile_template/features/profile/presentation/pages/bloc/profile_bloc.dart';
@@ -28,20 +32,25 @@ class AppRoutes {
   static const home = '/home';
   static const history = '/history';
   static const habits = '/habits';
+  static const spent = '/spent';
+  static const forecast = '/forecast';
   static const profile = '/profile';
   static const editProfile = '/profile/edit';
   static const privacy = '/privacy';
+  static const pin = '/pin';
 }
 
 GoRouter createAppRouter() {
   final sessionService = getIt<SessionService>();
+  final lock = getIt<AppLockService>();
+  final offline = getIt<OfflineSavingsService>();
   final navigatorKey = getIt<GlobalKey<NavigatorState>>(
     instanceName: 'navigatorKey',
   );
 
   return GoRouter(
     navigatorKey: navigatorKey,
-    refreshListenable: sessionService,
+    refreshListenable: Listenable.merge([sessionService, lock]),
     initialLocation: AppRoutes.splash,
     redirect: (context, state) {
       final isLoggedIn = sessionService.isLoggedIn();
@@ -53,17 +62,38 @@ GoRouter createAppRouter() {
       if (location == AppRoutes.privacy) return null;
       if (isSplash) return null;
 
+      if (isLoggedIn &&
+          offline.enabled &&
+          sessionService.needsOnlineLogin &&
+          !offline.hasCachedJournal) {
+        return isAuthRoute ? null : '${AppRoutes.login}?reauth=true';
+      }
+
+      if (isLoggedIn && lock.passwordRecovery) {
+        return isAuthRoute ? null : '${AppRoutes.login}?reauth=true';
+      }
+      if (isLoggedIn && !lock.accessible) {
+        return location == AppRoutes.pin ? null : AppRoutes.pin;
+      }
+      if (isLoggedIn && location == AppRoutes.pin) return AppRoutes.home;
+
       if (!isLoggedIn && !isAuthRoute) {
         return AppRoutes.login;
       }
 
-      if (isLoggedIn && isAuthRoute) {
+      if (isLoggedIn &&
+          isAuthRoute &&
+          state.uri.queryParameters['reauth'] != 'true') {
         return AppRoutes.home;
       }
 
       return null;
     },
     routes: [
+      GoRoute(
+        path: AppRoutes.pin,
+        builder: (context, state) => const PinPage(),
+      ),
       GoRoute(
         path: AppRoutes.privacy,
         builder: (context, state) => const PrivacyPage(),
@@ -143,6 +173,45 @@ GoRouter createAppRouter() {
                       LoadImpulseItems(withSettings: true),
                     ],
                     child: ImpulseItemsPage(),
+                  ),
+                ),
+              ),
+            ],
+          ),
+          StatefulShellBranch(
+            routes: [
+              GoRoute(
+                path: AppRoutes.spent,
+                builder: (context, state) => BlocProvider(
+                  create: (_) => getIt<SavingsBloc>()
+                    ..add(const LoadSavingsDashboard())
+                    ..add(const LoadImpulseItems())
+                    ..add(const LoadSpentHistory()),
+                  child: const SavingsBranchContent(
+                    branch: AppNavigationBranch.spent,
+                    refreshEvents: [
+                      LoadSavingsDashboard(),
+                      LoadImpulseItems(),
+                      LoadSpentHistory(),
+                    ],
+                    child: SpentPage(),
+                  ),
+                ),
+              ),
+            ],
+          ),
+          StatefulShellBranch(
+            routes: [
+              GoRoute(
+                path: AppRoutes.forecast,
+                builder: (context, state) => BlocProvider(
+                  create: (_) => getIt<SavingsBloc>()
+                    ..add(const LoadSavingsDashboard())
+                    ..add(const LoadImpulseItems()),
+                  child: const SavingsBranchContent(
+                    branch: AppNavigationBranch.forecast,
+                    refreshEvents: [LoadSavingsDashboard(), LoadImpulseItems()],
+                    child: SavingsForecastPage(),
                   ),
                 ),
               ),

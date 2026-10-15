@@ -8,6 +8,118 @@ import 'app_text_styles.dart';
 class AppTheme {
   AppTheme._();
 
+  static ThemeData withSeed(ThemeData base, Color? seed) {
+    if (seed == null) return base;
+    final scheme = ColorScheme.fromSeed(
+      seedColor: seed,
+      brightness: base.brightness,
+    );
+    final dark = ColorScheme.fromSeed(
+      seedColor: seed,
+      brightness: Brightness.dark,
+    );
+    return base.copyWith(
+      extensions: [
+        ...base.extensions.values,
+        BrandColors(ink: dark.surfaceContainer, accent: dark.primary),
+      ],
+      colorScheme: scheme,
+      scaffoldBackgroundColor: scheme.surface,
+      canvasColor: scheme.surface,
+      textTheme: base.textTheme.apply(
+        bodyColor: scheme.onSurface,
+        displayColor: scheme.onSurface,
+      ),
+      cardTheme: base.cardTheme.copyWith(color: scheme.surfaceContainerLow),
+      appBarTheme: base.appBarTheme.copyWith(
+        backgroundColor: scheme.surfaceContainer,
+        foregroundColor: scheme.onSurface,
+        iconTheme: IconThemeData(color: scheme.onSurface),
+        titleTextStyle: base.appBarTheme.titleTextStyle?.copyWith(
+          color: scheme.onSurface,
+        ),
+      ),
+      elevatedButtonTheme: ElevatedButtonThemeData(
+        style: base.elevatedButtonTheme.style?.copyWith(
+          backgroundColor: WidgetStatePropertyAll(scheme.primary),
+          foregroundColor: WidgetStatePropertyAll(scheme.onPrimary),
+          textStyle: WidgetStatePropertyAll(_buttonTextStyle(scheme.onPrimary)),
+        ),
+      ),
+      outlinedButtonTheme: OutlinedButtonThemeData(
+        style: base.outlinedButtonTheme.style?.copyWith(
+          foregroundColor: WidgetStatePropertyAll(scheme.primary),
+          textStyle: WidgetStatePropertyAll(_buttonTextStyle(scheme.primary)),
+          side: WidgetStatePropertyAll(BorderSide(color: scheme.outline)),
+        ),
+      ),
+      textButtonTheme: TextButtonThemeData(
+        style: base.textButtonTheme.style?.copyWith(
+          foregroundColor: WidgetStatePropertyAll(scheme.primary),
+          textStyle: WidgetStatePropertyAll(_buttonTextStyle(scheme.primary)),
+        ),
+      ),
+      inputDecorationTheme: base.inputDecorationTheme.copyWith(
+        fillColor: scheme.surfaceContainerHighest,
+        labelStyle: TextStyle(color: scheme.onSurfaceVariant),
+        hintStyle: TextStyle(color: scheme.onSurfaceVariant),
+        focusedBorder: OutlineInputBorder(
+          borderRadius: AppDimensions.borderRadiusM,
+          borderSide: BorderSide(color: scheme.primary, width: 2),
+        ),
+      ),
+      dividerColor: scheme.outlineVariant,
+      chipTheme: base.chipTheme.copyWith(
+        backgroundColor: scheme.surfaceContainerLow,
+        selectedColor: scheme.secondaryContainer,
+        disabledColor: scheme.onSurface.withValues(alpha: 0.12),
+        labelStyle: TextStyle(color: scheme.onSurface),
+        secondaryLabelStyle: TextStyle(color: scheme.onSecondaryContainer),
+        side: BorderSide(color: scheme.outline),
+      ),
+      listTileTheme: base.listTileTheme.copyWith(
+        textColor: scheme.onSurface,
+        iconColor: scheme.onSurfaceVariant,
+      ),
+      bottomNavigationBarTheme: base.bottomNavigationBarTheme.copyWith(
+        backgroundColor: scheme.surfaceContainer,
+        selectedItemColor: scheme.primary,
+        unselectedItemColor: scheme.onSurfaceVariant,
+      ),
+      tabBarTheme: base.tabBarTheme.copyWith(
+        labelColor: scheme.primary,
+        unselectedLabelColor: scheme.onSurfaceVariant,
+        indicatorColor: scheme.primary,
+      ),
+      snackBarTheme: base.snackBarTheme.copyWith(
+        backgroundColor: scheme.inverseSurface,
+        contentTextStyle: TextStyle(color: scheme.onInverseSurface),
+        actionTextColor: scheme.inversePrimary,
+      ),
+      dividerTheme: DividerThemeData(color: scheme.outlineVariant),
+      iconTheme: IconThemeData(color: scheme.onSurfaceVariant),
+      progressIndicatorTheme: ProgressIndicatorThemeData(color: scheme.primary),
+      floatingActionButtonTheme: FloatingActionButtonThemeData(
+        backgroundColor: scheme.primaryContainer,
+        foregroundColor: scheme.onPrimaryContainer,
+      ),
+      navigationBarTheme: NavigationBarThemeData(
+        backgroundColor: scheme.surfaceContainer,
+        indicatorColor: scheme.secondaryContainer,
+      ),
+      navigationRailTheme: NavigationRailThemeData(
+        backgroundColor: scheme.surfaceContainer,
+        indicatorColor: scheme.secondaryContainer,
+      ),
+      dialogTheme: base.dialogTheme.copyWith(
+        backgroundColor: scheme.surfaceContainerHigh,
+      ),
+      bottomSheetTheme: base.bottomSheetTheme.copyWith(
+        backgroundColor: scheme.surfaceContainerLow,
+      ),
+    );
+  }
+
   static TextStyle _buttonTextStyle(Color color) {
     return AppTextStyles.buttonText.copyWith(color: color, inherit: false);
   }

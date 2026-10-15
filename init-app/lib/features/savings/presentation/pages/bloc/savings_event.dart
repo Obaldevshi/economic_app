@@ -49,6 +49,29 @@ class CreateSavingEvent extends SavingsEvent {
   List<Object?> get props => [request];
 }
 
+class LoadSpentHistory extends SavingsEvent {
+  const LoadSpentHistory({this.page = 1, this.append = false});
+  final int page;
+  final bool append;
+  @override
+  List<Object?> get props => [page, append];
+}
+
+class SaveSpentEvent extends SavingsEvent {
+  const SaveSpentEvent(this.request, {this.id});
+  final SpentEventRequest request;
+  final int? id;
+  @override
+  List<Object?> get props => [request, id];
+}
+
+class DeleteSpentEvent extends SavingsEvent {
+  const DeleteSpentEvent(this.id);
+  final int id;
+  @override
+  List<Object?> get props => [id];
+}
+
 class UpdateSavingEvent extends SavingsEvent {
   const UpdateSavingEvent(this.id, this.request);
   final int id;

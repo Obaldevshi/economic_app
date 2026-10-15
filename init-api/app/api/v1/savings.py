@@ -1,6 +1,7 @@
 from fastapi import APIRouter, Query, status
 
-from app.core.dependencies import CurrentUserDep, SavingsServiceDep
+from app.core.dependencies import CurrentUserDep, SavingsServiceDep, SavingsSyncServiceDep
+from app.schemas.savings_sync import SavingsSyncRequest
 from app.core.responses import PaginatedResponse, SuccessResponse
 from app.services.exchange_rate_service import exchange_rates
 from app.services.financial_presets import REGIONS
@@ -19,9 +20,43 @@ from app.schemas.savings import (
     SavingsSettingsUpdate,
     GoalAllocationUpdate,
     WeeklyReceiptResponse,
+    SpentEventCreate,
+    SpentEventUpdate,
+    SpentEventResponse,
+    SpentHistoryResponse,
 )
 
 router = APIRouter()
+
+
+@router.get("/spent", response_model=SuccessResponse)
+def get_spent(service: SavingsServiceDep, current_user: CurrentUserDep,
+              page: int = Query(1, ge=1), per_page: int = Query(50, ge=1, le=100)):
+    return SuccessResponse(message="Impulse purchases retrieved", data=SpentHistoryResponse.model_validate(
+        service.get_spent_history(current_user["user_id"], page, per_page)))
+
+
+@router.post("/spent", status_code=status.HTTP_201_CREATED, response_model=SuccessResponse)
+def create_spent(data: SpentEventCreate, service: SavingsServiceDep, current_user: CurrentUserDep):
+    return SuccessResponse(message="Impulse purchase recorded", data=SpentEventResponse.model_validate(
+        service.create_spent(current_user["user_id"], data)))
+
+
+@router.put("/spent/{event_id}", response_model=SuccessResponse)
+def update_spent(event_id: int, data: SpentEventUpdate, service: SavingsServiceDep, current_user: CurrentUserDep):
+    return SuccessResponse(message="Impulse purchase updated", data=SpentEventResponse.model_validate(
+        service.update_spent(event_id, current_user["user_id"], data)))
+
+
+@router.delete("/spent/{event_id}", status_code=status.HTTP_204_NO_CONTENT)
+def delete_spent(event_id: int, service: SavingsServiceDep, current_user: CurrentUserDep):
+    service.delete_spent(event_id, current_user["user_id"])
+
+
+@router.post("/sync", response_model=SuccessResponse)
+def sync_savings(data: SavingsSyncRequest, service: SavingsSyncServiceDep, current_user: CurrentUserDep):
+    result = service.apply(current_user["user_id"], data)
+    return SuccessResponse(message="Offline operation synchronized", data=result)
 
 
 @router.get("/receipts/week", response_model=SuccessResponse)

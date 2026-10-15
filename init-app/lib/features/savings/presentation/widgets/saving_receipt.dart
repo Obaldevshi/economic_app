@@ -31,15 +31,16 @@ Future<void> showWeeklyReceiptDialog(BuildContext context) {
       value: bloc,
       child: BlocBuilder<SavingsBloc, SavingsState>(
         builder: (context, state) {
-          if (state.isReceiptLoading)
+          if (state.isReceiptLoading) {
             return const AlertDialog(
               content: SizedBox(
                 height: 100,
                 child: Center(child: CircularProgressIndicator()),
               ),
             );
+          }
           final receipt = state.weeklyReceipt;
-          if (receipt == null)
+          if (receipt == null) {
             return AlertDialog(
               content: SavingsLoadError(
                 onRetry: () => bloc.add(const LoadWeeklyReceipt()),
@@ -51,6 +52,7 @@ Future<void> showWeeklyReceiptDialog(BuildContext context) {
                 ),
               ],
             );
+          }
           return FinancialDisplayScope(
             data: FinancialDisplayScope.of(context),
             child: _ReceiptDialog(week: receipt),
@@ -95,10 +97,11 @@ class _ReceiptDialogState extends State<_ReceiptDialog> {
         image.dispose();
       }
     } catch (_) {
-      if (mounted)
+      if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(content: Text(context.l10n.receiptExportFailed)),
         );
+      }
     } finally {
       if (mounted) setState(() => _exporting = false);
     }

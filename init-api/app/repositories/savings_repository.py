@@ -4,7 +4,7 @@ from typing import Optional
 from sqlalchemy import func
 from sqlalchemy.orm import Session
 
-from app.models.savings import ImpulseItem, SavingEvent, SavingsGoal, SavingsSettings
+from app.models.savings import ImpulseItem, SavingEvent, SavingsGoal, SavingsSettings, SpentEvent
 from app.repositories.base import BaseRepository
 
 
@@ -13,6 +13,7 @@ class SavingsRepository:
         self.db = db
         self.impulses = BaseRepository(db, ImpulseItem)
         self.events = BaseRepository(db, SavingEvent)
+        self.spent = BaseRepository(db, SpentEvent)
         self.goals = BaseRepository(db, SavingsGoal)
         self.settings = BaseRepository(db, SavingsSettings)
 
@@ -47,6 +48,25 @@ class SavingsRepository:
             SavingEvent.id == event_id,
             SavingEvent.user_id == user_id,
         ).first()
+
+    def lock_record(self, record):
+        # The caller first selects an owned row, then reloads its latest values
+        # under a row lock before comparing an offline edit's expected baseline.
+        self.db.refresh(record, with_for_update=True)
+        return record
+
+    def get_spent(self, event_id: int, user_id: int):
+        return self.db.query(SpentEvent).filter(
+            SpentEvent.id == event_id, SpentEvent.user_id == user_id,
+        ).first()
+
+    def get_spent_history(self, user_id: int, page: int, per_page: int):
+        query = self._ledger_query(SpentEvent, user_id)
+        total, amount = query.with_entities(func.count(SpentEvent.id),
+            func.coalesce(func.sum(SpentEvent.amount), 0)).one()
+        items = query.order_by(SpentEvent.occurred_at.desc(), SpentEvent.id.desc()).offset(
+            (page - 1) * per_page).limit(per_page).all()
+        return items, total, amount
 
     def get_events_since(self, user_id: int, since: datetime):
         return self._ledger_query(SavingEvent, user_id).filter(
@@ -87,7 +107,7 @@ class SavingsRepository:
 
     def has_ledger(self, user_id: int):
         return any(self.db.query(model.id).filter(model.user_id == user_id).first()
-                   for model in (SavingEvent, SavingsGoal, ImpulseItem))
+                   for model in (SavingEvent, SavingsGoal, ImpulseItem, SpentEvent))
 
     def invested_total(self, user_id: int, currency: str):
         return self.db.query(func.coalesce(func.sum(SavingEvent.amount), 0)).filter(

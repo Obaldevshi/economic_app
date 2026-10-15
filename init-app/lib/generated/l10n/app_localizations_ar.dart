@@ -9,12 +9,176 @@ class AppLocalizationsAr extends AppLocalizations {
   AppLocalizationsAr([String locale = 'ar']) : super(locale);
 
   @override
+  String get lastNameOptional => 'اسم العائلة (اختياري)';
+
+  @override
+  String get lightPalette => 'ألوان المظهر الفاتح';
+
+  @override
+  String get darkPalette => 'ألوان المظهر الداكن';
+
+  @override
+  String get customColor => 'لون مخصص · HEX';
+
+  @override
+  String get colorHue => 'درجة اللون';
+
+  @override
+  String get resetPalette => 'إعادة ضبط الألوان';
+
+  @override
+  String get invalidColor => 'أدخل 6 رموز: 0–9، A–F';
+
+  @override
+  String get pinCreate => 'إنشاء رمز PIN';
+
+  @override
+  String get pinEnter => 'أدخل رمز PIN';
+
+  @override
+  String get pinHint =>
+      'أربعة أرقام لقفل هذا الجهاز محليًا. تبقى كلمة مرور الحساب مطلوبة للدخول والمزامنة.';
+
+  @override
+  String get pinConfirm => 'أكد رمز PIN';
+
+  @override
+  String get pinFourDigits => 'PIN · أربعة أرقام';
+
+  @override
+  String get pinMismatch => 'الرمزان غير متطابقين. ابدأ مجددًا.';
+
+  @override
+  String get pinIncorrect => 'رمز PIN غير صحيح';
+
+  @override
+  String pinWait(int seconds) {
+    return 'أعد المحاولة بعد $seconds ث.';
+  }
+
+  @override
+  String get pinStorageError =>
+      'تعذرت قراءة رمز PIN أو حفظه. ادخل بكلمة المرور.';
+
+  @override
+  String get pinLater => 'لاحقًا / إلغاء';
+
+  @override
+  String get pinUsePassword => 'الدخول بكلمة المرور';
+
+  @override
+  String get pinSettings => 'إعداد / تغيير PIN';
+
+  @override
+  String get pinRemove => 'تعطيل PIN';
+
+  @override
+  String get pinVerifyFirst => 'أكد رمز PIN الحالي أولًا';
+
+  @override
+  String get continueAction => 'متابعة';
+
+  @override
+  String get offlineStorageError =>
+      'تعذر حفظ البيانات. تحقق من المساحة المتاحة.';
+
+  @override
+  String get offlineAvailable =>
+      'دون اتصال: البيانات المحملة متاحة. تُحفظ الإدخالات الجديدة على هذا الجهاز.';
+
+  @override
+  String get syncConflict =>
+      'لم تُزامَن التغييرات. تغير سجل الخادم أو يحتاج للمراجعة.';
+
+  @override
+  String get syncLogin =>
+      'سجّل الدخول مجددًا للمزامنة. إدخالاتك المحلية محفوظة.';
+
+  @override
+  String syncPending(int count) {
+    return 'بانتظار المزامنة: $count';
+  }
+
+  @override
+  String get syncInProgress => 'جارٍ المزامنة…';
+
+  @override
+  String get syncNow => 'المزامنة الآن';
+
+  @override
+  String get syncKeepLocal => 'الاحتفاظ بنسختي';
+
+  @override
+  String get syncOverwriteWarning =>
+      'ستحل نسختك محل هذا السجل على الخادم. هل تريد المتابعة؟';
+
+  @override
+  String get syncKeepServer => 'إزالة من قائمة الانتظار';
+
+  @override
+  String get syncDiscardWarning =>
+      'إزالة العملية الفاشلة والإدخالات المحلية المرتبطة بها؟ لن تُحذف سجلات الخادم. ستفقد التغييرات المحلية الملغاة.';
+
+  @override
+  String get offlineInitialData =>
+      'اتصل بالإنترنت أولًا لتحميل سجل هذا الحساب.';
+
+  @override
+  String get syncBeforeCurrency =>
+      'زامن إدخالاتك واتصل بالإنترنت قبل تغيير العملة.';
+
+  @override
+  String get localAccountChanged => 'تغير الحساب. أعد فتح هذه الشاشة.';
+
+  @override
+  String get savedOnDevice => 'تم الحفظ على هذا الجهاز';
+
+  @override
+  String get impulseIconAlcohol => 'مشروبات كحولية';
+
+  @override
+  String get impulseIconSnacks => 'وجبات خفيفة وحلوى';
+
+  @override
+  String get impulseIconBakery => 'مخبوزات';
+
+  @override
+  String get impulseIconSoda => 'مشروبات غازية';
+
+  @override
+  String get impulseIconEnergyDrink => 'مشروبات الطاقة';
+
+  @override
+  String get impulseIconFastFood => 'وجبات سريعة';
+
+  @override
+  String get impulseIconCinema => 'سينما';
+
+  @override
+  String get impulseIconGames => 'ألعاب ومشتريات داخل التطبيقات';
+
+  @override
+  String get impulseIconClothes => 'ملابس';
+
+  @override
+  String get impulseIconCosmetics => 'مستحضرات تجميل';
+
+  @override
+  String get impulseIconGadgets => 'أجهزة';
+
+  @override
+  String get impulseIconGifts => 'هدايا';
+
+  @override
+  String get impulseIconHobbies => 'كتب وهوايات';
+
+  @override
   String projectionPeriod(int years) {
     String _temp0 = intl.Intl.pluralLogic(
       years,
       locale: localeName,
-      other: '# سنوات',
-      one: '# سنة',
+      other: '$years سنوات',
+      one: '$years سنة',
     );
     return '$_temp0';
   }
@@ -1050,4 +1214,71 @@ class AppLocalizationsAr extends AppLocalizations {
   @override
   String get widgetItemUnavailable =>
       'هذا العنصر محذوف أو متوقف أو غير متاح لهذا الحساب';
+
+  @override
+  String get spentTab => 'أنفقت';
+
+  @override
+  String get forecastTab => 'التوقعات';
+
+  @override
+  String get homeActualHint =>
+      'التقديرات في التوقعات. هنا قراراتك الفعلية: التوفير المسجل لا يعني بالضرورة وضع المال جانباً.';
+
+  @override
+  String get recordSpent => 'تسجيل شراء';
+
+  @override
+  String get openForecast => 'عرض التوقعات';
+
+  @override
+  String get spentIntro =>
+      'المشتريات الاندفاعية فقط، لا المصروفات اليومية. لاحظ عاداتك دون لوم نفسك. التوفير والأهداف لا تتغير.';
+
+  @override
+  String get spentPrincipal => 'الإنفاق الاندفاعي';
+
+  @override
+  String get spentHistory => 'سجل المشتريات الاندفاعية';
+
+  @override
+  String get noSpentYet =>
+      'لا مشتريات بعد. إذا غلبتك الرغبة يمكنك تسجيلها هنا بهدوء.';
+
+  @override
+  String get spentOpportunity => 'فرصة محتملة فائتة';
+
+  @override
+  String get spentMissedInterest => 'فوائد محتملة لم تتحقق';
+
+  @override
+  String spentPossibleTotal(String amount) {
+    return 'رأس المال والفوائد: $amount';
+  }
+
+  @override
+  String spentAssumptions(String rate) {
+    return 'سيناريو يبدأ اليوم: ادخار كامل المبلغ الآن بعائد سنوي $rate% مركب شهرياً، دون إيداعات إضافية أو ضرائب أو تضخم. ليس ديناً فعلياً ولا دخلاً مضموناً. مبلغ الشراء نفسه ليس فوائد فائتة.';
+  }
+
+  @override
+  String get spentFormHint =>
+      'سجل شراءً اندفاعياً غير ضروري فقط. ليس توفيراً ولا سحباً من أموال أهدافك.';
+
+  @override
+  String get deleteSpentConfirm =>
+      'حذف هذا الشراء؟ لن يتغير التوفير المسجل أو الأهداف.';
+
+  @override
+  String spentLoadedCount(int count, int total) {
+    return 'تم تحميل $count من $total مشتريات';
+  }
+
+  @override
+  String spentMissedLine(String amount, int years) {
+    return 'الفوائد المحتملة خلال $years سنة: $amount';
+  }
+
+  @override
+  String get spentRecordedMessage => 'تم تسجيل الشراء';
 }

@@ -18,6 +18,9 @@ from app.schemas.savings import (
     SavingsSettingsUpdate,
     SavingEventResponse,
     SavingsGoalResponse,
+    SpentEventCreate,
+    SpentEventUpdate,
+    SpentEventResponse,
 )
 
 
@@ -29,8 +32,11 @@ def _money(value) -> Decimal:
 
 
 class SavingsService:
-    def __init__(self, db: Session, region: str = "RU"):
+    def __init__(self, db: Session, region: str = "RU", ledger_currency: str | None = None):
         self.repository = SavingsRepository(db)
+        # Only the authenticated sync service supplies an explicit historical
+        # ledger. Public CRUD keeps its active-currency compatibility checks.
+        self.ledger_currency = ledger_currency
         self.initial_region = region if region in REGIONS else "RU"
 
     def get_impulses(self, user_id: int, include_inactive: bool = False):
@@ -124,6 +130,51 @@ class SavingsService:
             self.repository.db.rollback()
             raise
 
+    def get_spent_history(self, user_id: int, page: int, per_page: int):
+        # Keep the aggregate and page on the same active ledger snapshot.
+        self._lock_balance(user_id)
+        settings = self.repository.get_settings(user_id)
+        items, total, amount = self.repository.get_spent_history(user_id, page, per_page)
+        result = {"currency_code": settings.currency_code, "items": [
+            SpentEventResponse.model_validate(item) for item in items],
+            "total": total, "total_amount": _money(amount), "page": page, "per_page": per_page}
+        self.repository.db.commit()
+        return result
+
+    def _spent_values(self, user_id, data, record=None):
+        values = self._currency_values(user_id, data, record)
+        if data.impulse_item_id is not None:
+            item = self.repository.get_impulse(data.impulse_item_id, user_id)
+            if item is None:
+                raise NotFoundError("Impulse item not found")
+            if item.currency_code != values["currency_code"]:
+                raise ValidationError("Currency changed; refresh and try again")
+        # Explicit null must never erase a required field during partial updates.
+        if record is not None and any(values.get(key, True) is None for key in (
+                "impulse_name", "amount", "occurred_at")):
+            raise ValidationError("Required purchase fields cannot be empty")
+        return values
+
+    def create_spent(self, user_id: int, data: SpentEventCreate):
+        self._lock_balance(user_id)
+        values = self._spent_values(user_id, data)
+        values["occurred_at"] = values["occurred_at"] or datetime.now()
+        return self.repository.spent.create({"user_id": user_id, **values})
+
+    def update_spent(self, event_id: int, user_id: int, data: SpentEventUpdate):
+        self._lock_balance(user_id)
+        record = self.repository.get_spent(event_id, user_id)
+        if record is None:
+            raise NotFoundError("Impulse purchase not found")
+        return self.repository.spent.update(record, self._spent_values(user_id, data, record))
+
+    def delete_spent(self, event_id: int, user_id: int):
+        self._lock_balance(user_id)
+        record = self.repository.get_spent(event_id, user_id)
+        if record is None:
+            raise NotFoundError("Impulse purchase not found")
+        return self.repository.spent.delete(record.id)
+
     def get_goals(self, user_id: int):
         self.get_settings(user_id)
         return self.repository.get_goals(user_id)
@@ -213,7 +264,7 @@ class SavingsService:
         return self.repository.settings.update(settings, values)
 
     def _currency_values(self, user_id, data, record=None):
-        currency = record.currency_code if record is not None else self.get_settings(user_id).currency_code
+        currency = record.currency_code if record is not None else (self.ledger_currency or self.get_settings(user_id).currency_code)
         # Old clients entered RUB. They must not silently create foreign money.
         expected_currency = data.currency_code or "RUB"
         if expected_currency != currency:

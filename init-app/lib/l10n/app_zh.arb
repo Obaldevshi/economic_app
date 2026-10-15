@@ -1,4 +1,56 @@
 {
+  "lastNameOptional": "姓氏（选填）",
+  "lightPalette": "浅色主题配色",
+  "darkPalette": "深色主题配色",
+  "customColor": "自定义颜色 · HEX",
+  "colorHue": "色相",
+  "resetPalette": "重置配色",
+  "invalidColor": "输入6位字符：0–9、A–F",
+  "pinCreate": "设置PIN",
+  "pinEnter": "输入PIN",
+  "pinHint": "四位数字仅锁定本设备。登录和同步仍需要账户密码。",
+  "pinConfirm": "再次输入PIN",
+  "pinFourDigits": "PIN · 4位数字",
+  "pinMismatch": "两次PIN不一致，请重新设置。",
+  "pinIncorrect": "PIN错误",
+  "pinWait": "请在{seconds}秒后重试。",
+  "pinStorageError": "无法读取或保存PIN，请使用密码登录。",
+  "pinLater": "稍后／取消",
+  "pinUsePassword": "使用密码登录",
+  "pinSettings": "设置／更改PIN",
+  "pinRemove": "关闭PIN",
+  "pinVerifyFirst": "请先验证当前PIN",
+  "continueAction": "继续",
+  "offlineStorageError": "无法保存数据，请检查可用存储空间。",
+  "offlineAvailable": "离线：可查看已下载的数据。新记录保存在本设备。",
+  "syncConflict": "更改尚未同步，服务器记录已更改或需要检查。",
+  "syncLogin": "请重新登录以同步，本地记录已保留。",
+  "syncPending": "等待同步：{count}",
+  "syncInProgress": "正在同步…",
+  "syncNow": "立即同步",
+  "syncKeepLocal": "保留我的版本",
+  "syncOverwriteWarning": "你的版本将替换服务器上的此记录，是否继续？",
+  "syncKeepServer": "从队列移除",
+  "syncDiscardWarning": "移除失败操作及其依赖的本地记录？不会删除服务器记录。已取消的本地更改将丢失。",
+  "offlineInitialData": "请先联网下载此账户的记录。",
+  "syncBeforeCurrency": "更换货币前请联网并同步记录。",
+  "localAccountChanged": "账户已更改，请重新打开此页面。",
+  "savedOnDevice": "已保存在本设备",
+  "@pinWait": {"placeholders":{"seconds":{"type":"int"}}},
+  "@syncPending": {"placeholders":{"count":{"type":"int"}}},
+  "impulseIconAlcohol": "酒精饮品",
+  "impulseIconSnacks": "零食与甜点",
+  "impulseIconBakery": "烘焙食品",
+  "impulseIconSoda": "汽水",
+  "impulseIconEnergyDrink": "能量饮料",
+  "impulseIconFastFood": "快餐",
+  "impulseIconCinema": "电影",
+  "impulseIconGames": "游戏与内购",
+  "impulseIconClothes": "服装",
+  "impulseIconCosmetics": "化妆品",
+  "impulseIconGadgets": "数码产品",
+  "impulseIconGifts": "礼物",
+  "impulseIconHobbies": "图书与爱好",
   "projectionPeriod": "{years} 年",
   "@projectionPeriod": {"placeholders": {"years": {"type": "int"}}},
   "@@locale": "zh",
@@ -446,5 +498,57 @@
   "favoriteLimit": "已有三个收藏，请先移除一个。",
   "widgetItemUnavailable": "此项目已删除、已暂停，或不属于当前账户",
   "chooseLanguage": "选择语言",
-  "coinLanguageHint": "标志中的货币符号仅为地区联想。更改语言不会换算金额，也不会改变记录的货币。"
+  "coinLanguageHint": "标志中的货币符号仅为地区联想。更改语言不会换算金额，也不会改变记录的货币。",
+  "spentTab": "花掉了",
+  "forecastTab": "预测",
+  "homeActualHint": "预期效果请看“预测”。这里展示实际决定：记录节省不代表已经把钱存下。",
+  "recordSpent": "记录购买",
+  "openForecast": "查看预测",
+  "spentIntro": "只记录冲动消费，不记日常开支。发现习惯，不必自责。已记录的节省和目标不会改变。",
+  "spentPrincipal": "冲动消费金额",
+  "spentHistory": "冲动消费记录",
+  "noSpentYet": "暂无购买记录。如果一时没忍住，可以平静地记在这里。",
+  "spentOpportunity": "可能错过的机会",
+  "spentMissedInterest": "可能未获得的利息",
+  "spentPossibleTotal": "本金加利息：{amount}",
+  "spentAssumptions": "从今天开始的假设：若现在将全部消费金额存下，年利率为 {rate}%，按月复利，不再追加存款，不计税费和通胀。这不是真实债务，也不保证收益。购买金额本身不算损失的利息。",
+  "spentFormHint": "只记录非必需的冲动购买。这不是节省记录，也不会扣减目标资金。",
+  "deleteSpentConfirm": "删除此购买记录？已记录的节省和目标不会改变。",
+  "spentLoadedCount": "已加载 {count} 条，共 {total} 条购买",
+  "spentMissedLine": "{years} 年内可能的利息：{amount}",
+  "spentRecordedMessage": "购买已记录",
+  "@spentPossibleTotal": {
+    "placeholders": {
+      "amount": {
+        "type": "String"
+      }
+    }
+  },
+  "@spentAssumptions": {
+    "placeholders": {
+      "rate": {
+        "type": "String"
+      }
+    }
+  },
+  "@spentLoadedCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
+    }
+  },
+  "@spentMissedLine": {
+    "placeholders": {
+      "amount": {
+        "type": "String"
+      },
+      "years": {
+        "type": "int"
+      }
+    }
+  }
 }

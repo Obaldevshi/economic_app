@@ -386,12 +386,13 @@ class _HabitCard extends StatelessWidget {
                       getIt<SavingsNativeService>()
                           .toggleFavorite(item.id)
                           .then((saved) {
-                            if (!saved && context.mounted)
+                            if (!saved && context.mounted) {
                               ScaffoldMessenger.of(context).showSnackBar(
                                 SnackBar(
                                   content: Text(context.l10n.favoriteLimit),
                                 ),
                               );
+                            }
                           });
                       return;
                     }

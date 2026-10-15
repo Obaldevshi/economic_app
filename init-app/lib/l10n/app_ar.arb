@@ -1,5 +1,57 @@
 {
-  "projectionPeriod": "{years, plural, one {# سنة} other {# سنوات}}",
+  "lastNameOptional": "اسم العائلة (اختياري)",
+  "lightPalette": "ألوان المظهر الفاتح",
+  "darkPalette": "ألوان المظهر الداكن",
+  "customColor": "لون مخصص · HEX",
+  "colorHue": "درجة اللون",
+  "resetPalette": "إعادة ضبط الألوان",
+  "invalidColor": "أدخل 6 رموز: 0–9، A–F",
+  "pinCreate": "إنشاء رمز PIN",
+  "pinEnter": "أدخل رمز PIN",
+  "pinHint": "أربعة أرقام لقفل هذا الجهاز محليًا. تبقى كلمة مرور الحساب مطلوبة للدخول والمزامنة.",
+  "pinConfirm": "أكد رمز PIN",
+  "pinFourDigits": "PIN · أربعة أرقام",
+  "pinMismatch": "الرمزان غير متطابقين. ابدأ مجددًا.",
+  "pinIncorrect": "رمز PIN غير صحيح",
+  "pinWait": "أعد المحاولة بعد {seconds} ث.",
+  "pinStorageError": "تعذرت قراءة رمز PIN أو حفظه. ادخل بكلمة المرور.",
+  "pinLater": "لاحقًا / إلغاء",
+  "pinUsePassword": "الدخول بكلمة المرور",
+  "pinSettings": "إعداد / تغيير PIN",
+  "pinRemove": "تعطيل PIN",
+  "pinVerifyFirst": "أكد رمز PIN الحالي أولًا",
+  "continueAction": "متابعة",
+  "offlineStorageError": "تعذر حفظ البيانات. تحقق من المساحة المتاحة.",
+  "offlineAvailable": "دون اتصال: البيانات المحملة متاحة. تُحفظ الإدخالات الجديدة على هذا الجهاز.",
+  "syncConflict": "لم تُزامَن التغييرات. تغير سجل الخادم أو يحتاج للمراجعة.",
+  "syncLogin": "سجّل الدخول مجددًا للمزامنة. إدخالاتك المحلية محفوظة.",
+  "syncPending": "بانتظار المزامنة: {count}",
+  "syncInProgress": "جارٍ المزامنة…",
+  "syncNow": "المزامنة الآن",
+  "syncKeepLocal": "الاحتفاظ بنسختي",
+  "syncOverwriteWarning": "ستحل نسختك محل هذا السجل على الخادم. هل تريد المتابعة؟",
+  "syncKeepServer": "إزالة من قائمة الانتظار",
+  "syncDiscardWarning": "إزالة العملية الفاشلة والإدخالات المحلية المرتبطة بها؟ لن تُحذف سجلات الخادم. ستفقد التغييرات المحلية الملغاة.",
+  "offlineInitialData": "اتصل بالإنترنت أولًا لتحميل سجل هذا الحساب.",
+  "syncBeforeCurrency": "زامن إدخالاتك واتصل بالإنترنت قبل تغيير العملة.",
+  "localAccountChanged": "تغير الحساب. أعد فتح هذه الشاشة.",
+  "savedOnDevice": "تم الحفظ على هذا الجهاز",
+  "@pinWait": {"placeholders":{"seconds":{"type":"int"}}},
+  "@syncPending": {"placeholders":{"count":{"type":"int"}}},
+  "impulseIconAlcohol": "مشروبات كحولية",
+  "impulseIconSnacks": "وجبات خفيفة وحلوى",
+  "impulseIconBakery": "مخبوزات",
+  "impulseIconSoda": "مشروبات غازية",
+  "impulseIconEnergyDrink": "مشروبات الطاقة",
+  "impulseIconFastFood": "وجبات سريعة",
+  "impulseIconCinema": "سينما",
+  "impulseIconGames": "ألعاب ومشتريات داخل التطبيقات",
+  "impulseIconClothes": "ملابس",
+  "impulseIconCosmetics": "مستحضرات تجميل",
+  "impulseIconGadgets": "أجهزة",
+  "impulseIconGifts": "هدايا",
+  "impulseIconHobbies": "كتب وهوايات",
+  "projectionPeriod": "{years, plural, one {{years} سنة} other {{years} سنوات}}",
   "@projectionPeriod": {"placeholders": {"years": {"type": "int"}}},
   "@@locale": "ar",
   "privacyPolicy": "سياسة الخصوصية",
@@ -446,5 +498,57 @@
   "favoriteLimit": "لديك ثلاثة عناصر مفضلة بالفعل. أزل واحدًا أولًا.",
   "widgetItemUnavailable": "هذا العنصر محذوف أو متوقف أو غير متاح لهذا الحساب",
   "chooseLanguage": "اختر اللغة",
-  "coinLanguageHint": "رمز العملة في الشعار ارتباط إقليمي فقط. تغيير اللغة لا يحوّل المبالغ ولا يغيّر عملة سجلاتك."
+  "coinLanguageHint": "رمز العملة في الشعار ارتباط إقليمي فقط. تغيير اللغة لا يحوّل المبالغ ولا يغيّر عملة سجلاتك.",
+  "spentTab": "أنفقت",
+  "forecastTab": "التوقعات",
+  "homeActualHint": "التقديرات في التوقعات. هنا قراراتك الفعلية: التوفير المسجل لا يعني بالضرورة وضع المال جانباً.",
+  "recordSpent": "تسجيل شراء",
+  "openForecast": "عرض التوقعات",
+  "spentIntro": "المشتريات الاندفاعية فقط، لا المصروفات اليومية. لاحظ عاداتك دون لوم نفسك. التوفير والأهداف لا تتغير.",
+  "spentPrincipal": "الإنفاق الاندفاعي",
+  "spentHistory": "سجل المشتريات الاندفاعية",
+  "noSpentYet": "لا مشتريات بعد. إذا غلبتك الرغبة يمكنك تسجيلها هنا بهدوء.",
+  "spentOpportunity": "فرصة محتملة فائتة",
+  "spentMissedInterest": "فوائد محتملة لم تتحقق",
+  "spentPossibleTotal": "رأس المال والفوائد: {amount}",
+  "spentAssumptions": "سيناريو يبدأ اليوم: ادخار كامل المبلغ الآن بعائد سنوي {rate}% مركب شهرياً، دون إيداعات إضافية أو ضرائب أو تضخم. ليس ديناً فعلياً ولا دخلاً مضموناً. مبلغ الشراء نفسه ليس فوائد فائتة.",
+  "spentFormHint": "سجل شراءً اندفاعياً غير ضروري فقط. ليس توفيراً ولا سحباً من أموال أهدافك.",
+  "deleteSpentConfirm": "حذف هذا الشراء؟ لن يتغير التوفير المسجل أو الأهداف.",
+  "spentLoadedCount": "تم تحميل {count} من {total} مشتريات",
+  "spentMissedLine": "الفوائد المحتملة خلال {years} سنة: {amount}",
+  "spentRecordedMessage": "تم تسجيل الشراء",
+  "@spentPossibleTotal": {
+    "placeholders": {
+      "amount": {
+        "type": "String"
+      }
+    }
+  },
+  "@spentAssumptions": {
+    "placeholders": {
+      "rate": {
+        "type": "String"
+      }
+    }
+  },
+  "@spentLoadedCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
+    }
+  },
+  "@spentMissedLine": {
+    "placeholders": {
+      "amount": {
+        "type": "String"
+      },
+      "years": {
+        "type": "int"
+      }
+    }
+  }
 }

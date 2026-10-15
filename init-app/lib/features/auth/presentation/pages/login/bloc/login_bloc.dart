@@ -21,6 +21,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
     emit(LoginLoading());
     final request = LoginRequest(email: event.email, password: event.password);
     final result = await loginUsecase.call(request);
+    if (emit.isDone) return;
     result.fold(
       (failure) {
         emit(LoginFailure(failure: failure));

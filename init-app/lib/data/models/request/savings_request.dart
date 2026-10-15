@@ -11,6 +11,30 @@ class GoalAllocationRequest {
 }
 
 @JsonSerializable()
+class SpentEventRequest {
+  @JsonKey(name: 'currency_code')
+  final String currencyCode;
+  @JsonKey(name: 'impulse_item_id')
+  final int? impulseItemId;
+  @JsonKey(name: 'impulse_name')
+  final String impulseName;
+  final double amount;
+  @JsonKey(name: 'occurred_at', includeIfNull: false)
+  final String? occurredAt;
+  final String? note;
+
+  SpentEventRequest({
+    required this.currencyCode,
+    this.impulseItemId,
+    required this.impulseName,
+    required this.amount,
+    this.occurredAt,
+    this.note,
+  });
+  Map<String, dynamic> toJson() => _$SpentEventRequestToJson(this);
+}
+
+@JsonSerializable()
 class SavingEventRequest {
   @JsonKey(name: 'currency_code', includeIfNull: false)
   final String? currencyCode;

@@ -8,8 +8,29 @@ double _moneyFromJson(Object? value) => switch (value) {
   _ => 0,
 };
 
-@JsonSerializable(createToJson: false)
+DateTime _eventTimeFromJson(String value) {
+  // Older API responses have no suffix but contain UTC container timestamps.
+  final zoned = RegExp(r'(Z|[+-]\d{2}:\d{2})$').hasMatch(value)
+      ? value
+      : '${value}Z';
+  return DateTime.parse(zoned).toLocal();
+}
+
+String _eventTimeToJson(DateTime value) => value.toUtc().toIso8601String();
+
+@JsonSerializable(explicitToJson: true)
+class SavingsSyncResponse {
+  @JsonKey(name: 'entity_id')
+  final int? entityId;
+  SavingsSyncResponse({this.entityId});
+  factory SavingsSyncResponse.fromJson(Map<String, dynamic> json) =>
+      _$SavingsSyncResponseFromJson(json);
+  Map<String, dynamic> toJson() => _$SavingsSyncResponseToJson(this);
+}
+
+@JsonSerializable(explicitToJson: true)
 class ImpulseItemResponse {
+  Map<String, dynamic> toJson() => _$ImpulseItemResponseToJson(this);
   @JsonKey(name: 'currency_code')
   final String currencyCode;
   final int id;
@@ -37,8 +58,9 @@ class ImpulseItemResponse {
       _$ImpulseItemResponseFromJson(json);
 }
 
-@JsonSerializable(createToJson: false)
+@JsonSerializable(explicitToJson: true)
 class SavingEventResponse {
+  Map<String, dynamic> toJson() => _$SavingEventResponseToJson(this);
   @JsonKey(name: 'currency_code')
   final String currencyCode;
   final int id;
@@ -48,7 +70,11 @@ class SavingEventResponse {
   final String impulseName;
   @JsonKey(fromJson: _moneyFromJson)
   final double amount;
-  @JsonKey(name: 'occurred_at')
+  @JsonKey(
+    name: 'occurred_at',
+    fromJson: _eventTimeFromJson,
+    toJson: _eventTimeToJson,
+  )
   final DateTime occurredAt;
   @JsonKey(name: 'is_invested')
   final bool isInvested;
@@ -69,8 +95,65 @@ class SavingEventResponse {
       _$SavingEventResponseFromJson(json);
 }
 
-@JsonSerializable(createToJson: false)
+@JsonSerializable(explicitToJson: true)
+class SpentEventResponse {
+  final int id;
+  @JsonKey(name: 'currency_code')
+  final String currencyCode;
+  @JsonKey(name: 'impulse_item_id')
+  final int? impulseItemId;
+  @JsonKey(name: 'impulse_name')
+  final String impulseName;
+  @JsonKey(fromJson: _moneyFromJson)
+  final double amount;
+  @JsonKey(
+    name: 'occurred_at',
+    fromJson: _eventTimeFromJson,
+    toJson: _eventTimeToJson,
+  )
+  final DateTime occurredAt;
+  final String? note;
+  SpentEventResponse({
+    required this.id,
+    required this.currencyCode,
+    this.impulseItemId,
+    required this.impulseName,
+    required this.amount,
+    required this.occurredAt,
+    this.note,
+  });
+  factory SpentEventResponse.fromJson(Map<String, dynamic> json) =>
+      _$SpentEventResponseFromJson(json);
+  Map<String, dynamic> toJson() => _$SpentEventResponseToJson(this);
+}
+
+@JsonSerializable(explicitToJson: true)
+class SpentHistoryResponse {
+  final List<SpentEventResponse> items;
+  final int total;
+  @JsonKey(name: 'total_amount', fromJson: _moneyFromJson)
+  final double totalAmount;
+  @JsonKey(name: 'currency_code')
+  final String currencyCode;
+  final int page;
+  @JsonKey(name: 'per_page')
+  final int perPage;
+  SpentHistoryResponse({
+    required this.items,
+    required this.total,
+    required this.totalAmount,
+    required this.currencyCode,
+    required this.page,
+    required this.perPage,
+  });
+  factory SpentHistoryResponse.fromJson(Map<String, dynamic> json) =>
+      _$SpentHistoryResponseFromJson(json);
+  Map<String, dynamic> toJson() => _$SpentHistoryResponseToJson(this);
+}
+
+@JsonSerializable(explicitToJson: true)
 class SavingsGoalResponse {
+  Map<String, dynamic> toJson() => _$SavingsGoalResponseToJson(this);
   @JsonKey(name: 'currency_code')
   final String currencyCode;
   final int id;
@@ -92,8 +175,9 @@ class SavingsGoalResponse {
       _$SavingsGoalResponseFromJson(json);
 }
 
-@JsonSerializable(createToJson: false)
+@JsonSerializable(explicitToJson: true)
 class WeeklyReceiptResponse {
+  Map<String, dynamic> toJson() => _$WeeklyReceiptResponseToJson(this);
   @JsonKey(name: 'currency_code')
   final String currencyCode;
   @JsonKey(name: 'start_date')
@@ -119,8 +203,9 @@ class WeeklyReceiptResponse {
       _$WeeklyReceiptResponseFromJson(json);
 }
 
-@JsonSerializable(createToJson: false)
+@JsonSerializable(explicitToJson: true)
 class MonthlySavingPoint {
+  Map<String, dynamic> toJson() => _$MonthlySavingPointToJson(this);
   final String month;
   @JsonKey(fromJson: _moneyFromJson)
   final double amount;
@@ -131,8 +216,9 @@ class MonthlySavingPoint {
       _$MonthlySavingPointFromJson(json);
 }
 
-@JsonSerializable(createToJson: false)
+@JsonSerializable(explicitToJson: true)
 class ProjectionPoint {
+  Map<String, dynamic> toJson() => _$ProjectionPointToJson(this);
   final int year;
   @JsonKey(fromJson: _moneyFromJson)
   final double contributions;
@@ -152,8 +238,9 @@ class ProjectionPoint {
       _$ProjectionPointFromJson(json);
 }
 
-@JsonSerializable(createToJson: false)
+@JsonSerializable(explicitToJson: true)
 class ImpulseTotal {
+  Map<String, dynamic> toJson() => _$ImpulseTotalToJson(this);
   final String name;
   @JsonKey(fromJson: _moneyFromJson)
   final double amount;
@@ -164,8 +251,9 @@ class ImpulseTotal {
       _$ImpulseTotalFromJson(json);
 }
 
-@JsonSerializable(createToJson: false)
+@JsonSerializable(explicitToJson: true)
 class SavingsSettingsResponse {
+  Map<String, dynamic> toJson() => _$SavingsSettingsResponseToJson(this);
   @JsonKey(name: 'display_currency')
   final String displayCurrency;
   @JsonKey(name: 'financial_region')
@@ -189,8 +277,9 @@ class SavingsSettingsResponse {
       _$SavingsSettingsResponseFromJson(json);
 }
 
-@JsonSerializable(createToJson: false)
+@JsonSerializable(explicitToJson: true)
 class SavingsDashboardResponse {
+  Map<String, dynamic> toJson() => _$SavingsDashboardResponseToJson(this);
   @JsonKey(name: 'display_currency')
   final String displayCurrency;
   @JsonKey(name: 'financial_region')
@@ -260,8 +349,9 @@ Map<String, double> _ratesFromJson(Map<String, dynamic>? values) => {
     entry.key: _moneyFromJson(entry.value),
 };
 
-@JsonSerializable(createToJson: false)
+@JsonSerializable(explicitToJson: true)
 class ExchangeRatesResponse {
+  Map<String, dynamic> toJson() => _$ExchangeRatesResponseToJson(this);
   @JsonKey(name: 'as_of')
   final DateTime? asOf;
   @JsonKey(name: 'is_stale')
@@ -279,8 +369,9 @@ class ExchangeRatesResponse {
       _$ExchangeRatesResponseFromJson(json);
 }
 
-@JsonSerializable(createToJson: false)
+@JsonSerializable(explicitToJson: true)
 class FinancialPresetResponse {
+  Map<String, dynamic> toJson() => _$FinancialPresetResponseToJson(this);
   final String region;
   @JsonKey(name: 'currency_code')
   final String currencyCode;

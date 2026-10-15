@@ -112,10 +112,310 @@ abstract class AppLocalizations {
     Locale('zh'),
   ];
 
+  /// No description provided for @lastNameOptional.
+  ///
+  /// In en, this message translates to:
+  /// **'Last name (optional)'**
+  String get lastNameOptional;
+
+  /// No description provided for @lightPalette.
+  ///
+  /// In en, this message translates to:
+  /// **'Light theme palette'**
+  String get lightPalette;
+
+  /// No description provided for @darkPalette.
+  ///
+  /// In en, this message translates to:
+  /// **'Dark theme palette'**
+  String get darkPalette;
+
+  /// No description provided for @customColor.
+  ///
+  /// In en, this message translates to:
+  /// **'Custom color · HEX'**
+  String get customColor;
+
+  /// No description provided for @colorHue.
+  ///
+  /// In en, this message translates to:
+  /// **'Hue'**
+  String get colorHue;
+
+  /// No description provided for @resetPalette.
+  ///
+  /// In en, this message translates to:
+  /// **'Reset palette'**
+  String get resetPalette;
+
+  /// No description provided for @invalidColor.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter 6 characters: 0–9, A–F'**
+  String get invalidColor;
+
+  /// No description provided for @pinCreate.
+  ///
+  /// In en, this message translates to:
+  /// **'Create a PIN'**
+  String get pinCreate;
+
+  /// No description provided for @pinEnter.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter your PIN'**
+  String get pinEnter;
+
+  /// No description provided for @pinHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Four digits lock this device locally. Your account password is still needed to sign in and sync.'**
+  String get pinHint;
+
+  /// No description provided for @pinConfirm.
+  ///
+  /// In en, this message translates to:
+  /// **'Confirm your PIN'**
+  String get pinConfirm;
+
+  /// No description provided for @pinFourDigits.
+  ///
+  /// In en, this message translates to:
+  /// **'PIN · 4 digits'**
+  String get pinFourDigits;
+
+  /// No description provided for @pinMismatch.
+  ///
+  /// In en, this message translates to:
+  /// **'PINs do not match. Start again.'**
+  String get pinMismatch;
+
+  /// No description provided for @pinIncorrect.
+  ///
+  /// In en, this message translates to:
+  /// **'Incorrect PIN'**
+  String get pinIncorrect;
+
+  /// No description provided for @pinWait.
+  ///
+  /// In en, this message translates to:
+  /// **'Try again in {seconds} s.'**
+  String pinWait(int seconds);
+
+  /// No description provided for @pinStorageError.
+  ///
+  /// In en, this message translates to:
+  /// **'Unable to read or save the PIN. Sign in with your password.'**
+  String get pinStorageError;
+
+  /// No description provided for @pinLater.
+  ///
+  /// In en, this message translates to:
+  /// **'Later / cancel'**
+  String get pinLater;
+
+  /// No description provided for @pinUsePassword.
+  ///
+  /// In en, this message translates to:
+  /// **'Sign in with password'**
+  String get pinUsePassword;
+
+  /// No description provided for @pinSettings.
+  ///
+  /// In en, this message translates to:
+  /// **'Set / change PIN'**
+  String get pinSettings;
+
+  /// No description provided for @pinRemove.
+  ///
+  /// In en, this message translates to:
+  /// **'Disable PIN'**
+  String get pinRemove;
+
+  /// No description provided for @pinVerifyFirst.
+  ///
+  /// In en, this message translates to:
+  /// **'Verify your current PIN first'**
+  String get pinVerifyFirst;
+
+  /// No description provided for @continueAction.
+  ///
+  /// In en, this message translates to:
+  /// **'Continue'**
+  String get continueAction;
+
+  /// No description provided for @offlineStorageError.
+  ///
+  /// In en, this message translates to:
+  /// **'Unable to save data on this device. Check available storage.'**
+  String get offlineStorageError;
+
+  /// No description provided for @offlineAvailable.
+  ///
+  /// In en, this message translates to:
+  /// **'Offline: downloaded data is available. New entries stay on this device.'**
+  String get offlineAvailable;
+
+  /// No description provided for @syncConflict.
+  ///
+  /// In en, this message translates to:
+  /// **'Changes are not synced. The server record changed or needs review.'**
+  String get syncConflict;
+
+  /// No description provided for @syncLogin.
+  ///
+  /// In en, this message translates to:
+  /// **'Sign in again to sync. Your local entries are safe.'**
+  String get syncLogin;
+
+  /// No description provided for @syncPending.
+  ///
+  /// In en, this message translates to:
+  /// **'Waiting to sync: {count}'**
+  String syncPending(int count);
+
+  /// No description provided for @syncInProgress.
+  ///
+  /// In en, this message translates to:
+  /// **'Syncing…'**
+  String get syncInProgress;
+
+  /// No description provided for @syncNow.
+  ///
+  /// In en, this message translates to:
+  /// **'Sync now'**
+  String get syncNow;
+
+  /// No description provided for @syncKeepLocal.
+  ///
+  /// In en, this message translates to:
+  /// **'Keep my version'**
+  String get syncKeepLocal;
+
+  /// No description provided for @syncOverwriteWarning.
+  ///
+  /// In en, this message translates to:
+  /// **'Your version will replace this record on the server. Continue?'**
+  String get syncOverwriteWarning;
+
+  /// No description provided for @syncKeepServer.
+  ///
+  /// In en, this message translates to:
+  /// **'Remove from queue'**
+  String get syncKeepServer;
+
+  /// No description provided for @syncDiscardWarning.
+  ///
+  /// In en, this message translates to:
+  /// **'Remove the failed operation and its dependent local entries? Server records are not deleted. Cancelled local changes will be lost.'**
+  String get syncDiscardWarning;
+
+  /// No description provided for @offlineInitialData.
+  ///
+  /// In en, this message translates to:
+  /// **'Connect to the internet once to download this account\'s journal.'**
+  String get offlineInitialData;
+
+  /// No description provided for @syncBeforeCurrency.
+  ///
+  /// In en, this message translates to:
+  /// **'Sync your entries and connect to the internet before changing currency.'**
+  String get syncBeforeCurrency;
+
+  /// No description provided for @localAccountChanged.
+  ///
+  /// In en, this message translates to:
+  /// **'The account changed. Reopen this screen.'**
+  String get localAccountChanged;
+
+  /// No description provided for @savedOnDevice.
+  ///
+  /// In en, this message translates to:
+  /// **'Saved on this device'**
+  String get savedOnDevice;
+
+  /// No description provided for @impulseIconAlcohol.
+  ///
+  /// In en, this message translates to:
+  /// **'Alcohol'**
+  String get impulseIconAlcohol;
+
+  /// No description provided for @impulseIconSnacks.
+  ///
+  /// In en, this message translates to:
+  /// **'Snacks and sweets'**
+  String get impulseIconSnacks;
+
+  /// No description provided for @impulseIconBakery.
+  ///
+  /// In en, this message translates to:
+  /// **'Bakery'**
+  String get impulseIconBakery;
+
+  /// No description provided for @impulseIconSoda.
+  ///
+  /// In en, this message translates to:
+  /// **'Soft drinks'**
+  String get impulseIconSoda;
+
+  /// No description provided for @impulseIconEnergyDrink.
+  ///
+  /// In en, this message translates to:
+  /// **'Energy drinks'**
+  String get impulseIconEnergyDrink;
+
+  /// No description provided for @impulseIconFastFood.
+  ///
+  /// In en, this message translates to:
+  /// **'Fast food'**
+  String get impulseIconFastFood;
+
+  /// No description provided for @impulseIconCinema.
+  ///
+  /// In en, this message translates to:
+  /// **'Cinema'**
+  String get impulseIconCinema;
+
+  /// No description provided for @impulseIconGames.
+  ///
+  /// In en, this message translates to:
+  /// **'Games and in-app purchases'**
+  String get impulseIconGames;
+
+  /// No description provided for @impulseIconClothes.
+  ///
+  /// In en, this message translates to:
+  /// **'Clothes'**
+  String get impulseIconClothes;
+
+  /// No description provided for @impulseIconCosmetics.
+  ///
+  /// In en, this message translates to:
+  /// **'Cosmetics'**
+  String get impulseIconCosmetics;
+
+  /// No description provided for @impulseIconGadgets.
+  ///
+  /// In en, this message translates to:
+  /// **'Gadgets'**
+  String get impulseIconGadgets;
+
+  /// No description provided for @impulseIconGifts.
+  ///
+  /// In en, this message translates to:
+  /// **'Gifts'**
+  String get impulseIconGifts;
+
+  /// No description provided for @impulseIconHobbies.
+  ///
+  /// In en, this message translates to:
+  /// **'Books and hobbies'**
+  String get impulseIconHobbies;
+
   /// No description provided for @projectionPeriod.
   ///
   /// In en, this message translates to:
-  /// **'{years, plural, one {# year} other {# years}}'**
+  /// **'{years, plural, one {{years} year} other {{years} years}}'**
   String projectionPeriod(int years);
 
   /// No description provided for @privacyPolicy.
@@ -2043,6 +2343,114 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'This item is deleted, paused, or unavailable to this account'**
   String get widgetItemUnavailable;
+
+  /// No description provided for @spentTab.
+  ///
+  /// In en, this message translates to:
+  /// **'Spent'**
+  String get spentTab;
+
+  /// No description provided for @forecastTab.
+  ///
+  /// In en, this message translates to:
+  /// **'Forecast'**
+  String get forecastTab;
+
+  /// No description provided for @homeActualHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Expectations live in Forecast. Here are your actual decisions: recorded savings do not necessarily mean money has been set aside.'**
+  String get homeActualHint;
+
+  /// No description provided for @recordSpent.
+  ///
+  /// In en, this message translates to:
+  /// **'Record purchase'**
+  String get recordSpent;
+
+  /// No description provided for @openForecast.
+  ///
+  /// In en, this message translates to:
+  /// **'View forecast'**
+  String get openForecast;
+
+  /// No description provided for @spentIntro.
+  ///
+  /// In en, this message translates to:
+  /// **'Only impulse purchases, not everyday expenses. Notice a habit without blaming yourself. Recorded savings and goals remain unchanged.'**
+  String get spentIntro;
+
+  /// No description provided for @spentPrincipal.
+  ///
+  /// In en, this message translates to:
+  /// **'Spent on impulses'**
+  String get spentPrincipal;
+
+  /// No description provided for @spentHistory.
+  ///
+  /// In en, this message translates to:
+  /// **'Impulse purchase history'**
+  String get spentHistory;
+
+  /// No description provided for @noSpentYet.
+  ///
+  /// In en, this message translates to:
+  /// **'No purchases yet. If an impulse wins, you can calmly record it here.'**
+  String get noSpentYet;
+
+  /// No description provided for @spentOpportunity.
+  ///
+  /// In en, this message translates to:
+  /// **'Possible missed opportunity'**
+  String get spentOpportunity;
+
+  /// No description provided for @spentMissedInterest.
+  ///
+  /// In en, this message translates to:
+  /// **'Potential missed interest'**
+  String get spentMissedInterest;
+
+  /// No description provided for @spentPossibleTotal.
+  ///
+  /// In en, this message translates to:
+  /// **'Principal + interest: {amount}'**
+  String spentPossibleTotal(String amount);
+
+  /// No description provided for @spentAssumptions.
+  ///
+  /// In en, this message translates to:
+  /// **'Scenario starting today: set aside the entire amount now at {rate}% a year, compounded monthly, with no further deposits, tax or inflation. This is not a real debt or guaranteed income. The purchase itself is not lost interest.'**
+  String spentAssumptions(String rate);
+
+  /// No description provided for @spentFormHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Record only an optional impulse purchase. This is not a saving or a withdrawal from your goals.'**
+  String get spentFormHint;
+
+  /// No description provided for @deleteSpentConfirm.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete this purchase record? Recorded savings and goals will not change.'**
+  String get deleteSpentConfirm;
+
+  /// No description provided for @spentLoadedCount.
+  ///
+  /// In en, this message translates to:
+  /// **'Loaded {count} of {total} purchases'**
+  String spentLoadedCount(int count, int total);
+
+  /// No description provided for @spentMissedLine.
+  ///
+  /// In en, this message translates to:
+  /// **'Potential interest over {years} yr: {amount}'**
+  String spentMissedLine(String amount, int years);
+
+  /// No description provided for @spentRecordedMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'Purchase recorded'**
+  String get spentRecordedMessage;
 }
 
 class _AppLocalizationsDelegate

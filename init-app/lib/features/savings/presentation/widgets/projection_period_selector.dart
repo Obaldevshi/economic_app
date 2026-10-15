@@ -32,15 +32,15 @@ class ProjectionPeriodSelector extends StatelessWidget {
             showCheckmark: false,
             padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
             materialTapTargetSize: MaterialTapTargetSize.padded,
-            selectedColor: onDark ? AppColors.accent : null,
-            backgroundColor: onDark ? AppColors.primaryDark : null,
+            selectedColor: onDark ? AppColors.highlight(context) : null,
+            backgroundColor: onDark ? AppColors.ink(context) : null,
             side: onDark
                 ? BorderSide(color: Colors.white.withValues(alpha: 0.4))
                 : null,
             labelStyle: onDark
                 ? TextStyle(
                     color: dashboard.projectionYears == years
-                        ? AppColors.primaryDark
+                        ? AppColors.ink(context)
                         : Colors.white,
                   )
                 : null,

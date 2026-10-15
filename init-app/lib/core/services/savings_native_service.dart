@@ -17,7 +17,7 @@ class SavingsNativeService {
   final favorites = ValueNotifier<List<int>>([]);
   final pendingImpulse = ValueNotifier<int?>(null);
   List<ImpulseItemResponse> _items = [];
-  String? _sessionToken;
+  int? _sessionAccount;
   int sessionRevision = 0;
   bool get _mobile =>
       !kIsWeb &&
@@ -48,7 +48,7 @@ class SavingsNativeService {
   }
 
   Future<void> init() async {
-    _sessionToken = _session.getAccessToken();
+    _sessionAccount = _session.accountId;
     favorites.value = (_prefs.getStringList(_key) ?? [])
         .map(int.tryParse)
         .whereType<int>()
@@ -58,8 +58,9 @@ class SavingsNativeService {
     if (!_session.isLoggedIn()) await _clear();
     if (!_mobile) return;
     _channel.setMethodCallHandler((call) async {
-      if (call.method == 'quickSaving')
+      if (call.method == 'quickSaving') {
         pendingImpulse.value = call.arguments as int?;
+      }
     });
     try {
       pendingImpulse.value = await _channel.invokeMethod<int>('consumeTap');
@@ -71,19 +72,22 @@ class SavingsNativeService {
   }
 
   void _sessionChanged() {
-    final token = _session.getAccessToken();
-    if (token == _sessionToken) return;
-    _sessionToken = token;
+    final account = _session.accountId;
+    if (account == _sessionAccount) return;
+    _sessionAccount = account;
     sessionRevision++;
-    if (token == null) pendingImpulse.value = null;
+    if (account == null) pendingImpulse.value = null;
     _clear();
   }
 
   Future<void> _clear() async {
+    final revision = sessionRevision;
     _items = [];
     favorites.value = [];
     await _prefs.remove(_key);
+    if (revision != sessionRevision) return;
     await _publish();
+    if (revision != sessionRevision) return;
     if (_mobile) {
       try {
         await _channel.invokeMethod<void>('clearPersonalData');
@@ -93,6 +97,19 @@ class SavingsNativeService {
         // Optional bridge on platforms other than Android.
       }
     }
+  }
+
+  Future<void> remapItemId(int from, int to) async {
+    final revision = sessionRevision;
+    if (!favorites.value.contains(from)) return;
+    favorites.value = favorites.value
+        .map((id) => id == from ? to : id)
+        .toList();
+    await _prefs.setStringList(
+      _key,
+      favorites.value.map((id) => '$id').toList(),
+    );
+    if (revision == sessionRevision) await _publish();
   }
 
   Future<bool> toggleFavorite(int id) async {

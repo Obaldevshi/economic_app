@@ -9,12 +9,176 @@ class AppLocalizationsPt extends AppLocalizations {
   AppLocalizationsPt([String locale = 'pt']) : super(locale);
 
   @override
+  String get lastNameOptional => 'Sobrenome (opcional)';
+
+  @override
+  String get lightPalette => 'Paleta clara';
+
+  @override
+  String get darkPalette => 'Paleta escura';
+
+  @override
+  String get customColor => 'Cor personalizada · HEX';
+
+  @override
+  String get colorHue => 'Matiz';
+
+  @override
+  String get resetPalette => 'Restaurar paleta';
+
+  @override
+  String get invalidColor => 'Digite 6 caracteres: 0–9, A–F';
+
+  @override
+  String get pinCreate => 'Criar um PIN';
+
+  @override
+  String get pinEnter => 'Digite seu PIN';
+
+  @override
+  String get pinHint =>
+      'Quatro dígitos bloqueiam este dispositivo. A senha continua necessária para entrar e sincronizar.';
+
+  @override
+  String get pinConfirm => 'Confirme o PIN';
+
+  @override
+  String get pinFourDigits => 'PIN · 4 dígitos';
+
+  @override
+  String get pinMismatch => 'Os PINs não coincidem. Recomece.';
+
+  @override
+  String get pinIncorrect => 'PIN incorreto';
+
+  @override
+  String pinWait(int seconds) {
+    return 'Tente em $seconds s.';
+  }
+
+  @override
+  String get pinStorageError =>
+      'Não foi possível ler ou salvar o PIN. Entre com a senha.';
+
+  @override
+  String get pinLater => 'Depois / cancelar';
+
+  @override
+  String get pinUsePassword => 'Entrar com senha';
+
+  @override
+  String get pinSettings => 'Definir / alterar PIN';
+
+  @override
+  String get pinRemove => 'Desativar PIN';
+
+  @override
+  String get pinVerifyFirst => 'Confirme primeiro o PIN atual';
+
+  @override
+  String get continueAction => 'Continuar';
+
+  @override
+  String get offlineStorageError =>
+      'Não foi possível salvar dados. Verifique o espaço disponível.';
+
+  @override
+  String get offlineAvailable =>
+      'Offline: dados baixados disponíveis. Novos registros ficam neste dispositivo.';
+
+  @override
+  String get syncConflict =>
+      'Alterações não sincronizadas. O registro no servidor mudou ou precisa de revisão.';
+
+  @override
+  String get syncLogin =>
+      'Entre novamente para sincronizar. Seus registros locais estão salvos.';
+
+  @override
+  String syncPending(int count) {
+    return 'Aguardando sincronização: $count';
+  }
+
+  @override
+  String get syncInProgress => 'Sincronizando…';
+
+  @override
+  String get syncNow => 'Sincronizar';
+
+  @override
+  String get syncKeepLocal => 'Manter minha versão';
+
+  @override
+  String get syncOverwriteWarning =>
+      'Sua versão substituirá este registro no servidor. Continuar?';
+
+  @override
+  String get syncKeepServer => 'Remover da fila';
+
+  @override
+  String get syncDiscardWarning =>
+      'Remover a operação com erro e seus registros locais dependentes? Os registros do servidor não são apagados. As alterações locais canceladas serão perdidas.';
+
+  @override
+  String get offlineInitialData =>
+      'Conecte-se uma vez para baixar o diário desta conta.';
+
+  @override
+  String get syncBeforeCurrency =>
+      'Sincronize e conecte-se antes de alterar a moeda.';
+
+  @override
+  String get localAccountChanged => 'A conta mudou. Reabra esta tela.';
+
+  @override
+  String get savedOnDevice => 'Salvo neste dispositivo';
+
+  @override
+  String get impulseIconAlcohol => 'Álcool';
+
+  @override
+  String get impulseIconSnacks => 'Lanches e doces';
+
+  @override
+  String get impulseIconBakery => 'Padaria';
+
+  @override
+  String get impulseIconSoda => 'Refrigerantes';
+
+  @override
+  String get impulseIconEnergyDrink => 'Energéticos';
+
+  @override
+  String get impulseIconFastFood => 'Fast-food';
+
+  @override
+  String get impulseIconCinema => 'Cinema';
+
+  @override
+  String get impulseIconGames => 'Jogos e compras digitais';
+
+  @override
+  String get impulseIconClothes => 'Roupas';
+
+  @override
+  String get impulseIconCosmetics => 'Cosméticos';
+
+  @override
+  String get impulseIconGadgets => 'Dispositivos';
+
+  @override
+  String get impulseIconGifts => 'Presentes';
+
+  @override
+  String get impulseIconHobbies => 'Livros e hobbies';
+
+  @override
   String projectionPeriod(int years) {
     String _temp0 = intl.Intl.pluralLogic(
       years,
       locale: localeName,
-      other: '# anos',
-      one: '# ano',
+      other: '$years anos',
+      one: '$years ano',
     );
     return '$_temp0';
   }
@@ -1054,4 +1218,71 @@ class AppLocalizationsPt extends AppLocalizations {
   @override
   String get widgetItemUnavailable =>
       'Este item foi excluído, pausado ou não está disponível nesta conta';
+
+  @override
+  String get spentTab => 'Gastei';
+
+  @override
+  String get forecastTab => 'Projeção';
+
+  @override
+  String get homeActualHint =>
+      'As expectativas ficam em Projeção. Aqui estão suas decisões: poupança registrada não significa dinheiro já separado.';
+
+  @override
+  String get recordSpent => 'Registrar compra';
+
+  @override
+  String get openForecast => 'Ver projeção';
+
+  @override
+  String get spentIntro =>
+      'Só compras por impulso, não despesas diárias. Observe seus hábitos sem se culpar. A poupança e as metas não mudam.';
+
+  @override
+  String get spentPrincipal => 'Gasto por impulso';
+
+  @override
+  String get spentHistory => 'Histórico de compras por impulso';
+
+  @override
+  String get noSpentYet =>
+      'Ainda não há compras. Se o impulso vencer, você pode registrar aqui com tranquilidade.';
+
+  @override
+  String get spentOpportunity => 'Possível oportunidade perdida';
+
+  @override
+  String get spentMissedInterest => 'Juros potenciais não recebidos';
+
+  @override
+  String spentPossibleTotal(String amount) {
+    return 'Capital + juros: $amount';
+  }
+
+  @override
+  String spentAssumptions(String rate) {
+    return 'Cenário a partir de hoje: separar agora todo o valor a $rate% ao ano, com capitalização mensal, sem novos aportes, impostos ou inflação. Não é uma dívida real nem renda garantida. A compra em si não representa juros perdidos.';
+  }
+
+  @override
+  String get spentFormHint =>
+      'Registre apenas uma compra por impulso opcional. Não é uma economia nem uma retirada das suas metas.';
+
+  @override
+  String get deleteSpentConfirm =>
+      'Excluir esta compra? A poupança registrada e as metas não mudarão.';
+
+  @override
+  String spentLoadedCount(int count, int total) {
+    return 'Carregadas $count de $total compras';
+  }
+
+  @override
+  String spentMissedLine(String amount, int years) {
+    return 'Juros possíveis em $years a: $amount';
+  }
+
+  @override
+  String get spentRecordedMessage => 'Compra registrada';
 }

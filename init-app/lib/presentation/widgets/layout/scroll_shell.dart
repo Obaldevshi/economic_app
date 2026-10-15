@@ -50,7 +50,7 @@ class ScrollShell extends StatefulWidget {
   static const double _navBarBottomMargin = 10;
 
   /// Flat header/panel-corner color. Gradients are not allowed in this shell.
-  static const Color headerBackground = AppColors.primaryDark;
+  static Color headerBackground(BuildContext context) => AppColors.ink(context);
 
   static Color subtitleColor(BuildContext context) =>
       AppLayoutItemBuilder<Color>(
@@ -185,7 +185,7 @@ class _ScrollShellState extends State<ScrollShell> {
             left: 0,
             right: 0,
             height: expandedHeight,
-            child: const ColoredBox(color: ScrollShell.headerBackground),
+            child: ColoredBox(color: ScrollShell.headerBackground(context)),
           ),
         KeyboardInsetBuilder(
           onOpened: () => KeyboardInset.ensureFocusedVisible(context),
@@ -269,7 +269,7 @@ class _ScrollShellState extends State<ScrollShell> {
                       constraints: BoxConstraints(minHeight: minBodyHeight),
                       child: ColoredBox(
                         color: !isWide && panelTopRadius > 0
-                            ? ScrollShell.headerBackground
+                            ? ScrollShell.headerBackground(context)
                             : surfaceColor,
                         child: GlassSurface(
                           variant: GlassSurfaceVariant.panel,
@@ -435,7 +435,7 @@ class _ShellFlexibleHeader extends StatelessWidget {
       children: [
         Opacity(
           opacity: expandedOpacity,
-          child: const ColoredBox(color: ScrollShell.headerBackground),
+          child: ColoredBox(color: ScrollShell.headerBackground(context)),
         ),
         if (expandedOpacity > 0)
           Positioned(
@@ -489,7 +489,7 @@ class _SolidToolbar extends StatelessWidget {
     return DecoratedBox(
       decoration: BoxDecoration(
         color: Color.lerp(
-          ScrollShell.headerBackground,
+          ScrollShell.headerBackground(context),
           AppGlass.fill(context),
           opacity,
         ),

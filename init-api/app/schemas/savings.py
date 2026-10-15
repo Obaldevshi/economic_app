@@ -1,8 +1,15 @@
-from datetime import date, datetime
+from datetime import date, datetime, timezone
 from decimal import Decimal
-from typing import Literal, Optional
+from typing import Annotated, Literal, Optional
 
-from pydantic import BaseModel, Field
+from pydantic import AfterValidator, BaseModel, Field
+
+
+def _utc_naive(value: datetime) -> datetime:
+    return value.astimezone(timezone.utc).replace(tzinfo=None) if value.tzinfo else value
+
+
+UTCDateTime = Annotated[datetime, AfterValidator(_utc_naive)]
 
 
 Currency = Literal["RUB", "USD", "EUR", "KZT", "BRL", "CNY", "INR", "SAR"]
@@ -47,7 +54,7 @@ class SavingEventCreate(CurrencyInput):
     impulse_item_id: Optional[int] = None
     impulse_name: str = Field(min_length=2, max_length=120)
     amount: Decimal = Field(gt=0, max_digits=12, decimal_places=2)
-    occurred_at: Optional[datetime] = None
+    occurred_at: Optional[UTCDateTime] = None
     is_invested: bool = False
     note: Optional[str] = Field(default=None, max_length=500)
 
@@ -56,7 +63,7 @@ class SavingEventUpdate(CurrencyInput):
     impulse_item_id: Optional[int] = None
     impulse_name: Optional[str] = Field(default=None, min_length=2, max_length=120)
     amount: Optional[Decimal] = Field(default=None, gt=0, max_digits=12, decimal_places=2)
-    occurred_at: Optional[datetime] = None
+    occurred_at: Optional[UTCDateTime] = None
     is_invested: Optional[bool] = None
     note: Optional[str] = Field(default=None, max_length=500)
 
@@ -71,6 +78,40 @@ class SavingEventResponse(CurrencyRecord):
     note: Optional[str]
 
     model_config = {"from_attributes": True}
+
+
+class SpentEventCreate(CurrencyInput):
+    impulse_item_id: Optional[int] = None
+    impulse_name: str = Field(min_length=2, max_length=120)
+    amount: Decimal = Field(gt=0, max_digits=12, decimal_places=2)
+    occurred_at: Optional[UTCDateTime] = None
+    note: Optional[str] = Field(default=None, max_length=500)
+
+
+class SpentEventUpdate(CurrencyInput):
+    impulse_item_id: Optional[int] = None
+    impulse_name: Optional[str] = Field(default=None, min_length=2, max_length=120)
+    amount: Optional[Decimal] = Field(default=None, gt=0, max_digits=12, decimal_places=2)
+    occurred_at: Optional[UTCDateTime] = None
+    note: Optional[str] = Field(default=None, max_length=500)
+
+
+class SpentEventResponse(CurrencyRecord):
+    id: int
+    impulse_item_id: Optional[int]
+    impulse_name: str
+    amount: Decimal
+    occurred_at: datetime
+    note: Optional[str]
+    model_config = {"from_attributes": True}
+
+
+class SpentHistoryResponse(CurrencyRecord):
+    items: list[SpentEventResponse]
+    total: int
+    total_amount: Decimal
+    page: int
+    per_page: int
 
 
 class SavingsGoalCreate(CurrencyInput):

@@ -66,6 +66,14 @@ class _MainNavigationState extends State<MainNavigation> {
         icon: EditorialNavIconKind.impulses,
       ),
       _AdaptiveNavigationItem(
+        label: context.l10n.spentTab,
+        icon: EditorialNavIconKind.spent,
+      ),
+      _AdaptiveNavigationItem(
+        label: context.l10n.forecastTab,
+        icon: EditorialNavIconKind.forecast,
+      ),
+      _AdaptiveNavigationItem(
         label: context.l10n.profile,
         icon: EditorialNavIconKind.profile,
       ),
@@ -135,7 +143,7 @@ class _MainNavigationState extends State<MainNavigation> {
     final showLabels = AppLayoutItemBuilder<bool>.values(
       narrow: false,
       wide: true,
-    )(context, width: 760);
+    )(context, width: 1200);
 
     return Scaffold(
       resizeToAvoidBottomInset: false,
@@ -167,19 +175,21 @@ class _MainNavigationState extends State<MainNavigation> {
                       children: [
                         const BrandMark(size: 34),
                         const SizedBox(width: AppDimensions.spaceS),
-                        Text(
-                          context.l10n.appName,
-                          style: theme.textTheme.titleLarge,
-                        ),
-                        const Spacer(),
+                        if (showLabels)
+                          Text(
+                            context.l10n.appName,
+                            style: theme.textTheme.titleLarge,
+                          ),
                         for (var index = 0; index < items.length; index++) ...[
-                          _WebNavigationButton(
-                            item: items[index],
-                            selected:
-                                widget.navigationShell.currentIndex == index,
-                            showLabel: showLabels,
-                            inactiveColor: inactiveColor,
-                            onPressed: () => _onTabSelected(index),
+                          Expanded(
+                            child: _WebNavigationButton(
+                              item: items[index],
+                              selected:
+                                  widget.navigationShell.currentIndex == index,
+                              showLabel: showLabels,
+                              inactiveColor: inactiveColor,
+                              onPressed: () => _onTabSelected(index),
+                            ),
                           ),
                           if (index != items.length - 1)
                             const SizedBox(width: AppDimensions.spaceS),
@@ -241,24 +251,44 @@ class _WebNavigationButton extends StatelessWidget {
               ),
             ),
             child: Center(
-              child: Row(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  EditorialNavIcon(kind: item.icon, color: foreground),
-                  if (showLabel) ...[
-                    const SizedBox(width: AppDimensions.spaceS),
-                    Text(
-                      item.label,
-                      style: theme.textTheme.labelLarge?.copyWith(
-                        color: foreground,
-                        fontWeight: selected
-                            ? FontWeight.w700
-                            : FontWeight.w500,
-                      ),
+              child: !showLabel
+                  ? Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        EditorialNavIcon(kind: item.icon, color: foreground),
+                        const SizedBox(height: 3),
+                        Text(
+                          item.label,
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                          style: theme.textTheme.labelSmall?.copyWith(
+                            color: foreground,
+                          ),
+                        ),
+                      ],
+                    )
+                  : Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        EditorialNavIcon(kind: item.icon, color: foreground),
+                        if (showLabel) ...[
+                          const SizedBox(width: AppDimensions.spaceS),
+                          Flexible(
+                            child: Text(
+                              item.label,
+                              maxLines: 1,
+                              overflow: TextOverflow.ellipsis,
+                              style: theme.textTheme.labelLarge?.copyWith(
+                                color: foreground,
+                                fontWeight: selected
+                                    ? FontWeight.w700
+                                    : FontWeight.w500,
+                              ),
+                            ),
+                          ),
+                        ],
+                      ],
                     ),
-                  ],
-                ],
-              ),
             ),
           ),
         ),

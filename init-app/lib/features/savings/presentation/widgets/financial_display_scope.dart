@@ -61,8 +61,9 @@ class FinancialDisplayData {
         !source.isFinite ||
         !target.isFinite ||
         source <= 0 ||
-        target <= 0)
+        target <= 0) {
       return null;
+    }
     return source / target;
   }
 }

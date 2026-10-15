@@ -12,6 +12,7 @@ import 'package:mobile_template/core/extensions/build_context_extensions.dart';
 import 'package:mobile_template/core/services/locale_service.dart';
 import 'package:mobile_template/core/services/session_service.dart';
 import 'package:mobile_template/core/services/theme_service.dart';
+import 'package:mobile_template/core/services/app_lock_service.dart';
 import 'package:mobile_template/core/utils/package_info_utils.dart';
 import 'package:mobile_template/features/profile/domain/dto/profile_dto.dart';
 import 'package:mobile_template/features/profile/presentation/pages/bloc/profile_bloc.dart';
@@ -165,6 +166,23 @@ class ProfilePage extends StatelessWidget {
       children: [
         UiKitSectionTitle(title: context.l10n.profileSectionAccount),
         ProfileActionTile(
+          icon: Icons.pin_outlined,
+          title: context.l10n.pinSettings,
+          subtitle: context.l10n.pinHint,
+          onTap: () => getIt<AppLockService>().configure(),
+        ),
+        ListenableBuilder(
+          listenable: getIt<AppLockService>(),
+          builder: (context, _) => getIt<AppLockService>().hasPin
+              ? ProfileActionTile(
+                  icon: Icons.lock_open_outlined,
+                  title: context.l10n.pinRemove,
+                  subtitle: context.l10n.pinVerifyFirst,
+                  onTap: () => getIt<AppLockService>().requestRemove(),
+                )
+              : const SizedBox.shrink(),
+        ),
+        ProfileActionTile(
           icon: Icons.account_circle_outlined,
           title: context.l10n.editProfile,
           subtitle: context.l10n.updatePersonalInfo,
@@ -195,8 +213,9 @@ class ProfilePage extends StatelessWidget {
           title: context.l10n.deleteAccount,
           subtitle: context.l10n.deleteAccountDescription,
           onTap: () async {
-            if (context.read<ProfileBloc>().state is DeleteAccountLoading)
+            if (context.read<ProfileBloc>().state is DeleteAccountLoading) {
               return;
+            }
             final confirmed = await ConfirmationDialog.show(
               context,
               title: context.l10n.deleteAccount,
@@ -217,11 +236,12 @@ class ProfilePage extends StatelessWidget {
   ) => BlocConsumer<SavingsBloc, SavingsState>(
     listenWhen: (previous, current) => previous.failure != current.failure,
     listener: (context, state) {
-      if (state.failure != null)
+      if (state.failure != null) {
         ErrorDialog.show(
           context,
           localizeSavingsFailure(context, state.failure!),
         );
+      }
     },
     builder: (context, state) => ProfileActionTile(
       icon: Icons.currency_exchange_rounded,

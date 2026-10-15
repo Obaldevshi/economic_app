@@ -9,12 +9,176 @@ class AppLocalizationsDe extends AppLocalizations {
   AppLocalizationsDe([String locale = 'de']) : super(locale);
 
   @override
+  String get lastNameOptional => 'Nachname (optional)';
+
+  @override
+  String get lightPalette => 'Helle Farbpalette';
+
+  @override
+  String get darkPalette => 'Dunkle Farbpalette';
+
+  @override
+  String get customColor => 'Eigene Farbe · HEX';
+
+  @override
+  String get colorHue => 'Farbton';
+
+  @override
+  String get resetPalette => 'Palette zurücksetzen';
+
+  @override
+  String get invalidColor => '6 Zeichen eingeben: 0–9, A–F';
+
+  @override
+  String get pinCreate => 'PIN erstellen';
+
+  @override
+  String get pinEnter => 'PIN eingeben';
+
+  @override
+  String get pinHint =>
+      'Vier Ziffern sperren dieses Gerät lokal. Das Kontopasswort bleibt für Anmeldung und Synchronisierung nötig.';
+
+  @override
+  String get pinConfirm => 'PIN bestätigen';
+
+  @override
+  String get pinFourDigits => 'PIN · 4 Ziffern';
+
+  @override
+  String get pinMismatch => 'PINs stimmen nicht überein. Erneut beginnen.';
+
+  @override
+  String get pinIncorrect => 'Falsche PIN';
+
+  @override
+  String pinWait(int seconds) {
+    return 'In $seconds s. erneut versuchen.';
+  }
+
+  @override
+  String get pinStorageError =>
+      'PIN konnte nicht gelesen oder gespeichert werden. Mit Passwort anmelden.';
+
+  @override
+  String get pinLater => 'Später / abbrechen';
+
+  @override
+  String get pinUsePassword => 'Mit Passwort anmelden';
+
+  @override
+  String get pinSettings => 'PIN einrichten / ändern';
+
+  @override
+  String get pinRemove => 'PIN deaktivieren';
+
+  @override
+  String get pinVerifyFirst => 'Zuerst aktuelle PIN bestätigen';
+
+  @override
+  String get continueAction => 'Weiter';
+
+  @override
+  String get offlineStorageError =>
+      'Daten können nicht gespeichert werden. Freien Speicher prüfen.';
+
+  @override
+  String get offlineAvailable =>
+      'Offline: Geladene Daten sind verfügbar. Neue Einträge bleiben auf dem Gerät.';
+
+  @override
+  String get syncConflict =>
+      'Änderungen nicht synchronisiert. Der Servereintrag wurde geändert oder muss geprüft werden.';
+
+  @override
+  String get syncLogin =>
+      'Zum Synchronisieren erneut anmelden. Lokale Einträge bleiben erhalten.';
+
+  @override
+  String syncPending(int count) {
+    return 'Warten auf Synchronisierung: $count';
+  }
+
+  @override
+  String get syncInProgress => 'Synchronisierung…';
+
+  @override
+  String get syncNow => 'Synchronisieren';
+
+  @override
+  String get syncKeepLocal => 'Meine Version behalten';
+
+  @override
+  String get syncOverwriteWarning =>
+      'Ihre Version ersetzt diesen Eintrag auf dem Server. Fortfahren?';
+
+  @override
+  String get syncKeepServer => 'Aus Warteschlange entfernen';
+
+  @override
+  String get syncDiscardWarning =>
+      'Fehlgeschlagene Aktion und abhängige lokale Einträge entfernen? Servereinträge werden nicht gelöscht. Verworfene lokale Änderungen gehen verloren.';
+
+  @override
+  String get offlineInitialData =>
+      'Einmal verbinden, um das Journal dieses Kontos zu laden.';
+
+  @override
+  String get syncBeforeCurrency =>
+      'Vor einem Währungswechsel synchronisieren und verbinden.';
+
+  @override
+  String get localAccountChanged => 'Konto geändert. Ansicht erneut öffnen.';
+
+  @override
+  String get savedOnDevice => 'Auf diesem Gerät gespeichert';
+
+  @override
+  String get impulseIconAlcohol => 'Alkohol';
+
+  @override
+  String get impulseIconSnacks => 'Snacks und Süßes';
+
+  @override
+  String get impulseIconBakery => 'Backwaren';
+
+  @override
+  String get impulseIconSoda => 'Softdrinks';
+
+  @override
+  String get impulseIconEnergyDrink => 'Energydrinks';
+
+  @override
+  String get impulseIconFastFood => 'Fast Food';
+
+  @override
+  String get impulseIconCinema => 'Kino';
+
+  @override
+  String get impulseIconGames => 'Spiele und In-App-Käufe';
+
+  @override
+  String get impulseIconClothes => 'Kleidung';
+
+  @override
+  String get impulseIconCosmetics => 'Kosmetik';
+
+  @override
+  String get impulseIconGadgets => 'Technik';
+
+  @override
+  String get impulseIconGifts => 'Geschenke';
+
+  @override
+  String get impulseIconHobbies => 'Bücher und Hobbys';
+
+  @override
   String projectionPeriod(int years) {
     String _temp0 = intl.Intl.pluralLogic(
       years,
       locale: localeName,
-      other: '# Jahre',
-      one: '# Jahr',
+      other: '$years Jahre',
+      one: '$years Jahr',
     );
     return '$_temp0';
   }
@@ -1058,4 +1222,71 @@ class AppLocalizationsDe extends AppLocalizations {
   @override
   String get widgetItemUnavailable =>
       'Dieser Eintrag ist gelöscht, pausiert oder für dieses Konto nicht verfügbar';
+
+  @override
+  String get spentTab => 'Ausgegeben';
+
+  @override
+  String get forecastTab => 'Prognose';
+
+  @override
+  String get homeActualHint =>
+      'Erwartungen stehen unter Prognose. Hier zählen deine Entscheidungen: erfasste Ersparnisse sind nicht automatisch zurückgelegtes Geld.';
+
+  @override
+  String get recordSpent => 'Kauf erfassen';
+
+  @override
+  String get openForecast => 'Prognose öffnen';
+
+  @override
+  String get spentIntro =>
+      'Nur Impulskäufe, keine Alltagsausgaben. Erkenne Gewohnheiten ohne Selbstvorwürfe. Ersparnisse und Ziele bleiben unverändert.';
+
+  @override
+  String get spentPrincipal => 'Für Impulskäufe ausgegeben';
+
+  @override
+  String get spentHistory => 'Impulskauf-Verlauf';
+
+  @override
+  String get noSpentYet =>
+      'Noch keine Käufe. Wenn ein Impuls gewinnt, kannst du ihn hier in Ruhe erfassen.';
+
+  @override
+  String get spentOpportunity => 'Mögliche entgangene Chance';
+
+  @override
+  String get spentMissedInterest => 'Mögliche entgangene Zinsen';
+
+  @override
+  String spentPossibleTotal(String amount) {
+    return 'Kapital + Zinsen: $amount';
+  }
+
+  @override
+  String spentAssumptions(String rate) {
+    return 'Szenario ab heute: den gesamten Betrag jetzt zu $rate% pro Jahr mit monatlichem Zinseszins anlegen, ohne weitere Einzahlungen, Steuern oder Inflation. Keine tatsächliche Schuld und kein garantierter Ertrag. Der Kaufbetrag selbst ist kein entgangener Zins.';
+  }
+
+  @override
+  String get spentFormHint =>
+      'Nur einen freiwilligen Impulskauf erfassen. Das ist weder eine Ersparnis noch eine Entnahme aus deinen Zielen.';
+
+  @override
+  String get deleteSpentConfirm =>
+      'Diesen Kauf löschen? Erfasste Ersparnisse und Ziele bleiben unverändert.';
+
+  @override
+  String spentLoadedCount(int count, int total) {
+    return '$count von $total Käufen geladen';
+  }
+
+  @override
+  String spentMissedLine(String amount, int years) {
+    return 'Mögliche Zinsen in $years J.: $amount';
+  }
+
+  @override
+  String get spentRecordedMessage => 'Kauf erfasst';
 }

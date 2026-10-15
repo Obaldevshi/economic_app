@@ -28,5 +28,5 @@ class ProfileDto {
     );
   }
 
-  String get fullName => '$firstName $lastName';
+  String get fullName => '$firstName $lastName'.trim();
 }

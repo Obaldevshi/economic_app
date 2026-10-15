@@ -11,6 +11,8 @@ import 'package:mobile_template/core/services/locale_service.dart';
 import 'package:mobile_template/core/services/session_service.dart';
 import 'package:mobile_template/core/services/savings_native_service.dart';
 import 'package:mobile_template/core/services/theme_service.dart';
+import 'package:mobile_template/core/services/app_lock_service.dart';
+import 'package:mobile_template/core/services/offline_savings_service.dart';
 import 'package:mobile_template/data/datasources/remote/api_service.dart';
 import 'package:mobile_template/data/repositories/auth_repository_impl.dart';
 import 'package:mobile_template/data/repositories/category_repository.dart';
@@ -46,6 +48,9 @@ Future<void> configureDependencies() async {
     preferences,
   );
   getIt.registerSingleton<SessionService>(session);
+  final appLock = AppLockService(getIt<FlutterSecureStorage>(), session);
+  await appLock.init();
+  getIt.registerSingleton<AppLockService>(appLock);
   final nativeSavings = SavingsNativeService(preferences, session);
   await nativeSavings.init();
   getIt.registerSingleton<SavingsNativeService>(nativeSavings);
@@ -102,11 +107,7 @@ Future<void> configureDependencies() async {
         },
       ),
     );
-    if (kDebugMode) {
-      dio.interceptors.add(
-        LogInterceptor(requestBody: true, responseBody: true),
-      );
-    }
+    // Never log request bodies/headers: login, PIN and bearer tokens are private.
     return dio;
   });
   getIt.registerLazySingleton<ApiService>(
@@ -119,7 +120,12 @@ Future<void> configureDependencies() async {
   );
 
   getIt.registerLazySingleton<AuthRepository>(
-    () => AuthRepositoryImpl(getIt<ApiService>(), getIt<SessionService>()),
+    () => AuthRepositoryImpl(
+      getIt<ApiService>(),
+      getIt<SessionService>(),
+      getIt<OfflineSavingsService>(),
+      getIt<AppLockService>(),
+    ),
   );
   getIt.registerFactory<LoginUsecase>(
     () => LoginUsecase(getIt<AuthRepository>()),
@@ -162,10 +168,21 @@ Future<void> configureDependencies() async {
     () => CategoryBloc(getIt<CategoryRepository>()),
   );
   getIt.registerLazySingleton<SavingsRepository>(
-    () => SavingsRepository(getIt<ApiService>()),
+    () =>
+        SavingsRepository(getIt<ApiService>(), getIt<OfflineSavingsService>()),
   );
   getIt.registerFactory<SavingsBloc>(
     () =>
         SavingsBloc(getIt<SavingsRepository>(), getIt<SavingsNativeService>()),
   );
+  final offline = OfflineSavingsService(
+    getIt<FlutterSecureStorage>(),
+    session,
+    getIt<ConnectivityService>(),
+    getIt<ApiService>(),
+    () => appLock.accessible,
+    onImpulseRemapped: nativeSavings.remapItemId,
+  );
+  await offline.init();
+  getIt.registerSingleton<OfflineSavingsService>(offline);
 }

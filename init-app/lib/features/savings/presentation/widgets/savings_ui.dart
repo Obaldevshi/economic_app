@@ -73,8 +73,11 @@ String moneyInputText(double value) =>
 
 String savingsActionMessage(BuildContext context, String message) =>
     switch (message) {
+      'Saved on this device' => context.l10n.savedOnDevice,
       'Goal allocation updated' => context.l10n.allocationSaved,
       'Saving recorded' => context.l10n.savingRecordedMessage,
+      'Impulse purchase recorded' => context.l10n.spentRecordedMessage,
+      'Impulse purchase updated' => context.l10n.savingUpdatedMessage,
       'Saving updated' => context.l10n.savingUpdatedMessage,
       'Impulse item created' ||
       'Impulse item updated' => context.l10n.habitSavedMessage,
@@ -166,6 +169,19 @@ String impulseIconLabel(BuildContext context, String key) => switch (key) {
   'taxi' => context.l10n.impulseIconTaxi,
   'shopping' => context.l10n.impulseIconShopping,
   'subscription' => context.l10n.impulseIconSubscription,
+  'alcohol' => context.l10n.impulseIconAlcohol,
+  'snacks' => context.l10n.impulseIconSnacks,
+  'bakery' => context.l10n.impulseIconBakery,
+  'soda' => context.l10n.impulseIconSoda,
+  'energy_drink' => context.l10n.impulseIconEnergyDrink,
+  'fast_food' => context.l10n.impulseIconFastFood,
+  'cinema' => context.l10n.impulseIconCinema,
+  'games' => context.l10n.impulseIconGames,
+  'clothes' => context.l10n.impulseIconClothes,
+  'cosmetics' => context.l10n.impulseIconCosmetics,
+  'gadgets' => context.l10n.impulseIconGadgets,
+  'gifts' => context.l10n.impulseIconGifts,
+  'hobbies' => context.l10n.impulseIconHobbies,
   _ => context.l10n.impulseIconOther,
 };
 
@@ -177,5 +193,18 @@ const impulseIconKeys = <String>[
   'taxi',
   'shopping',
   'subscription',
+  'alcohol',
+  'snacks',
+  'bakery',
+  'soda',
+  'energy_drink',
+  'fast_food',
+  'cinema',
+  'games',
+  'clothes',
+  'cosmetics',
+  'gadgets',
+  'gifts',
+  'hobbies',
   'other',
 ];

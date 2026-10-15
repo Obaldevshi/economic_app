@@ -1,5 +1,57 @@
 {
-  "projectionPeriod": "{years, plural, one {# Jahr} other {# Jahre}}",
+  "lastNameOptional": "Nachname (optional)",
+  "lightPalette": "Helle Farbpalette",
+  "darkPalette": "Dunkle Farbpalette",
+  "customColor": "Eigene Farbe · HEX",
+  "colorHue": "Farbton",
+  "resetPalette": "Palette zurücksetzen",
+  "invalidColor": "6 Zeichen eingeben: 0–9, A–F",
+  "pinCreate": "PIN erstellen",
+  "pinEnter": "PIN eingeben",
+  "pinHint": "Vier Ziffern sperren dieses Gerät lokal. Das Kontopasswort bleibt für Anmeldung und Synchronisierung nötig.",
+  "pinConfirm": "PIN bestätigen",
+  "pinFourDigits": "PIN · 4 Ziffern",
+  "pinMismatch": "PINs stimmen nicht überein. Erneut beginnen.",
+  "pinIncorrect": "Falsche PIN",
+  "pinWait": "In {seconds} s. erneut versuchen.",
+  "pinStorageError": "PIN konnte nicht gelesen oder gespeichert werden. Mit Passwort anmelden.",
+  "pinLater": "Später / abbrechen",
+  "pinUsePassword": "Mit Passwort anmelden",
+  "pinSettings": "PIN einrichten / ändern",
+  "pinRemove": "PIN deaktivieren",
+  "pinVerifyFirst": "Zuerst aktuelle PIN bestätigen",
+  "continueAction": "Weiter",
+  "offlineStorageError": "Daten können nicht gespeichert werden. Freien Speicher prüfen.",
+  "offlineAvailable": "Offline: Geladene Daten sind verfügbar. Neue Einträge bleiben auf dem Gerät.",
+  "syncConflict": "Änderungen nicht synchronisiert. Der Servereintrag wurde geändert oder muss geprüft werden.",
+  "syncLogin": "Zum Synchronisieren erneut anmelden. Lokale Einträge bleiben erhalten.",
+  "syncPending": "Warten auf Synchronisierung: {count}",
+  "syncInProgress": "Synchronisierung…",
+  "syncNow": "Synchronisieren",
+  "syncKeepLocal": "Meine Version behalten",
+  "syncOverwriteWarning": "Ihre Version ersetzt diesen Eintrag auf dem Server. Fortfahren?",
+  "syncKeepServer": "Aus Warteschlange entfernen",
+  "syncDiscardWarning": "Fehlgeschlagene Aktion und abhängige lokale Einträge entfernen? Servereinträge werden nicht gelöscht. Verworfene lokale Änderungen gehen verloren.",
+  "offlineInitialData": "Einmal verbinden, um das Journal dieses Kontos zu laden.",
+  "syncBeforeCurrency": "Vor einem Währungswechsel synchronisieren und verbinden.",
+  "localAccountChanged": "Konto geändert. Ansicht erneut öffnen.",
+  "savedOnDevice": "Auf diesem Gerät gespeichert",
+  "@pinWait": {"placeholders":{"seconds":{"type":"int"}}},
+  "@syncPending": {"placeholders":{"count":{"type":"int"}}},
+  "impulseIconAlcohol": "Alkohol",
+  "impulseIconSnacks": "Snacks und Süßes",
+  "impulseIconBakery": "Backwaren",
+  "impulseIconSoda": "Softdrinks",
+  "impulseIconEnergyDrink": "Energydrinks",
+  "impulseIconFastFood": "Fast Food",
+  "impulseIconCinema": "Kino",
+  "impulseIconGames": "Spiele und In-App-Käufe",
+  "impulseIconClothes": "Kleidung",
+  "impulseIconCosmetics": "Kosmetik",
+  "impulseIconGadgets": "Technik",
+  "impulseIconGifts": "Geschenke",
+  "impulseIconHobbies": "Bücher und Hobbys",
+  "projectionPeriod": "{years, plural, one {{years} Jahr} other {{years} Jahre}}",
   "@projectionPeriod": {"placeholders": {"years": {"type": "int"}}},
   "@@locale": "de",
   "privacyPolicy": "Datenschutzerklärung",
@@ -446,5 +498,57 @@
   "favoriteLimit": "Du hast bereits drei Favoriten. Entferne zuerst einen.",
   "widgetItemUnavailable": "Dieser Eintrag ist gelöscht, pausiert oder für dieses Konto nicht verfügbar",
   "chooseLanguage": "Sprache wählen",
-  "coinLanguageHint": "Das Währungszeichen im Logo ist eine regionale Zuordnung. Die Sprache rechnet Beträge nicht um und ändert die Währung deiner Einträge nicht."
+  "coinLanguageHint": "Das Währungszeichen im Logo ist eine regionale Zuordnung. Die Sprache rechnet Beträge nicht um und ändert die Währung deiner Einträge nicht.",
+  "spentTab": "Ausgegeben",
+  "forecastTab": "Prognose",
+  "homeActualHint": "Erwartungen stehen unter Prognose. Hier zählen deine Entscheidungen: erfasste Ersparnisse sind nicht automatisch zurückgelegtes Geld.",
+  "recordSpent": "Kauf erfassen",
+  "openForecast": "Prognose öffnen",
+  "spentIntro": "Nur Impulskäufe, keine Alltagsausgaben. Erkenne Gewohnheiten ohne Selbstvorwürfe. Ersparnisse und Ziele bleiben unverändert.",
+  "spentPrincipal": "Für Impulskäufe ausgegeben",
+  "spentHistory": "Impulskauf-Verlauf",
+  "noSpentYet": "Noch keine Käufe. Wenn ein Impuls gewinnt, kannst du ihn hier in Ruhe erfassen.",
+  "spentOpportunity": "Mögliche entgangene Chance",
+  "spentMissedInterest": "Mögliche entgangene Zinsen",
+  "spentPossibleTotal": "Kapital + Zinsen: {amount}",
+  "spentAssumptions": "Szenario ab heute: den gesamten Betrag jetzt zu {rate}% pro Jahr mit monatlichem Zinseszins anlegen, ohne weitere Einzahlungen, Steuern oder Inflation. Keine tatsächliche Schuld und kein garantierter Ertrag. Der Kaufbetrag selbst ist kein entgangener Zins.",
+  "spentFormHint": "Nur einen freiwilligen Impulskauf erfassen. Das ist weder eine Ersparnis noch eine Entnahme aus deinen Zielen.",
+  "deleteSpentConfirm": "Diesen Kauf löschen? Erfasste Ersparnisse und Ziele bleiben unverändert.",
+  "spentLoadedCount": "{count} von {total} Käufen geladen",
+  "spentMissedLine": "Mögliche Zinsen in {years} J.: {amount}",
+  "spentRecordedMessage": "Kauf erfasst",
+  "@spentPossibleTotal": {
+    "placeholders": {
+      "amount": {
+        "type": "String"
+      }
+    }
+  },
+  "@spentAssumptions": {
+    "placeholders": {
+      "rate": {
+        "type": "String"
+      }
+    }
+  },
+  "@spentLoadedCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
+    }
+  },
+  "@spentMissedLine": {
+    "placeholders": {
+      "amount": {
+        "type": "String"
+      },
+      "years": {
+        "type": "int"
+      }
+    }
+  }
 }

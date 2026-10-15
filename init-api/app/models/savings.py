@@ -40,6 +40,20 @@ class SavingEvent(Base):
     impulse_item = relationship("ImpulseItem", back_populates="saving_events")
 
 
+class SpentEvent(Base):
+    """An actual impulse purchase, deliberately outside the savings balance."""
+    __tablename__ = "spent_events"
+    __table_args__ = (CheckConstraint("amount > 0", name="ck_spent_amount_positive"),)
+
+    user_id = Column(Integer, ForeignKey("users.id", ondelete="CASCADE"), nullable=False, index=True)
+    impulse_item_id = Column(Integer, ForeignKey("impulse_items.id", ondelete="SET NULL"), nullable=True, index=True)
+    impulse_name = Column(String(120), nullable=False)
+    amount = Column(Numeric(12, 2), nullable=False)
+    currency_code = Column(String(3), nullable=False, default="RUB", server_default="RUB")
+    occurred_at = Column(DateTime, nullable=False)
+    note = Column(String(500), nullable=True)
+
+
 class SavingsGoal(Base):
     __tablename__ = "savings_goals"
     __table_args__ = (

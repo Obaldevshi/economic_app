@@ -26,6 +26,7 @@ class RegisterBloc extends Bloc<RegisterEvent, RegisterState> {
       password: event.password,
     );
     final result = await registerUsecase.call(request);
+    if (emit.isDone) return;
     result.fold(
       (failure) {
         emit(RegisterFailure(failure: failure));

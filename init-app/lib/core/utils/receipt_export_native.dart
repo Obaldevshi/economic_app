@@ -1,4 +1,3 @@
-import 'dart:typed_data';
 import 'package:flutter/services.dart';
 
 Future<void> exportReceipt(Uint8List bytes) async {

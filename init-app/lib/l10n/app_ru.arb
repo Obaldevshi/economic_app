@@ -1,5 +1,57 @@
 {
-  "projectionPeriod": "{years, plural, one {# год} few {# года} many {# лет} other {# лет}}",
+  "lastNameOptional": "Фамилия (необязательно)",
+  "lightPalette": "Палитра светлой темы",
+  "darkPalette": "Палитра тёмной темы",
+  "customColor": "Свой цвет · HEX",
+  "colorHue": "Оттенок",
+  "resetPalette": "Сбросить палитру",
+  "invalidColor": "Введите 6 символов: 0–9, A–F",
+  "pinCreate": "Создайте PIN-код",
+  "pinEnter": "Введите PIN-код",
+  "pinHint": "Четыре цифры для локальной блокировки. Пароль аккаунта остаётся нужен для входа и синхронизации.",
+  "pinConfirm": "Повторите PIN-код",
+  "pinFourDigits": "PIN-код · 4 цифры",
+  "pinMismatch": "PIN-коды не совпадают. Начните заново.",
+  "pinIncorrect": "Неверный PIN-код",
+  "pinWait": "Повторите через {seconds} с.",
+  "pinStorageError": "Не удалось прочитать или сохранить PIN. Войдите с паролем.",
+  "pinLater": "Позже / отменить",
+  "pinUsePassword": "Войти с паролем",
+  "pinSettings": "Настроить / изменить PIN",
+  "pinRemove": "Отключить PIN",
+  "pinVerifyFirst": "Сначала подтвердите текущий PIN",
+  "continueAction": "Продолжить",
+  "offlineStorageError": "Не удалось сохранить данные на телефоне. Проверьте свободное место.",
+  "offlineAvailable": "Офлайн: доступны загруженные данные. Новые записи сохраняются на телефоне.",
+  "syncConflict": "Изменения не синхронизированы. Серверная запись изменилась или требует проверки.",
+  "syncLogin": "Войдите снова для синхронизации. Локальные записи сохранены.",
+  "syncPending": "Ожидают синхронизации: {count}",
+  "syncInProgress": "Синхронизация…",
+  "syncNow": "Синхронизировать",
+  "syncKeepLocal": "Оставить мою версию",
+  "syncOverwriteWarning": "Моя версия заменит данные этой записи на сервере. Продолжить?",
+  "syncKeepServer": "Убрать из очереди",
+  "syncDiscardWarning": "Убрать проблемную операцию и связанные с ней локальные записи из очереди? Серверные записи не удаляются. Отменённые локальные изменения будут потеряны.",
+  "offlineInitialData": "Сначала подключитесь к интернету и загрузите журнал этого аккаунта.",
+  "syncBeforeCurrency": "Перед сменой валюты синхронизируйте записи и подключитесь к интернету.",
+  "localAccountChanged": "Аккаунт изменился. Откройте экран заново.",
+  "savedOnDevice": "Сохранено на телефоне",
+  "@pinWait": {"placeholders":{"seconds":{"type":"int"}}},
+  "@syncPending": {"placeholders":{"count":{"type":"int"}}},
+  "impulseIconAlcohol": "Алкоголь",
+  "impulseIconSnacks": "Снеки и сладости",
+  "impulseIconBakery": "Выпечка",
+  "impulseIconSoda": "Газировка",
+  "impulseIconEnergyDrink": "Энергетики",
+  "impulseIconFastFood": "Фастфуд",
+  "impulseIconCinema": "Кино",
+  "impulseIconGames": "Игры и донаты",
+  "impulseIconClothes": "Одежда",
+  "impulseIconCosmetics": "Косметика",
+  "impulseIconGadgets": "Гаджеты",
+  "impulseIconGifts": "Подарки",
+  "impulseIconHobbies": "Книги и хобби",
+  "projectionPeriod": "{years, plural, one {{years} год} few {{years} года} many {{years} лет} other {{years} лет}}",
   "@projectionPeriod": {"placeholders": {"years": {"type": "int"}}},
   "@@locale": "ru",
   "privacyPolicy": "Политика конфиденциальности",
@@ -342,5 +394,57 @@
   "addFavorite": "В избранное / виджет",
   "removeFavorite": "Убрать из избранного",
   "favoriteLimit": "В избранном уже три действия. Сначала уберите одно.",
-  "widgetItemUnavailable": "Этот импульс удалён, на паузе или недоступен этому аккаунту"
+  "widgetItemUnavailable": "Этот импульс удалён, на паузе или недоступен этому аккаунту",
+  "spentTab": "Потратил",
+  "forecastTab": "Прогноз",
+  "homeActualHint": "Ожидания — во вкладке «Прогноз». Здесь только ваши решения: учтённая экономия ещё не означает перевод денег на накопления.",
+  "recordSpent": "Записать покупку",
+  "openForecast": "Посмотреть прогноз",
+  "spentIntro": "Здесь только импульсивные покупки, не повседневные расходы. Запись помогает заметить привычку, а не ругать себя. Учтённая экономия и цели не меняются.",
+  "spentPrincipal": "Потрачено на импульсы",
+  "spentHistory": "История импульсивных покупок",
+  "noSpentYet": "Пока покупок нет. Если импульс победил, его можно спокойно записать здесь.",
+  "spentOpportunity": "Возможный упущенный эффект",
+  "spentMissedInterest": "Возможные недополученные проценты",
+  "spentPossibleTotal": "Сама сумма + проценты: {amount}",
+  "spentAssumptions": "Сценарий с сегодняшнего дня: если бы всю потраченную сумму отложить сейчас под {rate}% годовых с ежемесячной капитализацией, без новых пополнений, налогов и инфляции. Это не реальный долг и не гарантированный доход. Сама покупка не считается потерянными процентами.",
+  "spentFormHint": "Запишите только необязательную импульсивную покупку. Это не запись экономии и не списание с ваших целей.",
+  "deleteSpentConfirm": "Удалить запись о покупке? Учтённая экономия и цели не изменятся.",
+  "spentLoadedCount": "Загружено {count} из {total} покупок",
+  "spentMissedLine": "Возможные проценты за {years} г.: {amount}",
+  "spentRecordedMessage": "Покупка записана",
+  "@spentPossibleTotal": {
+    "placeholders": {
+      "amount": {
+        "type": "String"
+      }
+    }
+  },
+  "@spentAssumptions": {
+    "placeholders": {
+      "rate": {
+        "type": "String"
+      }
+    }
+  },
+  "@spentLoadedCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
+    }
+  },
+  "@spentMissedLine": {
+    "placeholders": {
+      "amount": {
+        "type": "String"
+      },
+      "years": {
+        "type": "int"
+      }
+    }
+  }
 }

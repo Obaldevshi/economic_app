@@ -30,7 +30,7 @@ class GlassSurface extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final color = switch (variant) {
-      GlassSurfaceVariant.onGradient => AppColors.primaryDark,
+      GlassSurfaceVariant.onGradient => AppColors.ink(context),
       GlassSurfaceVariant.onLight => Theme.of(context).colorScheme.surface,
       GlassSurfaceVariant.panel => Theme.of(context).scaffoldBackgroundColor,
     };
@@ -45,7 +45,7 @@ class GlassSurface extends StatelessWidget {
         border: showBorder
             ? Border.all(
                 color: variant == GlassSurfaceVariant.onGradient
-                    ? AppColors.primaryDark
+                    ? AppColors.ink(context)
                     : AppGlass.border(context),
                 width: AppGlass.borderWidth,
               )

@@ -9,6 +9,160 @@ class AppLocalizationsZh extends AppLocalizations {
   AppLocalizationsZh([String locale = 'zh']) : super(locale);
 
   @override
+  String get lastNameOptional => '姓氏（选填）';
+
+  @override
+  String get lightPalette => '浅色主题配色';
+
+  @override
+  String get darkPalette => '深色主题配色';
+
+  @override
+  String get customColor => '自定义颜色 · HEX';
+
+  @override
+  String get colorHue => '色相';
+
+  @override
+  String get resetPalette => '重置配色';
+
+  @override
+  String get invalidColor => '输入6位字符：0–9、A–F';
+
+  @override
+  String get pinCreate => '设置PIN';
+
+  @override
+  String get pinEnter => '输入PIN';
+
+  @override
+  String get pinHint => '四位数字仅锁定本设备。登录和同步仍需要账户密码。';
+
+  @override
+  String get pinConfirm => '再次输入PIN';
+
+  @override
+  String get pinFourDigits => 'PIN · 4位数字';
+
+  @override
+  String get pinMismatch => '两次PIN不一致，请重新设置。';
+
+  @override
+  String get pinIncorrect => 'PIN错误';
+
+  @override
+  String pinWait(int seconds) {
+    return '请在$seconds秒后重试。';
+  }
+
+  @override
+  String get pinStorageError => '无法读取或保存PIN，请使用密码登录。';
+
+  @override
+  String get pinLater => '稍后／取消';
+
+  @override
+  String get pinUsePassword => '使用密码登录';
+
+  @override
+  String get pinSettings => '设置／更改PIN';
+
+  @override
+  String get pinRemove => '关闭PIN';
+
+  @override
+  String get pinVerifyFirst => '请先验证当前PIN';
+
+  @override
+  String get continueAction => '继续';
+
+  @override
+  String get offlineStorageError => '无法保存数据，请检查可用存储空间。';
+
+  @override
+  String get offlineAvailable => '离线：可查看已下载的数据。新记录保存在本设备。';
+
+  @override
+  String get syncConflict => '更改尚未同步，服务器记录已更改或需要检查。';
+
+  @override
+  String get syncLogin => '请重新登录以同步，本地记录已保留。';
+
+  @override
+  String syncPending(int count) {
+    return '等待同步：$count';
+  }
+
+  @override
+  String get syncInProgress => '正在同步…';
+
+  @override
+  String get syncNow => '立即同步';
+
+  @override
+  String get syncKeepLocal => '保留我的版本';
+
+  @override
+  String get syncOverwriteWarning => '你的版本将替换服务器上的此记录，是否继续？';
+
+  @override
+  String get syncKeepServer => '从队列移除';
+
+  @override
+  String get syncDiscardWarning => '移除失败操作及其依赖的本地记录？不会删除服务器记录。已取消的本地更改将丢失。';
+
+  @override
+  String get offlineInitialData => '请先联网下载此账户的记录。';
+
+  @override
+  String get syncBeforeCurrency => '更换货币前请联网并同步记录。';
+
+  @override
+  String get localAccountChanged => '账户已更改，请重新打开此页面。';
+
+  @override
+  String get savedOnDevice => '已保存在本设备';
+
+  @override
+  String get impulseIconAlcohol => '酒精饮品';
+
+  @override
+  String get impulseIconSnacks => '零食与甜点';
+
+  @override
+  String get impulseIconBakery => '烘焙食品';
+
+  @override
+  String get impulseIconSoda => '汽水';
+
+  @override
+  String get impulseIconEnergyDrink => '能量饮料';
+
+  @override
+  String get impulseIconFastFood => '快餐';
+
+  @override
+  String get impulseIconCinema => '电影';
+
+  @override
+  String get impulseIconGames => '游戏与内购';
+
+  @override
+  String get impulseIconClothes => '服装';
+
+  @override
+  String get impulseIconCosmetics => '化妆品';
+
+  @override
+  String get impulseIconGadgets => '数码产品';
+
+  @override
+  String get impulseIconGifts => '礼物';
+
+  @override
+  String get impulseIconHobbies => '图书与爱好';
+
+  @override
   String projectionPeriod(int years) {
     return '$years 年';
   }
@@ -1017,4 +1171,66 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get widgetItemUnavailable => '此项目已删除、已暂停，或不属于当前账户';
+
+  @override
+  String get spentTab => '花掉了';
+
+  @override
+  String get forecastTab => '预测';
+
+  @override
+  String get homeActualHint => '预期效果请看“预测”。这里展示实际决定：记录节省不代表已经把钱存下。';
+
+  @override
+  String get recordSpent => '记录购买';
+
+  @override
+  String get openForecast => '查看预测';
+
+  @override
+  String get spentIntro => '只记录冲动消费，不记日常开支。发现习惯，不必自责。已记录的节省和目标不会改变。';
+
+  @override
+  String get spentPrincipal => '冲动消费金额';
+
+  @override
+  String get spentHistory => '冲动消费记录';
+
+  @override
+  String get noSpentYet => '暂无购买记录。如果一时没忍住，可以平静地记在这里。';
+
+  @override
+  String get spentOpportunity => '可能错过的机会';
+
+  @override
+  String get spentMissedInterest => '可能未获得的利息';
+
+  @override
+  String spentPossibleTotal(String amount) {
+    return '本金加利息：$amount';
+  }
+
+  @override
+  String spentAssumptions(String rate) {
+    return '从今天开始的假设：若现在将全部消费金额存下，年利率为 $rate%，按月复利，不再追加存款，不计税费和通胀。这不是真实债务，也不保证收益。购买金额本身不算损失的利息。';
+  }
+
+  @override
+  String get spentFormHint => '只记录非必需的冲动购买。这不是节省记录，也不会扣减目标资金。';
+
+  @override
+  String get deleteSpentConfirm => '删除此购买记录？已记录的节省和目标不会改变。';
+
+  @override
+  String spentLoadedCount(int count, int total) {
+    return '已加载 $count 条，共 $total 条购买';
+  }
+
+  @override
+  String spentMissedLine(String amount, int years) {
+    return '$years 年内可能的利息：$amount';
+  }
+
+  @override
+  String get spentRecordedMessage => '购买已记录';
 }

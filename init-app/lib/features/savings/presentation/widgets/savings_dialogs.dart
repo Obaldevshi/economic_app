@@ -84,6 +84,179 @@ Future<void> showEditSavingDialog(
   ),
 );
 
+Future<void> showSpentDialog(
+  BuildContext context,
+  List<ImpulseItemResponse> impulses, {
+  required String currencyCode,
+  SpentEventResponse? event,
+}) => showDialog<void>(
+  context: context,
+  builder: (_) => BlocProvider.value(
+    value: context.read<SavingsBloc>(),
+    child: _SpentEditorDialog(
+      impulses: impulses
+          .where((i) => i.isActive && i.currencyCode == currencyCode)
+          .toList(),
+      currencyCode: currencyCode,
+      event: event,
+    ),
+  ),
+);
+
+class _SpentEditorDialog extends StatefulWidget {
+  const _SpentEditorDialog({
+    required this.impulses,
+    required this.currencyCode,
+    this.event,
+  });
+  final List<ImpulseItemResponse> impulses;
+  final String currencyCode;
+  final SpentEventResponse? event;
+  @override
+  State<_SpentEditorDialog> createState() => _SpentEditorDialogState();
+}
+
+class _SpentEditorDialogState extends State<_SpentEditorDialog> {
+  final _form = GlobalKey<FormState>();
+  late final _name = TextEditingController(
+    text: widget.event?.impulseName ?? '',
+  );
+  late final _amount = TextEditingController(
+    text: widget.event == null ? '' : moneyInputText(widget.event!.amount),
+  );
+  late final _note = TextEditingController(text: widget.event?.note ?? '');
+  late int? _impulseId = widget.event?.impulseItemId;
+  @override
+  void dispose() {
+    _name.dispose();
+    _amount.dispose();
+    _note.dispose();
+    super.dispose();
+  }
+
+  bool _submit() {
+    if (!_form.currentState!.validate()) return false;
+    context.read<SavingsBloc>().add(
+      SaveSpentEvent(
+        SpentEventRequest(
+          currencyCode: widget.event?.currencyCode ?? widget.currencyCode,
+          impulseItemId: _impulseId,
+          impulseName: _name.text.trim(),
+          amount: double.parse(_amount.text.replaceAll(',', '.')),
+          occurredAt: widget.event?.occurredAt.toUtc().toIso8601String(),
+          note: _note.text.trim().isEmpty ? null : _note.text.trim(),
+        ),
+        id: widget.event?.id,
+      ),
+    );
+    return true;
+  }
+
+  @override
+  Widget build(BuildContext context) => _SavingsActionDialog(
+    onSubmit: _submit,
+    builder: (context, busy, submit) => AlertDialog(
+      title: Text(
+        widget.event == null
+            ? context.l10n.recordSpent
+            : context.l10n.editSaving,
+      ),
+      content: SizedBox(
+        width: 440,
+        child: Form(
+          key: _form,
+          child: SingleChildScrollView(
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                Text(context.l10n.spentFormHint),
+                const SizedBox(height: AppDimensions.spaceM),
+                if (widget.event == null) ...[
+                  Wrap(
+                    spacing: AppDimensions.spaceS,
+                    runSpacing: AppDimensions.spaceS,
+                    children: [
+                      for (final item in widget.impulses)
+                        ChoiceChip(
+                          avatar: ImpulseGlyph(
+                            keyName: item.iconKey,
+                            color: Theme.of(context).colorScheme.primary,
+                            size: 18,
+                          ),
+                          label: Text(item.name),
+                          selected: _impulseId == item.id,
+                          onSelected: busy
+                              ? null
+                              : (_) => setState(() {
+                                  _impulseId = item.id;
+                                  _name.text = item.name;
+                                  _amount.text = moneyInputText(
+                                    item.defaultAmount,
+                                  );
+                                }),
+                        ),
+                    ],
+                  ),
+                  const SizedBox(height: AppDimensions.spaceM),
+                ],
+                GlobalTextFormField(
+                  controller: _name,
+                  labelText: context.l10n.impulseItem,
+                  maxLength: 120,
+                  enabled: !busy,
+                  textInputAction: TextInputAction.next,
+                  onChanged: (_) {
+                    if (_impulseId != null) setState(() => _impulseId = null);
+                  },
+                  validator: (v) => (v ?? '').trim().length < 2
+                      ? context.l10n.fieldTooShort(context.l10n.impulseItem, 2)
+                      : null,
+                ),
+                const SizedBox(height: AppDimensions.spaceM),
+                GlobalTextFormField(
+                  controller: _amount,
+                  labelText: context.l10n.amount,
+                  prefixText: '${widget.currencyCode} ',
+                  enabled: !busy,
+                  textInputAction: TextInputAction.next,
+                  keyboardType: const TextInputType.numberWithOptions(
+                    decimal: true,
+                  ),
+                  inputFormatters: [
+                    FilteringTextInputFormatter.allow(RegExp(r'[0-9.,]')),
+                  ],
+                  validator: (v) =>
+                      validateMoneyInput(context, v, context.l10n.amount),
+                ),
+                const SizedBox(height: AppDimensions.spaceM),
+                GlobalTextFormField(
+                  controller: _note,
+                  labelText: context.l10n.noteOptional,
+                  maxLength: 500,
+                  enabled: !busy,
+                  textInputAction: TextInputAction.done,
+                  onFieldSubmitted: (_) => submit(),
+                ),
+              ],
+            ),
+          ),
+        ),
+      ),
+      actions: [
+        TextButton(
+          onPressed: busy ? null : () => Navigator.pop(context),
+          child: Text(context.l10n.cancel),
+        ),
+        FilledButton(
+          onPressed: busy ? null : submit,
+          child: Text(context.l10n.save),
+        ),
+      ],
+    ),
+  );
+}
+
 class _SavingEditorDialog extends StatefulWidget {
   const _SavingEditorDialog({
     required this.impulses,

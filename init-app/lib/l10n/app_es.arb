@@ -1,5 +1,57 @@
 {
-  "projectionPeriod": "{years, plural, one {# año} other {# años}}",
+  "lastNameOptional": "Apellido (opcional)",
+  "lightPalette": "Paleta clara",
+  "darkPalette": "Paleta oscura",
+  "customColor": "Color propio · HEX",
+  "colorHue": "Tono",
+  "resetPalette": "Restablecer paleta",
+  "invalidColor": "Introduce 6 caracteres: 0–9, A–F",
+  "pinCreate": "Crear un PIN",
+  "pinEnter": "Introduce tu PIN",
+  "pinHint": "Cuatro dígitos bloquean este dispositivo. La contraseña sigue siendo necesaria para iniciar sesión y sincronizar.",
+  "pinConfirm": "Confirma el PIN",
+  "pinFourDigits": "PIN · 4 dígitos",
+  "pinMismatch": "Los PIN no coinciden. Empieza de nuevo.",
+  "pinIncorrect": "PIN incorrecto",
+  "pinWait": "Reintenta en {seconds} s.",
+  "pinStorageError": "No se pudo leer o guardar el PIN. Entra con la contraseña.",
+  "pinLater": "Después / cancelar",
+  "pinUsePassword": "Entrar con contraseña",
+  "pinSettings": "Configurar / cambiar PIN",
+  "pinRemove": "Desactivar PIN",
+  "pinVerifyFirst": "Confirma primero tu PIN actual",
+  "continueAction": "Continuar",
+  "offlineStorageError": "No se pueden guardar datos. Comprueba el espacio disponible.",
+  "offlineAvailable": "Sin conexión: datos descargados disponibles. Las nuevas entradas se guardan aquí.",
+  "syncConflict": "Cambios sin sincronizar. El registro del servidor cambió o requiere revisión.",
+  "syncLogin": "Entra de nuevo para sincronizar. Tus entradas locales están guardadas.",
+  "syncPending": "Pendientes de sincronizar: {count}",
+  "syncInProgress": "Sincronizando…",
+  "syncNow": "Sincronizar",
+  "syncKeepLocal": "Mantener mi versión",
+  "syncOverwriteWarning": "Tu versión sustituirá este registro en el servidor. ¿Continuar?",
+  "syncKeepServer": "Quitar de la cola",
+  "syncDiscardWarning": "¿Quitar la operación fallida y sus entradas locales dependientes? No se borran registros del servidor. Se perderán los cambios locales cancelados.",
+  "offlineInitialData": "Conéctate una vez para descargar el diario de esta cuenta.",
+  "syncBeforeCurrency": "Sincroniza y conéctate antes de cambiar la moneda.",
+  "localAccountChanged": "La cuenta cambió. Abre de nuevo esta pantalla.",
+  "savedOnDevice": "Guardado en este dispositivo",
+  "@pinWait": {"placeholders":{"seconds":{"type":"int"}}},
+  "@syncPending": {"placeholders":{"count":{"type":"int"}}},
+  "impulseIconAlcohol": "Alcohol",
+  "impulseIconSnacks": "Snacks y dulces",
+  "impulseIconBakery": "Bollería",
+  "impulseIconSoda": "Refrescos",
+  "impulseIconEnergyDrink": "Bebidas energéticas",
+  "impulseIconFastFood": "Comida rápida",
+  "impulseIconCinema": "Cine",
+  "impulseIconGames": "Juegos y compras digitales",
+  "impulseIconClothes": "Ropa",
+  "impulseIconCosmetics": "Cosméticos",
+  "impulseIconGadgets": "Dispositivos",
+  "impulseIconGifts": "Regalos",
+  "impulseIconHobbies": "Libros y aficiones",
+  "projectionPeriod": "{years, plural, one {{years} año} other {{years} años}}",
   "@projectionPeriod": {"placeholders": {"years": {"type": "int"}}},
   "@@locale": "es",
   "privacyPolicy": "Política de privacidad",
@@ -446,5 +498,57 @@
   "favoriteLimit": "Ya tienes tres favoritos. Quita uno primero.",
   "widgetItemUnavailable": "Este elemento fue eliminado, pausado o no está disponible para esta cuenta",
   "chooseLanguage": "Elegir idioma",
-  "coinLanguageHint": "El símbolo del logo es una asociación regional. El idioma no convierte importes ni cambia la moneda de tus registros."
+  "coinLanguageHint": "El símbolo del logo es una asociación regional. El idioma no convierte importes ni cambia la moneda de tus registros.",
+  "spentTab": "Gasté",
+  "forecastTab": "Previsión",
+  "homeActualHint": "Las expectativas están en Previsión. Aquí solo tus decisiones: el ahorro registrado no significa que el dinero ya esté apartado.",
+  "recordSpent": "Registrar compra",
+  "openForecast": "Ver previsión",
+  "spentIntro": "Solo compras impulsivas, no gastos cotidianos. Observa tus hábitos sin culparte. El ahorro y las metas no cambian.",
+  "spentPrincipal": "Gastado por impulso",
+  "spentHistory": "Historial de compras impulsivas",
+  "noSpentYet": "Aún no hay compras. Si gana el impulso, puedes registrarlo aquí con calma.",
+  "spentOpportunity": "Oportunidad potencial no aprovechada",
+  "spentMissedInterest": "Intereses potenciales no obtenidos",
+  "spentPossibleTotal": "Capital + intereses: {amount}",
+  "spentAssumptions": "Escenario desde hoy: apartar ahora todo el importe al {rate}% anual, con capitalización mensual, sin más aportaciones, impuestos ni inflación. No es una deuda real ni un ingreso garantizado. La compra en sí no son intereses perdidos.",
+  "spentFormHint": "Registra solo una compra impulsiva opcional. No es un ahorro ni una retirada de tus metas.",
+  "deleteSpentConfirm": "¿Eliminar esta compra? El ahorro registrado y las metas no cambiarán.",
+  "spentLoadedCount": "Cargadas {count} de {total} compras",
+  "spentMissedLine": "Intereses posibles en {years} a: {amount}",
+  "spentRecordedMessage": "Compra registrada",
+  "@spentPossibleTotal": {
+    "placeholders": {
+      "amount": {
+        "type": "String"
+      }
+    }
+  },
+  "@spentAssumptions": {
+    "placeholders": {
+      "rate": {
+        "type": "String"
+      }
+    }
+  },
+  "@spentLoadedCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
+    }
+  },
+  "@spentMissedLine": {
+    "placeholders": {
+      "amount": {
+        "type": "String"
+      },
+      "years": {
+        "type": "int"
+      }
+    }
+  }
 }

@@ -9,14 +9,178 @@ class AppLocalizationsRu extends AppLocalizations {
   AppLocalizationsRu([String locale = 'ru']) : super(locale);
 
   @override
+  String get lastNameOptional => 'Фамилия (необязательно)';
+
+  @override
+  String get lightPalette => 'Палитра светлой темы';
+
+  @override
+  String get darkPalette => 'Палитра тёмной темы';
+
+  @override
+  String get customColor => 'Свой цвет · HEX';
+
+  @override
+  String get colorHue => 'Оттенок';
+
+  @override
+  String get resetPalette => 'Сбросить палитру';
+
+  @override
+  String get invalidColor => 'Введите 6 символов: 0–9, A–F';
+
+  @override
+  String get pinCreate => 'Создайте PIN-код';
+
+  @override
+  String get pinEnter => 'Введите PIN-код';
+
+  @override
+  String get pinHint =>
+      'Четыре цифры для локальной блокировки. Пароль аккаунта остаётся нужен для входа и синхронизации.';
+
+  @override
+  String get pinConfirm => 'Повторите PIN-код';
+
+  @override
+  String get pinFourDigits => 'PIN-код · 4 цифры';
+
+  @override
+  String get pinMismatch => 'PIN-коды не совпадают. Начните заново.';
+
+  @override
+  String get pinIncorrect => 'Неверный PIN-код';
+
+  @override
+  String pinWait(int seconds) {
+    return 'Повторите через $seconds с.';
+  }
+
+  @override
+  String get pinStorageError =>
+      'Не удалось прочитать или сохранить PIN. Войдите с паролем.';
+
+  @override
+  String get pinLater => 'Позже / отменить';
+
+  @override
+  String get pinUsePassword => 'Войти с паролем';
+
+  @override
+  String get pinSettings => 'Настроить / изменить PIN';
+
+  @override
+  String get pinRemove => 'Отключить PIN';
+
+  @override
+  String get pinVerifyFirst => 'Сначала подтвердите текущий PIN';
+
+  @override
+  String get continueAction => 'Продолжить';
+
+  @override
+  String get offlineStorageError =>
+      'Не удалось сохранить данные на телефоне. Проверьте свободное место.';
+
+  @override
+  String get offlineAvailable =>
+      'Офлайн: доступны загруженные данные. Новые записи сохраняются на телефоне.';
+
+  @override
+  String get syncConflict =>
+      'Изменения не синхронизированы. Серверная запись изменилась или требует проверки.';
+
+  @override
+  String get syncLogin =>
+      'Войдите снова для синхронизации. Локальные записи сохранены.';
+
+  @override
+  String syncPending(int count) {
+    return 'Ожидают синхронизации: $count';
+  }
+
+  @override
+  String get syncInProgress => 'Синхронизация…';
+
+  @override
+  String get syncNow => 'Синхронизировать';
+
+  @override
+  String get syncKeepLocal => 'Оставить мою версию';
+
+  @override
+  String get syncOverwriteWarning =>
+      'Моя версия заменит данные этой записи на сервере. Продолжить?';
+
+  @override
+  String get syncKeepServer => 'Убрать из очереди';
+
+  @override
+  String get syncDiscardWarning =>
+      'Убрать проблемную операцию и связанные с ней локальные записи из очереди? Серверные записи не удаляются. Отменённые локальные изменения будут потеряны.';
+
+  @override
+  String get offlineInitialData =>
+      'Сначала подключитесь к интернету и загрузите журнал этого аккаунта.';
+
+  @override
+  String get syncBeforeCurrency =>
+      'Перед сменой валюты синхронизируйте записи и подключитесь к интернету.';
+
+  @override
+  String get localAccountChanged => 'Аккаунт изменился. Откройте экран заново.';
+
+  @override
+  String get savedOnDevice => 'Сохранено на телефоне';
+
+  @override
+  String get impulseIconAlcohol => 'Алкоголь';
+
+  @override
+  String get impulseIconSnacks => 'Снеки и сладости';
+
+  @override
+  String get impulseIconBakery => 'Выпечка';
+
+  @override
+  String get impulseIconSoda => 'Газировка';
+
+  @override
+  String get impulseIconEnergyDrink => 'Энергетики';
+
+  @override
+  String get impulseIconFastFood => 'Фастфуд';
+
+  @override
+  String get impulseIconCinema => 'Кино';
+
+  @override
+  String get impulseIconGames => 'Игры и донаты';
+
+  @override
+  String get impulseIconClothes => 'Одежда';
+
+  @override
+  String get impulseIconCosmetics => 'Косметика';
+
+  @override
+  String get impulseIconGadgets => 'Гаджеты';
+
+  @override
+  String get impulseIconGifts => 'Подарки';
+
+  @override
+  String get impulseIconHobbies => 'Книги и хобби';
+
+  @override
   String projectionPeriod(int years) {
     String _temp0 = intl.Intl.pluralLogic(
       years,
       locale: localeName,
-      other: '# лет',
-      many: '# лет',
-      few: '# года',
-      one: '# год',
+      other: '$years лет',
+      many: '$years лет',
+      few: '$years года',
+      one: '$years год',
     );
     return '$_temp0';
   }
@@ -1060,4 +1224,71 @@ class AppLocalizationsRu extends AppLocalizations {
   @override
   String get widgetItemUnavailable =>
       'Этот импульс удалён, на паузе или недоступен этому аккаунту';
+
+  @override
+  String get spentTab => 'Потратил';
+
+  @override
+  String get forecastTab => 'Прогноз';
+
+  @override
+  String get homeActualHint =>
+      'Ожидания — во вкладке «Прогноз». Здесь только ваши решения: учтённая экономия ещё не означает перевод денег на накопления.';
+
+  @override
+  String get recordSpent => 'Записать покупку';
+
+  @override
+  String get openForecast => 'Посмотреть прогноз';
+
+  @override
+  String get spentIntro =>
+      'Здесь только импульсивные покупки, не повседневные расходы. Запись помогает заметить привычку, а не ругать себя. Учтённая экономия и цели не меняются.';
+
+  @override
+  String get spentPrincipal => 'Потрачено на импульсы';
+
+  @override
+  String get spentHistory => 'История импульсивных покупок';
+
+  @override
+  String get noSpentYet =>
+      'Пока покупок нет. Если импульс победил, его можно спокойно записать здесь.';
+
+  @override
+  String get spentOpportunity => 'Возможный упущенный эффект';
+
+  @override
+  String get spentMissedInterest => 'Возможные недополученные проценты';
+
+  @override
+  String spentPossibleTotal(String amount) {
+    return 'Сама сумма + проценты: $amount';
+  }
+
+  @override
+  String spentAssumptions(String rate) {
+    return 'Сценарий с сегодняшнего дня: если бы всю потраченную сумму отложить сейчас под $rate% годовых с ежемесячной капитализацией, без новых пополнений, налогов и инфляции. Это не реальный долг и не гарантированный доход. Сама покупка не считается потерянными процентами.';
+  }
+
+  @override
+  String get spentFormHint =>
+      'Запишите только необязательную импульсивную покупку. Это не запись экономии и не списание с ваших целей.';
+
+  @override
+  String get deleteSpentConfirm =>
+      'Удалить запись о покупке? Учтённая экономия и цели не изменятся.';
+
+  @override
+  String spentLoadedCount(int count, int total) {
+    return 'Загружено $count из $total покупок';
+  }
+
+  @override
+  String spentMissedLine(String amount, int years) {
+    return 'Возможные проценты за $years г.: $amount';
+  }
+
+  @override
+  String get spentRecordedMessage => 'Покупка записана';
 }
