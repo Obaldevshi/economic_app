@@ -1288,4 +1288,71 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get spentRecordedMessage => 'Compra registrada';
+
+  @override
+  String get forgotPassword => '¿Olvidaste tu contraseña?';
+
+  @override
+  String get resetPasswordTitle => 'Restablecer contraseña';
+
+  @override
+  String get resetPasswordDescription =>
+      'Recupera el acceso con un código por email. Necesitas internet.';
+
+  @override
+  String get sendResetCode => 'Enviar código';
+
+  @override
+  String resetCodeNotice(String email) {
+    return 'Si $email está registrado, recibirá un código. Revisa también el correo no deseado. Caduca en 10 minutos; si lo reenvías, usa el más reciente.';
+  }
+
+  @override
+  String get resetCodeLabel => 'Código del email';
+
+  @override
+  String get resetCodeHint => '6 dígitos';
+
+  @override
+  String get resetCodeFormat => 'Introduce el código de seis dígitos del email';
+
+  @override
+  String get resetPasswordSubmit => 'Establecer nueva contraseña';
+
+  @override
+  String get resetPasswordSuccess => 'Contraseña cambiada';
+
+  @override
+  String get resetPasswordSuccessHint =>
+      'Inicia sesión con tu nueva contraseña. Las sesiones anteriores del servidor se revocaron; tus ahorros y el diario local se conservan.';
+
+  @override
+  String get resetResendCode => 'Reenviar código';
+
+  @override
+  String resetResendCountdown(int seconds) {
+    return 'Reenviar en $seconds s';
+  }
+
+  @override
+  String get resetChangeEmail => 'Cambiar email';
+
+  @override
+  String get resetBackLogin => 'Volver al inicio de sesión';
+
+  @override
+  String get resetCodeInvalid =>
+      'Código incorrecto, caducado o ya usado. Tras cinco errores, solicita uno nuevo.';
+
+  @override
+  String get resetMailUnavailable =>
+      'Los correos de recuperación no están disponibles. Inténtalo más tarde o escribe a mnyvault@gmail.com.';
+
+  @override
+  String get resetTooManyRequests =>
+      'Demasiados intentos. Inténtalo más tarde.';
+
+  @override
+  String get resetPasswordByteLimit =>
+      'La contraseña no puede superar 72 bytes UTF-8. Los caracteres no latinos pueden requerir una contraseña más corta.';
 }

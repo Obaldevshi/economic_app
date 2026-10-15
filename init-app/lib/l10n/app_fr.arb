@@ -550,5 +550,38 @@
         "type": "int"
       }
     }
+  },
+  "forgotPassword": "Mot de passe oublié ?",
+  "resetPasswordTitle": "Réinitialiser le mot de passe",
+  "resetPasswordDescription": "Récupérez l’accès avec un code envoyé par email. Internet requis.",
+  "sendResetCode": "Envoyer le code",
+  "resetCodeNotice": "Si {email} est inscrit, un code sera envoyé. Vérifiez aussi les indésirables. Il expire dans 10 minutes ; après un renvoi, utilisez le plus récent.",
+  "resetCodeLabel": "Code reçu par email",
+  "resetCodeHint": "6 chiffres",
+  "resetCodeFormat": "Saisissez le code à six chiffres reçu par email",
+  "resetPasswordSubmit": "Définir le nouveau mot de passe",
+  "resetPasswordSuccess": "Mot de passe modifié",
+  "resetPasswordSuccessHint": "Connectez-vous avec le nouveau mot de passe. Les anciennes sessions serveur sont révoquées ; économies et journal local sont conservés.",
+  "resetResendCode": "Renvoyer le code",
+  "resetResendCountdown": "Renvoyer dans {seconds} s",
+  "resetChangeEmail": "Modifier l’email",
+  "resetBackLogin": "Retour à la connexion",
+  "resetCodeInvalid": "Code incorrect, expiré ou déjà utilisé. Après cinq erreurs, demandez-en un nouveau.",
+  "resetMailUnavailable": "Les emails de récupération sont indisponibles. Réessayez plus tard ou contactez mnyvault@gmail.com.",
+  "resetTooManyRequests": "Trop de tentatives. Réessayez plus tard.",
+  "resetPasswordByteLimit": "Le mot de passe ne doit pas dépasser 72 octets UTF-8. Les caractères non latins peuvent nécessiter un mot de passe plus court.",
+  "@resetCodeNotice": {
+    "placeholders": {
+      "email": {
+        "type": "String"
+      }
+    }
+  },
+  "@resetResendCountdown": {
+    "placeholders": {
+      "seconds": {
+        "type": "int"
+      }
+    }
   }
 }

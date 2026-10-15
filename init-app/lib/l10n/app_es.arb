@@ -550,5 +550,38 @@
         "type": "int"
       }
     }
+  },
+  "forgotPassword": "¿Olvidaste tu contraseña?",
+  "resetPasswordTitle": "Restablecer contraseña",
+  "resetPasswordDescription": "Recupera el acceso con un código por email. Necesitas internet.",
+  "sendResetCode": "Enviar código",
+  "resetCodeNotice": "Si {email} está registrado, recibirá un código. Revisa también el correo no deseado. Caduca en 10 minutos; si lo reenvías, usa el más reciente.",
+  "resetCodeLabel": "Código del email",
+  "resetCodeHint": "6 dígitos",
+  "resetCodeFormat": "Introduce el código de seis dígitos del email",
+  "resetPasswordSubmit": "Establecer nueva contraseña",
+  "resetPasswordSuccess": "Contraseña cambiada",
+  "resetPasswordSuccessHint": "Inicia sesión con tu nueva contraseña. Las sesiones anteriores del servidor se revocaron; tus ahorros y el diario local se conservan.",
+  "resetResendCode": "Reenviar código",
+  "resetResendCountdown": "Reenviar en {seconds} s",
+  "resetChangeEmail": "Cambiar email",
+  "resetBackLogin": "Volver al inicio de sesión",
+  "resetCodeInvalid": "Código incorrecto, caducado o ya usado. Tras cinco errores, solicita uno nuevo.",
+  "resetMailUnavailable": "Los correos de recuperación no están disponibles. Inténtalo más tarde o escribe a mnyvault@gmail.com.",
+  "resetTooManyRequests": "Demasiados intentos. Inténtalo más tarde.",
+  "resetPasswordByteLimit": "La contraseña no puede superar 72 bytes UTF-8. Los caracteres no latinos pueden requerir una contraseña más corta.",
+  "@resetCodeNotice": {
+    "placeholders": {
+      "email": {
+        "type": "String"
+      }
+    }
+  },
+  "@resetResendCountdown": {
+    "placeholders": {
+      "seconds": {
+        "type": "int"
+      }
+    }
   }
 }

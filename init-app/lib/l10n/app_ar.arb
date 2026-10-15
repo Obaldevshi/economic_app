@@ -550,5 +550,38 @@
         "type": "int"
       }
     }
+  },
+  "forgotPassword": "نسيت كلمة المرور؟",
+  "resetPasswordTitle": "إعادة تعيين كلمة المرور",
+  "resetPasswordDescription": "استعد الوصول برمز يصل عبر البريد. يلزم الاتصال بالإنترنت.",
+  "sendResetCode": "إرسال الرمز",
+  "resetCodeNotice": "إذا كان {email} مسجلاً فسيصله رمز. افحص البريد غير المرغوب فيه أيضاً. تنتهي صلاحيته خلال 10 دقائق؛ عند إعادة الإرسال استخدم أحدث رمز.",
+  "resetCodeLabel": "رمز البريد",
+  "resetCodeHint": "6 أرقام",
+  "resetCodeFormat": "أدخل الرمز المكوّن من ستة أرقام في الرسالة",
+  "resetPasswordSubmit": "تعيين كلمة مرور جديدة",
+  "resetPasswordSuccess": "تم تغيير كلمة المرور",
+  "resetPasswordSuccessHint": "سجّل الدخول بكلمة المرور الجديدة. أُلغيت جلسات الخادم السابقة؛ تظل المدخرات والسجل المحلي محفوظة.",
+  "resetResendCode": "إعادة إرسال الرمز",
+  "resetResendCountdown": "إعادة الإرسال بعد {seconds} ث",
+  "resetChangeEmail": "تغيير البريد",
+  "resetBackLogin": "العودة إلى تسجيل الدخول",
+  "resetCodeInvalid": "الرمز غير صحيح أو منتهي أو مستخدم. اطلب رمزاً جديداً بعد خمس محاولات خاطئة.",
+  "resetMailUnavailable": "رسائل الاستعادة غير متاحة حالياً. حاول لاحقاً أو تواصل مع mnyvault@gmail.com.",
+  "resetTooManyRequests": "محاولات كثيرة جداً. حاول لاحقاً.",
+  "resetPasswordByteLimit": "يجب ألا تتجاوز كلمة المرور 72 بايت UTF-8. قد تتطلب الأحرف غير اللاتينية كلمة مرور أقصر.",
+  "@resetCodeNotice": {
+    "placeholders": {
+      "email": {
+        "type": "String"
+      }
+    }
+  },
+  "@resetResendCountdown": {
+    "placeholders": {
+      "seconds": {
+        "type": "int"
+      }
+    }
   }
 }

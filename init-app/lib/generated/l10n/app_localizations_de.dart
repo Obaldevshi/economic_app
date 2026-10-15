@@ -1289,4 +1289,71 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get spentRecordedMessage => 'Kauf erfasst';
+
+  @override
+  String get forgotPassword => 'Passwort vergessen?';
+
+  @override
+  String get resetPasswordTitle => 'Passwort zurücksetzen';
+
+  @override
+  String get resetPasswordDescription =>
+      'Zugang mit einem E-Mail-Code wiederherstellen. Internet erforderlich.';
+
+  @override
+  String get sendResetCode => 'Code senden';
+
+  @override
+  String resetCodeNotice(String email) {
+    return 'Falls $email registriert ist, wird ein Code gesendet. Prüfe auch den Spam-Ordner. Er gilt 10 Minuten; nach erneutem Versand gilt nur der neueste Code.';
+  }
+
+  @override
+  String get resetCodeLabel => 'E-Mail-Code';
+
+  @override
+  String get resetCodeHint => '6 Ziffern';
+
+  @override
+  String get resetCodeFormat => 'Sechsstelligen Code aus der E-Mail eingeben';
+
+  @override
+  String get resetPasswordSubmit => 'Neues Passwort festlegen';
+
+  @override
+  String get resetPasswordSuccess => 'Passwort geändert';
+
+  @override
+  String get resetPasswordSuccessHint =>
+      'Melde dich mit dem neuen Passwort an. Bisherige Serversitzungen sind widerrufen; Ersparnisse und lokales Journal bleiben erhalten.';
+
+  @override
+  String get resetResendCode => 'Code erneut senden';
+
+  @override
+  String resetResendCountdown(int seconds) {
+    return 'Erneut in $seconds s';
+  }
+
+  @override
+  String get resetChangeEmail => 'E-Mail ändern';
+
+  @override
+  String get resetBackLogin => 'Zur Anmeldung';
+
+  @override
+  String get resetCodeInvalid =>
+      'Code falsch, abgelaufen oder bereits verwendet. Nach fünf Fehlern einen neuen anfordern.';
+
+  @override
+  String get resetMailUnavailable =>
+      'Wiederherstellungs-E-Mails sind derzeit nicht verfügbar. Später erneut versuchen oder mnyvault@gmail.com kontaktieren.';
+
+  @override
+  String get resetTooManyRequests =>
+      'Zu viele Versuche. Bitte später erneut versuchen.';
+
+  @override
+  String get resetPasswordByteLimit =>
+      'Das Passwort darf höchstens 72 UTF-8-Bytes lang sein. Nichtlateinische Zeichen können ein kürzeres Passwort erfordern.';
 }

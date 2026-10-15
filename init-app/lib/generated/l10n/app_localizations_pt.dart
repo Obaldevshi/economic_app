@@ -1285,4 +1285,71 @@ class AppLocalizationsPt extends AppLocalizations {
 
   @override
   String get spentRecordedMessage => 'Compra registrada';
+
+  @override
+  String get forgotPassword => 'Esqueceu a senha?';
+
+  @override
+  String get resetPasswordTitle => 'Redefinir senha';
+
+  @override
+  String get resetPasswordDescription =>
+      'Recupere o acesso com um código por email. É preciso internet.';
+
+  @override
+  String get sendResetCode => 'Enviar código';
+
+  @override
+  String resetCodeNotice(String email) {
+    return 'Se $email estiver cadastrado, receberá um código. Confira também o spam. Expira em 10 minutos; após reenviar, use o código mais recente.';
+  }
+
+  @override
+  String get resetCodeLabel => 'Código do email';
+
+  @override
+  String get resetCodeHint => '6 dígitos';
+
+  @override
+  String get resetCodeFormat => 'Digite o código de seis dígitos do email';
+
+  @override
+  String get resetPasswordSubmit => 'Definir nova senha';
+
+  @override
+  String get resetPasswordSuccess => 'Senha alterada';
+
+  @override
+  String get resetPasswordSuccessHint =>
+      'Entre com sua nova senha. As sessões anteriores do servidor foram revogadas; a poupança e seu diário local foram preservados.';
+
+  @override
+  String get resetResendCode => 'Reenviar código';
+
+  @override
+  String resetResendCountdown(int seconds) {
+    return 'Reenviar em $seconds s';
+  }
+
+  @override
+  String get resetChangeEmail => 'Alterar email';
+
+  @override
+  String get resetBackLogin => 'Voltar para entrar';
+
+  @override
+  String get resetCodeInvalid =>
+      'Código incorreto, expirado ou já usado. Após cinco erros, solicite um novo.';
+
+  @override
+  String get resetMailUnavailable =>
+      'Emails de recuperação indisponíveis. Tente mais tarde ou contate mnyvault@gmail.com.';
+
+  @override
+  String get resetTooManyRequests =>
+      'Muitas tentativas. Tente novamente mais tarde.';
+
+  @override
+  String get resetPasswordByteLimit =>
+      'A senha deve ter no máximo 72 bytes UTF-8. Caracteres não latinos podem exigir uma senha mais curta.';
 }

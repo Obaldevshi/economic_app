@@ -2,6 +2,7 @@ import "package:dio/dio.dart";
 import 'package:mobile_template/data/models/request/category_request.dart';
 import 'package:mobile_template/data/models/request/change_password_request.dart';
 import 'package:mobile_template/data/models/request/login_request.dart';
+import 'package:mobile_template/data/models/request/password_reset_request.dart';
 import 'package:mobile_template/data/models/request/register_request.dart';
 import 'package:mobile_template/data/models/request/update_profile_request.dart';
 import 'package:mobile_template/data/models/request/savings_request.dart';
@@ -21,6 +22,16 @@ abstract class ApiService {
 
   @POST('/auth/login')
   Future<BaseResponse<LoginResponse>> login(@Body() LoginRequest request);
+
+  @POST('/auth/password-reset/request')
+  Future<BaseResponse> requestPasswordReset(
+    @Body() PasswordResetRequest request,
+  );
+
+  @POST('/auth/password-reset/confirm')
+  Future<BaseResponse> confirmPasswordReset(
+    @Body() PasswordResetConfirmRequest request,
+  );
 
   @POST('/auth/register')
   Future<BaseResponse> register(@Body() RegisterRequest request);

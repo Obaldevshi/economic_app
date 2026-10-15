@@ -114,7 +114,19 @@ class _LoginPageState extends State<LoginPage> {
                     validator: (value) =>
                         ValidationUtils.validatePassword(value, context),
                   ),
-                  const SizedBox(height: AppDimensions.spaceXL),
+                  Align(
+                    alignment: AlignmentDirectional.centerEnd,
+                    child: TextButton(
+                      onPressed: _isLoading
+                          ? null
+                          : () => context.push(
+                              AppRoutes.passwordReset,
+                              extra: _emailController.text.trim().toLowerCase(),
+                            ),
+                      child: Text(context.l10n.forgotPassword),
+                    ),
+                  ),
+                  const SizedBox(height: AppDimensions.spaceM),
                   GlobalButton(
                     text: context.l10n.signIn,
                     onPressed: _handleLogin,

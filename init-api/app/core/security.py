@@ -30,13 +30,14 @@ def get_password_hash(password: str) -> str:
     ).decode("utf-8")
 
 
-def create_access_token(user_id: str, email: str, expires_delta: timedelta = None) -> str:
+def create_access_token(user_id: str, email: str, expires_delta: timedelta = None, session_version: int = 0) -> str:
     if expires_delta is None:
         expires_delta = timedelta(minutes=settings.access_token_expire_minutes)
 
     payload = {
         "user_id": user_id,
         "email": email,
+        "session_version": session_version,
         "exp": datetime.now(timezone.utc) + expires_delta
     }
 
@@ -74,7 +75,10 @@ def get_current_user(
         user_id = int(payload["user_id"])
     except (TypeError, ValueError):
         raise UnauthorizedError(AuthMessages.UNAUTHORIZED.value)
-    if user_id <= 0 or UserRepository(db).get_by_id(user_id) is None:
+    user = UserRepository(db).get_by_id(user_id) if user_id > 0 else None
+    # Tokens issued before migration 008 belong to version zero. The first
+    # password change invalidates them without logging everyone out on deploy.
+    if user is None or payload.get("session_version", 0) != user.session_version:
         raise UnauthorizedError(AuthMessages.UNAUTHORIZED.value)
 
     return payload

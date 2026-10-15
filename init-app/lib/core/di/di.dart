@@ -15,6 +15,8 @@ import 'package:mobile_template/core/services/app_lock_service.dart';
 import 'package:mobile_template/core/services/offline_savings_service.dart';
 import 'package:mobile_template/data/datasources/remote/api_service.dart';
 import 'package:mobile_template/data/repositories/auth_repository_impl.dart';
+import 'package:mobile_template/data/repositories/password_reset_repository.dart';
+import 'package:mobile_template/features/auth/presentation/pages/password_reset/bloc/password_reset_bloc.dart';
 import 'package:mobile_template/data/repositories/category_repository.dart';
 import 'package:mobile_template/data/repositories/savings_repository.dart';
 import 'package:mobile_template/domain/repositories/auth_repository.dart';
@@ -147,6 +149,12 @@ Future<void> configureDependencies() async {
   );
   getIt.registerFactory<LoginBloc>(
     () => LoginBloc(loginUsecase: getIt<LoginUsecase>()),
+  );
+  getIt.registerLazySingleton<PasswordResetRepository>(
+    () => PasswordResetRepository(getIt<ApiService>(), getIt<SessionService>()),
+  );
+  getIt.registerFactory<PasswordResetBloc>(
+    () => PasswordResetBloc(getIt<PasswordResetRepository>()),
   );
   getIt.registerFactory<RegisterBloc>(
     () => RegisterBloc(getIt<RegisterUsecase>()),

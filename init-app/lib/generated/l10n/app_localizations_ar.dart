@@ -1281,4 +1281,70 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get spentRecordedMessage => 'تم تسجيل الشراء';
+
+  @override
+  String get forgotPassword => 'نسيت كلمة المرور؟';
+
+  @override
+  String get resetPasswordTitle => 'إعادة تعيين كلمة المرور';
+
+  @override
+  String get resetPasswordDescription =>
+      'استعد الوصول برمز يصل عبر البريد. يلزم الاتصال بالإنترنت.';
+
+  @override
+  String get sendResetCode => 'إرسال الرمز';
+
+  @override
+  String resetCodeNotice(String email) {
+    return 'إذا كان $email مسجلاً فسيصله رمز. افحص البريد غير المرغوب فيه أيضاً. تنتهي صلاحيته خلال 10 دقائق؛ عند إعادة الإرسال استخدم أحدث رمز.';
+  }
+
+  @override
+  String get resetCodeLabel => 'رمز البريد';
+
+  @override
+  String get resetCodeHint => '6 أرقام';
+
+  @override
+  String get resetCodeFormat => 'أدخل الرمز المكوّن من ستة أرقام في الرسالة';
+
+  @override
+  String get resetPasswordSubmit => 'تعيين كلمة مرور جديدة';
+
+  @override
+  String get resetPasswordSuccess => 'تم تغيير كلمة المرور';
+
+  @override
+  String get resetPasswordSuccessHint =>
+      'سجّل الدخول بكلمة المرور الجديدة. أُلغيت جلسات الخادم السابقة؛ تظل المدخرات والسجل المحلي محفوظة.';
+
+  @override
+  String get resetResendCode => 'إعادة إرسال الرمز';
+
+  @override
+  String resetResendCountdown(int seconds) {
+    return 'إعادة الإرسال بعد $seconds ث';
+  }
+
+  @override
+  String get resetChangeEmail => 'تغيير البريد';
+
+  @override
+  String get resetBackLogin => 'العودة إلى تسجيل الدخول';
+
+  @override
+  String get resetCodeInvalid =>
+      'الرمز غير صحيح أو منتهي أو مستخدم. اطلب رمزاً جديداً بعد خمس محاولات خاطئة.';
+
+  @override
+  String get resetMailUnavailable =>
+      'رسائل الاستعادة غير متاحة حالياً. حاول لاحقاً أو تواصل مع mnyvault@gmail.com.';
+
+  @override
+  String get resetTooManyRequests => 'محاولات كثيرة جداً. حاول لاحقاً.';
+
+  @override
+  String get resetPasswordByteLimit =>
+      'يجب ألا تتجاوز كلمة المرور 72 بايت UTF-8. قد تتطلب الأحرف غير اللاتينية كلمة مرور أقصر.';
 }

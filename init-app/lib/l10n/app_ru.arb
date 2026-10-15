@@ -446,5 +446,38 @@
         "type": "int"
       }
     }
+  },
+  "forgotPassword": "Забыли пароль?",
+  "resetPasswordTitle": "Восстановление пароля",
+  "resetPasswordDescription": "Верните доступ по коду из письма. Нужен интернет.",
+  "sendResetCode": "Отправить код",
+  "resetCodeNotice": "Если адрес {email} зарегистрирован, на него придёт код. Проверьте также папку «Спам». Код действует 10 минут; после повторной отправки используйте самый новый.",
+  "resetCodeLabel": "Код из письма",
+  "resetCodeHint": "6 цифр",
+  "resetCodeFormat": "Введите шестизначный код из письма",
+  "resetPasswordSubmit": "Установить новый пароль",
+  "resetPasswordSuccess": "Пароль изменён",
+  "resetPasswordSuccessHint": "Войдите с новым паролем. Старые серверные сеансы отозваны; записи экономии и локальный журнал сохранены.",
+  "resetResendCode": "Отправить код повторно",
+  "resetResendCountdown": "Повторить через {seconds} с",
+  "resetChangeEmail": "Изменить email",
+  "resetBackLogin": "Вернуться ко входу",
+  "resetCodeInvalid": "Код неверный, истёк или уже использован. После пяти ошибок запросите новый.",
+  "resetMailUnavailable": "Отправка писем для восстановления пока недоступна. Попробуйте позже или напишите mnyvault@gmail.com.",
+  "resetTooManyRequests": "Слишком много попыток. Повторите позже.",
+  "resetPasswordByteLimit": "Пароль должен занимать не более 72 байт UTF-8. Для нелатинских символов допустимая длина меньше.",
+  "@resetCodeNotice": {
+    "placeholders": {
+      "email": {
+        "type": "String"
+      }
+    }
+  },
+  "@resetResendCountdown": {
+    "placeholders": {
+      "seconds": {
+        "type": "int"
+      }
+    }
   }
 }

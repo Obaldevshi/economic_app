@@ -1,4 +1,4 @@
-from pydantic import field_validator
+from pydantic import EmailStr, Field, SecretStr, field_validator
 from pydantic_settings import BaseSettings, SettingsConfigDict
 from sqlalchemy.engine import make_url
 
@@ -13,6 +13,13 @@ class Settings(BaseSettings):
     app_name: str = "Not Spent API"
     app_version: str = "1.0.0"
     debug: bool = False
+
+    password_reset_enabled: bool = False
+    password_reset_daily_limit: int = Field(default=100, ge=1, le=400)
+    gmail_client_id: str = ""
+    gmail_client_secret: SecretStr = SecretStr("")
+    gmail_refresh_token: SecretStr = SecretStr("")
+    gmail_sender_email: EmailStr = "mnyvault@gmail.com"
 
     cors_origins: str = "http://localhost:3000,http://127.0.0.1:3000"
 

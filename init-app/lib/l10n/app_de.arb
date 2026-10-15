@@ -550,5 +550,38 @@
         "type": "int"
       }
     }
+  },
+  "forgotPassword": "Passwort vergessen?",
+  "resetPasswordTitle": "Passwort zurücksetzen",
+  "resetPasswordDescription": "Zugang mit einem E-Mail-Code wiederherstellen. Internet erforderlich.",
+  "sendResetCode": "Code senden",
+  "resetCodeNotice": "Falls {email} registriert ist, wird ein Code gesendet. Prüfe auch den Spam-Ordner. Er gilt 10 Minuten; nach erneutem Versand gilt nur der neueste Code.",
+  "resetCodeLabel": "E-Mail-Code",
+  "resetCodeHint": "6 Ziffern",
+  "resetCodeFormat": "Sechsstelligen Code aus der E-Mail eingeben",
+  "resetPasswordSubmit": "Neues Passwort festlegen",
+  "resetPasswordSuccess": "Passwort geändert",
+  "resetPasswordSuccessHint": "Melde dich mit dem neuen Passwort an. Bisherige Serversitzungen sind widerrufen; Ersparnisse und lokales Journal bleiben erhalten.",
+  "resetResendCode": "Code erneut senden",
+  "resetResendCountdown": "Erneut in {seconds} s",
+  "resetChangeEmail": "E-Mail ändern",
+  "resetBackLogin": "Zur Anmeldung",
+  "resetCodeInvalid": "Code falsch, abgelaufen oder bereits verwendet. Nach fünf Fehlern einen neuen anfordern.",
+  "resetMailUnavailable": "Wiederherstellungs-E-Mails sind derzeit nicht verfügbar. Später erneut versuchen oder mnyvault@gmail.com kontaktieren.",
+  "resetTooManyRequests": "Zu viele Versuche. Bitte später erneut versuchen.",
+  "resetPasswordByteLimit": "Das Passwort darf höchstens 72 UTF-8-Bytes lang sein. Nichtlateinische Zeichen können ein kürzeres Passwort erfordern.",
+  "@resetCodeNotice": {
+    "placeholders": {
+      "email": {
+        "type": "String"
+      }
+    }
+  },
+  "@resetResendCountdown": {
+    "placeholders": {
+      "seconds": {
+        "type": "int"
+      }
+    }
   }
 }

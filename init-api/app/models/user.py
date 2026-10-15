@@ -1,4 +1,4 @@
-from sqlalchemy import Column, String
+from sqlalchemy import Column, Integer, String
 from sqlalchemy.orm import relationship
 from .base import Base
 
@@ -10,6 +10,7 @@ class User(Base):
     first_name = Column(String)
     last_name = Column(String)
     hashed_password = Column(String)
+    session_version = Column(Integer, nullable=False, default=0, server_default="0")
 
     categories = relationship("Category", back_populates="user", cascade="all, delete-orphan")
     impulse_items = relationship("ImpulseItem", back_populates="user", cascade="all, delete-orphan")

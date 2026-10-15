@@ -6,6 +6,8 @@ import 'package:mobile_template/core/services/session_service.dart';
 import 'package:mobile_template/core/services/app_lock_service.dart';
 import 'package:mobile_template/core/services/offline_savings_service.dart';
 import 'package:mobile_template/features/auth/presentation/pages/pin_page.dart';
+import 'package:mobile_template/features/auth/presentation/pages/password_reset/password_reset_page.dart';
+import 'package:mobile_template/features/auth/presentation/pages/password_reset/bloc/password_reset_bloc.dart';
 import 'package:mobile_template/features/auth/presentation/pages/login/bloc/login_bloc.dart';
 import 'package:mobile_template/features/auth/presentation/pages/login/login_page.dart';
 import 'package:mobile_template/features/auth/presentation/pages/register/bloc/register_bloc.dart';
@@ -29,6 +31,7 @@ class AppRoutes {
   static const splash = '/splash';
   static const login = '/login';
   static const register = '/register';
+  static const passwordReset = '/password-reset';
   static const home = '/home';
   static const history = '/history';
   static const habits = '/habits';
@@ -60,6 +63,8 @@ GoRouter createAppRouter() {
       final isSplash = location == AppRoutes.splash;
 
       if (location == AppRoutes.privacy) return null;
+      // Recovery must stay reachable with an expired session or a locked PIN.
+      if (location == AppRoutes.passwordReset) return null;
       if (isSplash) return null;
 
       if (isLoggedIn &&
@@ -90,6 +95,15 @@ GoRouter createAppRouter() {
       return null;
     },
     routes: [
+      GoRoute(
+        path: AppRoutes.passwordReset,
+        builder: (context, state) => BlocProvider(
+          create: (_) => getIt<PasswordResetBloc>(),
+          child: PasswordResetPage(
+            initialEmail: state.extra is String ? state.extra as String : '',
+          ),
+        ),
+      ),
       GoRoute(
         path: AppRoutes.pin,
         builder: (context, state) => const PinPage(),

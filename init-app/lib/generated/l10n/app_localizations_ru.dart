@@ -1291,4 +1291,70 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get spentRecordedMessage => 'Покупка записана';
+
+  @override
+  String get forgotPassword => 'Забыли пароль?';
+
+  @override
+  String get resetPasswordTitle => 'Восстановление пароля';
+
+  @override
+  String get resetPasswordDescription =>
+      'Верните доступ по коду из письма. Нужен интернет.';
+
+  @override
+  String get sendResetCode => 'Отправить код';
+
+  @override
+  String resetCodeNotice(String email) {
+    return 'Если адрес $email зарегистрирован, на него придёт код. Проверьте также папку «Спам». Код действует 10 минут; после повторной отправки используйте самый новый.';
+  }
+
+  @override
+  String get resetCodeLabel => 'Код из письма';
+
+  @override
+  String get resetCodeHint => '6 цифр';
+
+  @override
+  String get resetCodeFormat => 'Введите шестизначный код из письма';
+
+  @override
+  String get resetPasswordSubmit => 'Установить новый пароль';
+
+  @override
+  String get resetPasswordSuccess => 'Пароль изменён';
+
+  @override
+  String get resetPasswordSuccessHint =>
+      'Войдите с новым паролем. Старые серверные сеансы отозваны; записи экономии и локальный журнал сохранены.';
+
+  @override
+  String get resetResendCode => 'Отправить код повторно';
+
+  @override
+  String resetResendCountdown(int seconds) {
+    return 'Повторить через $seconds с';
+  }
+
+  @override
+  String get resetChangeEmail => 'Изменить email';
+
+  @override
+  String get resetBackLogin => 'Вернуться ко входу';
+
+  @override
+  String get resetCodeInvalid =>
+      'Код неверный, истёк или уже использован. После пяти ошибок запросите новый.';
+
+  @override
+  String get resetMailUnavailable =>
+      'Отправка писем для восстановления пока недоступна. Попробуйте позже или напишите mnyvault@gmail.com.';
+
+  @override
+  String get resetTooManyRequests => 'Слишком много попыток. Повторите позже.';
+
+  @override
+  String get resetPasswordByteLimit =>
+      'Пароль должен занимать не более 72 байт UTF-8. Для нелатинских символов допустимая длина меньше.';
 }

@@ -40,7 +40,7 @@ class UserService:
             raise ConflictError(AuthMessages.ALREADY_EXISTS.value)
 
     def change_password(self, user_id: int, current_password: str, new_password: str) -> bool:
-        user = self.repository.get_by_id(user_id)
+        user = self.repository.get_for_update(user_id)
         if not user:
             raise NotFoundError(AuthMessages.USER_NOT_FOUND.value)
 
@@ -51,7 +51,7 @@ class UserService:
             raise ValidationError(ValidationMessages.PASSWORD_TOO_SHORT.value)
 
         hashed_password = get_password_hash(new_password)
-        password_dict = {'hashed_password': hashed_password}
+        password_dict = {'hashed_password': hashed_password, 'session_version': user.session_version + 1}
         self.repository.update(user, password_dict)
 
         return True

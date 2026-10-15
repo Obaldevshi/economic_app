@@ -472,5 +472,38 @@
         "type": "int"
       }
     }
+  },
+  "forgotPassword": "Forgot password?",
+  "resetPasswordTitle": "Reset your password",
+  "resetPasswordDescription": "Recover access with an email code. Internet connection required.",
+  "sendResetCode": "Send code",
+  "resetCodeNotice": "If {email} is registered, a code will arrive. Check your spam folder too. It expires in 10 minutes; after resending, use the newest code.",
+  "resetCodeLabel": "Email code",
+  "resetCodeHint": "6 digits",
+  "resetCodeFormat": "Enter the six-digit code from the email",
+  "resetPasswordSubmit": "Set new password",
+  "resetPasswordSuccess": "Password changed",
+  "resetPasswordSuccessHint": "Sign in with your new password. Previous server sessions are revoked; savings and your local journal are preserved.",
+  "resetResendCode": "Resend code",
+  "resetResendCountdown": "Resend in {seconds} s",
+  "resetChangeEmail": "Change email",
+  "resetBackLogin": "Back to sign in",
+  "resetCodeInvalid": "This code is wrong, expired or already used. Request a new one after five failed attempts.",
+  "resetMailUnavailable": "Recovery emails are currently unavailable. Try later or contact mnyvault@gmail.com.",
+  "resetTooManyRequests": "Too many attempts. Please try again later.",
+  "resetPasswordByteLimit": "The password must fit within 72 UTF-8 bytes. Non-Latin characters may require a shorter password.",
+  "@resetCodeNotice": {
+    "placeholders": {
+      "email": {
+        "type": "String"
+      }
+    }
+  },
+  "@resetResendCountdown": {
+    "placeholders": {
+      "seconds": {
+        "type": "int"
+      }
+    }
   }
 }

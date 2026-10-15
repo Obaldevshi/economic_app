@@ -1291,4 +1291,71 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get spentRecordedMessage => 'Achat enregistré';
+
+  @override
+  String get forgotPassword => 'Mot de passe oublié ?';
+
+  @override
+  String get resetPasswordTitle => 'Réinitialiser le mot de passe';
+
+  @override
+  String get resetPasswordDescription =>
+      'Récupérez l’accès avec un code envoyé par email. Internet requis.';
+
+  @override
+  String get sendResetCode => 'Envoyer le code';
+
+  @override
+  String resetCodeNotice(String email) {
+    return 'Si $email est inscrit, un code sera envoyé. Vérifiez aussi les indésirables. Il expire dans 10 minutes ; après un renvoi, utilisez le plus récent.';
+  }
+
+  @override
+  String get resetCodeLabel => 'Code reçu par email';
+
+  @override
+  String get resetCodeHint => '6 chiffres';
+
+  @override
+  String get resetCodeFormat =>
+      'Saisissez le code à six chiffres reçu par email';
+
+  @override
+  String get resetPasswordSubmit => 'Définir le nouveau mot de passe';
+
+  @override
+  String get resetPasswordSuccess => 'Mot de passe modifié';
+
+  @override
+  String get resetPasswordSuccessHint =>
+      'Connectez-vous avec le nouveau mot de passe. Les anciennes sessions serveur sont révoquées ; économies et journal local sont conservés.';
+
+  @override
+  String get resetResendCode => 'Renvoyer le code';
+
+  @override
+  String resetResendCountdown(int seconds) {
+    return 'Renvoyer dans $seconds s';
+  }
+
+  @override
+  String get resetChangeEmail => 'Modifier l’email';
+
+  @override
+  String get resetBackLogin => 'Retour à la connexion';
+
+  @override
+  String get resetCodeInvalid =>
+      'Code incorrect, expiré ou déjà utilisé. Après cinq erreurs, demandez-en un nouveau.';
+
+  @override
+  String get resetMailUnavailable =>
+      'Les emails de récupération sont indisponibles. Réessayez plus tard ou contactez mnyvault@gmail.com.';
+
+  @override
+  String get resetTooManyRequests => 'Trop de tentatives. Réessayez plus tard.';
+
+  @override
+  String get resetPasswordByteLimit =>
+      'Le mot de passe ne doit pas dépasser 72 octets UTF-8. Les caractères non latins peuvent nécessiter un mot de passe plus court.';
 }

@@ -1291,4 +1291,71 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get spentRecordedMessage => 'Purchase recorded';
+
+  @override
+  String get forgotPassword => 'Forgot password?';
+
+  @override
+  String get resetPasswordTitle => 'Reset your password';
+
+  @override
+  String get resetPasswordDescription =>
+      'Recover access with an email code. Internet connection required.';
+
+  @override
+  String get sendResetCode => 'Send code';
+
+  @override
+  String resetCodeNotice(String email) {
+    return 'If $email is registered, a code will arrive. Check your spam folder too. It expires in 10 minutes; after resending, use the newest code.';
+  }
+
+  @override
+  String get resetCodeLabel => 'Email code';
+
+  @override
+  String get resetCodeHint => '6 digits';
+
+  @override
+  String get resetCodeFormat => 'Enter the six-digit code from the email';
+
+  @override
+  String get resetPasswordSubmit => 'Set new password';
+
+  @override
+  String get resetPasswordSuccess => 'Password changed';
+
+  @override
+  String get resetPasswordSuccessHint =>
+      'Sign in with your new password. Previous server sessions are revoked; savings and your local journal are preserved.';
+
+  @override
+  String get resetResendCode => 'Resend code';
+
+  @override
+  String resetResendCountdown(int seconds) {
+    return 'Resend in $seconds s';
+  }
+
+  @override
+  String get resetChangeEmail => 'Change email';
+
+  @override
+  String get resetBackLogin => 'Back to sign in';
+
+  @override
+  String get resetCodeInvalid =>
+      'This code is wrong, expired or already used. Request a new one after five failed attempts.';
+
+  @override
+  String get resetMailUnavailable =>
+      'Recovery emails are currently unavailable. Try later or contact mnyvault@gmail.com.';
+
+  @override
+  String get resetTooManyRequests =>
+      'Too many attempts. Please try again later.';
+
+  @override
+  String get resetPasswordByteLimit =>
+      'The password must fit within 72 UTF-8 bytes. Non-Latin characters may require a shorter password.';
 }

@@ -36,13 +36,17 @@ async def base_error_handler(_: Request, exc: BaseError):
 
 
 @app.exception_handler(RequestValidationError)
-async def validation_error_handler(_: Request, exc: RequestValidationError):
+async def validation_error_handler(request: Request, exc: RequestValidationError):
+    errors = exc.errors()
+    if request.url.path.startswith("/api/v1/auth/"):
+        # Validation must not echo passwords or recovery codes into responses.
+        errors = [{key: value for key, value in error.items() if key != "input"} for error in errors]
     return JSONResponse(
         status_code=422,
         content={
             "status_code": 422,
             "message": "Validation error",
-            "errors": jsonable_encoder(exc.errors()),
+            "errors": jsonable_encoder(errors),
         },
     )
 

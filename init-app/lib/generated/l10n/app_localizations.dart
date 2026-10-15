@@ -2451,6 +2451,120 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Purchase recorded'**
   String get spentRecordedMessage;
+
+  /// No description provided for @forgotPassword.
+  ///
+  /// In en, this message translates to:
+  /// **'Forgot password?'**
+  String get forgotPassword;
+
+  /// No description provided for @resetPasswordTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Reset your password'**
+  String get resetPasswordTitle;
+
+  /// No description provided for @resetPasswordDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'Recover access with an email code. Internet connection required.'**
+  String get resetPasswordDescription;
+
+  /// No description provided for @sendResetCode.
+  ///
+  /// In en, this message translates to:
+  /// **'Send code'**
+  String get sendResetCode;
+
+  /// No description provided for @resetCodeNotice.
+  ///
+  /// In en, this message translates to:
+  /// **'If {email} is registered, a code will arrive. Check your spam folder too. It expires in 10 minutes; after resending, use the newest code.'**
+  String resetCodeNotice(String email);
+
+  /// No description provided for @resetCodeLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Email code'**
+  String get resetCodeLabel;
+
+  /// No description provided for @resetCodeHint.
+  ///
+  /// In en, this message translates to:
+  /// **'6 digits'**
+  String get resetCodeHint;
+
+  /// No description provided for @resetCodeFormat.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter the six-digit code from the email'**
+  String get resetCodeFormat;
+
+  /// No description provided for @resetPasswordSubmit.
+  ///
+  /// In en, this message translates to:
+  /// **'Set new password'**
+  String get resetPasswordSubmit;
+
+  /// No description provided for @resetPasswordSuccess.
+  ///
+  /// In en, this message translates to:
+  /// **'Password changed'**
+  String get resetPasswordSuccess;
+
+  /// No description provided for @resetPasswordSuccessHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Sign in with your new password. Previous server sessions are revoked; savings and your local journal are preserved.'**
+  String get resetPasswordSuccessHint;
+
+  /// No description provided for @resetResendCode.
+  ///
+  /// In en, this message translates to:
+  /// **'Resend code'**
+  String get resetResendCode;
+
+  /// No description provided for @resetResendCountdown.
+  ///
+  /// In en, this message translates to:
+  /// **'Resend in {seconds} s'**
+  String resetResendCountdown(int seconds);
+
+  /// No description provided for @resetChangeEmail.
+  ///
+  /// In en, this message translates to:
+  /// **'Change email'**
+  String get resetChangeEmail;
+
+  /// No description provided for @resetBackLogin.
+  ///
+  /// In en, this message translates to:
+  /// **'Back to sign in'**
+  String get resetBackLogin;
+
+  /// No description provided for @resetCodeInvalid.
+  ///
+  /// In en, this message translates to:
+  /// **'This code is wrong, expired or already used. Request a new one after five failed attempts.'**
+  String get resetCodeInvalid;
+
+  /// No description provided for @resetMailUnavailable.
+  ///
+  /// In en, this message translates to:
+  /// **'Recovery emails are currently unavailable. Try later or contact mnyvault@gmail.com.'**
+  String get resetMailUnavailable;
+
+  /// No description provided for @resetTooManyRequests.
+  ///
+  /// In en, this message translates to:
+  /// **'Too many attempts. Please try again later.'**
+  String get resetTooManyRequests;
+
+  /// No description provided for @resetPasswordByteLimit.
+  ///
+  /// In en, this message translates to:
+  /// **'The password must fit within 72 UTF-8 bytes. Non-Latin characters may require a shorter password.'**
+  String get resetPasswordByteLimit;
 }
 
 class _AppLocalizationsDelegate

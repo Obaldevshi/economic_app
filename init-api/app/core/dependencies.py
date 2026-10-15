@@ -4,6 +4,7 @@ from sqlalchemy.orm import Session
 
 from app.config.database import get_db
 from app.services.auth_service import AuthService
+from app.services.password_reset_service import PasswordResetService
 from app.services.category_service import CategoryService
 from app.services.user_service import UserService
 from app.services.savings_service import SavingsService
@@ -23,6 +24,10 @@ def get_auth_service(db: DatabaseDep) -> AuthService:
     return AuthService(db)
 
 
+def get_password_reset_service(db: DatabaseDep) -> PasswordResetService:
+    return PasswordResetService(db)
+
+
 def get_category_service(db: DatabaseDep) -> CategoryService:
     return CategoryService(db)
 
@@ -37,6 +42,7 @@ def get_savings_sync_service(db: DatabaseDep, request: Request) -> SavingsSyncSe
 
 UserServiceDep = Annotated[UserService, Depends(get_user_service)]
 AuthServiceDep = Annotated[AuthService, Depends(get_auth_service)]
+PasswordResetServiceDep = Annotated[PasswordResetService, Depends(get_password_reset_service)]
 CategoryServiceDep = Annotated[CategoryService, Depends(get_category_service)]
 SavingsServiceDep = Annotated[SavingsService, Depends(get_savings_service)]
 SavingsSyncServiceDep = Annotated[SavingsSyncService, Depends(get_savings_sync_service)]

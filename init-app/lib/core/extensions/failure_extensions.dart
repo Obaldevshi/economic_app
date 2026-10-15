@@ -6,6 +6,11 @@ import 'package:flutter/material.dart';
 extension FailureLocalization on Failure {
   String localizedMessage(BuildContext context) {
     final custom = switch (message) {
+      'Password reset code is invalid or expired' =>
+        context.l10n.resetCodeInvalid,
+      'Password reset email is unavailable' =>
+        context.l10n.resetMailUnavailable,
+      'Too many password reset attempts' => context.l10n.resetTooManyRequests,
       'Offline journal unavailable' => context.l10n.offlineInitialData,
       'Offline storage unavailable' => context.l10n.offlineStorageError,
       'Sync before switching currency' ||

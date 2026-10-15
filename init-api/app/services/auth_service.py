@@ -44,7 +44,8 @@ class AuthService:
 
         access_token = create_access_token(
             user_id=user.id,
-            email=user.email
+            email=user.email,
+            session_version=user.session_version,
         )
 
         return TokenData(

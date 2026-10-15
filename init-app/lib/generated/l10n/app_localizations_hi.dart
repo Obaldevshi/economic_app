@@ -1273,4 +1273,71 @@ class AppLocalizationsHi extends AppLocalizations {
 
   @override
   String get spentRecordedMessage => 'खरीद दर्ज हुई';
+
+  @override
+  String get forgotPassword => 'पासवर्ड भूल गए?';
+
+  @override
+  String get resetPasswordTitle => 'पासवर्ड रीसेट करें';
+
+  @override
+  String get resetPasswordDescription =>
+      'ईमेल कोड से पहुँच वापस पाएँ। इंटरनेट ज़रूरी है।';
+
+  @override
+  String get sendResetCode => 'कोड भेजें';
+
+  @override
+  String resetCodeNotice(String email) {
+    return 'अगर $email पंजीकृत है, तो कोड आएगा। स्पैम फ़ोल्डर भी देखें। यह 10 मिनट मान्य है; दोबारा भेजने पर नया कोड इस्तेमाल करें।';
+  }
+
+  @override
+  String get resetCodeLabel => 'ईमेल का कोड';
+
+  @override
+  String get resetCodeHint => '6 अंक';
+
+  @override
+  String get resetCodeFormat => 'ईमेल में आया छह अंकों का कोड दर्ज करें';
+
+  @override
+  String get resetPasswordSubmit => 'नया पासवर्ड सेट करें';
+
+  @override
+  String get resetPasswordSuccess => 'पासवर्ड बदल गया';
+
+  @override
+  String get resetPasswordSuccessHint =>
+      'नए पासवर्ड से प्रवेश करें। पुराने सर्वर सत्र रद्द हो गए हैं; बचत और स्थानीय डायरी सुरक्षित हैं।';
+
+  @override
+  String get resetResendCode => 'कोड दोबारा भेजें';
+
+  @override
+  String resetResendCountdown(int seconds) {
+    return '$seconds सेकंड में दोबारा भेजें';
+  }
+
+  @override
+  String get resetChangeEmail => 'ईमेल बदलें';
+
+  @override
+  String get resetBackLogin => 'प्रवेश पर लौटें';
+
+  @override
+  String get resetCodeInvalid =>
+      'कोड गलत, समाप्त या पहले इस्तेमाल हो चुका है। पाँच गलत प्रयासों के बाद नया कोड माँगें।';
+
+  @override
+  String get resetMailUnavailable =>
+      'पुनर्प्राप्ति ईमेल अभी उपलब्ध नहीं है। बाद में कोशिश करें या mnyvault@gmail.com से संपर्क करें।';
+
+  @override
+  String get resetTooManyRequests =>
+      'बहुत अधिक प्रयास। बाद में फिर कोशिश करें।';
+
+  @override
+  String get resetPasswordByteLimit =>
+      'पासवर्ड अधिकतम 72 UTF-8 बाइट का हो सकता है। गैर-लैटिन अक्षरों के लिए छोटा पासवर्ड ज़रूरी हो सकता है।';
 }

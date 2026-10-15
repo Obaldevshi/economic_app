@@ -18,18 +18,24 @@ class SessionService extends ChangeNotifier {
   int? _expiresIn;
   int? _loginTime;
   bool _needsOnlineLogin = false;
-  int? get accountId {
+  Map<String, dynamic> get _tokenClaims {
     try {
       final payload = jsonDecode(
         utf8.decode(
           base64Url.decode(base64Url.normalize(_accessToken!.split('.')[1])),
         ),
       );
-      return int.tryParse('${payload['user_id']}');
+      return Map<String, dynamic>.from(payload as Map);
     } catch (_) {
-      return null;
+      return {};
     }
   }
+
+  int? get accountId => int.tryParse('${_tokenClaims['user_id']}');
+  String? get accountEmail => switch (_tokenClaims['email']) {
+    String email => email,
+    _ => null,
+  };
 
   bool get needsOnlineLogin => _needsOnlineLogin || isTokenExpired();
   void requireOnlineLogin() {

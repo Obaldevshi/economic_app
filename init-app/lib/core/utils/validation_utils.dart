@@ -9,7 +9,9 @@ class ValidationUtils {
     if (value == null || value.isEmpty) {
       return context != null ? context.l10n.emailRequired : 'Email is required';
     }
-    if (!RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$').hasMatch(value)) {
+    // Allow plus-addressing and modern long TLDs; the API validates EmailStr.
+    if (value.length > 254 ||
+        !RegExp(r'^[^\s@]+@[^\s@]+\.[^\s@]+$').hasMatch(value)) {
       return context != null
           ? context.l10n.emailInvalid
           : 'Please enter a valid email address';
@@ -24,7 +26,7 @@ class ValidationUtils {
           ? context.l10n.passwordRequired
           : 'Password is required';
     }
-    if (value.length < 8) {
+    if (value.runes.length < 8) {
       return context != null
           ? context.l10n.passwordTooShort(8)
           : 'Password must be at least 8 characters';

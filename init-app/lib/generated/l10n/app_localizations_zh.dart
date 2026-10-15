@@ -1233,4 +1233,65 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get spentRecordedMessage => '购买已记录';
+
+  @override
+  String get forgotPassword => '忘记密码？';
+
+  @override
+  String get resetPasswordTitle => '重置密码';
+
+  @override
+  String get resetPasswordDescription => '通过邮件验证码恢复访问。需要联网。';
+
+  @override
+  String get sendResetCode => '发送验证码';
+
+  @override
+  String resetCodeNotice(String email) {
+    return '如果 $email 已注册，将收到验证码。请同时检查垃圾邮件。验证码10分钟内有效；重新发送后请使用最新的验证码。';
+  }
+
+  @override
+  String get resetCodeLabel => '邮件验证码';
+
+  @override
+  String get resetCodeHint => '6位数字';
+
+  @override
+  String get resetCodeFormat => '请输入邮件中的六位验证码';
+
+  @override
+  String get resetPasswordSubmit => '设置新密码';
+
+  @override
+  String get resetPasswordSuccess => '密码已更改';
+
+  @override
+  String get resetPasswordSuccessHint => '请使用新密码登录。旧的服务器会话已撤销；节省记录和本地账本会保留。';
+
+  @override
+  String get resetResendCode => '重新发送验证码';
+
+  @override
+  String resetResendCountdown(int seconds) {
+    return '$seconds秒后重发';
+  }
+
+  @override
+  String get resetChangeEmail => '更改邮箱';
+
+  @override
+  String get resetBackLogin => '返回登录';
+
+  @override
+  String get resetCodeInvalid => '验证码错误、已过期或已使用。输错五次后请重新获取。';
+
+  @override
+  String get resetMailUnavailable => '恢复邮件暂时无法发送。请稍后重试或联系 mnyvault@gmail.com。';
+
+  @override
+  String get resetTooManyRequests => '尝试次数过多，请稍后重试。';
+
+  @override
+  String get resetPasswordByteLimit => '密码不能超过72个UTF-8字节。非拉丁字符可能需要使用较短的密码。';
 }
