@@ -24,10 +24,17 @@
   <style>
     html, body { margin: 0; min-height: 100%; background: #f3efe7; }
     #boot { position: fixed; inset: 0; display: grid; place-content: center;
-      text-align: center; color: #292f35; font: 16px/1.6 system-ui, sans-serif; }
+      padding: 24px; box-sizing: border-box; text-align: center;
+      color: #292f35; font: 16px/1.6 system-ui, sans-serif; }
     #boot img { margin: 0 auto 20px; width: 64px; height: 64px; }
     #boot strong { font: 32px/1.2 Georgia, serif; }
     #boot small { margin-top: 16px; color: #666a70; }
+    #boot-message { max-width: 28rem; margin: 16px auto 0; color: #666a70; }
+    #boot-retry { min-height: 48px; margin: 20px auto 0; padding: 10px 24px;
+      border: 0; border-radius: 12px; background: #925437; color: #fff;
+      font: inherit; cursor: pointer; }
+    #boot-retry:focus-visible { outline: 3px solid #292f35; outline-offset: 4px; }
+    #boot-retry[hidden] { display: none; }
   </style>
 
   <!-- iOS meta tags & icons -->
@@ -53,11 +60,70 @@
     <img src="brand-mark.svg" alt="">
     <strong>Не потратил</strong>
     <small>Маленькие решения. Большая разница.</small>
+    <p id="boot-message"></p>
+    <button id="boot-retry" type="button" hidden></button>
   </div>
   <script>
-    window.addEventListener('flutter-first-frame', function () {
-      document.getElementById('boot')?.remove();
-    });
+    (() => {
+      const boot = document.getElementById('boot');
+      const message = document.getElementById('boot-message');
+      const retry = document.getElementById('boot-retry');
+      const ru = navigator.language.toLowerCase().startsWith('ru');
+      const text = ru ? {
+        engine: 'Загружаем интерфейс…', app: 'Открываем приложение…',
+        slow: 'Загрузка занимает больше времени, чем обычно. Можно подождать или попробовать ещё раз.',
+        failed: 'Не удалось загрузить приложение. Проверьте соединение и попробуйте ещё раз.',
+        retrying: 'Соединение прервалось. Повторяем загрузку…', retry: 'Попробовать ещё раз',
+      } : {
+        engine: 'Loading the interface…', app: 'Opening the app…',
+        slow: 'Loading is taking longer than usual. You can wait or try again.',
+        failed: 'The app could not load. Check your connection and try again.',
+        retrying: 'The connection was interrupted. Retrying…', retry: 'Try again',
+      };
+      const retryKey = 'sberiga_boot_retry_at';
+      let finished = false;
+      let retrying = false;
+      const watchdog = setTimeout(() => {
+        if (!finished && !retrying) {
+          message.textContent = text.slow;
+          retry.hidden = false;
+        }
+      }, 45000);
+      retry.textContent = text.retry;
+      retry.addEventListener('click', () => window.location.reload());
+      window.sberigaStartup = {
+        stage(name) {
+          if (!finished && !retrying) message.textContent = text[name] || '';
+        },
+        fail(error) {
+          if (finished || retrying) return;
+          clearTimeout(watchdog);
+          // Retry an interrupted resource load once, before any form is shown.
+          // Never clear application storage or reload a slow, still-running boot.
+          const networkFailure = /network|fetch|load failed|aborted/i.test(String(error));
+          if (networkFailure && navigator.onLine) {
+            try {
+              const previous = Number(sessionStorage.getItem(retryKey)) || 0;
+              if (Date.now() - previous > 120000) {
+                sessionStorage.setItem(retryKey, String(Date.now()));
+                retrying = true;
+                message.textContent = text.retrying;
+                setTimeout(() => window.location.reload(), 500);
+                return;
+              }
+            } catch (_) { /* Storage restrictions must not hide recovery UI. */ }
+          }
+          message.textContent = text.failed;
+          retry.hidden = false;
+        },
+      };
+      window.addEventListener('flutter-first-frame', () => {
+        finished = true;
+        clearTimeout(watchdog);
+        try { sessionStorage.removeItem(retryKey); } catch (_) {}
+        boot.remove();
+      }, { once: true });
+    })();
   </script>
   <!--
     You can customize the "flutter_bootstrap.js" script.
@@ -67,6 +133,7 @@
     For more details:
     * https://docs.flutter.dev/platform-integration/web/initialization
   -->
-  <script src="flutter_bootstrap.js" async></script>
+  <script src="flutter_bootstrap.js" async
+    onerror="window.sberigaStartup.fail(new Error('Network error loading bootstrap'))"></script>
 </body>
 </html>

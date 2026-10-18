@@ -35,8 +35,29 @@ if (!window._flutter) {
 }
 _flutter.buildConfig = {"engineRevision":"5a2a6a42cce67f965cf540fcecf616faca624aa1","builds":[{"compileTarget":"dart2js","renderer":"canvaskit","mainJsPath":"main.dart.js"},{}],"useLocalCanvasKit":true};
 
-_flutter.loader.load({
-  serviceWorkerSettings: {
-    serviceWorkerVersion: "2958001434" /* Flutter's service worker is deprecated and will be removed in a future Flutter release. */
+
+(() => {
+  const config = {
+    canvasKitBaseUrl: new URL('canvaskit/', document.baseURI).href,
+  };
+  try {
+    // The current Flutter worker is a retirement stub that unregisters itself
+    // and reloads its clients. Registering it on every boot causes a reload loop.
+    // Web uses live API data; Android offline storage is independent of this.
+    Promise.resolve(_flutter.loader.load({
+      config,
+      onEntrypointLoaded: async (engineInitializer) => {
+        try {
+          window.sberigaStartup.stage('engine');
+          const appRunner = await engineInitializer.initializeEngine(config);
+          window.sberigaStartup.stage('app');
+          await appRunner.runApp();
+        } catch (error) {
+          window.sberigaStartup.fail(error);
+        }
+      },
+    })).catch((error) => window.sberigaStartup.fail(error));
+  } catch (error) {
+    window.sberigaStartup.fail(error);
   }
-});
+})();
