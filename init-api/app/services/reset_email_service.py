@@ -1,16 +1,18 @@
 import base64
+import smtplib
+import ssl
 import threading
 import time
 from email.message import EmailMessage
-from email.utils import formataddr
+from email.utils import formataddr, formatdate, make_msgid
 
 import httpx
 
 from app.config.settings import settings
 
 
-class GmailDeliveryError(Exception):
-    """Sanitized error: never attach Google response bodies or credentials."""
+class EmailDeliveryError(Exception):
+    """Sanitized error: never attach provider responses or credentials."""
 
 
 MESSAGES = {
@@ -26,7 +28,7 @@ MESSAGES = {
 }
 
 
-class GmailService:
+class ResetEmailService:
     def __init__(self):
         self._token = None
         self._expires = 0
@@ -34,7 +36,13 @@ class GmailService:
 
     @property
     def configured(self):
-        return bool(settings.password_reset_enabled and settings.gmail_client_id
+        if not settings.password_reset_enabled:
+            return False
+        if settings.password_reset_provider == "smtp":
+            return bool(settings.smtp_host.strip() and settings.smtp_username
+                        and settings.smtp_password.get_secret_value()
+                        and settings.smtp_sender_email == settings.smtp_username)
+        return bool(settings.gmail_client_id
                     and settings.gmail_client_secret.get_secret_value()
                     and settings.gmail_refresh_token.get_secret_value())
 
@@ -49,25 +57,32 @@ class GmailService:
                 "grant_type": "refresh_token",
             })
             if response.status_code != 200:
-                raise GmailDeliveryError("oauth")
+                raise EmailDeliveryError("oauth")
             data = response.json()
             token = data.get("access_token")
             if not isinstance(token, str) or not token:
-                raise GmailDeliveryError("oauth")
+                raise EmailDeliveryError("oauth")
             self._token = token
             self._expires = time.monotonic() + max(0, int(data.get("expires_in", 3600)) - 60)
             return token
 
     def send_reset(self, recipient, code, language):
         if not self.configured:
-            raise GmailDeliveryError("configuration")
+            raise EmailDeliveryError("configuration")
         subject, body = MESSAGES.get(language, MESSAGES["en"])
         message = EmailMessage()
-        message["From"] = formataddr(("Not Spent", str(settings.gmail_sender_email)))
+        sender = (settings.smtp_sender_email if settings.password_reset_provider == "smtp"
+                  else settings.gmail_sender_email)
+        message["From"] = formataddr(("Not Spent", str(sender)))
         message["To"] = recipient
         message["Subject"] = subject
         message["Content-Language"] = language
+        message["Date"] = formatdate(localtime=False, usegmt=True)
+        message["Message-ID"] = make_msgid(domain=str(sender).rsplit("@", 1)[1])
         message.set_content(body.format(code=code))
+        if settings.password_reset_provider == "smtp":
+            self._send_smtp(message, str(sender), recipient)
+            return
         raw = base64.urlsafe_b64encode(message.as_bytes()).decode("ascii")
         with httpx.Client(timeout=15, follow_redirects=False) as client:
             for attempt in range(2):
@@ -78,8 +93,35 @@ class GmailService:
                     continue
                 if response.status_code != 200:
                     # Do not retry uncertain deliveries or include the MIME body.
-                    raise GmailDeliveryError("send")
+                    raise EmailDeliveryError("send")
                 return
 
 
-gmail_service = GmailService()
+    def _send_smtp(self, message, sender, recipient):
+        client = None
+        try:
+            context = ssl.create_default_context()
+            if settings.smtp_security == "ssl":
+                client = smtplib.SMTP_SSL(settings.smtp_host.strip(), settings.smtp_port,
+                                          timeout=15, context=context)
+            else:
+                client = smtplib.SMTP(settings.smtp_host.strip(), settings.smtp_port, timeout=15)
+                client.ehlo()
+                # No plaintext credentials or unencrypted fallback if TLS fails.
+                client.starttls(context=context)
+                client.ehlo()
+            client.login(str(settings.smtp_username), settings.smtp_password.get_secret_value())
+            refused = client.send_message(message, from_addr=sender, to_addrs=[recipient])
+            if refused:
+                raise EmailDeliveryError("smtp_recipient")
+            # A successful SMTP response means acceptance, not inbox delivery.
+            # Never retry an uncertain send or expose provider replies in logs.
+        except (smtplib.SMTPException, OSError):
+            raise EmailDeliveryError("smtp") from None
+        finally:
+            if client is not None:
+                # Avoid treating a failed QUIT after acceptance as a failed send.
+                client.close()
+
+
+reset_email_service = ResetEmailService()

@@ -10,7 +10,7 @@ from app.core.exceptions import BaseError, ValidationError
 from app.core.security import get_password_hash
 from app.models.password_reset import PasswordResetChallenge, PasswordResetLimit
 from app.repositories.password_reset_repository import PasswordResetRepository
-from app.services.gmail_service import gmail_service
+from app.services.reset_email_service import reset_email_service
 
 logger = logging.getLogger(__name__)
 INVALID_CODE = "Password reset code is invalid or expired"
@@ -33,7 +33,7 @@ class PasswordResetService:
         self.repository = PasswordResetRepository(db)
 
     def request_code(self, data, client_ip):
-        if not gmail_service.configured:
+        if not reset_email_service.configured:
             raise BaseError("Password reset email is unavailable", 503)
         repo, now = self.repository, datetime.utcnow()
         key = _email_key(str(data.email))
@@ -118,9 +118,9 @@ def deliver_reset_email(key, generation, recipient, code, language):
             if (current is None or current.generation != generation or current.code_hash is None
                     or current.expires_at <= datetime.utcnow()):
                 return
-        gmail_service.send_reset(recipient, code, language)
+        reset_email_service.send_reset(recipient, code, language)
     except Exception as error:
-        # Google errors may contain credentials/MIME contents; log no raw detail.
+        # Provider errors may contain credentials/MIME contents; log no raw detail.
         logger.error("Password reset delivery failed: %s", type(error).__name__)
         try:
             with SessionLocal() as db:

@@ -1,3 +1,5 @@
+from typing import Literal
+
 from pydantic import EmailStr, Field, SecretStr, field_validator
 from pydantic_settings import BaseSettings, SettingsConfigDict
 from sqlalchemy.engine import make_url
@@ -16,6 +18,13 @@ class Settings(BaseSettings):
 
     password_reset_enabled: bool = False
     password_reset_daily_limit: int = Field(default=100, ge=1, le=400)
+    password_reset_provider: Literal["gmail", "smtp"] = "gmail"
+    smtp_host: str = ""
+    smtp_port: int = Field(default=465, ge=1, le=65535)
+    smtp_security: Literal["ssl", "starttls"] = "ssl"
+    smtp_username: EmailStr | None = None
+    smtp_password: SecretStr = SecretStr("")
+    smtp_sender_email: EmailStr | None = None
     gmail_client_id: str = ""
     gmail_client_secret: SecretStr = SecretStr("")
     gmail_refresh_token: SecretStr = SecretStr("")
