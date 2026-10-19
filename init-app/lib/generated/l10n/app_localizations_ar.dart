@@ -9,6 +9,9 @@ class AppLocalizationsAr extends AppLocalizations {
   AppLocalizationsAr([String locale = 'ar']) : super(locale);
 
   @override
+  String get downloadAndroidApp => 'تنزيل تطبيق Android · APK';
+
+  @override
   String get lastNameOptional => 'اسم العائلة (اختياري)';
 
   @override

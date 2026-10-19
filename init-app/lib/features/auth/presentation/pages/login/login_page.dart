@@ -2,6 +2,7 @@ import 'package:mobile_template/app/app_router.dart';
 import 'package:mobile_template/app/theme/app_dimensions.dart';
 import 'package:mobile_template/core/extensions/build_context_extensions.dart';
 import 'package:mobile_template/core/utils/validation_utils.dart';
+import 'package:mobile_template/core/utils/app_download.dart';
 import 'package:mobile_template/features/auth/presentation/pages/login/bloc/login_bloc.dart';
 import 'package:mobile_template/features/auth/presentation/widgets/auth_link_text.dart';
 import 'package:mobile_template/features/auth/presentation/widgets/auth_scroll_scaffold.dart';
@@ -10,6 +11,7 @@ import 'package:mobile_template/presentation/widgets/common/error_dialog.dart';
 import 'package:mobile_template/presentation/widgets/common/global_button.dart';
 import 'package:mobile_template/presentation/widgets/common/global_text_form_field.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
@@ -62,6 +64,25 @@ class _LoginPageState extends State<LoginPage> {
           hero: LoginHeroSection(
             title: context.l10n.welcomeBack,
             subtitle: context.l10n.loginSubtitle,
+            action: kIsWeb
+                ? OutlinedButton.icon(
+                    onPressed: downloadAndroidApp,
+                    icon: const Icon(Icons.android),
+                    label: Text(
+                      context.l10n.downloadAndroidApp,
+                      textAlign: TextAlign.center,
+                    ),
+                    style: OutlinedButton.styleFrom(
+                      foregroundColor: Colors.white,
+                      side: const BorderSide(color: Colors.white70),
+                      minimumSize: const Size(0, 48),
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 20,
+                        vertical: 14,
+                      ),
+                    ),
+                  )
+                : null,
           ),
           form: AutofillGroup(
             onDisposeAction: AutofillContextAction.cancel,

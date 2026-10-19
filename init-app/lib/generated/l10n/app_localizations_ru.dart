@@ -9,6 +9,9 @@ class AppLocalizationsRu extends AppLocalizations {
   AppLocalizationsRu([String locale = 'ru']) : super(locale);
 
   @override
+  String get downloadAndroidApp => 'Скачать для Android · APK';
+
+  @override
   String get lastNameOptional => 'Фамилия (необязательно)';
 
   @override

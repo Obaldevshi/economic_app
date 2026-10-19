@@ -35,6 +35,11 @@
       font: inherit; cursor: pointer; }
     #boot-retry:focus-visible { outline: 3px solid #292f35; outline-offset: 4px; }
     #boot-retry[hidden] { display: none; }
+    #boot-download { display: inline-block; justify-self: center; margin-top: 24px;
+      padding: 12px 20px; border: 1px solid #925437; border-radius: 12px;
+      color: #76412b; text-decoration: none; font-weight: 600; }
+    #boot-download:hover { background: #e9dfd3; }
+    #boot-download:focus-visible { outline: 3px solid #292f35; outline-offset: 4px; }
   </style>
 
   <!-- iOS meta tags & icons -->
@@ -55,6 +60,7 @@
     <style>#boot{display:none!important}</style>
     <p>Для приложения нужен JavaScript. Описание проекта и документы доступны без входа. / The app requires JavaScript. Project information and documents are public.</p>
     <nav aria-label="Публичные страницы / Public pages"><a href="about/">О проекте / About</a> · <a href="privacy/">Конфиденциальность / Privacy</a> · <a href="terms/">Условия / Terms</a> · <a href="support/">Поддержка / Support</a></nav>
+    <p><a href="https://github.com/Obaldevshi/economic_app/releases/latest/download/not-spent-release.apk" target="_blank" rel="noopener noreferrer">Скачать для Android · APK / Download for Android · APK</a></p>
   </noscript>
   <div id="boot" role="status" aria-live="polite">
     <img src="brand-mark.svg" alt="">
@@ -62,6 +68,7 @@
     <small>Маленькие решения. Большая разница.</small>
     <p id="boot-message"></p>
     <button id="boot-retry" type="button" hidden></button>
+    <a id="boot-download" href="https://github.com/Obaldevshi/economic_app/releases/latest/download/not-spent-release.apk" target="_blank" rel="noopener noreferrer">Скачать для Android · APK</a>
   </div>
   <script>
     (() => {
@@ -69,6 +76,8 @@
       const message = document.getElementById('boot-message');
       const retry = document.getElementById('boot-retry');
       const ru = navigator.language.toLowerCase().startsWith('ru');
+      document.getElementById('boot-download').textContent = ru
+        ? 'Скачать для Android · APK' : 'Download for Android · APK';
       const text = ru ? {
         engine: 'Загружаем интерфейс…', app: 'Открываем приложение…',
         slow: 'Загрузка занимает больше времени, чем обычно. Можно подождать или попробовать ещё раз.',

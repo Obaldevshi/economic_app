@@ -13,6 +13,7 @@ class LoginHeroSection extends StatelessWidget {
     required this.subtitle,
     this.showBackButton = false,
     this.onBackPressed,
+    this.action,
     super.key,
   });
 
@@ -20,6 +21,7 @@ class LoginHeroSection extends StatelessWidget {
   final String subtitle;
   final bool showBackButton;
   final VoidCallback? onBackPressed;
+  final Widget? action;
 
   @override
   Widget build(BuildContext context) {
@@ -91,6 +93,10 @@ class LoginHeroSection extends StatelessWidget {
             ),
             textAlign: isWide ? TextAlign.start : TextAlign.center,
           ),
+          if (action != null) ...[
+            const SizedBox(height: AppDimensions.spaceL),
+            action!,
+          ],
         ],
       ),
     );

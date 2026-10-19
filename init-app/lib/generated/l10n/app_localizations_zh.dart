@@ -9,6 +9,9 @@ class AppLocalizationsZh extends AppLocalizations {
   AppLocalizationsZh([String locale = 'zh']) : super(locale);
 
   @override
+  String get downloadAndroidApp => '下载 Android 应用 · APK';
+
+  @override
   String get lastNameOptional => '姓氏（选填）';
 
   @override

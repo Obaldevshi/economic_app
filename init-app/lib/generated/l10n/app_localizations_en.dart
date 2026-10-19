@@ -9,6 +9,9 @@ class AppLocalizationsEn extends AppLocalizations {
   AppLocalizationsEn([String locale = 'en']) : super(locale);
 
   @override
+  String get downloadAndroidApp => 'Download for Android · APK';
+
+  @override
   String get lastNameOptional => 'Last name (optional)';
 
   @override

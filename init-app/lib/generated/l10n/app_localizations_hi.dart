@@ -9,6 +9,9 @@ class AppLocalizationsHi extends AppLocalizations {
   AppLocalizationsHi([String locale = 'hi']) : super(locale);
 
   @override
+  String get downloadAndroidApp => 'Android के लिए डाउनलोड करें · APK';
+
+  @override
   String get lastNameOptional => 'उपनाम (वैकल्पिक)';
 
   @override

@@ -112,6 +112,12 @@ abstract class AppLocalizations {
     Locale('zh'),
   ];
 
+  /// No description provided for @downloadAndroidApp.
+  ///
+  /// In en, this message translates to:
+  /// **'Download for Android · APK'**
+  String get downloadAndroidApp;
+
   /// No description provided for @lastNameOptional.
   ///
   /// In en, this message translates to:
