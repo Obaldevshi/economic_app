@@ -94,36 +94,7 @@ class ImpulseItemsPage extends StatelessWidget {
                       style: Theme.of(context).textTheme.bodySmall,
                     ),
                     const SizedBox(height: AppDimensions.spaceL),
-                    Row(
-                      children: [
-                        Expanded(
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                context.l10n.quickChoices,
-                                style: Theme.of(context).textTheme.titleLarge,
-                              ),
-                              const SizedBox(height: 4),
-                              Text(
-                                context.l10n.impulseAnnualHint,
-                                style: Theme.of(context).textTheme.bodyMedium
-                                    ?.copyWith(
-                                      color: Theme.of(
-                                        context,
-                                      ).colorScheme.onSurfaceVariant,
-                                    ),
-                              ),
-                            ],
-                          ),
-                        ),
-                        FilledButton.tonalIcon(
-                          onPressed: () => showImpulseEditorDialog(context),
-                          icon: const Icon(Icons.add_rounded),
-                          label: Text(context.l10n.addHabit),
-                        ),
-                      ],
-                    ),
+                    const _HabitChoicesHeader(),
                     const SizedBox(height: AppDimensions.spaceM),
                     AppLayoutItemBuilder<Widget>(
                       narrow: () => Column(
@@ -136,22 +107,37 @@ class ImpulseItemsPage extends StatelessWidget {
                             ),
                         ],
                       ),
-                      wide: () => GridView.builder(
-                        shrinkWrap: true,
-                        physics: const NeverScrollableScrollPhysics(),
-                        itemCount: state.impulses.length,
-                        gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
-                          maxCrossAxisExtent: 390,
-                          mainAxisExtent: state.settings == null ? 228 : 346,
-                          crossAxisSpacing: AppDimensions.spaceM,
-                          mainAxisSpacing: AppDimensions.spaceM,
-                        ),
-                        itemBuilder: (context, index) => _HabitCard(
-                          item: state.impulses[index],
-                          allItems: state.impulses,
-                          settings: state.settings,
-                          addBottomSpacing: false,
-                        ),
+                      wide: () => LayoutBuilder(
+                        builder: (context, constraints) {
+                          const gap = AppDimensions.spaceM;
+                          const minCardWidth = 340.0;
+                          final columns =
+                              ((constraints.maxWidth + gap) /
+                                      (minCardWidth + gap))
+                                  .floor()
+                                  .clamp(1, 4);
+                          final width =
+                              (constraints.maxWidth - gap * (columns - 1)) /
+                              columns;
+                          // Natural heights keep actions visible with large
+                          // text and translations; no fixed-height grid cells.
+                          return Wrap(
+                            spacing: gap,
+                            runSpacing: gap,
+                            children: [
+                              for (final item in state.impulses)
+                                SizedBox(
+                                  width: width,
+                                  child: _HabitCard(
+                                    item: item,
+                                    allItems: state.impulses,
+                                    settings: state.settings,
+                                    addBottomSpacing: false,
+                                  ),
+                                ),
+                            ],
+                          );
+                        },
                       ),
                     )(context),
                   ],
@@ -160,6 +146,52 @@ class ImpulseItemsPage extends StatelessWidget {
             ),
     ),
   );
+}
+
+class _HabitChoicesHeader extends StatelessWidget {
+  const _HabitChoicesHeader();
+
+  @override
+  Widget build(BuildContext context) {
+    final title = Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          context.l10n.quickChoices,
+          style: Theme.of(context).textTheme.titleLarge,
+        ),
+        const SizedBox(height: 4),
+        Text(
+          context.l10n.impulseAnnualHint,
+          style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+            color: Theme.of(context).colorScheme.onSurfaceVariant,
+          ),
+        ),
+      ],
+    );
+    final add = FilledButton.tonalIcon(
+      onPressed: () => showImpulseEditorDialog(context),
+      icon: const Icon(Icons.add_rounded),
+      label: Text(context.l10n.addHabit),
+    );
+    return AppLayoutItemBuilder<Widget>(
+      narrow: () => Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          title,
+          const SizedBox(height: AppDimensions.spaceM),
+          add,
+        ],
+      ),
+      wide: () => Row(
+        children: [
+          Expanded(child: title),
+          const SizedBox(width: AppDimensions.spaceM),
+          Flexible(child: add),
+        ],
+      ),
+    )(context);
+  }
 }
 
 class _PotentialSummary extends StatelessWidget {
@@ -458,13 +490,16 @@ class _HabitCard extends StatelessWidget {
                 color: Theme.of(context).colorScheme.surfaceContainerHighest,
                 borderRadius: AppDimensions.borderRadiusM,
               ),
-              child: Row(
+              child: Wrap(
+                alignment: WrapAlignment.spaceBetween,
+                crossAxisAlignment: WrapCrossAlignment.center,
+                spacing: AppDimensions.spaceS,
+                runSpacing: 4,
                 children: [
                   Text(
                     context.l10n.annualPotential,
                     style: Theme.of(context).textTheme.bodySmall,
                   ),
-                  const Spacer(),
                   Text(
                     formatCompactRubles(context, annual),
                     style: Theme.of(context).textTheme.titleSmall?.copyWith(

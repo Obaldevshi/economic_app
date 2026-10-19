@@ -772,8 +772,12 @@ class OfflineSavingsService extends ChangeNotifier {
       try {
         await _persist(id);
       } catch (_) {
-        _data = previous;
-        issue = 'storage';
+        // The storage future may finish after logout/account switching. Never
+        // roll an old snapshot back into the newly active account's memory.
+        if (_account == id) {
+          _data = previous;
+          issue = 'storage';
+        }
         throw const CacheFailure(message: 'Offline storage unavailable');
       }
       revision++;
@@ -806,12 +810,16 @@ class OfflineSavingsService extends ChangeNotifier {
         (problemStatus != null && !force)) {
       return;
     }
+    final id = _account, auth = _session.getAuthHeader();
+    if (id == null || auth == null) return;
     syncing = true;
-    notifyListeners();
-    final id = _account!, auth = _session.getAuthHeader()!;
     try {
+      notifyListeners();
+      // A listener can synchronously log out while observing the sync state.
+      if (_account != id || _session.getAuthHeader() != auth) return;
       if (force) {
         await _serial(() async {
+          if (_account != id || _session.getAuthHeader() != auth) return;
           _data.remove('problem_status');
           await _persist(id);
         });
@@ -822,6 +830,9 @@ class OfflineSavingsService extends ChangeNotifier {
             .firstOrNull;
         if (pending == null) break;
         final wire = await _serial(() async {
+          if (_account != id || _session.getAuthHeader() != auth) {
+            throw const CacheFailure(message: 'Local account changed');
+          }
           final op = _operations.firstWhere(
             (o) => o['operation_id'] == pending['operation_id'],
           );
@@ -835,14 +846,17 @@ class OfflineSavingsService extends ChangeNotifier {
               'force': op['force'] ?? false,
             };
             _replaceOperation(op);
-            await _persist(id);
           }
+          // A previous attempt may have assigned wire in memory but failed to
+          // persist it. Every retry must confirm durability before transmission.
+          await _persist(id);
           return _map(_clone(op['wire']));
         });
         if (_account != id || _session.getAuthHeader() != auth) return;
         final response = await _api.syncSavings(auth, wire);
-        if (_account != id) return;
+        if (_account != id || _session.getAuthHeader() != auth) return;
         await _serial(() async {
+          if (_account != id || _session.getAuthHeader() != auth) return;
           final ops = _operations;
           final op = ops.firstWhere(
             (o) => o['operation_id'] == pending['operation_id'],
@@ -891,6 +905,7 @@ class OfflineSavingsService extends ChangeNotifier {
       final spent = (await _api.getSpentHistory(1, 50)).data!.toJson();
       if (_account != id || _session.getAuthHeader() != auth) return;
       await _serial(() async {
+        if (_account != id || _session.getAuthHeader() != auth) return;
         final allOps = _operations;
         _data['operations'] = allOps
             .where((op) => snapshotIds.contains(op['operation_id']))
@@ -926,7 +941,7 @@ class OfflineSavingsService extends ChangeNotifier {
         notifyListeners();
       });
     } on DioException catch (error) {
-      if (_account == id) {
+      if (_account == id && _session.getAuthHeader() == auth) {
         final code = error.response?.statusCode;
         issue = code == 401
             ? 'login'
@@ -934,14 +949,23 @@ class OfflineSavingsService extends ChangeNotifier {
             ? 'network'
             : 'conflict';
         if (code != null && code != 401 && code < 500) {
-          await _serial(() async {
-            _data['problem_status'] = code;
-            await _persist(id);
-          });
+          try {
+            await _serial(() async {
+              if (_account != id || _session.getAuthHeader() != auth) return;
+              _data['problem_status'] = code;
+              await _persist(id);
+            });
+          } catch (_) {
+            // This catch is itself part of error handling. Never let an outbox
+            // storage failure escape an unawaited background sync task.
+            if (_account == id && _session.getAuthHeader() == auth) {
+              issue = 'storage';
+            }
+          }
         }
       }
     } catch (_) {
-      if (_account == id) issue = 'storage';
+      if (_account == id && _session.getAuthHeader() == auth) issue = 'storage';
     } finally {
       syncing = false;
       notifyListeners();
@@ -971,6 +995,9 @@ class OfflineSavingsService extends ChangeNotifier {
       throw const CacheFailure(message: 'Local account changed');
     }
     await _serial(() async {
+      if (_account != id) {
+        throw const CacheFailure(message: 'Local account changed');
+      }
       _data['settings'] = fresh;
       await _persist(id);
     });
@@ -980,7 +1007,10 @@ class OfflineSavingsService extends ChangeNotifier {
   Future<void> keepLocalVersion() async {
     if (syncing) return;
     if (problemStatus != 409) return;
+    final id = _account;
+    if (id == null) return;
     await _serial(() async {
+      if (_account != id || problemStatus != 409) return;
       final op = _operations.where((op) => op['synced'] != true).first;
       op['operation_id'] = _uuid();
       op['force'] = true;
@@ -990,30 +1020,49 @@ class OfflineSavingsService extends ChangeNotifier {
       ops[index] = op;
       _data['operations'] = ops;
       _data.remove('problem_status');
-      await _persist(_account!);
+      await _persist(id);
     });
     await sync();
   }
 
   Future<void> discardProblem() async {
-    if (syncing) return;
+    if (syncing || problemStatus == null) return;
+    final id = _account;
+    if (id == null) return;
     await _serial(() async {
+      if (_account != id || problemStatus == null) return;
       final ops = _operations,
           first = ops.where((op) => op['synced'] != true).firstOrNull;
       if (first == null) return;
-      final local = first['local_id'];
+      final previous = _map(_clone(_data));
+      final discarded = <String>{first['operation_id'] as String};
+      final missing = <int>{};
+      // The ordered outbox references earlier local creations. Follow their
+      // descendants too (habit -> event -> edit/delete), not just one level.
+      for (final op in ops) {
+        if (discarded.contains(op['operation_id']) ||
+            missing.contains(op['entity_id']) ||
+            missing.contains(_map(op['payload'])['impulse_item_id']) ||
+            missing.contains(_map(op['before'])['impulse_item_id'])) {
+          discarded.add(op['operation_id'] as String);
+          final local = op['local_id'];
+          if (local is int) missing.add(local);
+        }
+      }
       _data['operations'] = ops
-          .where(
-            (op) =>
-                op['operation_id'] != first['operation_id'] &&
-                (local == null ||
-                    (op['entity_id'] != local &&
-                        _map(op['payload'])['impulse_item_id'] != local)),
-          )
+          .where((op) => !discarded.contains(op['operation_id']))
           .toList();
       _data.remove('problem_status');
       issue = null;
-      await _persist(_account!);
+      try {
+        await _persist(id);
+      } catch (_) {
+        if (_account == id) {
+          _data = previous;
+          issue = 'storage';
+        }
+        rethrow;
+      }
       revision++;
       notifyListeners();
     });

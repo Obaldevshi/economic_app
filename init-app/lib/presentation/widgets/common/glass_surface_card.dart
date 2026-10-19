@@ -26,23 +26,19 @@ class GlassSurfaceCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final card = GlassSurface(
+    final radius = BorderRadius.circular(borderRadius);
+    final content = Padding(padding: padding, child: child);
+    return GlassSurface(
       variant: variant,
-      borderRadius: BorderRadius.circular(borderRadius),
+      borderRadius: radius,
       margin: margin,
-      padding: padding,
       showBorder: showBorder,
-      child: child,
-    );
-
-    if (onTap == null) return card;
-
-    return Material(
-      color: Colors.transparent,
-      child: InkWell(
-        onTap: onTap,
-        borderRadius: BorderRadius.circular(borderRadius),
-        child: card,
+      // Paint ListTile/ExpansionTile and card ink above the opaque surface.
+      child: Material(
+        type: MaterialType.transparency,
+        borderRadius: radius,
+        clipBehavior: Clip.antiAlias,
+        child: onTap == null ? content : InkWell(onTap: onTap, child: content),
       ),
     );
   }

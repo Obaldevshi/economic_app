@@ -112,10 +112,23 @@ class ErrorHandler {
     if (data == null) return null;
 
     if (data is Map<String, dynamic>) {
-      return data['message'] as String? ??
-          data['error'] as String? ??
-          data['detail'] as String? ??
-          data['errors']?.toString();
+      for (final key in ['message', 'error', 'detail', 'errors']) {
+        final value = data[key];
+        if (value is String && value.isNotEmpty) return value;
+        // FastAPI's standard 422 detail is a list, not a string. Extract only
+        // messages, never echoed input values (which may contain a password).
+        if (value is List) {
+          final messages = value
+              .whereType<Map>()
+              .map((entry) => entry['msg'])
+              .whereType<String>()
+              .where((message) => message.isNotEmpty)
+              .take(5)
+              .toList();
+          if (messages.isNotEmpty) return messages.join('\n');
+        }
+      }
+      return null;
     }
 
     if (data is String && data.isNotEmpty) {

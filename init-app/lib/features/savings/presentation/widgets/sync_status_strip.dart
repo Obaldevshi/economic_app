@@ -64,13 +64,18 @@ class SyncStatusStrip extends StatelessWidget {
                           style: Theme.of(context).textTheme.bodySmall,
                         ),
                       ),
-                      TextButton(
-                        onPressed: service.syncing
-                            ? null
-                            : service.needsLogin
-                            ? onLogin
-                            : () => service.sync(force: true),
-                        child: Text(service.needsLogin ? l.signIn : l.syncNow),
+                      Flexible(
+                        child: TextButton(
+                          onPressed: service.syncing
+                              ? null
+                              : service.needsLogin
+                              ? onLogin
+                              : () => service.sync(force: true),
+                          child: Text(
+                            service.needsLogin ? l.signIn : l.syncNow,
+                            textAlign: TextAlign.center,
+                          ),
+                        ),
                       ),
                     ],
                   ),

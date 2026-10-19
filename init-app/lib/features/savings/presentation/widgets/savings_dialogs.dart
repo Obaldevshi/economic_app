@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter/services.dart';
 import 'dart:math' as math;
+import 'package:mobile_template/core/utils/keyboard_inset.dart';
 import 'package:mobile_template/features/savings/presentation/widgets/financial_display_scope.dart';
 import 'package:mobile_template/app/theme/app_dimensions.dart';
 import 'package:mobile_template/core/extensions/build_context_extensions.dart';
@@ -52,7 +53,10 @@ class _SavingsActionDialogState extends State<_SavingsActionDialog> {
       final busy = _submitted || state.isSaving;
       return PopScope(
         canPop: !busy,
-        child: widget.builder(context, busy, _submit),
+        child: KeyboardInsetBuilder(
+          onOpened: () => KeyboardInset.ensureFocusedVisible(context),
+          builder: (context, _) => widget.builder(context, busy, _submit),
+        ),
       );
     },
   );

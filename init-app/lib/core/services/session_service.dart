@@ -37,7 +37,8 @@ class SessionService extends ChangeNotifier {
     _ => null,
   };
 
-  bool get needsOnlineLogin => _needsOnlineLogin || isTokenExpired();
+  bool get needsOnlineLogin =>
+      _needsOnlineLogin || getAuthHeader() == null || isTokenExpired();
   void requireOnlineLogin() {
     _needsOnlineLogin = true;
     notifyListeners();
@@ -86,7 +87,13 @@ class SessionService extends ChangeNotifier {
     final expiresIn = prefs.getInt(_expiresInKey);
     final loginTime = prefs.getInt(_loginTimeKey);
 
-    if (tokenType != null && expiresIn != null && loginTime != null) {
+    // Secure storage is authoritative. A leftover legacy session must never
+    // replace a more recent account (including its offline journal identity).
+    if (accountId == null &&
+        tokenType != null &&
+        tokenType.isNotEmpty &&
+        expiresIn != null &&
+        loginTime != null) {
       await saveToken(
         accessToken: legacyToken,
         tokenType: tokenType,
@@ -144,8 +151,7 @@ class SessionService extends ChangeNotifier {
         !kIsWeb &&
         (defaultTargetPlatform == TargetPlatform.android ||
             defaultTargetPlatform == TargetPlatform.iOS);
-    return accountId != null &&
-        (mobile || (!isTokenExpired() && !_needsOnlineLogin));
+    return accountId != null && (mobile || !needsOnlineLogin);
   }
 
   bool isTokenExpired() {
@@ -164,15 +170,22 @@ class SessionService extends ChangeNotifier {
     final tokenType = getTokenType();
     final accessToken = getAccessToken();
 
-    if (tokenType == null || accessToken == null) return null;
+    if (tokenType == null ||
+        tokenType.trim().isEmpty ||
+        accessToken == null ||
+        accessToken.isEmpty) {
+      return null;
+    }
 
     return '$tokenType $accessToken';
   }
 
   Future<void> clearSession() async {
     _resetInMemorySession();
-    await _deleteStoredSession();
+    // Clear visible account state even when the OS refuses a storage delete.
+    // Keep the storage error observable to the caller; do not claim persistence.
     notifyListeners();
+    await _deleteStoredSession();
   }
 
   void _resetInMemorySession() {
@@ -184,10 +197,13 @@ class SessionService extends ChangeNotifier {
   }
 
   Future<void> _deleteStoredSession() async {
-    await _secureStorage.delete(key: _accessTokenKey);
-    await _secureStorage.delete(key: _tokenTypeKey);
-    await _secureStorage.delete(key: _expiresInKey);
-    await _secureStorage.delete(key: _loginTimeKey);
+    // Attempt every key even if one delete fails, without touching journal data.
+    await Future.wait([
+      _secureStorage.delete(key: _accessTokenKey),
+      _secureStorage.delete(key: _tokenTypeKey),
+      _secureStorage.delete(key: _expiresInKey),
+      _secureStorage.delete(key: _loginTimeKey),
+    ]);
   }
 
   DateTime? getLoginTime() {

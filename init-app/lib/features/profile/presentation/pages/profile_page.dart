@@ -165,23 +165,25 @@ class ProfilePage extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
         UiKitSectionTitle(title: context.l10n.profileSectionAccount),
-        ProfileActionTile(
-          icon: Icons.pin_outlined,
-          title: context.l10n.pinSettings,
-          subtitle: context.l10n.pinHint,
-          onTap: () => getIt<AppLockService>().configure(),
-        ),
-        ListenableBuilder(
-          listenable: getIt<AppLockService>(),
-          builder: (context, _) => getIt<AppLockService>().hasPin
-              ? ProfileActionTile(
-                  icon: Icons.lock_open_outlined,
-                  title: context.l10n.pinRemove,
-                  subtitle: context.l10n.pinVerifyFirst,
-                  onTap: () => getIt<AppLockService>().requestRemove(),
-                )
-              : const SizedBox.shrink(),
-        ),
+        if (getIt<AppLockService>().supported) ...[
+          ProfileActionTile(
+            icon: Icons.pin_outlined,
+            title: context.l10n.pinSettings,
+            subtitle: context.l10n.pinHint,
+            onTap: () => getIt<AppLockService>().configure(),
+          ),
+          ListenableBuilder(
+            listenable: getIt<AppLockService>(),
+            builder: (context, _) => getIt<AppLockService>().hasPin
+                ? ProfileActionTile(
+                    icon: Icons.lock_open_outlined,
+                    title: context.l10n.pinRemove,
+                    subtitle: context.l10n.pinVerifyFirst,
+                    onTap: () => getIt<AppLockService>().requestRemove(),
+                  )
+                : const SizedBox.shrink(),
+          ),
+        ],
         ProfileActionTile(
           icon: Icons.account_circle_outlined,
           title: context.l10n.editProfile,

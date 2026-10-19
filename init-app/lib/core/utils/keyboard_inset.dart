@@ -42,8 +42,18 @@ abstract final class KeyboardInset {
       if (!context.mounted) return;
       final focusContext = FocusManager.instance.primaryFocus?.context;
       if (focusContext == null || !focusContext.mounted) return;
+      // EditableText covers only the text line. Scrolling it into view can leave
+      // the surrounding field border/error below the keyboard on small phones.
+      BuildContext fieldContext = focusContext;
+      focusContext.visitAncestorElements((element) {
+        if (element.widget is TextField) {
+          fieldContext = element;
+          return false;
+        }
+        return true;
+      });
       Scrollable.ensureVisible(
-        focusContext,
+        fieldContext,
         duration: duration,
         curve: Curves.easeOutCubic,
         alignment: 0.15,

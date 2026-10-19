@@ -27,9 +27,19 @@ class AppLockService extends ChangeNotifier {
   Map<String, dynamic> _record = {};
   bool loading = true, locked = true, prompt = false, passwordRecovery = false;
   bool _changeRequested = false, _removeRequested = false;
+  int _lockRevision = 0;
+  int _sessionRevision = 0;
+  bool _isCurrent(int id, int revision) =>
+      _account == id && _sessionRevision == revision;
   bool storageError = false;
-  bool get hasPin => _record['hash'] != null;
-  bool get accessible => !loading && !locked && !prompt && !passwordRecovery;
+  // A local PIN protects the installed mobile app, never a browser session.
+  bool get supported =>
+      !kIsWeb &&
+      (defaultTargetPlatform == TargetPlatform.android ||
+          defaultTargetPlatform == TargetPlatform.iOS);
+  bool get hasPin => supported && _record['hash'] != null;
+  bool get accessible =>
+      !supported || (!loading && !locked && !prompt && !passwordRecovery);
   Duration get retryAfter {
     final until = _record['until'] as int? ?? 0;
     return Duration(
@@ -38,11 +48,17 @@ class AppLockService extends ChangeNotifier {
   }
 
   Future<void> init() async {
+    if (!supported) {
+      loading = false;
+      locked = false;
+      return;
+    }
     _session.addListener(_sessionChanged);
     await _activate();
   }
 
   Future<void> _activate() async {
+    final revision = ++_sessionRevision;
     final id = _session.accountId;
     _account = id;
     _token = _session.getAccessToken();
@@ -63,7 +79,7 @@ class AppLockService extends ChangeNotifier {
     }
     try {
       final raw = await _storage.read(key: 'app_pin_v1_$id');
-      if (_account != id) return;
+      if (!_isCurrent(id, revision)) return;
       _record = raw == null ? {} : Map<String, dynamic>.from(jsonDecode(raw));
       prompt = !hasPin && _record['skipped'] != true;
       locked = hasPin;
@@ -71,7 +87,7 @@ class AppLockService extends ChangeNotifier {
       notifyListeners();
     } catch (_) {
       // Fail closed if a previously configured PIN cannot be read.
-      if (_account == id) {
+      if (_isCurrent(id, revision)) {
         loading = false;
         locked = true;
         storageError = true;
@@ -86,6 +102,12 @@ class AppLockService extends ChangeNotifier {
       return;
     }
     final token = _session.getAccessToken();
+    if (loading && token != _token) {
+      // Replace an in-flight read/recovery with one owned by the new session.
+      _activate();
+      return;
+    }
+    if (token != _token) _sessionRevision++;
     if (passwordRecovery && token != null && token != _token) {
       _token = token;
       _recoverAfterPassword();
@@ -97,25 +119,26 @@ class AppLockService extends ChangeNotifier {
   Future<void> _recoverAfterPassword() async {
     final id = _account;
     if (id == null) return;
+    final revision = _sessionRevision;
     loading = true;
     notifyListeners();
     try {
       await _storage.delete(key: 'app_pin_v1_$id');
-      if (_account == id) {
+      if (_isCurrent(id, revision)) {
         _record = {};
         locked = false;
         prompt = true;
         passwordRecovery = false;
       }
     } catch (_) {
-      if (_account == id) {
+      if (_isCurrent(id, revision)) {
         locked = true;
         prompt = false;
         passwordRecovery = false;
         storageError = true;
       }
     } finally {
-      if (_account == id) {
+      if (_isCurrent(id, revision)) {
         loading = false;
         notifyListeners();
       }
@@ -125,39 +148,49 @@ class AppLockService extends ChangeNotifier {
   Future<void> _persist(int id) =>
       _storage.write(key: 'app_pin_v1_$id', value: jsonEncode(_record));
   Future<void> setPin(String pin) async {
+    if (!supported) throw UnsupportedError('PIN is mobile-only');
     if (hasPin && locked) throw StateError('PIN verification required');
     if (!RegExp(r'^\d{4}$').hasMatch(pin) || _account == null) {
       throw StateError('Invalid PIN');
     }
     final id = _account!,
+        revision = _sessionRevision,
+        lockRevision = _lockRevision,
         salt = base64Encode(
           List.generate(24, (_) => Random.secure().nextInt(256)),
         );
     final hash = await compute(_pinHash, [pin, salt]);
-    if (_account != id) return;
+    if (!_isCurrent(id, revision)) return;
     final next = {'salt': salt, 'hash': hash, 'attempts': 0, 'until': 0};
     await _storage.write(key: 'app_pin_v1_$id', value: jsonEncode(next));
-    if (_account == id) {
+    if (_isCurrent(id, revision)) {
       _record = next;
       storageError = false;
       prompt = false;
-      locked = false;
+      // The hash/write can finish after onInactive. Persist the chosen PIN,
+      // but never undo a newer lifecycle lock when returning from the future.
+      locked = _lockRevision != lockRevision;
       notifyListeners();
     }
   }
 
   Future<bool> unlock(String pin) async {
-    if (_account == null ||
+    if (!supported ||
+        _account == null ||
         !hasPin ||
         retryAfter > Duration.zero ||
         !RegExp(r'^\d{4}$').hasMatch(pin)) {
       return false;
     }
     final id = _account!,
+        revision = _sessionRevision,
+        lockRevision = _lockRevision,
         computed = base64Decode(
           await compute(_pinHash, [pin, _record['salt'] as String]),
         );
-    if (_account != id) return false;
+    if (!_isCurrent(id, revision) || _lockRevision != lockRevision) {
+      return false;
+    }
     final stored = base64Decode(_record['hash'] as String);
     var mismatch = stored.length ^ computed.length;
     for (var i = 0; i < stored.length && i < computed.length; i++) {
@@ -167,10 +200,20 @@ class AppLockService extends ChangeNotifier {
       _record['attempts'] = 0;
       _record['until'] = 0;
       await _persist(id);
-      if (_account == id) {
+      if (_isCurrent(id, revision) && _lockRevision == lockRevision) {
         if (_removeRequested) {
-          _record = {'skipped': true};
-          await _persist(id);
+          final removed = {'skipped': true};
+          await _storage.write(
+            key: 'app_pin_v1_$id',
+            value: jsonEncode(removed),
+          );
+          if (!_isCurrent(id, revision)) return false;
+          // A failed write must leave the PIN verifiable for a safe retry.
+          _record = removed;
+        }
+        if (!_isCurrent(id, revision) ||
+            (_lockRevision != lockRevision && hasPin)) {
+          return false;
         }
         locked = false;
         storageError = false;
@@ -199,15 +242,19 @@ class AppLockService extends ChangeNotifier {
   }
 
   Future<void> skip() async {
-    if (_account == null || hasPin) return;
-    _record = {'skipped': true};
-    await _persist(_account!);
+    if (!supported || _account == null || hasPin) return;
+    final id = _account!, revision = _sessionRevision;
+    final next = {'skipped': true};
+    await _storage.write(key: 'app_pin_v1_$id', value: jsonEncode(next));
+    if (!_isCurrent(id, revision)) return;
+    _record = next;
     prompt = false;
     locked = false;
     notifyListeners();
   }
 
   void configure() {
+    if (!supported) return;
     if (hasPin) {
       _changeRequested = true;
       locked = true;
@@ -218,6 +265,7 @@ class AppLockService extends ChangeNotifier {
   }
 
   void requestRemove() {
+    if (!supported) return;
     if (hasPin) {
       _removeRequested = true;
       locked = true;
@@ -235,21 +283,27 @@ class AppLockService extends ChangeNotifier {
   }
 
   void lock() {
-    if (hasPin && _session.isLoggedIn()) {
+    if (!supported || !_session.isLoggedIn()) return;
+    // Also invalidate a first setup that has not produced its hash yet.
+    _lockRevision++;
+    if (hasPin) {
       locked = true;
       notifyListeners();
     }
   }
 
   void usePassword() {
+    if (!supported) return;
     passwordRecovery = true;
     notifyListeners();
   }
 
   Future<void> purge([int? account]) async {
+    if (!supported) return;
     final id = account ?? _account;
+    final revision = _sessionRevision;
     if (id != null) await _storage.delete(key: 'app_pin_v1_$id');
-    if (_account == id) _record = {};
+    if (id != null && _isCurrent(id, revision)) _record = {};
   }
 
   @override

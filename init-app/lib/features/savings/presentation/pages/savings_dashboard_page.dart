@@ -436,11 +436,14 @@ class _HeroMetric extends StatelessWidget {
             ),
           ),
         ),
-        Text(
-          value,
-          style: Theme.of(context).textTheme.titleMedium?.copyWith(
-            color: Colors.white,
-            fontWeight: FontWeight.w800,
+        Flexible(
+          child: Text(
+            value,
+            textAlign: TextAlign.end,
+            style: Theme.of(context).textTheme.titleMedium?.copyWith(
+              color: Colors.white,
+              fontWeight: FontWeight.w800,
+            ),
           ),
         ),
       ],
@@ -716,7 +719,12 @@ class _LegendItem extends StatelessWidget {
         decoration: BoxDecoration(color: color, shape: BoxShape.circle),
       ),
       const SizedBox(width: 6),
-      Text('$label · $value', style: Theme.of(context).textTheme.bodySmall),
+      Flexible(
+        child: Text(
+          '$label · $value',
+          style: Theme.of(context).textTheme.bodySmall,
+        ),
+      ),
     ],
   );
 }

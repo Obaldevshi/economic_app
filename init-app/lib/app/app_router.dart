@@ -65,6 +65,9 @@ GoRouter createAppRouter() {
       if (location == AppRoutes.privacy) return null;
       // Recovery must stay reachable with an expired session or a locked PIN.
       if (location == AppRoutes.passwordReset) return null;
+      if (location == AppRoutes.pin && !lock.supported) {
+        return isLoggedIn ? AppRoutes.home : AppRoutes.login;
+      }
       if (isSplash) return null;
 
       if (isLoggedIn &&
